@@ -1,0 +1,28 @@
+{
+  "name": "blog-server",
+  "version": "0.0.1",
+  "description": "blog server powered by vue,koa and mongodb",
+  "main": "lib/index.js",
+  "private": true,
+  "scripts": {
+    "start": "node lib/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "blog",
+    "vue",
+    "koa",
+    "mongodb"
+  ],
+  "author": "LiJun",
+  "dependencies": {
+    "koa": "^2.5.1",
+    "koa-body": "^2.5.0",
+    "koa-cors": "0.0.16",
+    "koa-helmet": "^4.0.0",
+    "koa-json": "^2.0.2",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.1.1",
+    "mongoose-paginate": "^5.0.3"
+  }
+}
