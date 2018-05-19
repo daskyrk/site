@@ -62,13 +62,54 @@
 
 3. 执行`node index.js`启动，不出意外应该就看到页面显示'Hello World'了。
 
-4. 添加几个基本的koa middleware：koa-body、koa-helmet
+4. 添加几个基本的koa middleware：koa-body、koa-helmet:
+
+   ```javascript
+   'use strict';
+
+   const Koa = require('koa');
+   const koaBody = require('koa-body')
+   const helmet = require('koa-helmet')
+   // const cors = require('koa-cors')
+   const mongoosePaginate = require('mongoose-paginate')
+
+   const mongodb = require('./mongodb');
+   const config = require('./config')
+
+   console.log('config: \n', JSON.stringify(config, null, 2));
+   mongodb.connect(config.MONGODB);
+
+   const app = new Koa();
+   // use middleware
+   app.use(helmet())
+   app.use(koaBody({
+     jsoinLimit: '10mb',
+     formLimit: '10mb',
+     textLimit: '10mb'
+   }))
+
+
+   app.use(async ctx => {
+     ctx.body = 'Hello World';
+   });
+
+   // log request time
+   app.use(async (ctx, next) => {
+     const start = Date.now();
+     await next();
+     const ms = Date.now() - start;
+     console.log(`${ctx.method} ${ctx.url} - ${ms}`);
+   });
+
+   app.listen(config.APP.port);
+   console.log(`server started on port: ${config.APP.port}`);
+
+   ```
 
 5. 新增`lib/mongodb.js`文件，进行mongodb的初始化工作：
 
    ```javascript
    const mongoose = require('mongoose')
-   const config	 = require('../config')
 
    // to get a fully-fledged promise, see http://mongoosejs.com/docs/promises.html
    mongoose.Promise = global.Promise
@@ -90,13 +131,17 @@
 
    ```
 
-6. 新增`config.js`文件，增加mongodb的相关配置：
+6. 新增`config.js`文件，增加一些配置：
 
    ```javascript
-   exports.db = {
+   exports.MONGODB = {
      type: 'mongodb',
      uris: 'mongodb://127.0.0.1:27017',
      options: {},
+   }
+
+   exports.APP = {
+     port: 3001,
    }
    ```
 
