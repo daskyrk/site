@@ -28,6 +28,7 @@ module.exports = {
       'axios',
     ],
   },
+  env: require('./confg'),
   head: {
     title: 'blog',
     titleTemplate: '%s | Jun',

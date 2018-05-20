@@ -1,7 +1,15 @@
 <template>
   <header>
     <div class="header-left">
-      目录
+      <nav>
+        <nuxt-link v-for="(nav, index) in navs"
+          :key='index'
+          :to='nav.link'
+          exact>
+          {{nav.text}}
+        </nuxt-link>
+
+      </nav>
     </div>
     <div class="header-right">
       搜索
@@ -11,17 +19,18 @@
 
 <script>
 export default {
-  name: "header",
+  name: 'my-header',
 
-  data() {
-    return { name: 123 };
+  data(context) {
+    return {
+      navs: process.env.navs
+    };
   }
 };
 </script>
 
 
 <style lang="scss">
-
 header {
   position: fixed;
   top: 0;
@@ -33,6 +42,14 @@ header {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid $grey;
-}
 
+  nav {
+    a {
+      margin-left: 2rem;
+      color: $grey;
+
+      transition: color 0.3s;
+    }
+  }
+}
 </style>

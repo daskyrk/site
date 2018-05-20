@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="about">
     <p>About Page</p>
-    <p><nuxt-link to="/" class="button is-medium is-info hvr-wobble-vertical">Back home</nuxt-link></p>
+    <p><nuxt-link to="/">Back home</nuxt-link></p>
   </div>
 </template>
 

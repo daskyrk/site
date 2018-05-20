@@ -1,66 +1,73 @@
 <template>
-  <div class="container">
-    <p>Hello {{ name }}!</p>
-    <p>
-      <nuxt-link to="/about" class="button is-medium is-primary hvr-float-shadow">Go to /about</nuxt-link>
-    </p>
-    <p>
-      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
-    </p>
-    <p>
-      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
-    </p>
-    <p>
-      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
-    </p>
-    <p>
-      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
-    </p>
-    <p>
-      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
-    </p>
-    <p>
-      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
-    </p>
-    <p>
-      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
-    </p>
-    <p>
-      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
-    </p>
-    <p>
-      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
-    </p>
-    <p>
-      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
-    </p>
-    <p>
-      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
-    </p>
-    <p>
-      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
-    </p>
+  <div class="index-page">
+    <div class="welcome">
+      <h3 class="slogan">你若温柔，当有力量</h3>
+      <h4 class="nav">
+        <template v-for="(nav, index) in navs">
+          <nuxt-link :key='index'
+            :to='nav.link'
+            exact>
+            {{nav.text}}
+          </nuxt-link>
+          <span v-if="index < navs.length-1"
+            :key='index'>/</span>
+        </template>
+      </h4>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  asyncData() {
-    return new Promise(resolve => {
-      setTimeout(function() {
-        resolve({
-          name: "world"
-        });
-      }, 1000);
-    });
+  name: 'index-page',
+
+  layout: 'empty',
+
+  data(context) {
+    return {
+      navs: process.env.navs
+    };
   }
 };
 </script>
 
-<style scoped>
-.container {
-  margin: 5rem auto;
-  min-height: calc(100vh - 200px);
-  text-align: center;
+<style lang="scss" scoped>
+.index-page {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: url(https://static.jkchao.cn/main_bg.jpg) no-repeat 20% 20%;
+  background-size: cover;
+
+  .slogan {
+    position: absolute;
+    right: 260px;
+    top: 160px;
+    height: 140px;
+    font-size: 16px;
+    color: $grey;
+    letter-spacing: 4px;
+    writing-mode: vertical-lr;
+    font-family: FangSong;
+    font-size: 20px;
+  }
+
+  .nav {
+    position: absolute;
+    right: 200px;
+    top: 320px;
+    color: $grey;
+
+    a:hover {
+      transition: color 0.3s;
+      color: $white;
+    }
+    span {
+      padding: 0.35rem;
+    }
+  }
 }
 </style>
+
