@@ -21,7 +21,6 @@
     "autoprefixer": "^8.5.0",
     "axios": "^0.18.0",
     "backpack-core": "^0.7.0",
-    "bulma": "^0.5.1",
     "koa": "^2.5.1",
     "nuxt": "^1.4.0",
     "postcss-hexrgba": "^1.0.1",
