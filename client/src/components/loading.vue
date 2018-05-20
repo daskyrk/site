@@ -7,7 +7,7 @@
 <script>
 export default {
   data: () => ({
-    loading: true
+    loading: false
   }),
   methods: {
     start() {
