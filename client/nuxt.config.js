@@ -45,7 +45,7 @@ module.exports = {
   },
   css: [
     'bulma/css/bulma.css',
-    '~/css/index.css'
+    '~/css/main.scss'
   ],
   render: {
     bundleRenderer: {
