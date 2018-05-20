@@ -20,6 +20,10 @@ module.exports = {
         browsers: ['last 3 versions']
       })
     ],
+    styleResources: {
+      scss: ['./src/style/variable.scss', './src/style/mixin.scss'],
+      options: {}
+    },
     vendor: [
       'axios',
     ],
@@ -45,7 +49,7 @@ module.exports = {
   },
   css: [
     'bulma/css/bulma.css',
-    '~/css/main.scss'
+    '~/style/index.scss'
   ],
   render: {
     bundleRenderer: {

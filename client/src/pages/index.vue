@@ -7,6 +7,39 @@
     <p>
       <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
     </p>
+    <p>
+      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
+    </p>
+    <p>
+      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
+    </p>
+    <p>
+      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
+    </p>
+    <p>
+      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
+    </p>
+    <p>
+      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
+    </p>
+    <p>
+      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
+    </p>
+    <p>
+      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
+    </p>
+    <p>
+      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
+    </p>
+    <p>
+      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
+    </p>
+    <p>
+      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
+    </p>
+    <p>
+      <nuxt-link to="/user" class="button is-medium hvr-float-shadow">Go to /user</nuxt-link>
+    </p>
   </div>
 </template>
 
@@ -26,8 +59,8 @@ export default {
 
 <style scoped>
 .container {
-  font-size: 30px;
+  margin: 5rem auto;
+  min-height: calc(100vh - 200px);
   text-align: center;
-  padding-top: 100px;
 }
 </style>

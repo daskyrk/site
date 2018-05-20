@@ -1,15 +1,10 @@
 <template>
   <div class="app">
-    <my-header>
+    <my-header />
 
-    </my-header>
+    <nuxt/>
 
-      <nuxt/>
-
-    <my-footer>
-
-
-    </my-footer>
+    <my-footer />
   </div>
 </template>
 

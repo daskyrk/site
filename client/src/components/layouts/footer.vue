@@ -1,3 +1,18 @@
 <template>
-  <div class="footer">footer</div>
+  <footer>莫忘 | @Jun</footer>
 </template>
+
+<style lang="scss">
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $footer-height;
+  margin-top: 1rem;
+  padding: 1rem 0;
+  background: $white;
+  border-top: 1px solid $border-color;
+}
+
+</style>
