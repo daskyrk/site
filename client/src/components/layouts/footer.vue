@@ -2,7 +2,7 @@
   <footer>莫忘 | @Jun</footer>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 footer {
   display: flex;

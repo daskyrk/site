@@ -24,8 +24,8 @@ export default {
 
 <style lang="scss">
 .container {
+  width: 38rem;
   margin: 5rem auto;
-  min-height: calc(100vh - 200px);
   text-align: center;
 }
 </style>

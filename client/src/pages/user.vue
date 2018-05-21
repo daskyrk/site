@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="user-list">
     <h2>Users</h2>
     <ul class="users">
       <li v-for="user in users" :key="user.id">
@@ -10,22 +10,19 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
   async asyncData() {
-    const { data } = await axios.get('https://jsonplaceholder.typicode.com/users')
-    return { users: data }
+    const { data } = await axios.get(
+      'https://jsonplaceholder.typicode.com/users'
+    );
+    return { users: data };
   }
-}
+};
 </script>
 
-<style scoped>
-.container {
-  text-align: center;
-  margin-top: 100px;
-  font-family: sans-serif;
-}
+<style lang='scss' scoped>
 .users {
   list-style-type: none;
 }
