@@ -8,22 +8,24 @@
 const data = [
   {
     id: 1,
-    title: '第一篇blog',
-    content: `this is the first blog`,
+    title: 'note 1',
+    content: `this is the first note`,
+    time: 1527074928000,
     meta: {
-      like: 35,
-      view: 60,
-      collect: 23
+      read: 35,
+      comments: 60,
+      like: 23
     }
   },
   {
     id: 2,
-    title: 'second blog',
+    title: 'note 2',
     content: 'this is a short content',
+    time: 1527074928000,
     meta: {
-      like: 35,
-      view: 60,
-      collect: 23
+      read: 35,
+      comments: 60,
+      like: 23
     }
   }
 ];

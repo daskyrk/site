@@ -58,6 +58,9 @@ module.exports = {
       }
     }
   },
+  plugins: [
+    '~/plugins/filter.js'
+  ],
   loading: '~/components/loading.vue',
   router: {
     middleware: []

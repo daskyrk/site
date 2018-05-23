@@ -7,6 +7,7 @@
       >
       <div class="content">
         <p class='title'><nuxt-link :to="`/article/${article.id}`">{{article.title}}</nuxt-link></p>
+        <p>{{article.time | dateFormat('YYYY-MM-DD HH:mm:ss')}}</p>
         {{article.content}}
       </div>
     </div>
