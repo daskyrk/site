@@ -26,6 +26,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
   padding: 1.5rem 0 1rem;
   margin-bottom: 3rem;
   color: #24292e;

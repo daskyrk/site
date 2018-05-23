@@ -14,3 +14,5 @@ module.exports = {
     }
   ]
 }
+
+exports.BASE_API = IS_DEV ? 'http://localhost:8000/api/' : 'https://placeholder/api/'
