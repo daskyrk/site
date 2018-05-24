@@ -87,8 +87,7 @@
      formLimit: '10mb',
      textLimit: '10mb'
    }))
-
-
+   
    app.use(async ctx => {
      ctx.body = 'Hello World';
    });
@@ -103,7 +102,6 @@
 
    app.listen(config.APP.port);
    console.log(`server started on port: ${config.APP.port}`);
-
    ```
 
 5. 新增`lib/mongodb.js`文件，进行mongodb的初始化工作：
@@ -145,4 +143,9 @@
    }
    ```
 
-   ​
+
+
+
+### 实现功能
+
+1. 引入router，把不同的api请求分发到不同的controller上去

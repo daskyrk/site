@@ -7,6 +7,7 @@ const helmet = require('koa-helmet')
 const mongoosePaginate = require('mongoose-paginate')
 
 const mongodb = require('./mongodb');
+const router = require('./route')
 const config = require('./config')
 
 console.log('config: \n', JSON.stringify(config, null, 2));
@@ -22,9 +23,7 @@ app.use(koaBody({
 }))
 
 
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
+app.use(router.routes());
 
 // log request time
 app.use(async (ctx, next) => {

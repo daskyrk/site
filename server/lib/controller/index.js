@@ -1,0 +1,2 @@
+
+exports.article = require('./article')
