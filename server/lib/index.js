@@ -13,6 +13,10 @@ const config = require('./config')
 console.log('config: \n', JSON.stringify(config, null, 2));
 mongodb.connect(config.MONGODB);
 
+mongoosePaginate.paginate.options = {
+	limit: config.APP.LIMIT
+}
+
 const app = new Koa();
 // use middleware
 app.use(helmet())

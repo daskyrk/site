@@ -9,5 +9,6 @@ const router = new Router({
 console.log('controller:', controller);
 
 router.get('/article', controller.article.getArts)
+	.post('/article', controller.article.saveArt)
 
 module.exports = router

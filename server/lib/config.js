@@ -7,5 +7,5 @@ exports.MONGODB = {
 exports.APP = {
   port: 8000,
   ROOT_PATH: '/api',
-
+  LIMIT: 16,
 }

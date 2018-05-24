@@ -149,3 +149,4 @@
 ### 实现功能
 
 1. 引入router，把不同的api请求分发到不同的controller上去
+2. 增加schema和model，并且在请求时进行查询和保存。先使用post man构造post请求，然后浏览器请求get接口就可以看到数据了。
