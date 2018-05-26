@@ -1,6 +1,6 @@
 import axios from 'axios';
 import querystring from 'querystring';
-import * as config from '../config.js'
+import * as config from '../config';
 
 var ax = axios.create({
   baseURL: config.BASE_API

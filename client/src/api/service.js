@@ -1,6 +1,6 @@
 import ax from './axios';
 
 export function getArticles() {
-  return ax.get('/articles')
-    .then(resp => resp.data)
+  return ax.get('/article')
+    .then(res => res.data)
 }

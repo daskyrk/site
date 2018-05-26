@@ -1,9 +1,8 @@
 <template>
-  <footer>莫忘 | @Jun</footer>
+  <footer>涅尘 | @Jun</footer>
 </template>
 
 <style lang="scss" scoped>
-
 footer {
   display: flex;
   align-items: center;
@@ -14,5 +13,4 @@ footer {
   background: $white;
   border-top: 1px solid $border-color;
 }
-
 </style>

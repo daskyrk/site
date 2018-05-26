@@ -3,11 +3,11 @@
     <div
       class="article-item"
       v-for="article in list"
-      :key='article.id'
+      :key='article._id'
       >
       <div class="content">
-        <p class='title'><nuxt-link :to="`/article/${article.id}`">{{article.title}}</nuxt-link></p>
-        <p>{{article.time | dateFormat('YYYY-MM-DD HH:mm:ss')}}</p>
+        <p class='title'><nuxt-link :to="`/article/${article._id}`">{{article.title}}</nuxt-link></p>
+        <p>{{article.createdAt | dateFormat('YYYY-MM-DD HH:mm:ss')}}</p>
         {{article.content}}
       </div>
     </div>

@@ -1,47 +1,30 @@
 <template>
   <div class="note">
-    <articleView :list="blogs" @loadMore='loadMore'/>
+    <articleView :list="list" @loadMore='loadMore'/>
   </div>
 </template>
 
 <script>
-const data = [
-  {
-    id: 1,
-    title: 'note 1',
-    content: `this is the first note`,
-    time: 1527074928000,
-    meta: {
-      read: 35,
-      comments: 60,
-      like: 23
-    }
-  },
-  {
-    id: 2,
-    title: 'note 2',
-    content: 'this is a short content',
-    time: 1527074928000,
-    meta: {
-      read: 35,
-      comments: 60,
-      like: 23
-    }
-  }
-];
-
 import articleView from '~/components/common/article';
 
 export default {
   data() {
-    return {
-      blogs: data
-    };
+    return {};
+  },
+
+  fetch({ store }) {
+    return store.dispatch('getArtList');
+  },
+
+  computed: {
+    list() {
+      return this.$store.state.article.list;
+    }
   },
 
   methods: {
     loadMore() {
-      console.log('call loadMore', );
+      console.log('call loadMore');
     }
   },
 
