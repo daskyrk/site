@@ -10,14 +10,14 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  create_at: {
-    type: Date,
-    default: Date.now //TODO: 保存时时区是否要转换一下？
-  },
-  update_at: {
-    type: Date,
-    default: Date.now
-  },
+  // create_at: {
+  //   type: Date,
+  //   default: Date.now //TODO: 保存时时区是否要转换一下？
+  // },
+  // update_at: {
+  //   type: Date,
+  //   default: Date.now
+  // },
 
   meta: {
     views: {
@@ -34,9 +34,9 @@ const ArticleSchema = new mongoose.Schema({
     }
   }
 }, {
-  // timestamps: true //TODO: 据说会自动加上 createAt,updateAt 字段
-});
+    timestamps: true
+  });
 
-ArticleSchema.plugin(mongoosePaginate)
+ArticleSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Article', ArticleSchema)

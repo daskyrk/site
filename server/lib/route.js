@@ -8,7 +8,11 @@ const router = new Router({
 
 console.log('controller:', controller);
 
-router.get('/article', controller.article.getArts)
+router
+	.get('/article', controller.article.getArts)
 	.post('/article', controller.article.saveArt)
+	.put('/article/:id', controller.article.updateArt)
+	.delete('/article/:id', controller.article.delArt)
+
 
 module.exports = router
