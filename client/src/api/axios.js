@@ -1,5 +1,7 @@
 import axios from 'axios';
-import querystring from 'querystring';
+import {
+  encode
+} from 'querystring';
 import * as config from '../config';
 
 var ax = axios.create({
@@ -13,7 +15,7 @@ ax.interceptors.request.use(config => {
     config.method === 'put' ||
     config.method === 'delete'
   ) {
-    config.data = querystring(config.data);
+    config.data = encode(config.data);
   }
   return config;
 }, error => {
