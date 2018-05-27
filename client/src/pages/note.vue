@@ -13,7 +13,7 @@ export default {
   },
 
   fetch({ store }) {
-    return store.dispatch('getArtList');
+    return store.dispatch('article/getArtList');
   },
 
   computed: {

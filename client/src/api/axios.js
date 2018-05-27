@@ -22,11 +22,11 @@ ax.interceptors.request.use(config => {
   return Promise.reject(error);
 })
 
-// ax.interceptors.response.use(response => {
-//   return response
-// }, error => {
-//   return Promise.reject(error)
-// })
+ax.interceptors.response.use(response => {
+  return response.data
+}, error => {
+  return Promise.reject(error)
+})
 
 
 export default ax;

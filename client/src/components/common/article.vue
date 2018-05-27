@@ -9,6 +9,9 @@
         <p class='title'><nuxt-link :to="`/article/${article._id}`">{{article.title}}</nuxt-link></p>
         <p>{{article.createdAt | dateFormat('YYYY-MM-DD HH:mm:ss')}}</p>
         {{article.content}}
+        <p>喜欢：{{article.meta.likes}}</p>
+        <p>阅读：{{article.meta.views}}</p>
+        <p>评论：{{article.meta.comments}}</p>
       </div>
     </div>
   </transition-group>
