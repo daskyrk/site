@@ -19,7 +19,7 @@ export default {
   computed: {
     list() {
       return this.$store.state.article.list;
-    }
+    },
   },
 
   methods: {

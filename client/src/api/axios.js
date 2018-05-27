@@ -28,5 +28,23 @@ ax.interceptors.response.use(response => {
   return Promise.reject(error)
 })
 
+// vuex plugin
+// export function autoLoading(namespace) {
+//   return store => {
+//     ax.interceptors.request.use(config => {
+//       store.commit(`${namespace}/FETCH_ART_START`)
+//       return config;
+//     }, error => {
+//       return Promise.reject(error);
+//     })
+
+//     ax.interceptors.response.use(response => {
+//       store.commit(`${namespace}/FETCH_ART_END`)
+//       return response;
+//     }, error => {
+//       return Promise.reject(error)
+//     })
+//   }
+// }
 
 export default ax;

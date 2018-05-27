@@ -3,6 +3,14 @@
 3. 添加api文件夹，放置所有api请求，这里如果用本地的服务，就需要把server项目跑起来，并且在mongodb里放些数据。但原作者为啥要用koa起服务，再转一下，还没搞明白。
 4. 调整了项目结构，原作者把所有service都引入到store目录下的index文件中，改成了引入每个独立的service到对应的sub store文件中，这样更模块化，但是需要每个sub store文件都引入service文件
 
+### 发现
+1. axios的interceptors，request是按照注册顺序，后注册的先执行，response按照注册顺序，先注册的先执行
+2. 使用module模式的store时，plugin只能注册到index.js文件中，也就是只能注册到rootState上
+3. vuex暂时还不支持对action做hook，见这个[pr](https://github.com/vuejs/vuex/pull/1115)，所以自动commit一个loading的mutation有点困难
+
+### 遇到的坑
+1. 请求本地3000端口的接口时，axios返回的200，但是浏览器因为同源限制报了500错误，导致页面一直显示error的layout，后来在server项目中加了允许跨源的header后才正常
+
 ### 疑惑：
 1. 获取数据时，`asyncData`和`fetch`方法都可以用，有什么区别？
 
@@ -10,3 +18,6 @@
 所以使用`asyncData`方法就需要把获取数据的逻辑直接放到方法内部并返回，这样就耦合了fetch相关的库，如果使用vuex的话，因为通过dispatch action来保存数据，所以只能用`fetch`方法
 
 2. 按照官方文档，试了下直接用`store/article/state.js`这样把state、actions等都分离到单独文件中的做法，发现都作为了state下的一个属性引入了，并且都是空对象，就像`store.article.actions = {}`这样的，实际上actions不会作为state显示到vue-tools里才对，不知哪里有问题
+
+3. fetch的状态，原作者是用在article组件中，但是fetch未返回结果前不会渲染文章列表，那这个fetch状态就一直都是false了，除非是用在分页时？
+没错了，只有加载分页时，还留在当前页面，所以fetch状态是会切换的。

@@ -11,23 +11,23 @@ export default {
 
   mutations: {
 
-    FETCH_ART(state) {
-      state.fetch = true
-    },
-
     SET_ART_SUCCESS(state, data) {
       const {
         list,
         total
-      } = data.result;
-      state.fetch = false
+      } = data;
       state.list = list;
       state.total = total;
+      state.fetch = false;
     },
 
-    SET_ART_FAIL(state) {
+    FETCH_ART_START(state) {
+      state.fetch = true
+    },
+
+    FETCH_ART_END(state) {
       state.fetch = false
-    }
+    },
 
   },
 
@@ -39,13 +39,14 @@ export default {
     }, data = {
       current_page: 1
     }) {
-      commit('FETCH_ART')
+      commit('FETCH_ART_START')
       const res = await articleService.getArticles(data)
         .catch(err => console.error(err))
+        console.log('res:', res);
       // TODO: 统一处理包裹的code、msg层
       if (res && res.code === 1) {
-        commit('SET_ART_SUCCESS', res)
-      } else commit('SET_ART_FAIL')
+        commit('SET_ART_SUCCESS', res.result)
+      } else commit('FETCH_ART_END')
     },
 
   }

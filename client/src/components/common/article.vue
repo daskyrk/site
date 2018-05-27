@@ -19,7 +19,13 @@
 
 <script>
 export default {
-  props: ['list']
+  props: ['list'],
+  computed: {
+    fetch () {
+      return this.$store.state.article.fetch
+    },
+
+  }
 };
 </script>
 
