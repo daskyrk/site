@@ -16,9 +16,9 @@ module.exports = {
       require('postcss-nested')(),
       require('postcss-responsive-type')(),
       require('postcss-hexrgba')(),
-      require('autoprefixer')({
-        browsers: ['last 3 versions']
-      })
+      // require('autoprefixer')({
+      //   browsers: ['last 3 versions']
+      // })
     ],
     styleResources: {
       scss: ['./src/style/variable.scss', './src/style/mixin.scss'],

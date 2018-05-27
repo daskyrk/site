@@ -5,26 +5,57 @@
       v-for="article in list"
       :key='article._id'
       >
-      <div class="content">
-        <p class='title'><nuxt-link :to="`/article/${article._id}`">{{article.title}}</nuxt-link></p>
-        <p>{{article.createdAt | dateFormat('YYYY-MM-DD HH:mm:ss')}}</p>
-        {{article.content}}
-        <p>喜欢：{{article.meta.likes}}</p>
-        <p>阅读：{{article.meta.views}}</p>
-        <p>评论：{{article.meta.comments}}</p>
-      </div>
+        <div class="meta">
+          <p class="time">{{format(article.createdAt)}}</p>
+          <p class="summary">
+            <span>
+            <i class="iconfont icon-view"></i>
+            {{article.meta.views}}
+            </span>
+            <span>
+            <i class="iconfont icon-comment"></i>
+            {{article.meta.comments}}
+            </span>
+            <span>
+            <i class="iconfont icon-like"></i>
+            {{article.meta.likes}}
+            </span>
+          </p>
+        </div>
+        <div class="content">
+          <p class='title'><nuxt-link :to="`/article/${article._id}`">{{article.title}}</nuxt-link></p>
+          <div>
+            {{article.content}}
+          </div>
+        </div>
     </div>
   </transition-group>
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   props: ['list'],
   computed: {
-    fetch () {
-      return this.$store.state.article.fetch
-    },
-
+    fetch() {
+      return this.$store.state.article.fetch;
+    }
+    // time() {
+    //   this.props.
+    //   return 'hhh'
+    // }
+  },
+  methods: {
+    format: function(timestamp) {
+      const a = moment(timestamp);
+      const year = a.year();
+      const month = a.month() + 1;
+      const day = a.day();
+      const week = a.weekday();
+      const toWeek = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+      return `${year}年${month}月${day}日 ${toWeek[week]}`;
+    }
   }
 };
 </script>
@@ -35,10 +66,40 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: column;
+  min-height: 200px;
   padding: 1.5rem 0 1rem;
   margin-bottom: 3rem;
   color: #24292e;
+  border: 1px solid $color-border;
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    border-right: 1px solid $color-border;
+
+    i {
+      font-size: 1.3rem;
+    }
+
+    .time {
+      margin-bottom: 20px;
+    }
+
+    .summary {
+      display: flex;
+      justify-content: space-around;
+      span {
+        display: inline-flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .content {
+    flex: 1;
+    padding: 10px;
+  }
 
   .title {
     margin-bottom: 0.5rem;

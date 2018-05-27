@@ -11,6 +11,6 @@ footer {
   margin-top: 1rem;
   padding: 1rem 0;
   background: $white;
-  border-top: 1px solid $border-color;
+  border-top: 1px solid $color-border;
 }
 </style>
