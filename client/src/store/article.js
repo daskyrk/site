@@ -5,20 +5,28 @@ export default {
     return {
       list: [],
       total: 0,
+      detail: {},
       fetch: false,
     }
   },
 
   mutations: {
 
-    SET_ART_SUCCESS(state, data) {
+    GET_ART_LIST(state, data) {
       const {
         list,
         total
       } = data;
       state.list = list;
       state.total = total;
+      if (list.length) {
+        state.detail = list[0]
+      }
       state.fetch = false;
+    },
+
+    GET_ART_DETAIL(state, data) {
+      state.detail = data;
     },
 
     FETCH_ART_START(state) {
@@ -40,12 +48,25 @@ export default {
       current_page: 1
     }) {
       commit('FETCH_ART_START')
-      const res = await articleService.getArticles(data)
+      const res = await articleService.getArts(data)
         .catch(err => console.error(err))
         console.log('res:', res);
       // TODO: 统一处理包裹的code、msg层
       if (res && res.code === 1) {
-        commit('SET_ART_SUCCESS', res.result)
+        commit('GET_ART_LIST', res.result)
+      } else commit('FETCH_ART_END')
+    },
+
+    // 获取文章详情
+    async getArt({
+      commit,
+      state
+    }, id) {
+      commit('FETCH_ART_START')
+      const res = await articleService.getArt(id)
+        .catch(err => console.error(err))
+      if (res && res.code === 1) {
+        commit('GET_ART_DETAIL', res.result)
       } else commit('FETCH_ART_END')
     },
 

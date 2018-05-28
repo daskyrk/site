@@ -18,6 +18,25 @@ exports.getArts = async (ctx) => {
   }
 }
 
+exports.getArt = async (ctx) => {
+  const id = ctx.params.id;
+  if (!id) {
+    handleError({ ctx, msg: '无效的参数' })
+  }
+
+  const result = await Article
+    .findById(id)
+    .catch(err => ctx.throw(500, '服务器内部错误'))
+
+  if (result) {
+    handleSuccess({
+      ctx, result, msg: '获取文章详情成功'
+    })
+  } else {
+    handleError({ ctx, msg: '获取文章详情失败' })
+  }
+}
+
 exports.saveArt = async (ctx) => {
   const result = await new Article(ctx.request.body)
     .save()

@@ -6,12 +6,12 @@ const router = new Router({
 	prefix: config.APP.ROOT_PATH
 })
 
-console.log('controller:', controller);
 
 router
 	.get('/article', controller.article.getArts)
 	.post('/article', controller.article.saveArt)
 	.put('/article/:id', controller.article.updateArt)
+	.get('/article/:id', controller.article.getArt)
 	.delete('/article/:id', controller.article.delArt)
 
 
