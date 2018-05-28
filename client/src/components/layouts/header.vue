@@ -16,7 +16,7 @@
         type="text"
         class="header-search"
         maxlength="10"
-        v-modal='keyword'
+        v-model='keyword'
         @keyup.enter='search'>
     </div>
   </header>
