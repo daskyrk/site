@@ -1,33 +1,31 @@
 <template>
-  <transition-group tag="div" name="slide-down" class="article-box" >
-    <div
-      class="article-item"
-      v-for="article in list"
-      :key='article._id'
-      >
-        <div class="meta">
-          <p class="time">{{format(article.createdAt)}}</p>
-          <p class="summary">
-            <span>
+  <transition-group tag="div" name="slide-down">
+    <div class="article-item" v-for="article in list" :key='article._id'>
+      <div class="meta">
+        <p class="time">{{format(article.createdAt)}}</p>
+        <p class="summary">
+          <span>
             <i class="iconfont icon-view"></i>
             {{article.meta.views}}
-            </span>
-            <span>
+          </span>
+          <span>
             <i class="iconfont icon-comment"></i>
             {{article.meta.comments}}
-            </span>
-            <span>
+          </span>
+          <span>
             <i class="iconfont icon-like"></i>
             {{article.meta.likes}}
-            </span>
-          </p>
-        </div>
+          </span>
+        </p>
+      </div>
+      <div class="content-wrap">
+        <p class='title'>
+          <nuxt-link :to="`/article/${article._id}`">{{article.title}}</nuxt-link>
+        </p>
         <div class="content">
-          <p class='title'><nuxt-link :to="`/article/${article._id}`">{{article.title}}</nuxt-link></p>
-          <div>
-            {{article.content}}
-          </div>
+          {{article.content}}
         </div>
+      </div>
     </div>
   </transition-group>
 </template>
@@ -40,11 +38,7 @@ export default {
   computed: {
     fetch() {
       return this.$store.state.article.fetch;
-    }
-    // time() {
-    //   this.props.
-    //   return 'hhh'
-    // }
+    },
   },
   methods: {
     format: function(timestamp) {
@@ -55,8 +49,8 @@ export default {
       const week = a.weekday();
       const toWeek = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
       return `${year}年${month}月${day}日 ${toWeek[week]}`;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -66,10 +60,9 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 200px;
-  padding: 1.5rem 0 1rem;
+  min-height: 180px;
   margin-bottom: 3rem;
-  color: #24292e;
+  color: $dark;
   border: 1px solid $color-border;
 
   .meta {
@@ -92,21 +85,29 @@ export default {
       span {
         display: inline-flex;
         flex-direction: column;
+        align-items: center;
       }
     }
   }
 
-  .content {
+  .content-wrap {
     flex: 1;
-    padding: 10px;
-  }
-
-  .title {
-    margin-bottom: 0.5rem;
-    font-size: 1.6rem;
-    font-weight: 700;
+    padding: 10px 20px;
     overflow: hidden;
-    text-overflow: ellipsis;
+
+    .title {
+      margin-bottom: 0.5rem;
+      font-size: 1.6rem;
+      font-weight: 700;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 }
 </style>

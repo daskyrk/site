@@ -17,16 +17,16 @@ import myFooter from '~/components/layouts/footer';
 export default {
   components: {
     myHeader,
-    myFooter
-  }
+    myFooter,
+  },
 };
 </script>
 
 <style lang="scss">
 .container {
-  width: 38rem;
   margin: 5rem auto;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 </style>
 

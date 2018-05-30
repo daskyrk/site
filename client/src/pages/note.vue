@@ -1,5 +1,5 @@
 <template>
-  <div class="article">
+  <div class="article-list">
     <articleView :list="list" @loadMore='loadMore'/>
     <el-pagination
       @current-change="handleCurrentChange"
@@ -53,6 +53,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.article {
+.article-list {
+  min-width: 38rem;
+  width: 60%;
 }
 </style>
