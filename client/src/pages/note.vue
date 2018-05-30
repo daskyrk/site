@@ -1,6 +1,13 @@
 <template>
-  <div class="note">
+  <div class="article">
     <articleView :list="list" @loadMore='loadMore'/>
+    <el-pagination
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-size="10"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
   </div>
 </template>
 
@@ -9,7 +16,9 @@ import articleView from '~/components/common/article';
 
 export default {
   data() {
-    return {};
+    return {
+      currentPage: this.$store.state.article.pagination.pageNo,
+    };
   },
 
   fetch({ store }) {
@@ -20,21 +29,30 @@ export default {
     list() {
       return this.$store.state.article.list;
     },
+    total() {
+      return this.$store.state.article.total;
+    },
   },
 
   methods: {
     loadMore() {
       console.log('call loadMore');
-    }
+    },
+    handleCurrentChange(pageNo) {
+      this.$store.dispatch('article/getArtList', {
+        pageNo,
+        type: 1,
+      });
+    },
   },
 
   components: {
-    articleView
-  }
+    articleView,
+  },
 };
 </script>
 
 <style lang='scss' scoped>
-.note {
+.article {
 }
 </style>

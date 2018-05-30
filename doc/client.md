@@ -9,9 +9,11 @@
 3. vuex暂时还不支持对action做hook，见这个[pr](https://github.com/vuejs/vuex/pull/1115)，所以自动commit一个loading的mutation有点困难
 4. nuxt框架提供的几个方法，和原vue框架实例本身提供的方法是有区别的，nuxt框架提供的方法提供了context作为参数，所以使用时要注意，没有context参数时通过this.$store来访问store
 5. methods中的方法可以是异步方法
+6. 嵌套路由时，比如`/:id/edit`这种，_id.vue文件必须有，然后再新建_id文件夹和该文件夹下的edit.vue文件，可以没有index.vue文件，如果有，会在访问`/:id`渲染_id和index，访问`/:id/edit`时渲染_id和edit文件
 
 ### 遇到的坑
 1. 请求本地3000端口的接口时，axios返回的200，但是浏览器因为同源限制报了500错误，导致页面一直显示error的layout，后来在server项目中加了允许跨源的header后才正常
+2. vuex在dispatch action时，必须把所有数据放在第二个参数中，不能`dipatch('action', id, data);`这样使用
 
 ### 疑惑：
 1. 获取数据时，`asyncData`和`fetch`方法都可以用，有什么区别？
@@ -26,3 +28,5 @@
 
 4. 现在已经获得了列表，想根据路由上的id直接取得列表中对应的文章详情，可是在`computed`中没有找到获取params的方法，怎么做？
 可以通过`asyncData`方法，从这里可以获取params，并且返回值会merge到data中，虽然不是异步方法，不过可以实现功能
+
+5. 表单恢复数据从哪获取数据？是直接从store中获取，还是设为state的某个属性？

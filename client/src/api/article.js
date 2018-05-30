@@ -10,6 +10,10 @@ export function getArt(id) {
   return ax.get(`/article/${id}`)
 }
 
-export function postArticle(data) {
+export function addArt(data) {
   return ax.post('/article', data)
+}
+
+export function updateArt(id, data) {
+  return ax.put(`/article/${id}`, data)
 }

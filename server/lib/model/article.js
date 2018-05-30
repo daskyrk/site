@@ -10,15 +10,6 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // create_at: {
-  //   type: Date,
-  //   default: Date.now //TODO: 保存时时区是否要转换一下？
-  // },
-  // update_at: {
-  //   type: Date,
-  //   default: Date.now
-  // },
-
   meta: {
     views: {
       type: Number,
@@ -34,8 +25,8 @@ const ArticleSchema = new mongoose.Schema({
     }
   }
 }, {
-    timestamps: true
-  });
+  timestamps: true
+});
 
 ArticleSchema.plugin(mongoosePaginate);
 
