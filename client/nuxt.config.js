@@ -9,7 +9,14 @@ module.exports = {
       presets: ['es2015', 'stage-2'],
       plugins: [
         'transform-async-to-generator',
-        'transform-runtime'
+        'transform-runtime',
+        [
+          "component",
+          {
+            "libraryName": "element-ui",
+            "styleLibraryName": "theme-chalk"
+          }
+        ],
       ]
     },
     postcss: [
@@ -48,8 +55,10 @@ module.exports = {
       { innerHTML: 'This website requires JavaScript.' }
     ]
   },
+  dev: (process.env.NODE_ENV !== 'production'),
   css: [
-    '~/style/index.scss'
+    '~/style/index.scss',
+    'element-ui/lib/theme-chalk/index.css',
   ],
   render: {
     bundleRenderer: {
@@ -59,7 +68,8 @@ module.exports = {
     }
   },
   plugins: [
-    '~/plugins/filter.js'
+    '~/plugins/filter.js',
+    '~/plugins/element-ui.js',
   ],
   loading: '~/components/loading.vue',
   router: {
