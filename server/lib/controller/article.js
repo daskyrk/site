@@ -1,5 +1,6 @@
+const logError = require('../utils/logError');
 const Article = require('../model/article');
-const { handleError, handleSuccess } = require('../utils/handle');
+const { handleError, handleResult } = require('../utils/handle');
 
 exports.getArts = async ctx => {
   const { pageNo } = ctx.query;
@@ -8,25 +9,20 @@ exports.getArts = async ctx => {
     page: pageNo,
   };
 
-  const result = await Article.paginate(querys, options).catch(err =>
-    ctx.throw(500, '服务器内部错误'),
+  const result = await Article.paginate(querys, options).catch(
+    logError({ ctx }),
   );
 
-  if (result) {
-    handleSuccess({
-      ctx,
-      result: {
-        total: result.total,
-        list: result.docs,
-      },
-      msg: '获取文章列表成功',
-    });
-  } else {
-    handleError({
-      ctx,
-      msg: '获取文章列表失败',
-    });
-  }
+  handleResult({
+    ctx,
+    result,
+    success: '获取文章列表成功',
+    fail: '获取文章列表失败',
+    deal: data => ({
+      total: data.total,
+      list: data.docs,
+    }),
+  });
 };
 
 exports.getArt = async ctx => {
@@ -37,42 +33,27 @@ exports.getArt = async ctx => {
       msg: '无效的参数',
     });
   }
+  const result = await Article.findById(id).catch(logError({ ctx }));
 
-  const result = await Article.findById(id).catch(err =>
-    ctx.throw(500, '服务器内部错误'),
-  );
-
-  if (result) {
-    handleSuccess({
-      ctx,
-      result,
-      msg: '获取文章详情成功',
-    });
-  } else {
-    handleError({
-      ctx,
-      msg: '获取文章详情失败',
-    });
-  }
+  handleResult({
+    ctx,
+    result,
+    success: '获取文章详情成功',
+    fail: '获取文章详情失败',
+  });
 };
 
 exports.addArt = async ctx => {
   const result = await new Article(ctx.request.body)
     .save()
-    .catch(err => ctx.throw(500, '服务器内部错误'));
+    .catch(logError({ ctx }));
 
-  if (result) {
-    handleSuccess({
-      ctx,
-      msg: '添加文章成功',
-      result,
-    });
-  } else {
-    handleError({
-      ctx,
-      msg: '添加文章失败',
-    });
-  }
+  handleResult({
+    ctx,
+    result,
+    success: '添加文章成功',
+    fail: '添加文章失败',
+  });
 };
 
 exports.updateArt = async ctx => {
@@ -85,20 +66,15 @@ exports.updateArt = async ctx => {
   }
 
   const result = await Article.findByIdAndUpdate(id, ctx.request.body).catch(
-    err => ctx.throw(500, '服务器内部错误'),
+    logError({ ctx }),
   );
 
-  if (result) {
-    handleSuccess({
-      ctx,
-      msg: '更新文章成功',
-    });
-  } else {
-    handleError({
-      ctx,
-      msg: '更新文章失败',
-    });
-  }
+  handleResult({
+    ctx,
+    result,
+    success: '更新文章成功',
+    fail: '更新文章失败',
+  });
 };
 
 exports.delArt = async ctx => {
@@ -110,18 +86,11 @@ exports.delArt = async ctx => {
     });
   }
 
-  const res = await Article.findByIdAndRemove(id).catch(err =>
-    ctx.throw(500, '服务器内部错误'),
-  );
-  if (res) {
-    handleSuccess({
-      ctx,
-      msg: '删除文章成功',
-    });
-  } else {
-    handleError({
-      ctx,
-      msg: '删除文章失败',
-    });
-  }
+  const result = await Article.findByIdAndRemove(id).catch(logError({ ctx }));
+  handleResult({
+    ctx,
+    result,
+    success: '删除文章成功',
+    fail: '删除文章失败',
+  });
 };

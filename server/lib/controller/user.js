@@ -1,6 +1,7 @@
 const crypto = require('crypto');
+const logError = require('../utils/logError');
 const User = require('../model/user');
-const { handleError, handleSuccess } = require('../utils/handle');
+const { handleError, handleResult } = require('../utils/handle');
 
 const encrypt = data =>
   crypto
@@ -16,7 +17,7 @@ exports.login = async ctx => {
 
   let result = await User.findOne({
     username,
-  }).catch(err => ctx.throw(500, '服务器内部错误'));
+  }).catch(logError({ ctx }));
   let msg = '';
 
   if (result) {
@@ -45,20 +46,14 @@ exports.getUser = async ctx => {
 
   const result = await User.findOne({
     username,
-  }).catch(err => ctx.throw(500, '服务器内部错误'));
+  }).catch(logError({ ctx }));
 
-  if (result) {
-    handleSuccess({
-      ctx,
-      result,
-      msg: '获取用户信息成功',
-    });
-  } else {
-    handleError({
-      ctx,
-      msg: '获取用户信息失败',
-    });
-  }
+  handleResult({
+    ctx,
+    result,
+    success: '获取用户信息成功',
+    fail: '获取用户信息失败',
+  });
 };
 
 exports.addUser = async ctx => {
@@ -66,20 +61,14 @@ exports.addUser = async ctx => {
 
   const result = await new User({ password: encrypt(password), ...rest })
     .save()
-    .catch(err => ctx.throw(500, err)); // TODO: 统一抛出错误并记录错误日志
+    .catch(logError({ ctx }));
 
-  if (result) {
-    handleSuccess({
-      ctx,
-      result,
-      msg: '添加用户成功',
-    });
-  } else {
-    handleError({
-      ctx,
-      msg: '添加用户失败',
-    });
-  }
+  handleResult({
+    ctx,
+    result,
+    success: '添加用户成功',
+    fail: '添加用户失败',
+  });
 };
 
 exports.delUser = async ctx => {
@@ -91,18 +80,13 @@ exports.delUser = async ctx => {
     });
   }
 
-  const res = await User.findOneAndRemove({ username }).catch(err =>
-    ctx.throw(500, '服务器内部错误'),
+  const result = await User.findOneAndRemove({ username }).catch(
+    logError({ ctx }),
   );
-  if (res) {
-    handleSuccess({
-      ctx,
-      msg: '删除用户成功',
-    });
-  } else {
-    handleError({
-      ctx,
-      msg: '删除用户失败',
-    });
-  }
+  handleResult({
+    ctx,
+    result,
+    success: '删除用户成功',
+    fail: '删除用户失败',
+  });
 };

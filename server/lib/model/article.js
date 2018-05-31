@@ -1,33 +1,36 @@
-const mongoosePaginate = require('mongoose-paginate')
-const mongoose = require('../mongodb').mongoose
+const mongoosePaginate = require('mongoose-paginate');
+const mongoose = require('../mongodb').mongoose;
 
-const ArticleSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  content: {
-    type: String,
-    required: true
-  },
-  meta: {
-    views: {
-      type: Number,
-      default: 0
+const ArticleSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
     },
-    likes: {
-      type: Number,
-      default: 0
+    content: {
+      type: String,
+      required: true,
     },
-    comments: {
-      type: Number,
-      default: 0
-    }
-  }
-}, {
-  timestamps: true
-});
+    meta: {
+      views: {
+        type: Number,
+        default: 0,
+      },
+      likes: {
+        type: Number,
+        default: 0,
+      },
+      comments: {
+        type: Number,
+        default: 0,
+      },
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
 
 ArticleSchema.plugin(mongoosePaginate);
 
-module.exports = mongoose.model('Article', ArticleSchema)
+module.exports = mongoose.model('Article', ArticleSchema);
