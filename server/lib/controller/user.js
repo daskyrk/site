@@ -1,7 +1,9 @@
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const config = require('../config');
 const logError = require('../utils/logError');
 const User = require('../model/user');
-const { handleError, handleResult } = require('../utils/handle');
+const { handleError, handleSuccess, handleResult } = require('../utils/handle');
 
 const encrypt = data =>
   crypto
@@ -22,6 +24,11 @@ exports.login = async ctx => {
 
   if (result) {
     if (result.password === encrypt(password)) {
+      // const expTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7;
+      // const token = jwt.sign(
+      //   { name: result.username, password: result.password, expTime },
+      //   config.AUTH.secretKey,
+      // );
       handleSuccess({
         ctx,
         result,

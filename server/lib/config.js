@@ -9,3 +9,7 @@ exports.APP = {
   ROOT_PATH: '/api',
   LIMIT: 10,
 }
+
+exports.AUTH = {
+  secretKey: 'daskyrk',
+}

@@ -17,6 +17,7 @@
   ],
   "author": "LiJun",
   "dependencies": {
+    "jsonwebtoken": "^8.2.2",
     "koa": "^2.5.1",
     "koa-body": "^2.5.0",
     "koa-cors": "0.0.16",

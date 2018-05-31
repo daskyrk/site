@@ -1,4 +1,4 @@
-exports.handleError = ({ ctx, msg = '请求失败', error = null }) => {
+exports.handleError = ({ ctx, msg = '请求失败', error }) => {
   ctx.body = { code: 0, msg, error };
 };
 
@@ -8,9 +8,9 @@ exports.handleSuccess = ({ ctx, msg = '请求成功', result }) => {
 
 exports.handleResult = ({
   ctx,
-  data: result,
+  result: data,
   deal,
-  error = null,
+  error,
   success = '请求成功',
   fail = '请求失败',
 }) => {
