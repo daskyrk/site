@@ -33,7 +33,7 @@ module.exports = {
     },
     vendor: [
       'axios',
-      '~/utils',
+      // '~/utils',
     ],
   },
   env: require('./src/config'),

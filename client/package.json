@@ -4,7 +4,7 @@
   "description": "blog client powered by vue,koa and mongodb",
   "main": "src/index.js",
   "scripts": {
-    "dev": "nuxt",
+    "dev": "PORT=3333 nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "test": "echo \"Error: no test specified\" && exit 1"
