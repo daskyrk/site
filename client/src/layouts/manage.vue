@@ -39,6 +39,7 @@ export default {
 
 .manage-content {
   flex: 1;
+  overflow: auto;
 }
 </style>
 
