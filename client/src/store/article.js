@@ -48,13 +48,14 @@ export default {
       },
     ) {
       commit('FETCH_ART_START');
+      console.log('start fetch:');
       const res = await articleService
         .getArts(params)
         .catch(err => console.error(err));
-      // console.log('res:', res);
-      // TODO: 统一处理包裹的code、msg层
+      console.log('res:', res);
       if (res && res.code === 1) {
-        commit('GET_ART_LIST', res.result);
+      console.log('end fetch:');
+      commit('GET_ART_LIST', res.result);
       } else commit('FETCH_ART_END');
     },
 

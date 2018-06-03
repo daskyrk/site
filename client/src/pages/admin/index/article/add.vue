@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  middleware: 'auth',
+  // middleware: 'auth',
   data() {
     var checkTitle = (rule, value, callback) => {
       if (!value) {

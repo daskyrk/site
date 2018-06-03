@@ -1,13 +1,16 @@
 <template>
-  <div :class="['manage-sidebar', {fold: foldSidebar}]">
-    <div class="logo-wrap"></div>
+  <aside :class="['manage-sidebar', {fold: foldSidebar}]">
+    <div class="logo"></div>
+
     <ul class="menus">
       <li v-for="(menu, index) in menus" :key='index'>
-        <nuxt-link :to='menu.link' append>
-          <div class="menu-item">
-            <i :class="['iconfont', `icon-${menu.icon}`]"></i>
-            <span>{{menu.text}}</span>
-          </div>
+        <nuxt-link :to='menu.link'>
+          <el-tooltip effect="dark" :disabled="!foldSidebar" :content="menu.text" placement="right">
+            <div class="menu-item">
+              <i :class="['iconfont', `icon-${menu.icon}`]"></i>
+              <span>{{menu.text}}</span>
+            </div>
+          </el-tooltip>
         </nuxt-link>
       </li>
     </ul>
@@ -15,7 +18,7 @@
     <div class='toggle-side' @click="foldSidebar = !foldSidebar">
       <i class="iconfont icon-fold"></i>
     </div>
-  </div>
+  </aside>
 </template>
 
 <script>
@@ -25,12 +28,17 @@ export default {
       foldSidebar: false,
       menus: [
         {
-          link: './article',
+          link: '/admin',
+          text: '总览',
+          icon: 'home',
+        },
+        {
+          link: '/admin/article',
           text: '文章管理',
           icon: 'article',
         },
         {
-          link: './setting',
+          link: '/admin/setting',
           text: '系统设置',
           icon: 'setting',
         },
@@ -38,9 +46,6 @@ export default {
     };
   },
   methods: {
-    toggleFold() {
-      // this.
-    },
   },
 };
 </script>
@@ -57,6 +62,7 @@ $sidebar-text-hover: $white;
   width: $manage-sidebar-open-width;
   background-color: $sidebar-bg;
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
@@ -68,15 +74,13 @@ $sidebar-text-hover: $white;
 
   &.fold {
     width: $manage-sidebar-close-width;
-    .logo-wrap {
+    .logo {
       background-image: url(~static/images/t-white.png);
     }
     .menu-item {
-      i {
-        transform: translateX(26px);
-      }
+      padding-left: 28px;
       span {
-        transform: scale(0);
+        opacity: 0;
       }
     }
     .toggle-side {
@@ -87,14 +91,14 @@ $sidebar-text-hover: $white;
   }
 }
 
-.logo-wrap {
+.logo {
   width: 100%;
-  height: 64px;
+  height: 60px;
   background-image: url(~static/images/logo_reverse.png);
   background-size: auto 24px;
   background-position: 50%;
   background-repeat: no-repeat;
-  transition-property: background-image 0.3s;
+  transition: background-image 0.3s;
 }
 
 .menus {
@@ -104,11 +108,13 @@ $sidebar-text-hover: $white;
   width: 100%;
   text-align: center;
   .menu-item {
-    display: flex;
-    justify-content: center;
+    overflow: hidden;
+    padding-left: 40px;
+    text-align: left;
     color: $sidebar-text;
     height: 45px;
     line-height: 45px;
+    transition: padding-left 0.3s;
     &:hover {
       color: $sidebar-text-hover;
       background-color: $sidebar-bg-hover;

@@ -1,10 +1,10 @@
 <template>
-  <nuxt-child />
+  <div>
+    总览页
+  </div>
 </template>
 
 <script>
 export default {
-  middleware: 'auth',
-  layout: 'manage',
 };
 </script>

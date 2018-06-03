@@ -51,7 +51,7 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: '//at.alicdn.com/t/font_683109_8hah0tfh0nt57b9.css' },
+      { rel: 'stylesheet', href: '//at.alicdn.com/t/font_683109_u8ybqnahtnh4cxr.css' },
     ],
     noscript: [
       { innerHTML: 'This website requires JavaScript.' }
@@ -74,7 +74,7 @@ module.exports = {
     '~/plugins/element-ui.js',
     '~/plugins/axios.js',
   ],
-  loading: '~/components/loading.vue',
+  // loading: '~/components/loading.vue',
   router: {
     middleware: []
   },

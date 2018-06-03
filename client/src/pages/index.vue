@@ -10,7 +10,7 @@
             {{nav.text}}
           </nuxt-link>
           <span v-if="index < navs.length-1"
-            :key='index'>/</span>
+            :key='`split-${index}`'>/</span>
         </template>
       </h4>
     </div>

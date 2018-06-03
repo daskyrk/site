@@ -7,7 +7,6 @@ export default {
   state() {
     return {
       fetch: {},
-      token: null,
     };
   },
   actions: {
@@ -17,12 +16,9 @@ export default {
         var parsed = cookieparser.parse(req.headers.cookie);
         accessToken = parsed.Authorization;
       }
-      commit('SET_TOKEN', accessToken);
+      commit('user/SET_TOKEN', accessToken);
     },
   },
   mutations: {
-    SET_TOKEN(state, data) {
-      state.token = data;
-    },
   },
 };

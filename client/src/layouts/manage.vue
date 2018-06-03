@@ -1,14 +1,13 @@
 <template>
-  <div class="app">
+  <div class="manage-layout">
 
     <manageSidebar />
+
     <div class="manage-main">
       <manageHeader />
-
-      <div class="container">
-        <nuxt/>
+      <div class="manage-content">
+        <nuxt-child />
       </div>
-
     </div>
 
   </div>
@@ -27,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app {
+.manage-layout {
   height: 100vh;
   display: flex;
 }
@@ -36,6 +35,10 @@ export default {
   display: flex;
   flex: 1;
   flex-direction: column;
+}
+
+.manage-content {
+  flex: 1;
 }
 </style>
 
