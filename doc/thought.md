@@ -7,6 +7,75 @@
 5. methods中的方法可以是异步方法
 6. 嵌套路由时，比如`/:id/edit`这种，_id.vue文件必须有，然后再新建_id文件夹和该文件夹下的edit.vue文件，可以没有index.vue文件，如果有，会在访问`/:id`渲染_id和index，访问`/:id/edit`时渲染_id和edit文件
 7. koa中`ctx.throw(status, msg)`是为了在外面的try catch块中捕获，然后放到body中，所以直接throw后msg并没有返回，response还是`Internal Server Error`
+8. 自动生成的路由，举例来说，如果admin目录下除了index.vue外还有index目录，生成：
+```javascript
+{
+  path: "/admin",
+  component: _465e3c52,
+  children: [
+    {
+      path: "",
+      component: _47e729cc,
+      name: "admin-index"
+    },
+    {
+      path: "article",
+      component: _654bdd7e,
+      name: "admin-index-article"
+    },
+    {
+      path: "article/add",
+      component: _e75ca960,
+      name: "admin-index-article-add"
+    },
+    {
+      path: "article/:id?",
+      component: _0b52b8a8,
+      name: "admin-index-article-id"
+    },
+    {
+      path: "article/:id?/edit",
+      component: _36274bc0,
+      name: "admin-index-article-id-edit"
+    }
+  ]
+},
+```
+如果把index目录名改为index2，也就是没有和index.vue文件匹配的index目录，则生成：
+```javascript
+{
+  path: "/admin",
+  component: _465e3c52,
+  name: "admin"
+},
+{
+  path: "/admin/index2",
+  component: _38be66a4,
+  name: "admin-index2"
+},
+{
+  path: "/admin/index2/article",
+  component: _b2e4c256,
+  name: "admin-index2-article"
+},
+{
+  path: "/admin/index2/article/add",
+  component: _66738de4,
+  name: "admin-index2-article-add"
+},
+{
+  path: "/admin/index2/article/:id",
+  component: _65bd7180,
+  name: "admin-index2-article-id"
+},
+{
+  path: "/admin/index2/article/:id/edit",
+  component: _499617e8,
+  name: "admin-index2-article-id-edit"
+},
+```
+所以，要想直接通过/admin这一层来控制所有子路由权限，就必须建立index目录，把其他文件都放到这个目录下，否则展开时就需要在每个文件中都进行权限控制
+
 
 ### 遇到的坑
 1. 请求本地3000端口的接口时，axios返回的200，但是浏览器因为同源限制报了500错误，导致页面一直显示error的layout，后来在server项目中加了允许跨源的header后才正常
