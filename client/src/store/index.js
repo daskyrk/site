@@ -1,6 +1,5 @@
 
 import cookieparser from 'cookieparser';
-
 import service from '../api';
 
 export default {

@@ -13,7 +13,7 @@ export default ({ app, store, redirect }) => {
   axios.interceptors.response.use(response => {
     return response.data;
   }, function (error) {
-    if (error.response.status === 401) {
+    if (error.response && error.response.status === 401) {
       redirect('/login')
     }
     return Promise.reject(error);
