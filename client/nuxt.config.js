@@ -33,6 +33,7 @@ module.exports = {
     },
     vendor: [
       'axios',
+      '~/utils',
     ],
   },
   env: require('./src/config'),
@@ -49,7 +50,8 @@ module.exports = {
       { name: 'author', content: 'daskyrk@gmail.com' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: '//at.alicdn.com/t/font_683109_8hah0tfh0nt57b9.css' },
     ],
     noscript: [
       { innerHTML: 'This website requires JavaScript.' }
@@ -70,6 +72,7 @@ module.exports = {
   plugins: [
     '~/plugins/filter.js',
     '~/plugins/element-ui.js',
+    '~/plugins/axios.js',
   ],
   loading: '~/components/loading.vue',
   router: {

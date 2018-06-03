@@ -1,12 +1,17 @@
 <template>
   <div class="article">
-    <nuxt-child />
+    {{detail}}
   </div>
 </template>
 
 
 <script>
 export default {
+  data() {
+    return {
+      detail: this.$store.state.article.detail,
+    };
+  },
 
   fetch({ store, params }) {
     return store.dispatch('article/getArt', params.id);

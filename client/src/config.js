@@ -12,7 +12,11 @@ exports.navs = [
   {
     link: '/music',
     text: '音乐'
-  }
+  },
+  {
+    link: '/admin',
+    text: '管理'
+  },
 ]
 
-exports.BASE_API = IS_DEV ? 'http://localhost:8000/api/' : 'https://placeholder/api/'
+exports.BASE_URL = IS_DEV ? 'http://localhost:8000/api/' : 'https://placeholder/api/'

@@ -1,10 +1,12 @@
 import * as userService from '../api/user';
+import Cookie from 'js-cookie';
 
 export default {
   state() {
     return {
       userInfo: {},
       logining: false,
+      token: null,
     };
   },
 
@@ -23,10 +25,13 @@ export default {
       state.logining = false;
     },
 
+    SET_TOKEN(state, data) {
+      state.token = data;
+    },
   },
 
   actions: {
-    // 获取文章列表
+
     async login({ commit, state }, data) {
       commit('LOGIN_START');
       const res = await userService
@@ -34,8 +39,12 @@ export default {
         .catch(err => console.error(err));
 
       if (res && res.code === 1) {
-        commit('LOGIN_SUCCESS', res.result);
-      } else commit('LOGIN_FAIL');
+        commit('LOGIN_SUCCESS', res.result.userInfo);
+        commit('SET_TOKEN', res.result.token)
+        Cookie.set('Authorization', res.result.token)
+      } else {
+        commit('LOGIN_FAIL');
+      }
       return res;
     },
   },

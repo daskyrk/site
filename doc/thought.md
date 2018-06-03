@@ -11,6 +11,8 @@
 ### 遇到的坑
 1. 请求本地3000端口的接口时，axios返回的200，但是浏览器因为同源限制报了500错误，导致页面一直显示error的layout，后来在server项目中加了允许跨源的header后才正常
 2. vuex在dispatch action时，必须把所有数据放在第二个参数中，不能`dipatch('action', id, data);`这样使用
+3. koa中`req`是Node的request对象，`request`才是koa包装过的request对象
+4. nuxt框架因为封装好了初始化逻辑，所以没法拿到vue实例对象
 
 ### 疑惑：
 1. 获取数据时，`asyncData`和`fetch`方法都可以用，有什么区别？
@@ -24,6 +26,33 @@
 没错了，只有加载分页时，还留在当前页面，所以fetch状态是会切换的。
 
 4. 现在已经获得了列表，想根据路由上的id直接取得列表中对应的文章详情，可是在`computed`中没有找到获取params的方法，怎么做？
-可以通过`asyncData`方法，从这里可以获取params，并且返回值会merge到data中，虽然不是异步方法，不过可以实现功能
+可以通过`asyncData`方法，从这里可以获取params，并且返回值会merge到data中。补充：`computed`中可以通过`this.$route.params`获取params。见例子：
+```javascript
+asyncData ({ store, route }) {
+  // 触发 action 后，会返回 Promise
+  return store.dispatch('fetchItem', route.params.id)
+},
+computed: {
+  // 从 store 的 state 对象中的获取 item。
+  item () {
+    return this.$store.state.items[this.$route.params.id]
+  }
+}
+```
 
 5. 表单恢复数据从哪获取数据？是直接从store中获取，还是设为state的某个属性？
+
+6. 原作者是把管理后台和前台分开了，所以后台项目中的所有请求都加了验证的header供后端验证，我现在是把后台放到了一个子路由下，怎么对这个子路由下的所有请求添加验证的header而不影响外层的请求呢？
+如果是一个个加，有点太麻烦了。可以新增一个authAx用来发送带Auth的请求。有个问题是从哪里获取token呢，因为是同构应用，所以没有localStorage这个东西，如果用Cookie，那么每个请求都会携带这个token
+
+7. 原作者判断是否登录是通过是否有token并且token的时间不超过当前时间，但是这样感觉不安全？
+懂了，是由于把验证的header加在了所有请求里，请求验证失败时会重新检查本地token判断是否登录，虽然可以伪造token的存在，但是token内容肯定是验证不通过的，也就是说其实你可以随便伪造token，但是返回结果里是没有正确信息的，所以保证了安全。
+
+8. 为什么用localStorage而不是Cookie呢？
+可能是localStorage方便取数据，而Cookie如果设置了httponly则js无法读取
+
+9. 添加了localStorage方法，但是打包后在服务端运行时没有localStorage，如何把这部分代码放到客户端运行？axios库是两端通用，所以没有问题，但是其他库怎么办？
+
+10. 如何把需要验证的路由和普通路由放在一起呢？进入验证路由时检查store中的token，没有时跳到登录页，但是刷新时store中的信息就清空了，也不能直接服务端渲染时就设置token，这样的话就一直都是登陆状态了
+
+11. `nuxtServerInit`方法在服务端调用时，req是从哪里来的？文档中说from Node.Js server，但是这个服务是什么呢？应该是nuxt自身所起的服务，但是这个里面的request对象怎么加header呢？

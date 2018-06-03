@@ -40,6 +40,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$store.dispatch('user/login', this.form).then(res => {
+            this.$router.push(this.$route.query.backTo || '/');
             this.$message({
               message: res.msg,
               type: res.code === 1 ? 'success' : 'warning',

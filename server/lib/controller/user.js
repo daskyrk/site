@@ -1,7 +1,6 @@
 const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
-const config = require('../config');
 const logError = require('../utils/logError');
+const { getToken } = require('../utils/auth');
 const User = require('../model/user');
 const { handleError, handleSuccess, handleResult } = require('../utils/handle');
 
@@ -24,14 +23,15 @@ exports.login = async ctx => {
 
   if (result) {
     if (result.password === encrypt(password)) {
-      // const expTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7;
-      // const token = jwt.sign(
-      //   { name: result.username, password: result.password, expTime },
-      //   config.AUTH.secretKey,
-      // );
+      const expireTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7;
+      const token = getToken({
+        name: result.username,
+        password: result.password,
+        expireTime,
+      });
       handleSuccess({
         ctx,
-        result,
+        result: { userInfo: result, token, expireTime },
         msg: '登陆成功',
       });
     } else {
