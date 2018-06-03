@@ -2,10 +2,8 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const log = require('../log');
 
-let temp = '';
 function getToken(data) {
-  temp = jwt.sign(data, config.AUTH.secretKey);
-  return temp;
+  return jwt.sign(data, config.AUTH.secretKey);
 }
 
 function checkToken(token) {
