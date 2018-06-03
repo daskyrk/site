@@ -6,7 +6,7 @@
     <div class="manage-main">
       <manageHeader />
       <div class="manage-content">
-        <nuxt-child />
+        <nuxt />
       </div>
     </div>
 

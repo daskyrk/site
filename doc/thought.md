@@ -82,6 +82,7 @@
 2. vuex在dispatch action时，必须把所有数据放在第二个参数中，不能`dipatch('action', id, data);`这样使用
 3. koa中`req`是Node的request对象，`request`才是koa包装过的request对象
 4. nuxt框架因为封装好了初始化逻辑，所以没法拿到vue实例对象
+5. 创建同构应用时，每次页面刷新，server端就会创建新的app实例，所以就会从新走一遍初始化流程，plugin也就会再次注册，但是axios插件里的逻辑只能注册一次，所以加了标记来处理重复注册的问题。
 
 ### 疑惑：
 1. 获取数据时，`asyncData`和`fetch`方法都可以用，有什么区别？

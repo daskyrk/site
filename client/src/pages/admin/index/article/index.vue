@@ -54,7 +54,6 @@
 import articleView from '~/components/common/article';
 
 export default {
-  // layout: 'manage',
   data() {
     return {
       currentPage: this.$store.state.article.pagination.pageNo,
