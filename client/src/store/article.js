@@ -52,8 +52,7 @@ export default {
         .getArts(params)
         .catch(err => console.error('error:',err));
       if (res && res.code === 1) {
-
-      commit('GET_ART_LIST', res.result);
+        commit('GET_ART_LIST', res.result);
       } else commit('FETCH_ART_END');
     },
 
