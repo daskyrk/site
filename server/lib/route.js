@@ -1,11 +1,11 @@
 const Router = require('koa-router')
+const {requireAll} = require('./utils');
 const config = require('./config')
-const controller = require('./controller')
-
 const router = new Router({
 	prefix: config.APP.ROOT_PATH
 })
 
+const controller = requireAll(__dirname + '/controller', false, /(\w|-)+\.js$/);
 
 router
 	.get('/article', controller.article.getArts)
@@ -19,6 +19,11 @@ router
 	.get('/user', controller.user.getUser)
 	.delete('/user', controller.user.delUser)
 	.post('/login', controller.user.login)
+
+	.get('/tag', controller.tag.getTags)
+	.post('/tag', controller.tag.addTag)
+	.put('/tag', controller.tag.updateTag)
+	.delete('/tag', controller.tag.delTag)
 
 
 module.exports = router

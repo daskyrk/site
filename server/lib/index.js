@@ -12,7 +12,7 @@ const router = require('./route');
 const config = require('./config');
 const intercepter = require('./middleware/intercepter');
 
-log.info('config: \n', JSON.stringify(config, null, 2));
+// log.info('config: \n', JSON.stringify(config, null, 2));
 mongodb.connect(config.MONGODB);
 
 mongoosePaginate.paginate.options = {
