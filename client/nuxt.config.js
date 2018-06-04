@@ -59,6 +59,7 @@ module.exports = {
   },
   dev: (process.env.NODE_ENV !== 'production'),
   css: [
+    'simplemde/dist/simplemde.min.css',
     '~/style/index.scss',
     'element-ui/lib/theme-chalk/index.css',
   ],
@@ -70,9 +71,11 @@ module.exports = {
     }
   },
   plugins: [
+    { src: '~plugins/markdown.js', ssr: false },
     '~/plugins/filter.js',
     '~/plugins/element-ui.js',
     '~/plugins/axios.js',
+
   ],
   // loading: '~/components/loading.vue',
   router: {
