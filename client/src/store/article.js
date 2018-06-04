@@ -42,44 +42,42 @@ export default {
   actions: {
     // 获取文章列表
     async getArtList(
-      { commit, state },
+      { commit },
       params = {
         pageNo: 1,
       },
     ) {
       commit('FETCH_ART_START');
-      const res = await articleService
-        .getArts(params)
-        .catch(err => console.error('error:',err));
+      const res = await articleService.getArts(params);
       if (res && res.code === 1) {
         commit('GET_ART_LIST', res.result);
       } else commit('FETCH_ART_END');
     },
 
     // 获取文章详情
-    async getArt({ commit, state }, id) {
+    async getArt({ commit }, id) {
       commit('FETCH_ART_START');
-      const res = await articleService
-        .getArt(id)
-        .catch(err => console.error(err));
+      const res = await articleService.getArt(id);
       if (res && res.code === 1) {
         commit('GET_ART_DETAIL', res.result);
       } else commit('FETCH_ART_END');
     },
 
     // 添加文章
-    async addArt({ commit, state }, data) {
-      const res = await articleService
-        .addArt(data)
-        .catch(err => console.error(err));
+    async addArt({ commit }, data) {
+      const res = await articleService.addArt(data);
       return res;
     },
 
     // 编辑文章
-    async updateArt({ commit, state }, { _id, ...data }) {
-      const res = await articleService
-        .updateArt(_id, data)
-        .catch(err => console.error(err));
+    async updateArt({ commit }, { _id, ...data }) {
+      const res = await articleService.updateArt(_id, data);
+      return res;
+    },
+
+    // 获得标签
+    async getTags({ commit }, { _id, ...data }) {
+      const res = await articleService.getTags(_id, data);
       return res;
     },
   },

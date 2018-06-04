@@ -8,17 +8,20 @@
 
       <el-table-column type="expand">
         <template slot-scope="props">
-          <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="商品名称">
-              <span>{{ props.row.name }}</span>
+          <el-form label-position="left" class="table-expand">
+            <el-form-item label="标签">
+              <span v-for="item in props.row.tag" :key="item._id" style="margin-right: 10px;">{{ item.name }}</span>
             </el-form-item>
-            <el-form-item label="所属店铺">
-              <span>{{ props.row.shop }}</span>
+            <el-form-item label="关键字">
+              <span>{{ props.row.keyword }}</span>
+            </el-form-item>
+            <el-form-item label="描述">
+              <span>{{ props.row.descript }}</span>
             </el-form-item>
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column label="文章标题" width="180">
+      <el-table-column label="标题" width="180">
         <template slot-scope="scope">
           {{ scope.row.title }}
         </template>
@@ -30,12 +33,17 @@
       </el-table-column>
       <el-table-column label="分类">
         <template slot-scope="scope">
-          {{ scope.row.createdAt }}
+          {{ scope.row.type }}
         </template>
       </el-table-column>
       <el-table-column label="公开">
         <template slot-scope="scope">
-          {{ scope.row.createdAt }}
+          {{ scope.row.publish ? '公开' : '私密' }}
+        </template>
+      </el-table-column>
+      <el-table-column label="状态">
+        <template slot-scope="scope">
+          {{ scope.row.state === 1 ? '发布' : '草稿' }}
         </template>
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="180">
@@ -74,14 +82,14 @@ export default {
   },
 
   methods: {
-    loadMore() {
-      console.log('call loadMore');
-    },
     handleCurrentChange(pageNo) {
       this.$store.dispatch('article/getArtList', {
         pageNo,
         type: 1,
       });
+    },
+    handleEdit(row) {
+      this.$route.push(`/admin/article/${row._id}`);
     },
   },
 
