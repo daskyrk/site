@@ -40,6 +40,8 @@ export default {
 .manage-content {
   flex: 1;
   overflow: auto;
+  width: 100%;
+  padding: 40px 20px 20px;
 }
 </style>
 
