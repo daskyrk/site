@@ -23,7 +23,7 @@ export default {
 
   layout: 'empty',
 
-  data(context) {
+  data() {
     return {
       navs: process.env.navs
     };

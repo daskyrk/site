@@ -1,15 +1,3 @@
-exports.MONGODB = {
-  type: 'mongodb',
-  uris: 'mongodb://127.0.0.1:27017',
-  options: {},
-}
+const myConfig = require('./my-config');
 
-exports.APP = {
-  port: 8000,
-  ROOT_PATH: '/api',
-  LIMIT: 10,
-}
-
-exports.AUTH = {
-  secretKey: 'daskyrk',
-}
+module.exports = myConfig

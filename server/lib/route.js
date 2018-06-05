@@ -25,5 +25,7 @@ router
 	.put('/tag', controller.tag.updateTag)
 	.delete('/tag', controller.tag.delTag)
 
+	.get('/uploadToken', controller.upload.getToken)
+
 
 module.exports = router

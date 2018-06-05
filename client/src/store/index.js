@@ -1,6 +1,5 @@
-
 import cookieparser from 'cookieparser';
-import service from '../api';
+import * as service from '../api/index';
 
 export default {
   // plugins: [check],
@@ -8,6 +7,7 @@ export default {
     return {
       fetch: {},
       breadcrumb: [],
+      uploadToken: null,
     };
   },
   actions: {
@@ -19,10 +19,21 @@ export default {
       }
       commit('user/SET_TOKEN', accessToken);
     },
+
+    async getUploadToken({ commit }) {
+      const res = await service.getUploadToken();
+      if (res && res.code === 1) {
+        commit('GET_UPLOAD_TOKEN', res.result);
+      }
+    },
   },
   mutations: {
     SET_BREADCRUMB(state, data) {
       state.breadcrumb = data;
+    },
+
+    GET_UPLOAD_TOKEN(state, data) {
+      state.uploadToken = data;
     },
   },
 };

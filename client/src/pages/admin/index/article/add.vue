@@ -19,44 +19,53 @@
       </el-form-item>
     </el-col>
     <el-col :span="7" :offset='1'>
-      <el-form-item label="分类" label-width="90px" style="margin-bottom: 10px;">
-        <el-radio-group v-model="form.type">
-          <el-radio :label="1">读书</el-radio>
+      <el-form-item label="标签" label-width="90px" style="margin-bottom: 22px;" prop="tag">
+        <el-checkbox-group v-model="form.tag" size="small">
+          <el-checkbox-button v-for="tag in tags" :label="tag._id" :key="tag._id">{{tag.name}}</el-checkbox-button>
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="分类" label-width="90px" style="margin-bottom: 22px;">
+        <el-radio-group v-model="form.type" size="small">
+          <el-radio-button :label="1">读书</el-radio-button>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="状态" label-width="90px" style="margin-bottom: 10px;">
-        <el-radio-group v-model="form.state">
-          <el-radio :label="1">发布</el-radio>
-          <el-radio :label="2">草稿</el-radio>
+      <el-form-item label="状态" label-width="90px" style="margin-bottom: 22px;">
+        <el-radio-group v-model="form.state" size="small">
+          <el-radio-button :label="1">发布</el-radio-button>
+          <el-radio-button :label="2">草稿</el-radio-button>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="公开" label-width="90px" style="margin-bottom: 10px;">
-        <el-radio-group v-model="form.publish">
-          <el-radio :label="1">公开</el-radio>
-          <el-radio :label="2">私密</el-radio>
+      <el-form-item label="公开" label-width="90px" style="margin-bottom: 22px;">
+        <el-radio-group v-model="form.publish" size="small">
+          <el-radio-button :label="1">公开</el-radio-button>
+          <el-radio-button :label="2">私密</el-radio-button>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="缩略图" label-width="90px" style="margin-bottom: 10px;">
-          <el-input type='hidden' v-model="form.thumb" />
-          <!-- <el-input v-model="form.thumb" size="small" class="link"></el-input> -->
-          <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :before-upload="beforeThumbUpload" :on-success="handleUploadSuccess" :on-progress="handleUploadPro" :on-error="handleUploadError">
-            <img v-if="form.thumb" :src="form.thumb" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-          <el-progress :percentage="percent" v-if="percent !== 0 && percent !== 100"></el-progress>
+      <el-form-item label="缩略图" label-width="90px" style="margin-bottom: 22px;">
+        <el-input type='hidden' v-model="form.thumb" />
+        <!-- <el-input v-model="form.thumb" size="small" class="link"></el-input> -->
+        <el-upload class="avatar-uploader" action="https://up.qbox.me/" :data='qn' :show-file-list="false" :before-upload="beforeThumbUpload" :on-success="handleUploadSuccess" :on-progress="handleUploadPro" :on-error="handleUploadError">
+          <img v-if="form.thumb" :src="form.thumb" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+        <el-progress :percentage="percent" v-if="percent > 0 && percent < 100"></el-progress>
 
       </el-form-item>
 
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('form')">提交</el-button>
+        <el-button @click="resetForm('form')">重置</el-button>
+      </el-form-item>
     </el-col>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm('form')">提交</el-button>
-      <el-button @click="resetForm('form')">重置</el-button>
-    </el-form-item>
   </el-form>
 </template>
 
 <script>
 export default {
+  meta: {
+    breadcrumb: '添加文章',
+  },
+
   data() {
     return {
       percent: 0,
@@ -65,12 +74,20 @@ export default {
         indentWithTabs: false,
         spellChecker: false,
       },
+      qn: {
+        token: '',
+        key: '',
+      },
       tags: this.$store.state.tag.tags,
       form: {
         title: '',
         keyword: '',
         content: '',
         publish: true,
+        type: 1,
+        state: 1,
+        publish: 1,
+        thumb: '',
       },
       rules: {
         title: [{ required: true, trigger: 'blur' }],
@@ -80,9 +97,22 @@ export default {
       },
     };
   },
+  // TODO: 这里为何不能用asyncData ？
+  async created() {
+    await Promise.all([
+      this.$store.dispatch('tag/getTags'),
+      this.$store.dispatch('getUploadToken'),
+    ]);
+
+    this.qn.token = this.$store.state.uploadToken;
+
+  },
+  // fetch({ store }) {
+  //   return store.dispatch('tag/getTags');
+  // },
   methods: {
-    handleUploadSuccess(res, file) {
-      this.form.imageUrl = URL.createObjectURL(file.raw);
+    handleUploadSuccess() {
+      this.form.thumb = `http://p9uqlanms.bkt.clouddn.com/${this.qn.key}`;
     },
 
     // 进度条
@@ -107,8 +137,10 @@ export default {
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!');
       }
+      this.qn.key = file.name;
       return typeMisMatch && isLt2M;
     },
+
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -127,11 +159,6 @@ export default {
       this.$refs[formName].resetFields();
     },
   },
-  async created() {
-    await Promise.all([
-      this.$store.dispatch('tag/getTags')
-    ])
-  }
 };
 </script>
 
