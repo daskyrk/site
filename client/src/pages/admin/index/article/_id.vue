@@ -24,6 +24,10 @@
 
 <script>
 export default {
+  meta: {
+    breadcrumb: '文章详情',
+  },
+
   data() {
     return {
       rules: {

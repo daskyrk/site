@@ -157,6 +157,9 @@
 
 <script>
 export default {
+  meta: {
+    breadcrumb: '系统设置',
+  },
 
 }
 </script>

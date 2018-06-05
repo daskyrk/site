@@ -2,9 +2,9 @@
   <header class="manage-header">
     <div class="header-left">
       <el-breadcrumb v-if="$route.path !== '/admin'" separator-class="el-icon-arrow-right">
-        <template v-for="path in paths">
-          <el-breadcrumb-item :key='path.path' :to='path.url'>
-            {{path.text}}
+        <template v-for="item in breadcrumb">
+          <el-breadcrumb-item :key='item.path' :to='item.url'>
+            {{item.title}}
           </el-breadcrumb-item>
         </template>
       </el-breadcrumb>
@@ -28,29 +28,10 @@
 </template>
 
 <script>
-const map = {
-  admin: '总览',
-  article: '文章管理',
-  add: '添加',
-};
-
 export default {
   computed: {
-    paths() {
-      const paths = [];
-      const parts = this.$route.path.match(/\/\w+/g);
-
-      if (parts) {
-        parts.reduce((parent, item) => {
-          paths.push({
-            text: map[item.slice(1)],
-            url: (parent += item),
-          });
-          return parent;
-        }, '');
-      }
-
-      return paths;
+    breadcrumb() {
+      return this.$store.state.breadcrumb;
     },
   },
   methods: {
@@ -59,8 +40,8 @@ export default {
         this.$store.commit('user/LOGOUT');
         this.$router.push('/');
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

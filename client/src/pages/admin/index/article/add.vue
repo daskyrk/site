@@ -9,13 +9,8 @@
         </el-input>
       </el-form-item>
       <el-form-item label="描述" prop="descript">
-        <el-input type="textarea" :maxlength="200" placeholder="请输入描述" v-model="form.descript">
+        <el-input type="textarea" maxlength="200" placeholder="请输入描述" v-model="form.descript">
         </el-input>
-      </el-form-item>
-      <el-form-item label="标签" prop="tag">
-        <el-checkbox-group v-model="form.tag">
-          <el-checkbox-button v-for="tag in tags" :label="tag._id" :key="tag._id">{{tag.name}}</el-checkbox-button>
-        </el-checkbox-group>
       </el-form-item>
       <el-form-item label="内容" prop="content">
         <no-ssr>

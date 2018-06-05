@@ -82,6 +82,9 @@
 
 <script>
 export default {
+  meta: {
+    breadcrumb: '标签管理',
+  },
   data() {
     return {
       fetch:false,

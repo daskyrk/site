@@ -6,5 +6,8 @@
 
 <script>
 export default {
+  meta: {
+    breadcrumb: '总览',
+  },
 };
 </script>

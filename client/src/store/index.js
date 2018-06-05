@@ -7,6 +7,7 @@ export default {
   state() {
     return {
       fetch: {},
+      breadcrumb: [],
     };
   },
   actions: {
@@ -20,5 +21,8 @@ export default {
     },
   },
   mutations: {
+    SET_BREADCRUMB(state, data) {
+      state.breadcrumb = data;
+    },
   },
 };

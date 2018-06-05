@@ -62,6 +62,10 @@
 import articleView from '~/components/common/article';
 
 export default {
+  meta: {
+    breadcrumb: '文章管理',
+  },
+
   data() {
     return {
       currentPage: this.$store.state.article.pagination.pageNo,
