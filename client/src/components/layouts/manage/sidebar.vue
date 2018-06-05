@@ -26,23 +26,7 @@ export default {
   data() {
     return {
       foldSidebar: false,
-      menus: [
-        {
-          link: '/admin',
-          text: '总览',
-          icon: 'home',
-        },
-        {
-          link: '/admin/article',
-          text: '文章管理',
-          icon: 'article',
-        },
-        {
-          link: '/admin/setting',
-          text: '系统设置',
-          icon: 'setting',
-        },
-      ],
+      menus: process.env.adminMenus,
     };
   },
   methods: {
