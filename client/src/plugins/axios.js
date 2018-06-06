@@ -13,6 +13,13 @@ axios.defaults.transformRequest = [
 export default ({ app, store, redirect }) => {
   axios.interceptors.response.use(
     function(response) {
+      const data = response.data;
+      // if (data) {
+      //   app.$message({
+      //     message: data.msg,
+      //     type: data.code === 1 ? 'success' : 'warning',
+      //   });
+      // }
       return response;
     },
     function(error) {

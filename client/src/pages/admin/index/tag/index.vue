@@ -1,21 +1,8 @@
 <template>
   <div class="tags">
-    <div class="add-tag-form">
+    <div>
 
-      <el-form :model="form" :inline="true" status-icon :rules="rules" ref="form" label-width="160px" class="add-tag-form">
-        <el-form-item label="标签名" prop="name">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="标签描述" prop="descript">
-          <el-input placeholder="不超过30字" maxlength='30' v-model="form.descript">
-          </el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('form')">添加</el-button>
-          <el-button @click="resetForm('form')">重置</el-button>
-        </el-form-item>
-      </el-form>
-
+      <dialog-form title="标签" dialogVisible="true" :fields="fields" :onOk="this.onOk" />
       <!-- <div class="search">
         <el-input v-model="keyword" placeholder="name..." @keyup.enter.native="getData" icon="search" :on-icon-click="getData" size="small"></el-input>
       </div> -->
@@ -57,9 +44,15 @@
 </template>
 
 <script>
+import DialogForm from '~/components/common/dialog-form';
+
 export default {
   meta: {
     breadcrumb: '标签管理',
+  },
+
+  components: {
+    DialogForm,
   },
   data() {
     return {
@@ -67,32 +60,39 @@ export default {
       tags: this.$store.state.tag.tags,
       total: 0,
       currentPage: this.$store.state.tag.pagination.pageNo,
-      form: {
-        name: '',
-        descript: '',
-      },
-      rules: {
-        name: [{ required: true, trigger: 'blur' }],
-      },
+      fields: [
+        {
+          $id: 'name',
+          $type: 'input',
+          label: '标签名',
+          rules: [
+            { required: true, message: '请输入标签名称', trigger: 'blur' },
+          ],
+          prop: 'name',
+        },
+        {
+          $id: 'descript',
+          $type: 'input',
+          label: '标签描述',
+          prop: 'descript',
+          $el: {
+            maxlength: 30,
+            placeholder: '不超过30个字符',
+          },
+        },
+      ],
     };
   },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.$store.dispatch('tag/addTag', this.form).then(res => {
-            this.$message({
-              message: res.msg,
-              type: 'success',
-            });
-          });
-        } else {
-          return false;
-        }
-      });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    onOk(data) {
+      console.log('get data:', data);
+      this.$store.dispatch('tag/addTag', data);
+      // .then(res => {
+      //   this.$message({
+      //     message: res.msg,
+      //     type: 'success',
+      //   });
+      // });
     },
     pageChange(pageNo) {},
   },
