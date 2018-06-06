@@ -87,12 +87,6 @@ export default {
     onOk(data) {
       console.log('get data:', data);
       this.$store.dispatch('tag/addTag', data);
-      // .then(res => {
-      //   this.$message({
-      //     message: res.msg,
-      //     type: 'success',
-      //   });
-      // });
     },
     pageChange(pageNo) {},
   },

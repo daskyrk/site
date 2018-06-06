@@ -5,11 +5,7 @@
       <el-input v-model="detail.title"></el-input>
     </el-form-item>
     <el-form-item label="内容" prop="content">
-      <el-input
-        type="textarea"
-        :autosize="{ minRows: 2, maxRows: 4}"
-        placeholder="请输入内容"
-        v-model="detail.content">
+      <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="detail.content">
       </el-input>
     </el-form-item>
     <el-form-item>
@@ -33,7 +29,7 @@ export default {
       rules: {
         title: [{ required: true, trigger: 'blur' }],
       },
-      detail: { ...this.$store.state.article.detail },// TODO: 这里有点hack了吧，有没有其他方式？
+      detail: { ...this.$store.state.article.detail }, // TODO: 这里有点hack了吧，有没有其他方式？
     };
   },
   computed: {
@@ -46,14 +42,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           const { _id, title, content } = this.detail;
-          this.$store
-            .dispatch('article/updateArt', { _id, title, content })
-            .then(res => {
-              this.$message({
-                message: res.msg,
-                type: 'success',
-              });
-            });
+          this.$store.dispatch('article/updateArt', { _id, title, content });
         } else {
           return false;
         }

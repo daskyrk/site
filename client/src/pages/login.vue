@@ -42,10 +42,6 @@ export default {
         if (valid) {
           this.$store.dispatch('user/login', this.form).then(res => {
             this.$router.push(this.$route.query.redirectTo || '/');
-            this.$message({
-              message: res.msg,
-              type: res.code === 1 ? 'success' : 'warning',
-            });
           });
         } else {
           return false;

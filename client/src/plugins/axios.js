@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { encode } from 'querystring';
+import { Message } from 'element-ui';
 import config from '../config';
 
 axios.defaults.baseURL = config.BASE_URL;
@@ -14,12 +15,11 @@ export default ({ app, store, redirect }) => {
   axios.interceptors.response.use(
     function(response) {
       const data = response.data;
-      // if (data) {
-      //   app.$message({
-      //     message: data.msg,
-      //     type: data.code === 1 ? 'success' : 'warning',
-      //   });
-      // }
+      if (data) {
+        Message[data.code === 1 ? 'success' : 'warning']({
+          message: data.msg,
+        });
+      }
       return response;
     },
     function(error) {

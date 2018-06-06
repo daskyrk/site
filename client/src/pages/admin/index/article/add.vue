@@ -105,7 +105,6 @@ export default {
     ]);
 
     this.qn.token = this.$store.state.uploadToken;
-
   },
   // fetch({ store }) {
   //   return store.dispatch('tag/getTags');
@@ -144,12 +143,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$store.dispatch('article/addArt', this.form).then(res => {
-            this.$message({
-              message: res.msg,
-              type: 'success',
-            });
-          });
+          this.$store.dispatch('article/addArt', this.form);
         } else {
           return false;
         }
