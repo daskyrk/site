@@ -22,8 +22,8 @@ router
 
 	.get('/tag', controller.tag.getTags)
 	.post('/tag', controller.tag.addTag)
-	.put('/tag', controller.tag.updateTag)
-	.delete('/tag', controller.tag.delTag)
+	.put('/tag/:id', controller.tag.updateTag)
+	.delete('/tag/:id', controller.tag.delTag)
 
 	.get('/uploadToken', controller.upload.getToken)
 

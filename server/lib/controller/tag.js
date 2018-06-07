@@ -3,10 +3,11 @@ const Tag = require('../model/tag');
 const { handleError, handleResult } = require('../utils/handle');
 
 exports.getTags = async ctx => {
-  const { pageNo } = ctx.query;
+  const { pageNo, pageSize } = ctx.query;
   const querys = {};
   const options = {
-    page: pageNo,
+    page: Number(pageNo),
+    limit: Number(pageSize),
   };
 
   const result = await Tag.paginate(querys, options).catch(

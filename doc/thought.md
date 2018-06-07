@@ -75,15 +75,6 @@
 },
 ```
 所以，要想直接通过/admin这一层来控制所有子路由权限，就必须建立index目录，把其他文件都放到这个目录下，否则展开时就需要在每个文件中都进行权限控制
-9. 在components中配置首字母大写的组件时，可以使用中横线分开的名称：
-```javascript
-  components: {
-    ElFormRenderer,
-  },
-
-  // 使用：
-  <el-form-renderer />
-```
 
 
 ### 遇到的坑

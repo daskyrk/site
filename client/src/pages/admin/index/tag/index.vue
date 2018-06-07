@@ -1,41 +1,38 @@
 <template>
-  <div class="tags">
+  <div class="list">
     <div>
-
-      <dialog-form title="标签" dialogVisible="true" :fields="fields" :onOk="this.onOk" />
-      <!-- <div class="search">
-        <el-input v-model="keyword" placeholder="name..." @keyup.enter.native="getData" icon="search" :on-icon-click="getData" size="small"></el-input>
-      </div> -->
+      <el-button type="primary" size="medium" @click="showDialog('添加标签')">添加</el-button>
+      <dialog-form :title="dialogTitle" :dialogVisible="dialogVisible" :fields="fields" :fieldsValue="fieldsValue" :onOk="onOk" :onCancel="onCancel" :onClose="onClose">
+      </dialog-form>
     </div>
+
     <div class="table">
-      <el-table :data="tags" style="width: 100%" v-loading="fetch">
-        <el-table-column label="名称" width="160" label-class-name="head" show-overflow-tooltip>
+      <el-table :data="list" style="width: 100%" v-loading="fetch">
+        <el-table-column label="名称" width="160">
           <template slot-scope="scope">
-            <i class="iconfont icon-tag mar"></i>
+            <i class="iconfont icon-tag"></i>
             {{ scope.row.name }}
           </template>
         </el-table-column>
-        <el-table-column label="描述" min-width="320" label-class-name="head">
+        <el-table-column label="描述" show-overflow-tooltip>
           <template slot-scope="scope">
-            <i class="iconfont icon-descript mar"></i>
+            <i class="iconfont icon-description"></i>
             {{ scope.row.descript }}
           </template>
         </el-table-column>
-        <el-table-column prop="count" label="文章" width="80" label-class-name="head">
-        </el-table-column>
-        <el-table-column label="操作" width="240" label-class-name="head">
+        <el-table-column label="操作" width="240">
           <template slot-scope="scope">
-            <el-button type="info" size="small" @click="editTag(scope.row)">修改</el-button>
-            <el-button type="danger" size="small" @click="deleteTag(scope.row)" :disabled="scope.row.deleteing">{{ scope.row.deleteing ? '删除中' : '删 除' }}</el-button>
-            <el-button type="text" class="darg" size="small">
-              <i class="iconfont icon-list"></i>
-            </el-button>
+            <el-button type="info" size="small" @click="showDialog('修改标签', scope.row)">修改</el-button>
+            <el-button type="danger" size="small" @click="deleteTag(scope.row)" :disabled="scope.row._id === deleteId">{{ scope.row._id === deleteId ? '删除中' : '删 除' }}</el-button>
+            <!-- <el-button type="text" class="darg" size="small">
+              <i class="iconfont icon-drag"></i>
+            </el-button> -->
           </template>
         </el-table-column>
       </el-table>
 
       <div class="pagination">
-        <el-pagination :current-page="currentPage" layout="prev, pager, next" :page-size="16" @current-change="pageChange" :total="total">
+        <el-pagination :current-page="query.pageNo" background layout="prev, pager, next" :page-size="query.pageSize" @current-change="pageChange" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -45,6 +42,7 @@
 
 <script>
 import DialogForm from '~/components/common/dialog-form';
+import { mapState } from 'vuex';
 
 export default {
   meta: {
@@ -54,12 +52,16 @@ export default {
   components: {
     DialogForm,
   },
+
+  fetch({ store }) {
+    return store.dispatch('tag/getTags');
+  },
+
   data() {
     return {
       fetch: false,
-      tags: this.$store.state.tag.tags,
-      total: 0,
-      currentPage: this.$store.state.tag.pagination.pageNo,
+      dialogVisible: false,
+      dialogTitle: '',
       fields: [
         {
           $id: 'name',
@@ -81,14 +83,62 @@ export default {
           },
         },
       ],
+      fieldsValue: undefined,
+      addMode: true,
+      deleteId: null,
     };
   },
+
+  computed: mapState('tag', ['list', 'total', 'query']),
+
   methods: {
-    onOk(data) {
-      console.log('get data:', data);
-      this.$store.dispatch('tag/addTag', data);
+    pageChange(pageNo) {
+      this.$store.dispatch('tag/getTags', {
+        pageNo,
+      });
     },
-    pageChange(pageNo) {},
+    showDialog(title, data = null) {
+      this.addMode = !data;
+      this.dialogTitle = title;
+      this.fieldsValue = data;
+      this.dialogVisible = true;
+    },
+    onOk(data) {
+      if (this.addMode) {
+        this.$store.dispatch('tag/addTag', data);
+      } else {
+        this.$store.dispatch('tag/updateTag', data);
+      }
+      this.dialogVisible = false;
+    },
+    deleteTag(data) {
+      this.deleteId = data._id;
+      this.$store.dispatch('tag/delTag', data._id).then(() => {
+        this.deleteId = null;
+      });
+    },
+    onCancel() {
+      this.dialogVisible = false;
+    },
+    onClose() {
+      this.dialogVisible = false;
+    },
   },
 };
 </script>
+
+<style lang="scss">
+.table {
+  i {
+    margin-right: 5px;
+  }
+}
+
+.pagination {
+  margin-top: 10px;
+  .el-pagination {
+    float: right;
+  }
+}
+</style>
+

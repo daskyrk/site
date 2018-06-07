@@ -18,9 +18,9 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-            <nuxt-link to='/'>前台</nuxt-link>
+            <nuxt-link to='/'><span class="header-operation"><i class="iconfont icon-switch"></i>前台</span></nuxt-link>
           </el-dropdown-item>
-          <el-dropdown-item command="logout">登出</el-dropdown-item>
+          <el-dropdown-item command="logout"><span class="header-operation"><i class="iconfont icon-logout"></i>登出</span></el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -64,6 +64,15 @@ export default {
     height: 40px;
     border-radius: 100%;
     margin-right: 1rem;
+  }
+
+}
+
+.header-operation {
+  display: flex;
+  align-items: center;
+  i {
+    margin-right: 10px;
   }
 }
 </style>
