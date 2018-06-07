@@ -88,7 +88,7 @@ export default {
       });
     },
     editArt(row) {
-      this.$route.push(`/admin/article/${row._id}`);
+      this.$router.push(`/admin/article/${row._id}`);
     },
     deleteArt(row) {
       this.$store.dispatch('article/delArt', row._id);
