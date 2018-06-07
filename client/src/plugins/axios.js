@@ -24,9 +24,9 @@ export default ({ app, store, redirect }) => {
 
   axios.interceptors.response.use(
     function(response) {
-      const { data, request } = response.data;
+      const { data, config } = response;
       // get请求不展示消息
-      if (data && request.method !== 'GET') {
+      if (data && config.method !== 'get') {
         Message[data.code === 1 ? 'success' : 'warning']({
           message: data.msg,
         });
