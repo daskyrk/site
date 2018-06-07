@@ -37,20 +37,22 @@
       </el-form-item>
       <el-form-item label="公开" label-width="90px" style="margin-bottom: 22px;">
         <el-radio-group v-model="form.publish" size="small">
-          <el-radio-button :label="1">公开</el-radio-button>
-          <el-radio-button :label="2">私密</el-radio-button>
+          <el-radio-button :label="true">公开</el-radio-button>
+          <el-radio-button :label="false">私密</el-radio-button>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="缩略图" label-width="90px" style="margin-bottom: 22px;">
-        <el-input type='hidden' v-model="form.thumb" />
+        <el-input style="display: none" v-model="form.thumb" />
         <!-- <el-input v-model="form.thumb" size="small" class="link"></el-input> -->
-        <el-upload class="avatar-uploader" action="https://up.qbox.me/" :data='qn' :show-file-list="false" :before-upload="beforeThumbUpload" :on-success="handleUploadSuccess" :on-progress="handleUploadPro" :on-error="handleUploadError">
+        <el-upload class="uploader" action="https://up.qbox.me/" :data='qn' :show-file-list="false" :before-upload="beforeThumbUpload" :on-success="handleUploadSuccess" :on-progress="handleUploadPro" :on-error="handleUploadError">
           <img v-if="form.thumb" :src="form.thumb" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          <i v-else class="el-icon-plus uploader-icon"></i>
         </el-upload>
         <el-progress :percentage="percent" v-if="percent > 0 && percent < 100"></el-progress>
 
       </el-form-item>
+      <!-- <el-select v-model="form.keywords" multiple filterable allow-create default-first-option placeholder="请选择文章标签">
+      </el-select> -->
 
       <el-form-item>
         <el-button type="primary" @click="submitForm('form')">提交</el-button>
@@ -61,6 +63,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   meta: {
     breadcrumb: '添加文章',
@@ -78,10 +82,10 @@ export default {
         token: '',
         key: '',
       },
-      tags: this.$store.state.tag.tags,
       form: {
         title: '',
         keyword: '',
+        // keywords: [],
         content: '',
         publish: true,
         type: 1,
@@ -91,13 +95,16 @@ export default {
       },
       rules: {
         title: [{ required: true, trigger: 'blur' }],
-        keyword: [{ required: true, trigger: 'blur' }],
         content: [{ required: true, trigger: 'blur' }],
         publish: [{ required: true, trigger: 'blur' }],
       },
     };
   },
-  // TODO: 这里为何不能用asyncData ？
+
+  computed: mapState({
+    tags: state => state.tag.list,
+  }),
+
   async created() {
     await Promise.all([
       this.$store.dispatch('tag/getTags'),
@@ -106,9 +113,7 @@ export default {
 
     this.qn.token = this.$store.state.uploadToken;
   },
-  // fetch({ store }) {
-  //   return store.dispatch('tag/getTags');
-  // },
+
   methods: {
     handleUploadSuccess() {
       this.form.thumb = `http://p9uqlanms.bkt.clouddn.com/${this.qn.key}`;
@@ -143,6 +148,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
+          console.log('this.form:', this.form);
           this.$store.dispatch('article/addArt', this.form);
         } else {
           return false;
@@ -157,17 +163,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
+.uploader {
+  > div {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    &:hover {
+      border-color: #409eff;
+    }
+  }
 }
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
+
+.uploader-icon {
   font-size: 28px;
   color: #8c939d;
   width: 178px;
