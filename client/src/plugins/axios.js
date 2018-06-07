@@ -10,12 +10,23 @@ axios.defaults.transformRequest = [
   },
 ];
 
-// plugin在每次server render时都会注册一次，这里只要注册一次就行，所以判断一下
+// plugin在每次server render时都会注册一次，所以必须是纯函数，不能修改返回值。。
 export default ({ app, store, redirect }) => {
+  axios.interceptors.request.use(
+    function(config) {
+      config.headers.Authorization = `Bearer ${store.state.user.token || ''}}`
+      return config;
+    },
+    function(error) {
+      return Promise.reject(error);
+    },
+  );
+
   axios.interceptors.response.use(
     function(response) {
-      const data = response.data;
-      if (data) {
+      const { data, request } = response.data;
+      // get请求不展示消息
+      if (data && request.method !== 'GET') {
         Message[data.code === 1 ? 'success' : 'warning']({
           message: data.msg,
         });
