@@ -4,7 +4,7 @@
       <el-button type="primary">添加文章</el-button>
     </nuxt-link>
 
-    <el-table :data="list" style="width: 100%">
+    <el-table :data="list" v-loading="fetch" style="width: 100%">
 
       <el-table-column type="expand">
         <template slot-scope="props">
@@ -21,91 +21,81 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column label="标题" width="180">
+      <el-table-column label="标题">
         <template slot-scope="scope">
           {{ scope.row.title }}
         </template>
       </el-table-column>
       <el-table-column label="发布日期" width="180">
         <template slot-scope="scope">
-          {{ scope.row.createdAt }}
+          {{ scope.row.createdAt | dateFormat('YYYY.MM.DD') }}
         </template>
       </el-table-column>
-      <el-table-column label="分类">
+      <el-table-column label="分类" width="180">
         <template slot-scope="scope">
           {{ scope.row.type }}
         </template>
       </el-table-column>
-      <el-table-column label="公开">
+      <el-table-column label="公开" width="180">
         <template slot-scope="scope">
           {{ scope.row.publish ? '公开' : '私密' }}
         </template>
       </el-table-column>
-      <el-table-column label="状态">
+      <el-table-column label="状态" width="180">
         <template slot-scope="scope">
           {{ scope.row.state === 1 ? '发布' : '草稿' }}
         </template>
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button type="info" size="small" @click="editArt(scope.row)">修改</el-button>
+          <el-button type="danger" size="small" @click="deleteArt(scope.row)" :loading="scope.row._id === deletingId">{{ scope.row._id === deletingId ? '删除中' : '删 除' }}</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination @current-change="handleCurrentChange" :current-page="currentPage" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
-    </el-pagination>
+    <div class="pagination">
+      <el-pagination @current-change="pageChange" :current-page="query.pageNo" :page-size="query.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
 <script>
-import articleView from '~/components/common/article';
+import { mapState } from 'vuex';
 
 export default {
   meta: {
     breadcrumb: '文章管理',
   },
 
-  data() {
-    return {
-      currentPage: this.$store.state.article.pagination.pageNo,
-    };
-  },
-
   fetch({ store }) {
     return store.dispatch('article/getArtList');
   },
 
-  computed: {
-    list() {
-      return this.$store.state.article.list;
-    },
-    total() {
-      return this.$store.state.article.total;
-    },
+  data() {
+    return {
+      deletingId: null,
+    };
   },
 
+  computed: mapState('article', ['fetch', 'list', 'total', 'query']),
+
   methods: {
-    handleCurrentChange(pageNo) {
+    pageChange(pageNo) {
       this.$store.dispatch('article/getArtList', {
         pageNo,
         type: 1,
       });
     },
-    handleEdit(row) {
+    editArt(row) {
       this.$route.push(`/admin/article/${row._id}`);
     },
-  },
-
-  components: {
-    articleView,
+    deleteArt(row) {
+      this.$store.dispatch('article/delArt', row._id);
+    },
   },
 };
 </script>
 
 <style lang='scss' scoped>
-.article-list {
-  min-width: 38rem;
-  width: 60%;
-}
 </style>
