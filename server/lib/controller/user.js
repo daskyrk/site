@@ -48,7 +48,7 @@ exports.login = async ctx => {
 };
 
 exports.getUser = async ctx => {
-  const { username, password } = ctx.query;
+  const { username } = ctx.query;
 
   const result = await User.findOne({
     username,

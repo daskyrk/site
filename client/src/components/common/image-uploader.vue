@@ -1,6 +1,6 @@
 <template>
   <el-upload class="uploader" v-bind="upProps">
-    <img v-if="src" :src="src">
+    <img v-if="imageSrc" :src="imageSrc">
     <i v-else class="el-icon-plus uploader-icon"></i>
     <el-progress :show-text="false" :percentage="percent" v-if="progressVisible"></el-progress>
   </el-upload>
@@ -12,6 +12,7 @@ function noop() {}
 export default {
   props: {
     uploadProps: Object,
+    src: String,
 
     onSuccess: Function,
     onError: Function,
@@ -24,7 +25,6 @@ export default {
         key: '',
       },
       bucketUrl: this.bucketUrl || 'http://p9uqlanms.bkt.clouddn.com',
-      src: this.src || '',
       percent: 0,
       allowTypes: ['image/jpeg', 'image/png', 'image/gif'],
       limit: this.limit || 2,
@@ -44,6 +44,9 @@ export default {
         onProgress: this.handleProgress,
         onError: this.handleError,
       };
+    },
+    imageSrc() {
+      return this.src || '';
     },
     progressVisible() {
       return this.percent > 0 && this.percent < 100;

@@ -16,7 +16,7 @@
         </el-col>
         <el-col :span="7" :offset="1">
           <el-form-item class="img-item" prop="avatar">
-            <image-uploader :onSuccess="onSuccess" />
+            <image-uploader :onSuccess="onSuccess" :src="userForm.avatar" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -26,8 +26,8 @@
       <el-form-item label="邮箱" prop="email">
         <el-input type="email" v-model="userForm.email"></el-input>
       </el-form-item>
-      <el-form-item label="新密码" prop="password">
-        <el-input type="password" v-model="userForm.password" auto-complete="off" :maxlength="20" placeholder="新密码"></el-input>
+      <el-form-item label="新密码" prop="newPassword">
+        <el-input type="password" v-model="userForm.newPassword" auto-complete="off" :maxlength="20" placeholder="新密码"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkPass">
         <el-input type="password" v-model="userForm.checkPass" auto-complete="off" :maxlength="20" placeholder="确认密码" @keyup.enter.native="submit('userForm')"></el-input>
@@ -52,14 +52,14 @@ export default {
     ImageUploader,
   },
 
-  // fetch({ store }) {
-  //   store.dispatch('user/getUserInfo');
-  // },
+  fetch({ store }) {
+    store.dispatch('user/getUserInfo');
+  },
 
   data() {
     const checkPassComfirm = (rule, value, callback) => {
       let msg = null;
-      if (value !== this.userForm.password) {
+      if (value !== this.userForm.newPassword) {
         msg = '两次输入密码不一致!';
       }
       if (msg) {
@@ -70,15 +70,6 @@ export default {
     };
     return {
       savingUser: false,
-      userForm: {
-        username: '',
-        nick: '',
-        slogan: '',
-        avatar: '',
-        email: '',
-        password: '',
-        checkPass: '',
-      },
       userRules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -90,10 +81,25 @@ export default {
             trigger: ['blur', 'change'],
           },
         ],
-        password: [{ min: 6, message: '密码至少6位', trigger: 'blur' }],
+        newPassword: [{ min: 6, message: '密码至少6位', trigger: 'blur' }],
         checkPass: [{ validator: checkPassComfirm, trigger: 'blur' }],
       },
     };
+  },
+
+  computed: {
+    userForm() {
+      return {
+        username: '',
+        nick: '',
+        slogan: '',
+        avatar: '',
+        email: '',
+        newPassword: '',
+        checkPass: '',
+        ...this.$store.state.user.userInfo,
+      };
+    },
   },
 
   methods: {

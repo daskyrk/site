@@ -1,5 +1,6 @@
 import * as userService from '../api/user';
 import Cookie from 'js-cookie';
+import { getLS, setLS } from '../utils';
 
 export default {
   state() {
@@ -53,24 +54,27 @@ export default {
         commit('LOGIN_SUCCESS', res.result.userInfo);
         commit('SET_TOKEN', res.result.token);
         Cookie.set('Authorization', res.result.token);
+        Cookie.set('username', res.result.userInfo.username);
+        // setLS('userInfo', res.result.userInfo);
       } else {
         commit('LOGIN_FAIL');
       }
       return res;
     },
 
-    // async getUserInfo({ commit, state }, data) {
-    //   const res = await userService.getUserInfo(data);
+    async getUserInfo({ commit, state }) {
+      // const userInfo = getLS('userInfo');
+      const username = Cookie.get('username');
+      // if (!username) {
+      //   return Cookie.remove('Authorization');
+      // }
+      const res = await userService.getUserInfo(username);
 
-    //   if (res && res.code === 1) {
-    //     commit('LOGIN_SUCCESS', res.result.userInfo);
-    //     commit('SET_TOKEN', res.result.token);
-    //     Cookie.set('Authorization', res.result.token);
-    //   } else {
-    //     commit('LOGIN_FAIL');
-    //   }
-    //   return res;
-    // },
+      if (res && res.code === 1) {
+        commit('LOGIN_SUCCESS', res.result);
+      }
+      return res;
+    },
 
     async updateConfig({ commit, state }, data) {
       const res = await userService.updateConfig(data);
