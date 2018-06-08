@@ -19,7 +19,6 @@ exports.login = async ctx => {
   let result = await User.findOne({
     username,
   }).catch(logError({ ctx }));
-  let msg = '';
 
   if (result) {
     if (result.password === encrypt(password)) {
@@ -95,5 +94,24 @@ exports.delUser = async ctx => {
     result,
     success: '删除用户成功',
     fail: '删除用户失败',
+  });
+};
+
+exports.updateConfig = async ctx => {
+  const { username, password, ...rest } = ctx.request.body;
+
+  if (password !== '') {
+    rest.password = encrypt(password);
+  }
+
+  const result = await User.findOneAndUpdate({ username }, rest).catch(
+    logError({ ctx }),
+  );
+
+  handleResult({
+    ctx,
+    result,
+    success: '更新用户设置成功',
+    fail: '更新用户设置失败',
   });
 };

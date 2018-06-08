@@ -13,7 +13,9 @@ const UserSchema = new mongoose.Schema(
       match: /.{6,30}/,
     },
     nick: String,
+    slogan: String,
     avatar: String,
+    email: String,
   },
   {
     timestamps: true,

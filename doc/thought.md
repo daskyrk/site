@@ -83,7 +83,7 @@
 3. koa中`req`是Node的request对象，`request`才是koa包装过的request对象
 4. nuxt框架因为封装好了初始化逻辑，所以没法拿到vue实例对象
 5. 创建同构应用时，每次页面刷新，server端就会创建新的app实例，所以就会从新走一遍初始化流程，plugin也就会再次注册，但是axios插件里的逻辑只能注册一次，所以加了标记来处理重复注册的问题。
-6. scope类型的样式，会有匹配不到的问题：
+6. scope类型的样式，会有匹配不到的问题：[解决方案](https://vue-loader-v14.vuejs.org/zh-cn/features/scoped-css.html#%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E6%A0%B9%E5%85%83%E7%B4%A0)：`>>>` 或者`/deep/`
 ```scss
 
 .uploader {

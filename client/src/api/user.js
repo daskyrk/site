@@ -7,3 +7,7 @@ export function login(data) {
 // export function logout() {
 //   return ax.post('/logout');
 // }
+
+export function updateConfig(data) {
+  return ax.post('/user/updateConfig', data).then(resp => resp.data);
+}

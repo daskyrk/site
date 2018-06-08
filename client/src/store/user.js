@@ -47,9 +47,7 @@ export default {
   actions: {
     async login({ commit, state }, data) {
       commit('LOGIN_START');
-      const res = await userService
-        .login(data)
-        .catch(err => console.error(err));
+      const res = await userService.login(data);
 
       if (res && res.code === 1) {
         commit('LOGIN_SUCCESS', res.result.userInfo);
@@ -59,6 +57,23 @@ export default {
         commit('LOGIN_FAIL');
       }
       return res;
+    },
+
+    // async getUserInfo({ commit, state }, data) {
+    //   const res = await userService.getUserInfo(data);
+
+    //   if (res && res.code === 1) {
+    //     commit('LOGIN_SUCCESS', res.result.userInfo);
+    //     commit('SET_TOKEN', res.result.token);
+    //     Cookie.set('Authorization', res.result.token);
+    //   } else {
+    //     commit('LOGIN_FAIL');
+    //   }
+    //   return res;
+    // },
+
+    async updateConfig({ commit, state }, data) {
+      const res = await userService.updateConfig(data);
     },
 
     // async logout({ commit, state }, data) {
