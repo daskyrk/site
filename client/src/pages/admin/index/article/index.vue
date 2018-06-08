@@ -49,7 +49,7 @@
       <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
           <el-button type="info" size="small" @click="editArt(scope.row)">修改</el-button>
-          <el-button type="danger" size="small" @click="deleteArt(scope.row)" :loading="scope.row._id === deletingId">{{ scope.row._id === deletingId ? '删除中' : '删 除' }}</el-button>
+          <el-button type="danger" size="small" @click="deleteArt(scope.row)" :loading="isDeleting(scope.row)">{{ isDeleting(scope.row) ? '删除中' : '删 除' }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -92,6 +92,9 @@ export default {
     },
     deleteArt(row) {
       this.$store.dispatch('article/delArt', row._id);
+    },
+    isDeleting(row) {
+      return row._id === this.deletingId;
     },
   },
 };

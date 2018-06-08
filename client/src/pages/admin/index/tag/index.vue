@@ -23,7 +23,7 @@
         <el-table-column label="操作" width="240">
           <template slot-scope="scope">
             <el-button type="info" size="small" @click="showDialog('修改标签', scope.row)">修改</el-button>
-            <el-button type="danger" size="small" @click="deleteTag(scope.row)" :loading="scope.row._id === deletingId">{{ scope.row._id === deletingId ? '删除中' : '删 除' }}</el-button>
+            <el-button type="danger" size="small" @click="deleteTag(scope.row)" :loading="isDeleting(scope.row) ">{{ isDeleting(scope.row) ? '删除中' : '删 除' }}</el-button>
             <!-- <el-button type="text" class="darg" size="small">
               <i class="iconfont icon-drag"></i>
             </el-button> -->
@@ -116,6 +116,9 @@ export default {
       this.$store.dispatch('tag/delTag', data._id).then(() => {
         this.deletingId = null;
       });
+    },
+    isDeleting(row) {
+      return row._id === this.deletingId;
     },
     onCancel() {
       this.dialogVisible = false;
