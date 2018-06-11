@@ -18,13 +18,10 @@ export default {
     GET_ART_LIST(state, { list, total }) {
       state.list = list;
       state.total = total;
-      if (list.length) {
-        state.detail = list[0];
-      }
       state.fetch = false;
     },
 
-    GET_ART_DETAIL(state, data) {
+    SET_ART_DETAIL(state, data) {
       state.detail = data;
     },
 
@@ -58,7 +55,7 @@ export default {
       commit('FETCH_ART_START');
       const res = await articleService.getArt(id);
       if (res && res.code === 1) {
-        commit('GET_ART_DETAIL', res.result);
+        commit('SET_ART_DETAIL', res.result);
       } else commit('FETCH_ART_END');
     },
 

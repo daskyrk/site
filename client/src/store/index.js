@@ -23,7 +23,7 @@ export default {
     async getUploadToken({ commit }) {
       const res = await service.getUploadToken();
       if (res && res.code === 1) {
-        commit('GET_UPLOAD_TOKEN', res.result);
+        commit('SET_UPLOAD_TOKEN', res.result);
       }
     },
   },
@@ -32,7 +32,7 @@ export default {
       state.breadcrumb = data;
     },
 
-    GET_UPLOAD_TOKEN(state, data) {
+    SET_UPLOAD_TOKEN(state, data) {
       state.uploadToken = data;
     },
   },
