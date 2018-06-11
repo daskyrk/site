@@ -21,8 +21,8 @@ export default {
     };
   },
 
-  fetch({ store }) {
-    return store.dispatch('article/getArtList');
+  async fetch({ store }) {
+    await store.dispatch('article/getArtList');
   },
 
   computed: {

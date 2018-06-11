@@ -53,8 +53,8 @@ export default {
     DialogForm,
   },
 
-  fetch({ store }) {
-    return store.dispatch('tag/getTags');
+  async fetch({ store }) {
+    await store.dispatch('tag/getTags');
   },
 
   data() {

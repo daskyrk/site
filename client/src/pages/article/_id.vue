@@ -13,8 +13,8 @@ export default {
     };
   },
 
-  fetch({ store, params }) {
-    return store.dispatch('article/getArt', params.id);
+  async fetch({ store, params }) {
+    await store.dispatch('article/getArt', params.id);
   },
 };
 </script>

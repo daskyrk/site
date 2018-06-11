@@ -52,8 +52,8 @@ export default {
     ImageUploader,
   },
 
-  fetch({ store }) {
-    store.dispatch('user/getUserInfo');
+  async fetch({ store }) {
+    await store.dispatch('user/getUserInfo');
   },
 
   data() {

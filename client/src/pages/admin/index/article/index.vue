@@ -68,8 +68,8 @@ export default {
     breadcrumb: '文章管理',
   },
 
-  fetch({ store }) {
-    return store.dispatch('article/getArtList');
+  async fetch({ store }) {
+    await store.dispatch('article/getArtList');
   },
 
   data() {
