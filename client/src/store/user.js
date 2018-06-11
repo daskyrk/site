@@ -64,6 +64,7 @@ export default {
 
     async getUserInfo({ commit, state }) {
       // const userInfo = getLS('userInfo');
+      // FIXME: username没有拿到
       const username = Cookie.get('username');
       // if (!username) {
       //   return Cookie.remove('Authorization');

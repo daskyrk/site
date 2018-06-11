@@ -104,6 +104,7 @@ export default {
       tags: state => state.tag.list,
     }),
     form() {
+      // FIXME: 无法更新checkbox和radio
       return {
         ...this.formData,
         ...(this.detail || {}),
