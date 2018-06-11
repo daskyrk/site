@@ -85,8 +85,7 @@ export default {
     },
 
     handleSuccess() {
-      this.src = `${this.bucketUrl}/${this.qn.key}`;
-      (this.onSuccess || noop)(this.src);
+      (this.onSuccess || noop)(`${this.bucketUrl}/${this.qn.key}`);
     },
 
     handleError(res) {
