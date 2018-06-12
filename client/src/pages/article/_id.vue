@@ -1,12 +1,12 @@
 <template>
-  <div class="article">
-    {{detail}}
+  <div class="article" v-html="marked(detail.content)">
   </div>
 </template>
 
 
 <script>
 import { mapState } from 'vuex';
+import markdown from '~/plugins/marked';
 
 export default {
   computed: mapState('article', ['detail']),
@@ -14,13 +14,16 @@ export default {
   async fetch({ store, params }) {
     await store.dispatch('article/getArt', params.id);
   },
+  methods: {
+    marked(content) {
+      return markdown(content);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .article {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 50%;
 }
 </style>

@@ -34,6 +34,7 @@ module.exports = {
     },
     vendor: [
       'axios',
+      'marked',
       // '~/utils',
     ],
   },
@@ -84,6 +85,7 @@ module.exports = {
     '~/plugins/filter.js',
     '~/plugins/element-ui.js',
     '~/plugins/axios.js',
+    '~/plugins/marked.js',
   ],
   // loading: '~/components/loading.vue',
   router: {
