@@ -1,13 +1,9 @@
 <template>
   <div class="article-list">
-    <articleView :list="list" @loadMore='loadMore'/>
-    <el-pagination
-      @current-change="handleCurrentChange"
-      :current-page="currentPage"
-      :page-size="10"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
+    <articleView :list="list" @loadMore='loadMore' />
+    <el-pagination @current-change="handleCurrentChange" :current-page="query.pageNo" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
     </el-pagination>
+
   </div>
 </template>
 
@@ -16,17 +12,12 @@ import { mapState } from 'vuex';
 import articleView from '~/components/common/article';
 
 export default {
-  data() {
-    return {
-      currentPage: this.$store.state.article.query.pageNo,
-    };
-  },
 
   async fetch({ store }) {
     await store.dispatch('article/getArtList');
   },
 
-  computed: mapState('article',['list', 'total']),
+  computed: mapState('article', ['list', 'total', 'query']),
 
   methods: {
     loadMore() {

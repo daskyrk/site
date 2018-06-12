@@ -6,12 +6,10 @@
 
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
-  data() {
-    return {
-      detail: this.$store.state.article.detail,
-    };
-  },
+  computed: mapState('article', ['detail']),
 
   async fetch({ store, params }) {
     await store.dispatch('article/getArt', params.id);
