@@ -6,7 +6,7 @@ exports.navs = [
     text: '诗歌'
   },
   {
-    link: '/note',
+    link: '/article',
     text: '随笔'
   },
   {

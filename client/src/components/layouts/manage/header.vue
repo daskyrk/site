@@ -18,9 +18,17 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-            <nuxt-link to='/'><span class="header-operation"><i class="iconfont icon-switch"></i>前台</span></nuxt-link>
+            <nuxt-link to='/'>
+              <span class="header-operation">
+                <i class="iconfont icon-switch"></i>前台
+              </span>
+            </nuxt-link>
           </el-dropdown-item>
-          <el-dropdown-item command="logout"><span class="header-operation"><i class="iconfont icon-logout"></i>登出</span></el-dropdown-item>
+          <el-dropdown-item command="logout">
+            <span class="header-operation">
+              <i class="iconfont icon-logout"></i>登出
+            </span>
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -55,6 +63,7 @@ export default {
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
+  z-index: 9;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
@@ -65,7 +74,6 @@ export default {
     border-radius: 100%;
     margin-right: 1rem;
   }
-
 }
 
 .header-operation {

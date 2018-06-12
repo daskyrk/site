@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import VueSimplemde from 'vue-simplemde'
+import mavonEditor from 'mavon-editor'
 
-Vue.use(VueSimplemde)
+Vue.use(mavonEditor)

@@ -14,7 +14,7 @@
       </el-form-item>
       <el-form-item label="内容" prop="content">
         <no-ssr>
-          <markdown-editor v-model="form.content" :configs="mdConfigs" :highlight="true"></markdown-editor>
+          <mavon-editor v-model="form.content"/>
         </no-ssr>
       </el-form-item>
     </el-col>
@@ -77,12 +77,7 @@ export default {
 
   data() {
     return {
-      mdConfigs: {
-        status: false,
-        indentWithTabs: false,
-        spellChecker: false,
-      },
-      formData: {
+      form: {
         title: '',
         keyword: '',
         tags: [],
@@ -91,6 +86,7 @@ export default {
         type: 1,
         state: 1,
         thumb: '',
+        ...this.detail,
       },
       rules: {
         title: [{ required: true, trigger: 'blur' }],
@@ -103,12 +99,11 @@ export default {
     ...mapState({
       tags: state => state.tag.list,
     }),
-    form() {
-      // FIXME: 无法更新checkbox和radio
-      return {
-        ...this.formData,
-        ...(this.detail || {}),
-      };
+  },
+
+  watch: {
+    detail(val, oldVal) {
+      this.form = { ...this.form, ...val };
     },
   },
 

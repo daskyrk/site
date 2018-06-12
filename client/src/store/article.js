@@ -78,7 +78,7 @@ export default {
     },
 
     // 删除文章
-    async delArt({ commit, dispatch }, _id) {
+    async delArt({ commit, dispatch, state }, _id) {
       const res = await articleService.delArt(_id);
       if (res.code === 1) {
         let pageNo = state.query.pageNo;

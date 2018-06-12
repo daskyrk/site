@@ -12,12 +12,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import articleView from '~/components/common/article';
 
 export default {
   data() {
     return {
-      currentPage: this.$store.state.article.pagination.pageNo,
+      currentPage: this.$store.state.article.query.pageNo,
     };
   },
 
@@ -25,14 +26,7 @@ export default {
     await store.dispatch('article/getArtList');
   },
 
-  computed: {
-    list() {
-      return this.$store.state.article.list;
-    },
-    total() {
-      return this.$store.state.article.total;
-    },
-  },
+  computed: mapState('article',['list', 'total']),
 
   methods: {
     loadMore() {

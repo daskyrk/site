@@ -29,6 +29,7 @@ export default {
 .manage-layout {
   height: 100vh;
   display: flex;
+  overflow: hidden;
 }
 
 .manage-main {

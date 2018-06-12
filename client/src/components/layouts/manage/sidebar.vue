@@ -29,8 +29,6 @@ export default {
       menus: process.env.adminMenus,
     };
   },
-  methods: {
-  },
 };
 </script>
 
@@ -91,6 +89,9 @@ $sidebar-text-hover: $white;
   flex: 1;
   width: 100%;
   text-align: center;
+  > li {
+    margin-top: 10px;
+  }
   .menu-item {
     overflow: hidden;
     padding-left: 40px;
