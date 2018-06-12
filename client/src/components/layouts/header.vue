@@ -22,7 +22,7 @@ export default {
     return {
       keyword: '',
       navs: process.env.navs,
-      hide: true,
+      hide: false,
     };
   },
 
