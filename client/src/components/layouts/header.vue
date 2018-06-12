@@ -1,41 +1,60 @@
 <template>
-  <header>
+  <header :class="{ hide }">
     <div class="header-left">
       <nav>
-        <nuxt-link v-for="(nav, index) in navs"
-          :key='index'
-          :to='nav.link'
-          exact>
+        <nuxt-link v-for="(nav, index) in navs" :key='index' :to='nav.link' exact>
           {{nav.text}}
         </nuxt-link>
 
       </nav>
     </div>
     <div class="header-right">
-      <input
-        type="text"
-        class="header-search"
-        maxlength="10"
-        v-model='keyword'
-        @keyup.enter='search'>
+      <input type="text" class="header-search" maxlength="10" v-model='keyword' @keyup.enter='search'>
     </div>
   </header>
 </template>
 
 <script>
+import _ from 'lodash';
+
 export default {
   data() {
     return {
       keyword: '',
-      navs: process.env.navs
+      navs: process.env.navs,
+      hide: true,
     };
   },
 
   methods: {
     search(e) {
       console.log('search:', e.target.value);
-    }
-  }
+    },
+    getScrollTop() {
+      return (
+        document.documentElement.scrollTop ||
+        window.pageYOffset ||
+        window.scrollY ||
+        document.body.scrollTop
+      );
+    },
+  },
+
+  mounted() {
+    let scrollTop = this.getScrollTop();
+    this.onScroll = _.throttle(() => {
+      const t = this.getScrollTop();
+      this.hide = t > scrollTop;
+      setTimeout(() => {
+        scrollTop = t;
+      }, 0);
+    }, 300);
+    window.addEventListener('scroll', this.onScroll);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.onScroll);
+  },
 };
 </script>
 
@@ -53,6 +72,11 @@ header {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid $grey;
+  transition: transform 0.2s;
+
+  &.hide {
+    transform: translateY(-100%);
+  }
 
   nav {
     a {
