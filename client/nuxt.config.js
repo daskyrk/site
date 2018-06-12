@@ -3,21 +3,22 @@ module.exports = {
   build: {
     cache: {
       max: 1000,
-      maxAge: 900000
+      maxAge: 900000,
     },
     babel: {
       presets: ['es2015', 'stage-2'],
       plugins: [
         'transform-async-to-generator',
         'transform-runtime',
+        'lodash',
         [
-          "component",
+          'component',
           {
-            "libraryName": "element-ui",
-            "styleLibraryName": "theme-chalk"
-          }
+            libraryName: 'element-ui',
+            styleLibraryName: 'theme-chalk',
+          },
         ],
-      ]
+      ],
     },
     postcss: [
       require('postcss-nested')(),
@@ -67,7 +68,7 @@ module.exports = {
   },
   dev: process.env.NODE_ENV !== 'production',
   css: [
-    'simplemde/dist/simplemde.min.css',
+    'mavon-editor/dist/css/index.css',
     '~/style/index.scss',
     'element-ui/lib/theme-chalk/index.css',
   ],
