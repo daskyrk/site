@@ -38,7 +38,7 @@
       </el-table-column>
       <el-table-column label="公开" width="180">
         <template slot-scope="scope">
-          {{ scope.row.publish ? '公开' : '私密' }}
+          {{ scope.row.public ? '公开' : '私密' }}
         </template>
       </el-table-column>
       <el-table-column label="状态" width="180">
