@@ -62,7 +62,7 @@ export default {
   align-items: center;
   min-height: 180px;
   margin-bottom: 3rem;
-  color: $dark;
+  color: $color-text;
   border: 1px solid $color-border;
 
   .meta {

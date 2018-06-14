@@ -48,7 +48,6 @@ $sidebar-text-hover: $white;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  border-right: 1px solid $grey;
   transition: width 0.3s;
   i {
     font-size: 18px;

@@ -1,14 +1,53 @@
-// color
-$blue: #20A0FF;
-$green: #5ab95c;
-$grey: #ccc;
-$white: #fff;
-$darkgrey: #666;
-$dark: #292929;
+// Color palette
+$green: #72CB56;
+$cyan: #5BD6D0;
+$blue: #5294FA;
+$purple: #8570F7;
+$orange: #FA9548;
+$yellow: #FDCE4E;
+$red: #F35C6F;
+$black: #333;
+$lightblack: #666;
+$gray: #999;
+$lightgray: #A9A9A9;
+$lightnavy: #D3D3D3;
+$gainsboro: #CACACA;
+$platinum: #E5E9EE;
+$whitesmoke: #F5F5F5;
+$ghostwhite: #F8F8FF;
+$white: #FFF;
 
 // theme
 $color-primary: $blue;
-$color-disabled: $grey;
+
+// Color text
+$color-text: $black;
+$color-text-assist: $lightblack;
+$color-text-sub: $gray;
+$color-text-sub-assist: $lightgray;
+
+// Color link
+$color-link: $color-primary;
+$color-link-assist: $black;
+$color-link-sub: $lightgray;
+
+// Color border
+$color-border: $platinum;
+$color-border-hover: $color-primary;
+$color-border-light: $whitesmoke;
+$color-border-dark: $gray;
+
+// Color status
+$color-success: $green;
+$color-danger: $red;
+$color-warning: $orange;
+$color-info: $gainsboro;
+$color-active: $color-primary;
+$color-disabled: $gray;
+
+// Color decorator
+$color-hover: #F2F1FC;
+$color-background: $whitesmoke;
 
 // layout
 $header-height: 60px;
@@ -16,5 +55,11 @@ $footer-height: 60px;
 $manage-sidebar-open-width: 200px;
 $manage-sidebar-close-width: 72px;
 
-$color-border: #eee;
-$color-border-dark: $darkgrey;
+$radius: 4px;
+
+
+// font-sisze
+$font-size-base: 14px;
+$font-size-logo: 2rem;
+$font-size-large: 1.6rem;
+$font-size-small: .85rem;

@@ -109,11 +109,11 @@ export default {
     justify-content: center;
     overflow: hidden;
     transition: border-color 0.3s;
-    border: 1px dashed $grey;
+    border: 1px dashed $gray;
     border-radius: 6px;
     i {
       font-size: 28px;
-      color: $grey;
+      color: $gray;
       transition: color 0.3s;
     }
     img {

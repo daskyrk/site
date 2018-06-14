@@ -45,10 +45,8 @@ export default {
     this.onScroll = _.throttle(() => {
       const t = this.getScrollTop();
       this.hide = t > scrollTop;
-      setTimeout(() => {
-        scrollTop = t;
-      }, 0);
-    }, 300);
+      scrollTop = t;
+    }, 200);
     window.addEventListener('scroll', this.onScroll);
   },
 
@@ -71,7 +69,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid $grey;
+  border-bottom: 1px solid $gray;
   transition: transform 0.2s;
 
   &.hide {
@@ -81,8 +79,7 @@ header {
   nav {
     a {
       margin-right: 2rem;
-      color: $grey;
-
+      color: $gray;
       transition: color 0.3s;
     }
   }
@@ -91,9 +88,9 @@ header {
     border-radius: 30px;
     width: 80px;
     padding: 0 0.7rem;
-    border: 1px solid $grey;
+    border: 1px solid $gray;
     transition: all 0.2s;
-    color: $darkgrey;
+    color: $gray;
 
     &:focus {
       width: 160px;

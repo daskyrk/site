@@ -59,7 +59,7 @@
         <el-form-item label="内容" prop="content">
           <no-ssr>
             <!-- FIXME: 切换源码后宽度不对  -->
-            <mavon-editor class="markdown-editor" v-model="form.content" />
+            <mavon-editor class="markdown-editor markdown-content" v-model="form.content" />
           </no-ssr>
         </el-form-item>
       </el-col>

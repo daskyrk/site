@@ -47,7 +47,7 @@ export default {
     top: 160px;
     height: 140px;
     font-size: 16px;
-    color: $grey;
+    color: $gray;
     letter-spacing: 4px;
     writing-mode: vertical-lr;
     font-family: FangSong;
@@ -58,7 +58,7 @@ export default {
     position: absolute;
     right: 200px;
     top: 320px;
-    color: $grey;
+    color: $gray;
 
     a:hover {
       transition: color 0.3s;
