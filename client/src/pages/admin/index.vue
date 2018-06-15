@@ -9,9 +9,8 @@ export default {
   meta: {
     breadcrumb: '管理后台',
   },
-  // fetch({ store }) {
-  //   console.log('fetch:');
-  //   store.dispatch('user/getUserInfo');
-  // },
+  async fetch({ store }) {
+    await store.dispatch('user/getUserInfo');
+  },
 };
 </script>

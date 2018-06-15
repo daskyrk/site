@@ -12,7 +12,7 @@
     <div class="header-right">
       <el-dropdown @command='handleCommand'>
         <span class="el-dropdown-link">
-          <img class="avatar" src="http://terminus-paas.oss-cn-hangzhou.aliyuncs.com/pmp/attachments/6fe96ed1-d713-4267-b9d9-d4016da6ef13.jpg" alt="avatar">
+          <img class="avatar" :src="user.avatar" alt="avatar">
           <span>daskyrk</span>
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
@@ -40,6 +40,9 @@ export default {
   computed: {
     breadcrumb() {
       return this.$store.state.breadcrumb;
+    },
+    user() {
+      return this.$store.state.user.userInfo;
     },
   },
   methods: {

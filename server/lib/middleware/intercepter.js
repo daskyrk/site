@@ -26,7 +26,7 @@ module.exports = async (ctx, next) => {
   const url = ctx.request.url;
 	const method = ctx.request.method;
 	// TODO: add more
-  if (url === '/api/article' && method === 'POST') {
+  if (url === '/api/user' && method === 'GET') {
 		const hasAuth = checkAuth(ctx.request);
 		if (!hasAuth) {
 			ctx.status = 401;

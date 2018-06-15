@@ -12,6 +12,6 @@ export function updateConfig(data) {
   return ax.post('/user/updateConfig', data).then(resp => resp.data);
 }
 
-export function getUserInfo(username) {
-  return ax.get(`/user?username=${username}`).then(resp => resp.data);
+export function getUserInfo() {
+  return ax.get(`/user`).then(resp => resp.data);
 }

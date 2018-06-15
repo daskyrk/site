@@ -16,24 +16,18 @@ export default {
       state.logining = true;
     },
 
-    LOGIN_SUCCESS(state, data) {
+    SET_USER_INFO(state, data) {
       state.userInfo = data;
-      state.logining = false;
     },
 
-    LOGIN_FAIL(state, data) {
-      state.userInfo = {};
-      state.logining = false;
+    SET_LOGGING(state, data) {
+      state.logining = data;
     },
 
     LOGOUT(state) {
       state.userInfo = {};
       state.token = null;
       Cookie.remove('Authorization');
-    },
-
-    LOGOUT_SUCCESS(state) {
-      state.userInfo = {};
     },
 
     SET_TOKEN(state, data) {
@@ -47,32 +41,25 @@ export default {
 
   actions: {
     async login({ commit, state }, data) {
-      commit('LOGIN_START');
+      commit('SET_LOGGING', true);
       const res = await userService.login(data);
 
       if (res && res.code === 1) {
-        commit('LOGIN_SUCCESS', res.result.userInfo);
+        commit('SET_USER_INFO', res.result.userInfo);
         commit('SET_TOKEN', res.result.token);
         Cookie.set('Authorization', res.result.token);
-        Cookie.set('username', res.result.userInfo.username);
-        // setLS('userInfo', res.result.userInfo);
       } else {
-        commit('LOGIN_FAIL');
+        commit('SET_USER_INFO', {});
       }
+      commit('SET_LOGGING', false);
       return res;
     },
 
     async getUserInfo({ commit, state }) {
-      // const userInfo = getLS('userInfo');
-      // FIXME: username没有拿到
-      const username = Cookie.get('username');
-      // if (!username) {
-      //   return Cookie.remove('Authorization');
-      // }
-      const res = await userService.getUserInfo(username);
+      const res = await userService.getUserInfo();
 
       if (res && res.code === 1) {
-        commit('LOGIN_SUCCESS', res.result);
+        commit('SET_USER_INFO', res.result);
       }
       return res;
     },

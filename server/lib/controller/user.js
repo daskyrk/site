@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const logError = require('../utils/logError');
-const { getToken } = require('../utils/auth');
+const { generateToken, verifyToken, getToken } = require('../utils/auth');
 const User = require('../model/user');
 const { handleError, handleSuccess, handleResult } = require('../utils/handle');
 
@@ -24,6 +24,7 @@ exports.login = async ctx => {
     if (result.password === encrypt(password)) {
       const expireTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7;
       const token = getToken({
+      const token = generateToken({
         name: result.username,
         password: result.password,
         expireTime,
@@ -48,7 +49,15 @@ exports.login = async ctx => {
 };
 
 exports.getUser = async ctx => {
-  const { username } = ctx.query;
+  const data = verifyToken(getToken(ctx.req));
+  if (!data) {
+    handleError({
+      ctx,
+      msg: 'user token错误',
+    });
+  }
+
+  const username = data.name;
 
   const result = await User.findOne({
     username,

@@ -52,10 +52,6 @@ export default {
     ImageUploader,
   },
 
-  async fetch({ store }) {
-    await store.dispatch('user/getUserInfo');
-  },
-
   data() {
     const checkPassComfirm = (rule, value, callback) => {
       let msg = null;
