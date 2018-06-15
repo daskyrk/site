@@ -8,9 +8,9 @@ $yellow: #FDCE4E;
 $red: #F35C6F;
 $black: #333;
 $lightblack: #666;
-$gray: #999;
-$lightgray: #A9A9A9;
-$lightnavy: #D3D3D3;
+$dimgray: #999;
+$darkgray: #A9A9A9;
+$lightgray: #D3D3D3;
 $gainsboro: #CACACA;
 $platinum: #E5E9EE;
 $whitesmoke: #F5F5F5;
@@ -23,7 +23,7 @@ $color-primary: $blue;
 // Color text
 $color-text: $black;
 $color-text-assist: $lightblack;
-$color-text-sub: $gray;
+$color-text-sub: $dimgray;
 $color-text-sub-assist: $lightgray;
 
 // Color link
@@ -35,7 +35,7 @@ $color-link-sub: $lightgray;
 $color-border: $platinum;
 $color-border-hover: $color-primary;
 $color-border-light: $whitesmoke;
-$color-border-dark: $gray;
+$color-border-dark: $dimgray;
 
 // Color status
 $color-success: $green;
@@ -43,7 +43,7 @@ $color-danger: $red;
 $color-warning: $orange;
 $color-info: $gainsboro;
 $color-active: $color-primary;
-$color-disabled: $gray;
+$color-disabled: $dimgray;
 
 // Color decorator
 $color-hover: #F2F1FC;

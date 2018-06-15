@@ -79,7 +79,7 @@ export default {
   display: flex;
   align-items: center;
   i {
-    margin-right: .625rem;
+    margin-right: 0.625rem;
   }
 }
 </style>

@@ -69,7 +69,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid $gray;
+  border-bottom: 1px solid $dimgray;
   transition: transform 0.2s;
 
   &.hide {
@@ -79,7 +79,7 @@ header {
   nav {
     a {
       margin-right: 2rem;
-      color: $gray;
+      color: $dimgray;
       transition: color 0.3s;
     }
   }
@@ -88,9 +88,9 @@ header {
     border-radius: 30px;
     width: 80px;
     padding: 0 0.7rem;
-    border: 1px solid $gray;
+    border: 1px solid $dimgray;
     transition: all 0.2s;
-    color: $gray;
+    color: $dimgray;
 
     &:focus {
       width: 160px;
