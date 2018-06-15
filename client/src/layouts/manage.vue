@@ -29,7 +29,6 @@ export default {
 .manage-layout {
   height: 100vh;
   display: flex;
-  overflow: hidden;
 }
 
 .manage-main {
@@ -41,8 +40,7 @@ export default {
 .manage-content {
   flex: 1;
   overflow: auto;
-  width: 100%;
-  padding: 40px 20px 20px;
+  padding: $layout-padding;
 }
 </style>
 

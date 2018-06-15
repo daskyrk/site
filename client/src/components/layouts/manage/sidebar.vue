@@ -34,11 +34,13 @@ export default {
 
 
 <style lang="scss" scoped>
-$transition: all 0.3s;
+$transition: all 0.25s;
 $sidebar-bg: #1f2532;
 $sidebar-bg-hover: #2c3242;
 $sidebar-text: rgba(255, 255, 255, 0.65);
 $sidebar-text-hover: $white;
+$manage-sidebar-open-width: 12.5rem;
+$manage-sidebar-close-width: 4.5rem;
 
 .manage-sidebar {
   width: $manage-sidebar-open-width;
@@ -48,9 +50,9 @@ $sidebar-text-hover: $white;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  transition: width 0.3s;
+  transition: width 0.25s;
   i {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 
   &.fold {
@@ -59,7 +61,7 @@ $sidebar-text-hover: $white;
       background-image: url(~static/images/t-white.png);
     }
     .menu-item {
-      padding-left: 28px;
+      padding-left: 1.75rem;
       span {
         opacity: 0;
       }
@@ -74,9 +76,9 @@ $sidebar-text-hover: $white;
 
 .logo {
   width: 100%;
-  height: 60px;
+  height: $header-height;
   background-image: url(~static/images/logo_reverse.png);
-  background-size: auto 24px;
+  background-size: auto 1.5rem;
   background-position: 50%;
   background-repeat: no-repeat;
   transition: background-image 0.3s;
@@ -93,11 +95,11 @@ $sidebar-text-hover: $white;
   }
   .menu-item {
     overflow: hidden;
-    padding-left: 40px;
+    padding-left: 2.5rem;
     text-align: left;
     color: $sidebar-text;
-    height: 45px;
-    line-height: 45px;
+    height: 3rem;
+    line-height: 3rem;
     transition: padding-left 0.3s;
     &:hover {
       color: $sidebar-text-hover;
@@ -108,13 +110,13 @@ $sidebar-text-hover: $white;
     }
     span {
       transition: $transition;
-      margin-left: 10px;
+      margin-left: .625rem;
     }
   }
 }
 
 .toggle-side {
-  height: 40px;
+  height: 2.5rem;
   width: 100%;
   display: flex;
   align-items: center;
@@ -125,7 +127,7 @@ $sidebar-text-hover: $white;
   transition: $transition;
   cursor: pointer;
   i {
-    font-size: 18px;
+    font-size: 1.125rem;
     transition: $transition;
   }
   &:hover {

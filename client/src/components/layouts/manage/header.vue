@@ -56,9 +56,8 @@ export default {
 
 <style lang="scss" scoped>
 .manage-header {
-  padding: 0 1rem;
+  padding: 0 $layout-padding;
   height: $header-height;
-  background-color: $white;
   display: flex;
   flex-shrink: 0;
   align-items: center;
@@ -69,8 +68,8 @@ export default {
 
 .header-right {
   .avatar {
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 100%;
     margin-right: 1rem;
   }
@@ -80,7 +79,7 @@ export default {
   display: flex;
   align-items: center;
   i {
-    margin-right: 10px;
+    margin-right: .625rem;
   }
 }
 </style>
