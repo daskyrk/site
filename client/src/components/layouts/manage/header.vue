@@ -1,7 +1,7 @@
 <template>
   <header class="manage-header">
     <div class="header-left">
-      <el-breadcrumb v-if="$route.path !== '/admin'" separator-class="el-icon-arrow-right">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
         <template v-for="item in breadcrumb">
           <el-breadcrumb-item :key='item.path' :to='item.url'>
             {{item.title}}

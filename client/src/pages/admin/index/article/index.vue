@@ -65,7 +65,7 @@ import { mapState } from 'vuex';
 
 export default {
   meta: {
-    breadcrumb: '文章管理',
+    breadcrumb: '文章列表',
   },
 
   async fetch({ store }) {
