@@ -24,7 +24,7 @@ function getTime(tmp) {
 function checkToken(token) {
   try {
     const decoded = verifyToken(token);
-    // console.log('过期时间:', getTime(decoded.expireTime * 1000));
+    // console.log('过期时间:', getTime(decoded.expireTime));
     const now = Math.floor(Date.now() / 1000);
     // console.log('当前时间:', getTime(Date.now()));
     return decoded.expireTime > now;

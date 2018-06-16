@@ -22,8 +22,8 @@ exports.login = async ctx => {
 
   if (userInfo) {
     if (userInfo.password === encrypt(password)) {
-      const maxAge = 60 * 60 * 24 * 7;
-      const expireTime = Math.floor(Date.now() / 1000) + maxAge;
+      const maxAge = 1000 * 60 * 60 * 24 * 7;
+      const expireTime = Date.now() + maxAge;
       const token = generateToken({
         name: userInfo.username,
         password: userInfo.password,
