@@ -18,8 +18,8 @@
   "author": "LiJun",
   "license": "ISC",
   "dependencies": {
+    "@nuxtjs/axios": "^5.3.1",
     "autoprefixer": "^8.5.0",
-    "axios": "^0.18.0",
     "backpack-core": "^0.7.0",
     "cookieparser": "^0.1.0",
     "el-form-renderer": "^1.0.5",

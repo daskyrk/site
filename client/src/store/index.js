@@ -1,8 +1,6 @@
 import cookieparser from 'cookieparser';
-import * as service from '../api/index';
 
 export default {
-  // plugins: [check],
   state() {
     return {
       fetch: {},
@@ -12,16 +10,16 @@ export default {
   },
   actions: {
     nuxtServerInit({ commit }, { req }) {
-      let accessToken = null;
+      let token = null;
       if (req.headers.cookie) {
         var parsed = cookieparser.parse(req.headers.cookie);
-        accessToken = parsed.Authorization;
+        token = parsed.token;
       }
-      commit('user/SET_TOKEN', accessToken);
+      commit('user/SET_TOKEN', token);
     },
 
     async getUploadToken({ commit }) {
-      const res = await service.getUploadToken();
+      const res = await this.$axios.$get('/uploadToken');
       if (res && res.code === 1) {
         commit('SET_UPLOAD_TOKEN', res.result);
       }

@@ -29,7 +29,7 @@
 
    ```javascript
    const router = new Router({
-   	prefix: config.APP.ROOT_PATH // api
+   	prefix: config.APP.prefix // api
    })
    ```
 
@@ -87,7 +87,7 @@
      formLimit: '10mb',
      textLimit: '10mb'
    }))
-   
+
    app.use(async ctx => {
      ctx.body = 'Hello World';
    });

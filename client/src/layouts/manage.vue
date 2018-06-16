@@ -35,6 +35,7 @@ export default {
   display: flex;
   flex: 1;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .manage-content {

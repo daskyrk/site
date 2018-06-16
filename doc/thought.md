@@ -128,6 +128,7 @@ computed: {
 ```
 
 5. 表单恢复数据从哪获取数据？是直接从store中获取，还是设为state的某个属性？
+从store中获取，并且设为computed属性，这样才会在变化后响应到页面上
 
 6. 原作者是把管理后台和前台分开了，所以后台项目中的所有请求都加了验证的header供后端验证，我现在是把后台放到了一个子路由下，怎么对这个子路由下的所有请求添加验证的header而不影响外层的请求呢？
 如果是一个个加，有点太麻烦了。可以新增一个authAx用来发送带Auth的请求。有个问题是从哪里获取token呢，因为是同构应用，所以没有localStorage这个东西，如果用Cookie，那么每个请求都会携带这个token
@@ -139,7 +140,14 @@ computed: {
 可能是localStorage方便取数据，而Cookie如果设置了httponly则js无法读取
 
 9. 添加了localStorage方法，但是打包后在服务端运行时没有localStorage，如何把这部分代码放到客户端运行？axios库是两端通用，所以没有问题，但是其他库怎么办？
+需要服务端渲染时，就不能用localStorage了，或者使用node-localStorage这种库
 
-10. 如何把需要验证的路由和普通路由放在一起呢？进入验证路由时检查store中的token，没有时跳到登录页，但是刷新时store中的信息就清空了，也不能直接服务端渲染时就设置token，这样的话就一直都是登陆状态了
+10. 如何把需要验证的路由和普通路由放在一起呢？进入验证路由时检查store中的token，没有时跳到登录页，但是刷新时store中的信息就清空了，也不能直接服务端渲染时就设置token，这样的话就一直都是登录状态了
 
 11. `nuxtServerInit`方法在服务端调用时，req是从哪里来的？文档中说from Node.Js server，但是这个服务是什么呢？应该是nuxt自身所起的服务，但是这个里面的request对象怎么加header呢？
+
+12. 后端返回401状态码时会自动渲染error页面，但是实际是想跳转到login页面而不是显示错误，要怎么做呢？
+
+
+13. `nuxtServerInit`这个action，按理说是在服务端执行的，那是怎么拿到`req.headers.cookie`的呢？这个action中用req.headers.cookie好像拿的是浏览器端设置的cookie，因为我清空浏览器的cookie时，header里就没有了，感觉非常奇怪
+脑子瓦特了，服务端渲染就是浏览器发出请求，nuxt把渲染好的页面和初始数据一并返回而已啊，所以req还是浏览器发的请求，必然会带上cookie啊。。可能是hmr时会引起浏览器自动发起一次请求，但没有注意到，所以会以为是nuxt server发起的

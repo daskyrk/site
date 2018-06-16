@@ -1,3 +1,4 @@
+
 export default function({ store, redirect, route }) {
   const hasLogin = !!store.state.user.token;
   const isLoginPage = route.path === '/login';

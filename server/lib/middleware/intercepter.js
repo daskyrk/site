@@ -9,6 +9,7 @@ module.exports = async (ctx, next) => {
   }
 
   ctx.set({
+    'Access-Control-Allow-Credentials': true,
     'Access-Control-Allow-Headers':
       'Authorization, Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With',
     'Access-Control-Allow-Methods': 'PUT,PATCH,POST,GET,DELETE,OPTIONS',
@@ -26,10 +27,11 @@ module.exports = async (ctx, next) => {
   const url = ctx.request.url;
 	const method = ctx.request.method;
 	// TODO: add more
-  if (url === '/api/user' && method === 'GET') {
-		const hasAuth = checkAuth(ctx.request);
+  if (!(url.startsWith('/api/article') && method === 'GET') && url !== ('/api/login')) {
+		const hasAuth = checkAuth(ctx);
 		if (!hasAuth) {
-			ctx.status = 401;
+      ctx.status = 401;
+      // ctx.set('WWW-Authenticate', 'Bearer realm="admin"');
 			ctx.body = '没有权限';
 			return false;
 		}

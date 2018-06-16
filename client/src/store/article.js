@@ -1,5 +1,3 @@
-import * as articleService from '../api/article';
-
 export default {
   state() {
     return {
@@ -43,7 +41,7 @@ export default {
     async getArtList({ commit, state }, data) {
       commit('FETCH_ART_START');
       const query = { ...state.query, ...data };
-      const res = await articleService.getArts(query);
+      const res = await this.$axios.$get('/article', { params: query });
       commit('UPDATE_QUERY', query);
       if (res.code === 1) {
         commit('GET_ART_LIST', res.result);
@@ -53,7 +51,7 @@ export default {
     // 获取文章详情
     async getArt({ commit }, id) {
       commit('FETCH_ART_START');
-      const res = await articleService.getArt(id);
+      const res = await this.$axios.$get(`/article/${id}`);
       if (res && res.code === 1) {
         commit('SET_ART_DETAIL', res.result);
       } else commit('FETCH_ART_END');
@@ -61,7 +59,7 @@ export default {
 
     // 添加文章
     async addArt({ commit, dispatch }, data) {
-      const res = await articleService.addArt(data);
+      const res = await this.$axios.$post(`/article`, data);
       if (res.code === 1) {
         await dispatch('getArtList');
       }
@@ -69,8 +67,8 @@ export default {
     },
 
     // 编辑文章
-    async updateArt({ commit, dispatch }, { _id, ...data }) {
-      const res = await articleService.updateArt(_id, data);
+    async updateArt({ commit, dispatch }, { id, ...data }) {
+      const res = await this.$axios.$put(`/article/${id}`, data);
       if (res.code === 1) {
         await dispatch('getArtList');
       }
@@ -78,8 +76,8 @@ export default {
     },
 
     // 删除文章
-    async delArt({ commit, dispatch, state }, _id) {
-      const res = await articleService.delArt(_id);
+    async delArt({ commit, dispatch, state }, id) {
+      const res = await this.$axios.$delete(`/article/${id}`);
       if (res.code === 1) {
         let pageNo = state.query.pageNo;
         if (state.list.length === 1) {

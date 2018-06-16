@@ -16,40 +16,41 @@ exports.login = async ctx => {
     return handleError({ ctx, msg: '请输入密码' });
   }
 
-  let result = await User.findOne({
+  let userInfo = await User.findOne({
     username,
   }).catch(logError({ ctx }));
 
-  if (result) {
-    if (result.password === encrypt(password)) {
-      const expireTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7;
-      const token = getToken({
+  if (userInfo) {
+    if (userInfo.password === encrypt(password)) {
+      const maxAge = 60 * 60 * 24 * 7;
+      const expireTime = Math.floor(Date.now() / 1000) + maxAge;
       const token = generateToken({
-        name: result.username,
-        password: result.password,
+        name: userInfo.username,
+        password: userInfo.password,
         expireTime,
       });
+      ctx.cookies.set('token', token, { httpOnly: true, maxAge })
       handleSuccess({
         ctx,
-        result: { userInfo: result, token, expireTime },
-        msg: '登陆成功',
+        result: { userInfo, token },
+        msg: '登录成功',
       });
     } else {
       handleError({
         ctx,
-        msg: '登陆失败, 密码错误',
+        msg: '登录失败, 密码错误',
       });
     }
   } else {
     handleError({
       ctx,
-      msg: '登陆失败, 用户不存在',
+      msg: '登录失败, 用户不存在',
     });
   }
 };
 
 exports.getUser = async ctx => {
-  const data = verifyToken(getToken(ctx.req));
+  const data = verifyToken(getToken(ctx));
   if (!data) {
     handleError({
       ctx,

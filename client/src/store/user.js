@@ -1,6 +1,3 @@
-import * as userService from '../api/user';
-import Cookie from 'js-cookie';
-import { getLS, setLS } from '../utils';
 
 export default {
   state() {
@@ -27,7 +24,6 @@ export default {
     LOGOUT(state) {
       state.userInfo = {};
       state.token = null;
-      Cookie.remove('Authorization');
     },
 
     SET_TOKEN(state, data) {
@@ -42,12 +38,12 @@ export default {
   actions: {
     async login({ commit, state }, data) {
       commit('SET_LOGGING', true);
-      const res = await userService.login(data);
+      const res = await this.$axios.$post('/login', data);
 
       if (res && res.code === 1) {
-        commit('SET_USER_INFO', res.result.userInfo);
-        commit('SET_TOKEN', res.result.token);
-        Cookie.set('Authorization', res.result.token);
+        const { userInfo, token } = res.result;
+        commit('SET_USER_INFO', userInfo);
+        commit('SET_TOKEN', token);
       } else {
         commit('SET_USER_INFO', {});
       }
@@ -56,7 +52,7 @@ export default {
     },
 
     async getUserInfo({ commit, state }) {
-      const res = await userService.getUserInfo();
+      const res = await this.$axios.$get('/user');
 
       if (res && res.code === 1) {
         commit('SET_USER_INFO', res.result);
@@ -65,22 +61,7 @@ export default {
     },
 
     async updateConfig({ commit, state }, data) {
-      const res = await userService.updateConfig(data);
+      const res = await this.$axios.$put('/user/updateConfig', data);
     },
-
-    // async logout({ commit, state }, data) {
-    //   const res = await userService
-    //     .logout()
-    //     .catch(err => console.error(err));
-
-    //   if (res && res.code === 1) {
-    //     commit('LOGOUT_SUCCESS');
-    //     commit('CLEAR_TOKEN');
-    //     Cookie.remove('Authorization');
-    //   } else {
-    //     commit('LOGOUT_FAIL');
-    //   }
-    //   return res;
-    // },
   },
 };

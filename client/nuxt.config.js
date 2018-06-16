@@ -1,3 +1,6 @@
+const config = require('./src/config');
+const IS_DEV = process.env.NODE_ENV !== 'production';
+
 module.exports = {
   srcDir: 'src/',
   build: {
@@ -38,7 +41,7 @@ module.exports = {
       // '~/utils',
     ],
   },
-  env: require('./src/config'),
+  env: config.envs,
   head: {
     title: 'blog',
     titleTemplate: '%s | Jun',
@@ -67,7 +70,7 @@ module.exports = {
     ],
     noscript: [{ innerHTML: 'This website requires JavaScript.' }],
   },
-  dev: process.env.NODE_ENV !== 'production',
+  dev: IS_DEV,
   css: [
     'mavon-editor/dist/css/index.css',
     '~/style/index.scss',
@@ -79,6 +82,12 @@ module.exports = {
         return ['script', 'style', 'font'].includes(type);
       },
     },
+  },
+  modules: ['@nuxtjs/axios'],
+  axios: {
+    baseURL: IS_DEV ? 'http://localhost:8000/api' : 'https://placeholder/api',
+    // prefix: '/api', // it not work
+    credentials: true,
   },
   plugins: [
     { src: '~plugins/markdown.js', ssr: false },
