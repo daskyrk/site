@@ -51,6 +51,7 @@ $manage-sidebar-close-width: 4.5rem;
   align-items: center;
   justify-content: space-between;
   transition: width 0.25s;
+  user-select: none;
   i {
     font-size: 1.125rem;
   }
@@ -110,7 +111,7 @@ $manage-sidebar-close-width: 4.5rem;
     }
     span {
       transition: $transition;
-      margin-left: .625rem;
+      margin-left: 0.625rem;
     }
   }
 }
