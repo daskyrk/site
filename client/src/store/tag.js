@@ -42,8 +42,8 @@ export default {
       return res;
     },
 
-    async updateTag({ commit, dispatch, state }, { id, ...data }) {
-      const res = await this.$axios.$put(`/tag/${id}`, data);
+    async updateTag({ commit, dispatch, state }, { _id, ...data }) {
+      const res = await this.$axios.$put(`/tag/${_id}`, data);
       if (res.code === 1) {
         await dispatch('getTags');
       }
