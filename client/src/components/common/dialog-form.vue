@@ -65,7 +65,6 @@ export default {
 
     handleOpen() {
       this.$nextTick(() => {
-        console.log(this.fieldsValue);
         const form = this.$refs.form;
         if (this.fieldsValue === null) {
           this.fields.map(field =>
