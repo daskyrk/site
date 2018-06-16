@@ -23,10 +23,18 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
-  margin: 5rem auto;
+.app {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex: 1;
   justify-content: center;
+  margin: 5rem auto 1rem;
 }
 </style>
 

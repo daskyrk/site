@@ -25,5 +25,6 @@ export default {
 <style lang="scss" scoped>
 .article {
   width: 50%;
+  min-width: 41.25rem;
 }
 </style>
