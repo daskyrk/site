@@ -99,3 +99,25 @@ exports.delArt = async ctx => {
     fail: '删除文章失败',
   });
 };
+
+exports.likeArt = async ctx => {
+  const id = ctx.params.id;
+  if (!id) {
+    handleError({
+      ctx,
+      msg: '无效的参数',
+    });
+  }
+
+  const result = await Article.findById(id).catch(logError({ ctx }));
+  if (result) {
+    result.meta.likes += 1;
+    result.save();
+  }
+  handleResult({
+    ctx,
+    result,
+    success: '喜欢文章成功',
+    fail: '喜欢文章失败',
+  });
+};

@@ -13,6 +13,7 @@ router
   .put('/article/:id', controller.article.updateArt)
   .get('/article/:id', controller.article.getArt)
   .delete('/article/:id', controller.article.delArt)
+  .put('/likeArt/:id', controller.article.likeArt)
 
   .post('/user', controller.user.addUser)
   .get('/user', controller.user.getUser)

@@ -34,6 +34,12 @@ export default {
     UPDATE_QUERY(state, data) {
       state.query = data;
     },
+
+    LIKE_PLUS(state, data) {
+      const detail = { ...state.detail };
+      detail.meta.likes += 1;
+      state.detail = detail;
+    },
   },
 
   actions: {
@@ -84,6 +90,15 @@ export default {
           pageNo--;
         }
         await dispatch('getArtList', { pageNo });
+      }
+      return res;
+    },
+
+    // 喜欢文章
+    async likeArt({ commit, dispatch, state }, id) {
+      const res = await this.$axios.$put(`/likeArt/${id}`);
+      if (res.code === 1) {
+        commit('LIKE_PLUS', id);
       }
       return res;
     },
