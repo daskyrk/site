@@ -14,11 +14,19 @@ marked.setOptions({
   xhtml: false,
   highlight(code, lang) {
     if (languages.includes(lang)) {
-      return Hljs.highlight(lang, code).value;
+      return hljs.highlight(lang, code).value;
     }
-    return Hljs.highlightAuto(code).value;
+    return hljs.highlightAuto(code).value;
   },
 });
+
+// 段落解析
+// const paragraphParse = text => {
+//   const textIsImage = text.includes('<img')
+//   if (textIsImage) return `<div class="image-package">${text}</div>`
+//   return `<p>${text}</p>`
+// }
+// renderer.paragraph = paragraphParse
 
 export default content => {
   if (typeof content !== 'string') {

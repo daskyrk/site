@@ -1,6 +1,11 @@
 <template>
   <header :class="{ hide }">
     <div class="header-left">
+      <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <filter id="f1" x="0" y="0" width="100%" height="100%">
+          <feGaussianBlur in="BackgroundImage" stdDeviation="15" />
+        </filter>
+      </svg> -->
       <nav>
         <nuxt-link v-for="(nav, index) in navs" :key='index' :to='nav.link' exact>
           {{nav.text}}
@@ -62,18 +67,27 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 0 2rem;
   z-index: 999;
   height: $header-height;
-  background-color: $white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid $dimgray;
-  transition: transform 0.2s;
+  padding: 0 2rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  // &:before {
+  //   position: absolute;
+  //   left: 0;
+  //   content: '';
+  //   display: block;
+  //   width: 100%;
+  //   height: 100%;
+  //   filter: url(#f1);
+  // }
 
   &.hide {
-    transform: translateY(-100%);
+    transform: translateY(-105%);
   }
 
   nav {

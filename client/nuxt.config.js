@@ -38,6 +38,7 @@ module.exports = {
     vendor: [
       'axios',
       'marked',
+      'highlight.js',
       // '~/utils',
     ],
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="article-list">
-    <articleView :list="list" @loadMore='loadMore' />
+    <Article-Card :list="list" @loadMore='loadMore' />
     <el-pagination @current-change="handleCurrentChange" :current-page="query.pageNo" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
     </el-pagination>
 
@@ -9,9 +9,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import articleView from '~/components/common/article';
+import ArticleCard from '~/components/common/article-card';
 
 export default {
+
+  components: {
+    ArticleCard,
+  },
 
   async fetch({ store }) {
     await store.dispatch('article/getArtList');
@@ -31,9 +35,6 @@ export default {
     },
   },
 
-  components: {
-    articleView,
-  },
 };
 </script>
 

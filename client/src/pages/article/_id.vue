@@ -1,5 +1,8 @@
 <template>
-  <div class="article" v-html="marked(detail.content)">
+  <div class="article">
+    <div class="content markdown-content" v-html="marked(detail.content)">
+
+    </div>
   </div>
 </template>
 
@@ -22,9 +25,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .article {
-  width: 50%;
+  width: 40%;
   min-width: 41.25rem;
+
 }
 </style>

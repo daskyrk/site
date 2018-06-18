@@ -22,8 +22,8 @@
         <p class='title'>
           <nuxt-link :to="`/article/${article._id}`">{{article.title}}</nuxt-link>
         </p>
-        <div class="content">
-          {{article.content}}
+        <div class="descript">
+          {{article.descript}}
         </div>
       </div>
     </div>

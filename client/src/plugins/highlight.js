@@ -47,5 +47,5 @@ hljs.configure({
   classPrefix: '', // don't append class prefix
 });
 
-exports.hlgj = hljs;
+exports.hljs = hljs;
 exports.languages = languages;

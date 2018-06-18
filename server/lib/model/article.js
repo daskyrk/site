@@ -5,8 +5,8 @@ const mongoose = require('../mongodb').mongoose;
 const ArticleSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
-    keyword: { type: String, required: true },
-    descript: { type: String, required: false },
+    keyword: String,
+    descript: String,
     content: { type: String, required: true },
     tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
 
