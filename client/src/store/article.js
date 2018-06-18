@@ -69,9 +69,9 @@ export default {
     // 编辑文章
     async updateArt({ commit, dispatch }, { _id, ...data }) {
       const res = await this.$axios.$put(`/article/${_id}`, data);
-      if (res.code === 1) {
-        await dispatch('getArtList');
-      }
+      // if (res.code === 1) {
+      //   await dispatch('getArtList');
+      // }
       return res;
     },
 

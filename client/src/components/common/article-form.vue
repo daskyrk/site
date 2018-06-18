@@ -148,7 +148,7 @@ export default {
 
 <style lang="scss" scoped>
 .markdown-editor {
-  height: 600px;
+  height: 500px;
 }
 </style>
 

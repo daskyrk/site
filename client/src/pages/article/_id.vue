@@ -1,5 +1,11 @@
 <template>
   <div class="article">
+    <h3 class="title">{{detail.title}}</h3>
+    <div class="meta">
+      <span>阅读 {{detail.meta.views}}</span>
+      <span>喜欢 {{detail.meta.likes}}</span>
+      <span>评论 {{detail.meta.comments}}</span>
+    </div>
     <div class="content markdown-content" v-html="marked(detail.content)">
 
     </div>
@@ -25,10 +31,17 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .article {
   width: 40%;
   min-width: 41.25rem;
+}
 
+.title {
+  margin-bottom: 2rem;
+}
+
+.meta {
+  font-size: .75rem;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <article-form :onSubmit="onSubmit"/>
+  <article-form :onSubmit="onSubmit" />
 </template>
 
 <script>

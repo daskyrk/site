@@ -1,6 +1,6 @@
 <template>
   <div class="article-list">
-    <Article-Card :list="list" @loadMore='loadMore' />
+    <article-card :list="list" @loadMore='loadMore' />
     <el-pagination @current-change="handleCurrentChange" :current-page="query.pageNo" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
     </el-pagination>
 
