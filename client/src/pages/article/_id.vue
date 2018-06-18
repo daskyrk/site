@@ -1,5 +1,5 @@
 <template>
-  <div class="article">
+  <div class="article" ref="article">
     <h3 class="title">{{detail.title}}</h3>
     <div class="meta">
       <span class="time">{{ detail.createdAt | dateFormat('YYYY.MM.DD HH:MM') }}</span>
@@ -19,10 +19,7 @@
       <div class="green">
         <i class="iconfont icon-liuyan "></i>
       </div>
-      <div class="blue">
-        <i class="iconfont icon-shang "></i>
-      </div>
-
+      <back-top cls="blue" :distance="260" />
     </aside>
     <div class="share">
 
@@ -35,8 +32,13 @@
 import { mapState } from 'vuex';
 import markdown from '~/plugins/marked';
 import { setLS, getLS } from '~/utils';
+import BackTop from '~/components/common/back-top';
 
 export default {
+  components: {
+    BackTop,
+  },
+
   data() {
     return {
       likes: [],
@@ -53,6 +55,7 @@ export default {
   async fetch({ store, params }) {
     await store.dispatch('article/getArt', params.id);
   },
+
   methods: {
     marked(content) {
       return markdown(content);

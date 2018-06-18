@@ -36,6 +36,7 @@
     "postcss-nested": "^3.0.0",
     "postcss-responsive-type": "^1.0.0",
     "querystring": "^0.2.0",
+    "raf": "^3.4.0",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1"
   },
