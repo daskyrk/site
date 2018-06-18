@@ -42,13 +42,10 @@ export default {
   },
   methods: {
     format: function(timestamp) {
-      const a = moment(timestamp);
-      const year = a.year();
-      const month = a.month() + 1;
-      const day = a.day();
-      const week = a.weekday();
-      const toWeek = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
-      return `${year}年${month}月${day}日 ${toWeek[week]}`;
+      const date = moment(timestamp);
+      const week = date.weekday();
+      const toWeek = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+      return `${date.format('YYYY-MM-DD')} ${toWeek[week]}`;
     },
   },
 };
