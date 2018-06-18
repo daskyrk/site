@@ -35,6 +35,11 @@ exports.getArt = async ctx => {
   }
   const result = await Article.findById(id).catch(logError({ ctx }));
 
+  if (result) {
+    result.meta.views += 1
+    result.save()
+  }
+
   handleResult({
     ctx,
     result,

@@ -31,11 +31,11 @@ const ArticleSchema = new mongoose.Schema(
 );
 
 ArticleSchema.plugin(mongoosePaginate);
-// ArticleSchema.plugin(autoIncrement, {
-//   model: 'Article',
-//   field: 'artId',
-//   startAt: 26,
-//   incrementBy: 1,
-// });
+ArticleSchema.plugin(autoIncrement, {
+  model: 'Article',
+  field: 'id',
+  startAt: 1,
+  incrementBy: 1,
+});
 
 module.exports = mongoose.model('Article', ArticleSchema);

@@ -2,6 +2,8 @@
   <div class="article">
     <h3 class="title">{{detail.title}}</h3>
     <div class="meta">
+      <span class="time">{{ detail.createdAt | dateFormat('YYYY.MM.DD HH:MM') }}</span>
+      <span>字数 {{detail.content.length}}</span>
       <span>阅读 {{detail.meta.views}}</span>
       <span>喜欢 {{detail.meta.likes}}</span>
       <span>评论 {{detail.meta.comments}}</span>
@@ -37,11 +39,12 @@ export default {
   min-width: 41.25rem;
 }
 
-.title {
-  margin-bottom: 2rem;
-}
-
 .meta {
+  margin-top: 1rem;
   font-size: .75rem;
+  color: $color-text-sub;
+  span {
+    margin-right: 0.5rem;
+  }
 }
 </style>
