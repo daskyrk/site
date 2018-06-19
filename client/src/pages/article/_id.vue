@@ -98,6 +98,10 @@ export default {
   }
 }
 
+.share {
+  margin: 3rem 0;
+}
+
 aside {
   position: fixed;
   top: 18.75rem;
