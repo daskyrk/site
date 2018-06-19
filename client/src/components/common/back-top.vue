@@ -109,7 +109,6 @@ export default {
 
     handleScroll() {
       const scrollTop = getScroll(this.targetNode, true);
-      console.log('scrollTop:', scrollTop, this._distance);
       this.visible = scrollTop > this._distance;
     },
   },
