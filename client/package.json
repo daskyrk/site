@@ -24,6 +24,7 @@
     "cookieparser": "^0.1.0",
     "el-form-renderer": "^1.0.5",
     "element-ui": "^2.4.0",
+    "gravatar": "^1.6.0",
     "highlight": "^0.2.4",
     "js-cookie": "^2.2.0",
     "koa": "^2.5.1",

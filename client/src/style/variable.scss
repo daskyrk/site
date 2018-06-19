@@ -12,7 +12,7 @@ $dimgray: #999;
 $darkgray: #A9A9A9;
 $lightgray: #D3D3D3;
 $gainsboro: #CACACA;
-$platinum: #E5E9EE;
+$platinum: #EEEEEE;
 $whitesmoke: #F5F5F5;
 $ghostwhite: #F8F8FF;
 $white: #FFF;
@@ -47,6 +47,7 @@ $color-disabled: $dimgray;
 
 // Color decorator
 $color-hover: #F2F1FC;
+$color-hover-bg: rgba(0, 0, 0, 0.12);
 $color-background: $whitesmoke;
 $color-split: #e1e4e8;
 

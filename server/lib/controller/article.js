@@ -3,10 +3,11 @@ const Article = require('../model/article');
 const { handleError, handleResult } = require('../utils/handle');
 
 exports.getArts = async ctx => {
-  const { pageNo } = ctx.query;
+  const { pageNo = 1, pageSize = 10 } = ctx.query;
   const querys = {};
   const options = {
-    page: pageNo,
+    page: Number(pageNo),
+    limit: Number(pageSize),
   };
 
   const result = await Article.paginate(querys, options).catch(
@@ -36,8 +37,8 @@ exports.getArt = async ctx => {
   const result = await Article.findById(id).catch(logError({ ctx }));
 
   if (result) {
-    result.meta.views += 1
-    result.save()
+    result.meta.views += 1;
+    result.save();
   }
 
   handleResult({

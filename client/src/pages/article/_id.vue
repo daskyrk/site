@@ -24,6 +24,8 @@
     <div class="share">
 
     </div>
+
+    <comment :articleId="detail._id" />
   </div>
 </template>
 
@@ -33,10 +35,12 @@ import { mapState } from 'vuex';
 import markdown from '~/plugins/marked';
 import { setLS, getLS } from '~/utils';
 import BackTop from '~/components/common/back-top';
+import Comment from '~/components/common/comment';
 
 export default {
   components: {
     BackTop,
+    Comment,
   },
 
   data() {
@@ -110,6 +114,7 @@ aside {
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
     cursor: pointer;
     border-radius: 100%;
+    background: rgba(255, 255, 255, 0.8);
 
     &.active,
     &:hover {
