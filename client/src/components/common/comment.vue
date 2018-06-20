@@ -14,16 +14,19 @@
           <textarea rows="4" cols="20" name="content" maxlength="400" placeholder="想说点什么呢O(∩_∩)O~" v-model="comment.content">
           </textarea>
           <div class="editor-tools">
-            <span class="tool-btn">
+            <span class="tool-btn emoji">
               <i class="iconfont icon-biaoqing"></i>
+              <transition name="fade">
+                <emoji-box :onClick="insertEmoji" />
+              </transition>
             </span>
-            <span class="tool-btn">
+            <span class="tool-btn" @click="insert('img')">
               <i class="iconfont icon-image"></i>
             </span>
-            <span class="tool-btn">
+            <span class="tool-btn" @click="insert('link')">
               <i class="iconfont icon-lianjie"></i>
             </span>
-            <span class="tool-btn">
+            <span class="tool-btn" @click="insert('code')">
               <i class="iconfont icon-daimakuai"></i>
             </span>
             <button type="submit" @click="addComment($event)">
@@ -46,14 +49,13 @@
         <div class="comment-body">
           <div class="comment-header">
             <strong>{{comment.author.name}}</strong>
-            <span>{{comment.author.createdAt | dateFormat('YYYY.MM.DD HH:mm')}}</span>
+            <span>{{comment.createdAt | dateFormat('YYYY.MM.DD HH:mm')}}</span>
           </div>
-          <div class="comment-content">
-            {{comment.content}}
+          <div class="comment-content" v-html="marked(comment.content)">
           </div>
           <div class="comment-footer">
-            <span class="like">
-              <i class="iconfont icon-ding"></i> 顶(0)
+            <span :class="{ like: true, active: isLiked(comment._id) }" @click="likeComment(comment._id)">
+              <i class="iconfont icon-ding"></i> 顶({{comment.likes}})
             </span>
             <span class="reply">
               <i class="iconfont icon-reply"></i> 回复(0)
@@ -70,8 +72,13 @@ import { mapState } from 'vuex';
 import gravatar from 'gravatar';
 import marked from '~/plugins/marked';
 import { setLS, getLS } from '~/utils';
+import EmojiBox from '~/components/common/emoji-box';
 
 export default {
+  components: {
+    EmojiBox,
+  },
+
   props: {
     articleId: {
       type: [String, Number],
@@ -127,6 +134,17 @@ export default {
       let gravatar_url = gravatar.url(email);
       return gravatar_url;
     },
+    insert(type) {
+      const insertMap = {
+        img: '\n![alt](src)',
+        link: '[title](url)',
+        code: '\n```\n\n```',
+      };
+      this.comment.content += insertMap[type];
+    },
+    insertEmoji(emj) {
+      this.comment.content += emj;
+    },
     // 更新头像
     upadteGravatar() {
       const emailIsVerified = this.regexs.email.test(this.author.email);
@@ -144,17 +162,20 @@ export default {
         author: this.author,
       });
     },
-    // like(id) {
-    //   if (this.isLiked) {
-    //     return;
-    //   }
-    //   this.$store.dispatch('comment/like', id).then(res => {
-    //     if (res.code === 1) {
-    //       this.likeComments.push(id);
-    //       setLS('article-like', this.likeComments);
-    //     }
-    //   });
-    // },
+    isLiked(id) {
+      return this.likeComments.includes(id);
+    },
+    likeComment(id) {
+      if (this.isLiked(id)) {
+        return;
+      }
+      this.$store.dispatch('comment/likeComment', id).then(res => {
+        if (res.code === 1) {
+          this.likeComments.push(id);
+          setLS('comment-like', this.likeComments);
+        }
+      });
+    },
   },
 };
 </script>
@@ -227,6 +248,22 @@ export default {
           }
         }
 
+        .emoji {
+          position: relative;
+          .emoji-box {
+            display: none;
+            position: absolute;
+            top: 2rem;
+            left: 0;
+          }
+
+          &:hover {
+            .emoji-box {
+              display: block;
+            }
+          }
+        }
+
         button {
           float: right;
           border: none;
@@ -284,60 +321,61 @@ export default {
         width: 3rem;
         border-radius: $radius;
       }
+    }
 
-      .comment-body {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        padding: 0.5rem;
+    .comment-body {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      padding: 0.5rem;
 
-        &:hover {
-          .comment-footer .reply {
-            opacity: 0.9;
-          }
-        }
-
-        .comment-header {
-          display: flex;
-          justify-content: space-between;
-          font-size: 0.75rem;
-          color: $color-text-sub;
-        }
-
-        .comment-content {
-          line-height: 2em;
-          margin: 0.8em 0;
-          word-wrap: break-word;
-        }
-
-        .comment-footer {
-          font-size: 12px;
-          color: $color-text-sub;
+      &:hover {
+        .comment-footer .reply {
           opacity: 0.9;
+        }
+      }
 
-          i {
-            margin-right: 0.1875rem;
-          }
+      .comment-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        color: $color-text-sub;
+      }
 
-          span {
-            display: inline-flex;
-            align-items: center;
-            margin-right: 1rem;
-            cursor: pointer;
-            &:hover {
-              &.like {
-                color: $red;
-              }
+      .comment-content {
+        line-height: 2em;
+        margin: 0.8em 0;
+        word-wrap: break-word;
+      }
 
-              &.reply {
-                color: $green;
-              }
+      .comment-footer {
+        font-size: 12px;
+        color: $color-text-sub;
+        opacity: 0.9;
+
+        i {
+          margin-right: 0.1875rem;
+        }
+
+        span {
+          display: inline-flex;
+          align-items: center;
+          margin-right: 1rem;
+          cursor: pointer;
+          &.active,
+          &:hover {
+            &.like {
+              color: $red;
+            }
+
+            &.reply {
+              color: $green;
             }
           }
+        }
 
-          .reply {
-            opacity: 0;
-          }
+        .reply {
+          opacity: 0;
         }
       }
     }

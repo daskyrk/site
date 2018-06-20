@@ -26,9 +26,10 @@ router
   .put('/tag/:id', controller.tag.updateTag)
   .delete('/tag/:id', controller.tag.delTag)
 
-  .get('/uploadToken', controller.upload.getToken)
-
   .get('/comment', controller.comment.getComments)
-  .post('/comment', controller.comment.addComment);
+  .post('/comment', controller.comment.addComment)
+  .put('/likeComment/:id', controller.comment.likeComment)
+
+  .get('/uploadToken', controller.upload.getToken);
 
 module.exports = router;

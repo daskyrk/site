@@ -15,6 +15,13 @@ export default {
       state.list = list;
       state.total = total;
     },
+
+    LIKE_PLUS(state, id) {
+      const target = state.list.find(cm => cm._id === id);
+      console.log('target:', target);
+      target.likes++;
+      state.list = state.list.map(cm => (cm._id === id ? target : cm));
+    },
   },
 
   actions: {
@@ -38,12 +45,12 @@ export default {
     },
 
     // 点赞评论
-    // async likeComment({ commit, dispatch, state }, id) {
-    //   const res = await this.$axios.$put(`/likeComment/${id}`);
-    //   if (res.code === 1) {
-    //     commit('LIKE_PLUS', id);
-    //   }
-    //   return res;
-    // },
+    async likeComment({ commit, dispatch, state }, id) {
+      const res = await this.$axios.$put(`/likeComment/${id}`);
+      if (res.code === 1) {
+        commit('LIKE_PLUS', id);
+      }
+      return res;
+    },
   },
 };

@@ -1,5 +1,6 @@
 const logError = require('../utils/logError');
 const Comment = require('../model/comment');
+const Article = require('../model/article');
 const { handleError, handleResult } = require('../utils/handle');
 
 exports.getComments = async ctx => {
@@ -35,14 +36,44 @@ exports.getComments = async ctx => {
 };
 
 exports.addComment = async ctx => {
+  const articleId = ctx.request.body.articleId;
+
   const result = await new Comment(ctx.request.body)
     .save()
     .catch(logError({ ctx }));
+
+  const article = await Article.findById(articleId).catch(logError({ ctx }));
+  if (article) {
+    article.meta.comments++;
+    article.save();
+  }
 
   handleResult({
     ctx,
     result,
     success: '发布评论成功',
     fail: '发布评论失败',
+  });
+};
+
+exports.likeComment = async ctx => {
+  const id = ctx.params.id;
+  if (!id) {
+    handleError({
+      ctx,
+      msg: '无效的参数',
+    });
+  }
+
+  const result = await Comment.findById(id).catch(logError({ ctx }));
+  if (result) {
+    result.likes += 1;
+    result.save();
+  }
+  handleResult({
+    ctx,
+    result,
+    success: '点赞评论成功',
+    fail: '点赞评论失败',
   });
 };
