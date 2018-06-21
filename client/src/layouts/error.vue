@@ -10,6 +10,8 @@ import Page502 from '~/components/error-page/502';
 export default {
   props: ['error'],
 
+  layout: 'empty',
+
   computed: {
     comp() {
       return {
