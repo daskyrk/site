@@ -31,11 +31,11 @@
           {{ scope.row.createdAt | dateFormat('YYYY.MM.DD') }}
         </template>
       </el-table-column>
-      <el-table-column label="分类" width="180">
+      <!-- <el-table-column label="分类" width="180">
         <template slot-scope="scope">
-          {{ scope.row.type }}
+          {{ typeMap[scope.row.type] }}
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="公开" width="180">
         <template slot-scope="scope">
           {{ scope.row.public ? '公开' : '私密' }}
@@ -75,6 +75,11 @@ export default {
   data() {
     return {
       deletingId: null,
+      // typeMap: {
+      //   1: '文章',
+      //   2: '诗歌',
+      //   3: '音乐',
+      // },
     };
   },
 
@@ -101,4 +106,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.pagination {
+  float: right;
+  margin-top: 1rem;
+}
 </style>
