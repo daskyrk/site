@@ -76,6 +76,11 @@ export default {
     border-radius: 100%;
     margin-right: 1rem;
   }
+
+  .el-dropdown {
+    display: inline-flex;
+  }
+
 }
 
 .header-operation {
