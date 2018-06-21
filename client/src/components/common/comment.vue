@@ -37,8 +37,14 @@
         </div>
       </div>
       <div class="author-info">
-        <input type="input" name="name" required maxlength="20" placeholder="尊姓大名" v-model="author.name" />
-        <input type="email" name="email" required maxlength="40" placeholder="邮箱会保密的" v-model="author.email" @blur="upadteGravatar" />
+
+        <el-tooltip :value="nameError" manual effect="dark" content="名字忘了写吧~" placement="bottom">
+          <input type="input" name="name" :class="{error: nameError}" required maxlength="20" placeholder="尊姓大名" v-model="author.name" @blur="checkName" />
+        </el-tooltip>
+
+        <el-tooltip :value="emailError" manual effect="dark" content="格式不对哦~" placement="bottom">
+          <input type="email" name="email" :class="{error: emailError}" required maxlength="40" placeholder="邮箱会保密的" v-model="author.email" @blur="checkEmail" />
+        </el-tooltip>
         <!-- <input type="input" name="site" maxlength="20" placeholder="您的网站？" v-model="author.site" /> -->
       </div>
     </form>
@@ -51,7 +57,8 @@
             <strong>{{comment.author.name}}</strong>
             <span>{{comment.createdAt | dateFormat('YYYY.MM.DD HH:mm')}}</span>
           </div>
-          <div class="comment-content" v-html="marked(comment.content)">
+          <div class="comment-content">
+            {{comment.content}}
           </div>
           <div class="comment-footer">
             <span :class="{ like: true, active: isLiked(comment._id) }" @click="likeComment(comment._id)">
@@ -99,6 +106,8 @@ export default {
         gravatar: null,
       },
       likeComments: [],
+      nameError: false,
+      emailError: false,
       regexs: {
         email: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/,
         // url: /^((https|http):\/\/)+[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/,
@@ -145,15 +154,24 @@ export default {
     insertEmoji(emj) {
       this.comment.content += emj;
     },
+    checkName() {
+      this.nameError = !this.author.name.length;
+    },
+    checkEmail() {
+      this.emailError = !this.regexs.email.test(this.author.email);
+      this.upadteGravatar()
+    },
     // 更新头像
     upadteGravatar() {
-      const emailIsVerified = this.regexs.email.test(this.author.email);
-      this.author.gravatar = emailIsVerified
+      this.author.gravatar = this.emailError
         ? this.gravatar(this.author.email)
         : null;
     },
     addComment(e) {
       e.preventDefault();
+      if (this.nameError || this.emailError) {
+        return this.$message.error('是不是写错了什么？');
+      }
       console.log('this.comment:', this.comment);
       console.log('this.author:', this.author);
       this.$store.dispatch('comment/addComment', {
@@ -304,6 +322,10 @@ export default {
       }
       &:last-child {
         margin-right: 0;
+      }
+
+      &.error {
+        border-color: $color-danger;
       }
     }
   }
