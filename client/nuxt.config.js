@@ -92,6 +92,7 @@ module.exports = {
   },
   plugins: [
     { src: '~plugins/markdown.js', ssr: false },
+    { src: '~plugins/copy.js', ssr: false },
     '~/plugins/filter.js',
     '~/plugins/element-ui.js',
     '~/plugins/axios.js',

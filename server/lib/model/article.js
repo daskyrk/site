@@ -17,6 +17,7 @@ const ArticleSchema = new mongoose.Schema(
 
     thumb: String,
 
+    // 1.文章 2. 诗歌 3. 音乐
     type: { type: Number },
 
     meta: {

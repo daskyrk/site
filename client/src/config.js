@@ -1,6 +1,7 @@
 const IS_DEV = process.env.NODE_ENV !== 'production';
 
 exports.envs = {
+  site: 'https://daskyrk.cn',
   navs: [
     {
       link: '/poem',
