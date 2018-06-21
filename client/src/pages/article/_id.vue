@@ -17,13 +17,11 @@
         </div>
       </el-tooltip>
       <div class="green">
-        <i class="iconfont icon-liuyan "></i>
+        <i class="iconfont icon-liuyan"></i>
       </div>
       <back-top cls="blue" :distance="260" />
     </aside>
-    <div class="share">
-
-    </div>
+    <Share :detail="detail.content" />
 
     <comment :articleId="detail._id" />
   </div>
@@ -35,11 +33,13 @@ import { mapState } from 'vuex';
 import markdown from '~/plugins/marked';
 import { setLS, getLS } from '~/utils';
 import BackTop from '~/components/common/back-top';
+import Share from '~/components/common/share';
 import Comment from '~/components/common/comment';
 
 export default {
   components: {
     BackTop,
+    Share,
     Comment,
   },
 
@@ -98,8 +98,9 @@ export default {
   }
 }
 
-.share {
-  margin: 3rem 0;
+.share-box {
+  margin: 2rem 0;
+  padding: 1rem 0;
 }
 
 aside {
