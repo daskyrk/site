@@ -62,13 +62,13 @@ export default {
     },
   },
 
-  mounted: function() {
+  mounted() {
     this.targetNode = (this.getTarget || noop)() || window;
     this.targetNode.addEventListener('scroll', this.handleScroll);
     this.handleScroll();
   },
 
-  beforeDestroy: function() {
+  beforeDestroy() {
     this.targetNode.removeEventListener('scroll', this.handleScroll);
   },
 
