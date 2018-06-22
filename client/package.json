@@ -40,6 +40,7 @@
     "querystring": "^0.2.0",
     "raf": "^3.4.0",
     "vue": "^2.5.16",
+    "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

@@ -16,14 +16,17 @@
           <i class="iconfont icon-xin"></i>
         </div>
       </el-tooltip>
-      <div class="green" @click="scrollToComment">
+      <div v-if="mounted.comment" class="green" @click="scrollToComment">
         <i class="iconfont icon-liuyan"></i>
       </div>
       <back-top cls="blue" :distance="260" />
     </aside>
-    <Share :detail="detail.content" />
-
-    <comment ref="comment" :articleId="detail._id" />
+    <lazy-component>
+      <Share :detail="detail.content" />
+    </lazy-component>
+    <lazy-component @show="markMounted('comment')">
+      <comment ref="comment" :articleId="detail._id" />
+    </lazy-component>
   </div>
 </template>
 
@@ -46,6 +49,9 @@ export default {
   data() {
     return {
       likes: [],
+      mounted: {
+        comment: false,
+      },
     };
   },
 
@@ -83,6 +89,9 @@ export default {
           inline: 'nearest',
         });
       }
+    },
+    markMounted(key) {
+      this.mounted[key] = true;
     },
   },
 

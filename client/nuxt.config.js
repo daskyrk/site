@@ -97,6 +97,7 @@ module.exports = {
     '~/plugins/element-ui.js',
     '~/plugins/axios.js',
     '~/plugins/marked.js',
+    '~/plugins/lazy-load.js',
   ],
   // loading: '~/components/loading.vue',
   router: {
