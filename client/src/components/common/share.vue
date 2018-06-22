@@ -134,7 +134,7 @@ export default {
 
   computed: {
     url() {
-      return `${this.process.env.site}${this.$route.fullPath}`;
+      return `${process.env.site}${this.$route.fullPath}`;
     },
     title() {
       return document ? document.title : "daskyrk's blog";

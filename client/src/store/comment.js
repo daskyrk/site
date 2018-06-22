@@ -28,9 +28,8 @@ export default {
     // 获取评论列表
     async getComments({ commit, state }, id) {
       // commit('FETCH_ART_START');
-      console.log('res.result:', id);
       const res = await this.$axios.$get(`/comment`, {
-        parmas: { articleId: id, ...state.query },
+        params: { articleId: id, ...state.query },
       });
       if (res.code === 1) {
         commit('SET_COMMENT_LIST', res.result);

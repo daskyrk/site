@@ -16,14 +16,14 @@
           <i class="iconfont icon-xin"></i>
         </div>
       </el-tooltip>
-      <div class="green">
+      <div class="green" @click="scrollToComment">
         <i class="iconfont icon-liuyan"></i>
       </div>
       <back-top cls="blue" :distance="260" />
     </aside>
     <Share :detail="detail.content" />
 
-    <comment :articleId="detail._id" />
+    <comment ref="comment" :articleId="detail._id" />
   </div>
 </template>
 
@@ -74,6 +74,15 @@ export default {
           setLS('article-like', this.likes);
         }
       });
+    },
+    scrollToComment() {
+      if (this.$refs.comment) {
+        this.$refs.comment.$el.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+          inline: 'nearest',
+        });
+      }
     },
   },
 
