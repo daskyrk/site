@@ -1,40 +1,40 @@
 <template>
   <div class="article-list">
-    <article-card :list="list" @loadMore='loadMore' />
-    <el-pagination @current-change="handleCurrentChange" :current-page="query.pageNo" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
-    </el-pagination>
-
+    <article-card :list="list" />
+    <LoadMore :hasMore="hasMore" :load='loadMore' domSelector=".article-list"></LoadMore>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import ArticleCard from '~/components/common/article-card';
+import LoadMore from '~/components/common/load-more';
 
 export default {
-
   components: {
     ArticleCard,
+    LoadMore,
   },
 
   async fetch({ store }) {
     await store.dispatch('article/getArtList');
   },
 
-  computed: mapState('article', ['list', 'total', 'query']),
+  computed: {
+    ...mapState('article', ['list', 'total', 'query']),
+    hasMore() {
+      return this.total > this.query.pageNo * this.query.pageSize;
+    },
+  },
 
   methods: {
     loadMore() {
-      console.log('call loadMore');
-    },
-    handleCurrentChange(pageNo) {
-      this.$store.dispatch('article/getArtList', {
-        pageNo,
+      return this.$store.dispatch('article/getArtList', {
+        pageNo: this.query.pageNo + 1,
         type: 1,
       });
     },
   },
-
 };
 </script>
 

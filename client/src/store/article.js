@@ -5,7 +5,7 @@ export default {
       total: 0,
       query: {
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 6,
       },
       detail: {},
       fetch: false,
@@ -14,7 +14,7 @@ export default {
 
   mutations: {
     GET_ART_LIST(state, { list, total }) {
-      state.list = list;
+      state.list = state.list.concat(list);
       state.total = total;
       state.fetch = false;
     },
