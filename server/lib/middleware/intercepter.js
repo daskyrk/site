@@ -25,16 +25,20 @@ module.exports = async (ctx, next) => {
   }
 
   const url = ctx.request.url;
-	const method = ctx.request.method;
-	// TODO: add more
-  if (!(url.startsWith('/api/article') && method === 'GET') && url !== ('/api/login')) {
-		const hasAuth = checkAuth(ctx);
-		if (!hasAuth) {
+  const method = ctx.request.method;
+  // TODO: add more
+  if (
+    !(url.startsWith('/api/article') && method === 'GET') &&
+    url !== '/api/login' &&
+    (url !== '/api/user' && method === 'GET')
+  ) {
+    const hasAuth = checkAuth(ctx);
+    if (!hasAuth) {
       ctx.status = 401;
       // ctx.set('WWW-Authenticate', 'Bearer realm="admin"');
-			ctx.body = '没有权限';
-			return false;
-		}
+      ctx.body = '没有权限';
+      return false;
+    }
   }
 
   await next();

@@ -8,8 +8,8 @@
       </el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" :loading="logining" @click="submitForm('form')">开门</el-button>
-      <el-button>入伙</el-button>
+      <el-button type="primary" :loading="logining" @click="submitForm('form', 'login')">开门</el-button>
+      <el-button @click="submitForm('form', 'add')">入伙</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -37,10 +37,11 @@ export default {
     };
   },
   methods: {
-    submitForm(formName) {
+    submitForm(formName, type) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$store.dispatch('user/login', this.form).then(res => {
+          const action = type === 'login' ? 'user/login' : 'user/add';
+          this.$store.dispatch(action, this.form).then(res => {
             this.$router.push(this.$route.query.redirectTo || '/');
           });
         } else {

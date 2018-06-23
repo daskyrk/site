@@ -51,6 +51,19 @@ export default {
       return res;
     },
 
+    async add({ commit, state }, data) {
+      const res = await this.$axios.$post('/user', data);
+
+      if (res && res.code === 1) {
+        const { userInfo, token } = res.result;
+        commit('SET_USER_INFO', userInfo);
+        commit('SET_TOKEN', token);
+      } else {
+        commit('SET_USER_INFO', {});
+      }
+      return res;
+    },
+
     async getUserInfo({ commit, state }) {
       const res = await this.$axios.$get('/user');
 
