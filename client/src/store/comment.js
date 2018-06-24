@@ -26,10 +26,10 @@ export default {
 
   actions: {
     // 获取评论列表
-    async getComments({ commit, state }, id) {
+    async getComments({ commit, state }, params) {
       // commit('FETCH_ART_START');
       const res = await this.$axios.$get(`/comment`, {
-        params: { articleId: id, ...state.query },
+        params: { ...state.query, ...params },
       });
       if (res.code === 1) {
         commit('SET_COMMENT_LIST', res.result);
