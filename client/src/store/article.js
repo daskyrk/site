@@ -40,6 +40,15 @@ export default {
       detail.meta.likes += 1;
       state.detail = detail;
     },
+
+    RESET_LIST(state) {
+      state.list = [];
+      state.total = 0;
+      state.query = {
+        pageNo: 1,
+        pageSize: 6,
+      };
+    },
   },
 
   actions: {

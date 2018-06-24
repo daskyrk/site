@@ -27,6 +27,10 @@ export default {
     },
   },
 
+  beforeDestroy() {
+    this.$store.commit('article/RESET_LIST');
+  },
+
   methods: {
     loadMore() {
       return this.$store.dispatch('article/getArtList', {

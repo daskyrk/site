@@ -85,6 +85,10 @@ export default {
 
   computed: mapState('article', ['fetch', 'list', 'total', 'query']),
 
+  beforeDestroy() {
+    this.$store.commit('article/RESET_LIST');
+  },
+
   methods: {
     pageChange(pageNo) {
       this.$store.dispatch('article/getArtList', {
