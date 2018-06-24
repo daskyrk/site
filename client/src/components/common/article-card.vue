@@ -60,7 +60,7 @@ export default {
   min-height: 180px;
   margin-bottom: 3rem;
   color: $color-text;
-  border: 1px solid $color-border;
+  border-bottom: 1px solid $color-border;
 
   .meta {
     display: flex;
