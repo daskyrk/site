@@ -18,7 +18,7 @@ router
   .post('/user', controller.user.addUser)
   .get('/user', controller.user.getUser)
   .delete('/user', controller.user.delUser)
-  .post('/user/updateConfig', controller.user.updateConfig)
+  .put('/user/updateConfig', controller.user.updateConfig)
   .post('/login', controller.user.login)
 
   .get('/tag', controller.tag.getTags)
