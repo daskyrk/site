@@ -69,17 +69,17 @@ echo "下载项目"
 cd ~/workspace
 echo "请复制下面的ssh key，添加到 https://github.com/settings/ssh/new"
 cat ~/.ssh/id_rsa.pub
-# read -s -n1 -p "Press any key to continue ..."
-while :
-do
-  read -p "输入y继续:" ans
-  if [ "$ans" = "y" ]
-  then
-    break;
-  else
-    echo "还没准备好？重试一下"
-  fi
-done
+read -s -n1 -p "Press any key to continue ..."
+# while :
+# do
+#   read -p "输入y继续:" ans
+#   if [ "$ans" = "y" ]
+#   then
+#     break;
+#   else
+#     echo "还没准备好？重试一下"
+#   fi
+# done
 
 echo "clone 项目"
 git clone git@github.com:daskyrk/blog.git
