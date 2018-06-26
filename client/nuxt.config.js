@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const config = require('./src/config');
 const IS_DEV = process.env.NODE_ENV !== 'production';
 
@@ -23,6 +24,12 @@ module.exports = {
         ],
       ],
     },
+    plugins: [
+      new webpack.ContextReplacementPlugin(
+        /moment[\\\/]locale$/,
+        /zh-cn\.js/,
+      ),
+    ],
     postcss: [
       require('postcss-nested')(),
       require('postcss-responsive-type')(),
@@ -39,6 +46,7 @@ module.exports = {
       'axios',
       'marked',
       'highlight.js',
+      'moment',
       // '~/utils',
     ],
   },
@@ -94,6 +102,7 @@ module.exports = {
     { src: '~plugins/markdown.js', ssr: false },
     { src: '~plugins/copy.js', ssr: false },
     '~/plugins/filter.js',
+    '~/plugins/moment.js',
     '~/plugins/axios.js',
     '~/plugins/element-ui.js',
     '~/plugins/marked.js',
