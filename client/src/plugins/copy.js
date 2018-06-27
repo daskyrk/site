@@ -23,6 +23,10 @@ if (process.env.NODE_ENV === 'production') {
 
   if (window.getSelection) {
     document.addEventListener('copy', e => {
+      // clipboard.js触发的复制不用加版权信息
+      if (e.target.nodeName === 'TEXTAREA' && e.target.parentNode.tagName === 'BODY') {
+        return;
+      }
       const content = window.getSelection().toString();
       e.clipboardData.setData('text/plain', buildText(content));
       e.clipboardData.setData('text/html', buildHtml(content));
