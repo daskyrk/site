@@ -15,20 +15,17 @@ module.exports = {
         'transform-async-to-generator',
         'transform-runtime',
         'lodash',
-        [
-          'component',
-          {
-            libraryName: 'element-ui',
-            styleLibraryName: 'theme-chalk',
-          },
-        ],
+        // [
+        //   'component',
+        //   {
+        //     libraryName: 'element-ui',
+        //     styleLibraryName: 'theme-chalk',
+        //   },
+        // ],
       ],
     },
     plugins: [
-      new webpack.ContextReplacementPlugin(
-        /moment[\\\/]locale$/,
-        /zh-cn\.js/,
-      ),
+      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
     ],
     postcss: [
       require('postcss-nested')(),
@@ -44,10 +41,8 @@ module.exports = {
     },
     vendor: [
       'axios',
-      'marked',
-      'highlight.js',
       'moment',
-      // '~/utils',
+      '~/utils',
     ],
   },
   env: config.envs,
@@ -95,18 +90,19 @@ module.exports = {
   modules: ['@nuxtjs/axios'],
   axios: {
     baseURL: IS_DEV ? 'http://localhost:8000/api' : 'https://placeholder/api',
+    browserBaseURL: 'http://localhost:8000/api',
     // prefix: '/api', // it not work
     credentials: true,
   },
   plugins: [
     { src: '~plugins/markdown.js', ssr: false },
     { src: '~plugins/copy.js', ssr: false },
-    '~/plugins/filter.js',
     '~/plugins/moment.js',
-    '~/plugins/axios.js',
     '~/plugins/element-ui.js',
+    '~/plugins/axios.js',
     '~/plugins/marked.js',
     '~/plugins/lazy-load.js',
+    '~/plugins/filter.js',
   ],
   // loading: '~/components/loading.vue',
   router: {

@@ -1,5 +1,5 @@
 <template>
-  <transition tag="div" name="slide-left">
+  <transition tag="div" name="slide-down">
     <div v-if="visible" :class="_cls" @click="scrollToTop">
       <slot><i class="iconfont icon-shang"></i></slot>
     </div>

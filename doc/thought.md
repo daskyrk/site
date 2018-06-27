@@ -75,6 +75,7 @@
 },
 ```
 所以，要想直接通过/admin这一层来控制所有子路由权限，就必须建立index目录，把其他文件都放到这个目录下，否则展开时就需要在每个文件中都进行权限控制
+9. nuxt-config中可以直接配webpack的插件，并且执行时加`-a`参数可以直接使用bundle-analysis进行依赖库分析
 
 
 ### 遇到的坑
@@ -100,6 +101,11 @@
     border: 1px dashed #d9d9d9;
 }
 ```
+7. 使用bable-plugin-component时，总是莫名其妙的报`If you are using both on-demand and importing all, make sure to invoke the importing all first.`
+解决方式：see [issue](https://github.com/ElementUI/babel-plugin-component/issues/36)
+8. bable-plugin-component插件没有效果，总是会引入`element-ui.common.js`，这一个文件就900K+，后来发现是由于引入了`el-form-renderer`时全量引入导致的。
+要么全量引入，要么不使用这个库，或者等作者改了引入方式再用。
+
 
 ### 疑惑：
 1. 获取数据时，`asyncData`和`fetch`方法都可以用，有什么区别？
