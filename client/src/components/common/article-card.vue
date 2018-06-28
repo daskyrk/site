@@ -44,8 +44,8 @@ export default {
     format: function(timestamp) {
       const date = moment(timestamp);
       const week = date.weekday();
-      const toWeek = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-      return `${date.format('YYYY-MM-DD')} ${toWeek[week]}`;
+      const toWeek = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+      return `${date.format('YYYY · MM · DD')} ${toWeek[week]}`;
     },
   },
 };
