@@ -8,7 +8,7 @@
       </el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" :loading="logining" @click="submitForm('form', 'login')">开门</el-button>
+      <el-button type="primary" native-type='submit' :loading="logining" @click.native.prevent="submitForm('form', 'login')">开门</el-button>
       <el-button @click="submitForm('form', 'add')">入伙</el-button>
     </el-form-item>
   </el-form>
