@@ -1,9 +1,13 @@
 <template>
   <transition-group tag="div" name="slide-down">
     <div class="article-item" v-for="article in list" :key='article._id'>
-      <div class="meta">
-        <p class="time">{{format(article.createdAt)}}</p>
-        <p class="summary">
+      <img :src="article.thumb" class="article-thumb" alt="thumb">
+      <div class="content-wrap">
+        <p class='title'>
+          <nuxt-link :to="`/article/${article._id}`">{{article.title}}</nuxt-link>
+        </p>
+        <div class="meta">
+          <span class="time">{{format(article.createdAt)}}</span>
           <span>
             <i class="iconfont icon-view"></i>
             {{article.meta.views}}
@@ -16,14 +20,9 @@
             <i class="iconfont icon-like"></i>
             {{article.meta.likes}}
           </span>
-        </p>
-      </div>
-      <div class="content-wrap">
-        <p class='title'>
-          <nuxt-link :to="`/article/${article._id}`">{{article.title}}</nuxt-link>
-        </p>
+        </div>
         <div class="descript">
-          {{article.descript}}
+          {{article.descript || '文章没有描述，进去看看？' | textClip(60)}}
         </div>
       </div>
     </div>
@@ -57,53 +56,63 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 180px;
+  height: 11rem;
   margin-bottom: 3rem;
   color: $color-text;
-  border-bottom: 1px solid $color-border;
+  border-radius: $radius;
+  box-shadow: 0 0 20px 0px #cccccc8c;
 
-  .meta {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 20px;
-    border-right: 1px solid $color-border;
+  &:hover {
+    box-shadow: 0 4px 50px 0px #ccc;
+    transform: scale(1.02);
+  }
 
-    i {
-      font-size: 1.3rem;
-    }
-
-    .time {
-      margin-bottom: 20px;
-    }
-
-    .summary {
-      display: flex;
-      justify-content: space-around;
-      span {
-        display: inline-flex;
-        flex-direction: column;
-        align-items: center;
-      }
-    }
+  .article-thumb {
+    height: 100%;
+    min-width: 11rem;
   }
 
   .content-wrap {
     flex: 1;
+    height: 100%;
     padding: 10px 20px;
     overflow: hidden;
 
     .title {
       margin-bottom: 0.5rem;
-      font-size: 1.6rem;
+      font-size: 1.2rem;
       font-weight: 700;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .content {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    .meta {
+      display: flex;
+      align-items: center;
+      color: $color-text-sub;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+
+      .time {
+        margin-right: 1.2rem;
+      }
+
+      span {
+        margin-right: 0.75rem;
+      }
+    }
+
+    .descript {
+      color: $color-text-assist;
+    }
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .article-item {
+    height: 12rem;
+    .article-thumb {
+      min-width: 12rem;
     }
   }
 }

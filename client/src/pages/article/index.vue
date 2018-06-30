@@ -44,7 +44,8 @@ export default {
 
 <style lang='scss' scoped>
 .article-list {
-  min-width: 38rem;
+  min-width: 42rem;
   width: 60%;
 }
+
 </style>
