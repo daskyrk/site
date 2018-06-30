@@ -1,31 +1,33 @@
 <template>
   <transition-group tag="div" name="slide-down">
-    <div class="article-item" v-for="article in list" :key='article._id'>
-      <img :src="article.thumb" class="article-thumb" alt="thumb">
-      <div class="content-wrap">
-        <p class='title'>
-          <nuxt-link :to="`/article/${article._id}`">{{article.title}}</nuxt-link>
-        </p>
-        <div class="meta">
-          <span class="time">{{format(article.createdAt)}}</span>
-          <span>
-            <i class="iconfont icon-view"></i>
-            {{article.meta.views}}
-          </span>
-          <span>
-            <i class="iconfont icon-comment"></i>
-            {{article.meta.comments}}
-          </span>
-          <span>
-            <i class="iconfont icon-like"></i>
-            {{article.meta.likes}}
-          </span>
-        </div>
-        <div class="descript">
-          {{article.descript || '文章没有描述，进去看看？' | textClip(60)}}
+    <nuxt-link v-for="article in list" :key='article._id' :to="`/article/${article._id}`">
+      <div class="article-item">
+        <img :src="article.thumb" class="article-thumb" alt="thumb">
+        <div class="content-wrap">
+          <p class='title'>
+            {{article.title}}
+          </p>
+          <div class="meta">
+            <span class="time">{{format(article.createdAt)}}</span>
+            <span>
+              <i class="iconfont icon-view"></i>
+              {{article.meta.views}}
+            </span>
+            <span>
+              <i class="iconfont icon-comment"></i>
+              {{article.meta.comments}}
+            </span>
+            <span>
+              <i class="iconfont icon-like"></i>
+              {{article.meta.likes}}
+            </span>
+          </div>
+          <div class="descript">
+            {{article.descript || '文章没有描述，进去看看？' | textClip(60)}}
+          </div>
         </div>
       </div>
-    </div>
+    </nuxt-link>
   </transition-group>
 </template>
 
