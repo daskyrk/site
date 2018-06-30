@@ -1,5 +1,5 @@
 <template>
-  <component v-bind:is="comp"></component>
+  <component v-if="show" v-bind:is="comp"></component>
 </template>
 
 <script>
@@ -13,6 +13,9 @@ export default {
   layout: 'empty',
 
   computed: {
+    show() {
+      return this.error.statusCode !== 401;
+    },
     comp() {
       return {
         404: Page404,
@@ -20,5 +23,12 @@ export default {
       }[this.error.statusCode] || Default;
     },
   },
+
+  created() {
+    if (!this.show) {
+      this.$router.push('/login');
+    }
+  },
+
 };
 </script>

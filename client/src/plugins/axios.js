@@ -21,8 +21,6 @@ export default function({ $axios, store, redirect }) {
     const code = parseInt(error.response && error.response.status);
     if (code === 401) {
       store.commit('user/LOGOUT');
-      // TODO: 这里会直接在页面显示错误信息
-      redirect('/login');
     }
   });
 }
