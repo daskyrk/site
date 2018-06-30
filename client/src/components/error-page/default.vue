@@ -5,6 +5,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  props: ['error'],
+};
+</script>
+
 
 <style scoped>
 .error-page {
