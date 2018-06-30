@@ -35,7 +35,7 @@ export default {
     },
 
     async addTag({ commit, dispatch, state }, data) {
-      const res = await this.$axios.$post('/tag', data);
+      const res = await this.$axios.$post('/admin/tag', data);
       if (res.code === 1) {
         await dispatch('getTags');
       }
@@ -43,7 +43,7 @@ export default {
     },
 
     async updateTag({ commit, dispatch, state }, { _id, ...data }) {
-      const res = await this.$axios.$put(`/tag/${_id}`, data);
+      const res = await this.$axios.$put(`/admin/tag/${_id}`, data);
       if (res.code === 1) {
         await dispatch('getTags');
       }
@@ -51,7 +51,7 @@ export default {
     },
 
     async delTag({ commit, dispatch, state }, id) {
-      const res = await this.$axios.$delete('/tag', id);
+      const res = await this.$axios.$delete('/admin/tag', id);
       if (res.code === 1) {
         let pageNo = state.query.pageNo;
         if (state.list.length === 1) {

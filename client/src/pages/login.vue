@@ -27,11 +27,11 @@ export default {
       rules: {
         username: [
           { required: true, message: '你到底是谁啊？', trigger: 'blur' },
-          { min: 3, message: '太短了', trigger: 'blur' },
+          { min: 3, message: '名字太短了', trigger: 'blur' },
         ],
         password: [
           { required: true, message: '没口令可不行哦', trigger: 'blur' },
-          { min: 3, message: '太短了', trigger: 'blur' },
+          { min: 3, message: '口令太短了', trigger: 'blur' },
         ],
       },
     };

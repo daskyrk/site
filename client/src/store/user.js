@@ -74,7 +74,7 @@ export default {
     },
 
     async updateConfig({ commit, state }, data) {
-      const res = await this.$axios.$put('/user/updateConfig', data);
+      const res = await this.$axios.$put('/admin/user/updateConfig', data);
     },
   },
 };

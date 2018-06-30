@@ -9,22 +9,22 @@ const controller = requireAll(__dirname + '/controller', false, /(\w|-)+\.js$/);
 
 router
   .get('/article', controller.article.getArts)
-  .post('/article', controller.article.addArt)
-  .put('/article/:id', controller.article.updateArt)
+  .post('/admin/article', controller.article.addArt)
+  .put('/admin/article/:id', controller.article.updateArt)
   .get('/article/:id', controller.article.getArt)
-  .delete('/article/:id', controller.article.delArt)
+  .delete('/admin/article/:id', controller.article.delArt)
   .put('/likeArt/:id', controller.article.likeArt)
 
   .post('/user', controller.user.addUser)
   .get('/user', controller.user.getUser)
   .delete('/user', controller.user.delUser)
-  .put('/user/updateConfig', controller.user.updateConfig)
+  .put('/admin/user/updateConfig', controller.user.updateConfig)
   .post('/login', controller.user.login)
 
   .get('/tag', controller.tag.getTags)
-  .post('/tag', controller.tag.addTag)
-  .put('/tag/:id', controller.tag.updateTag)
-  .delete('/tag/:id', controller.tag.delTag)
+  .post('/admin/tag', controller.tag.addTag)
+  .put('/admin/tag/:id', controller.tag.updateTag)
+  .delete('/admin/tag/:id', controller.tag.delTag)
 
   .get('/comment', controller.comment.getComments)
   .post('/comment', controller.comment.addComment)

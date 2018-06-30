@@ -27,24 +27,15 @@ module.exports = async (ctx, next) => {
   const url = ctx.request.url;
   const method = ctx.request.method;
 
-  const whiteList = [
-    url.startsWith('/api/article') && method === 'GET',
-    url === '/api/login',
-    url === '/api/user' && method === 'GET',
-  ];
-  console.log('whiteList:', whiteList);
-
-  if (whiteList.some(a => a)) {
-    await next();
-    return false;
-  }
-
-  const hasAuth = checkAuth(ctx);
-  if (!hasAuth) {
-    ctx.status = 401;
-    // ctx.set('WWW-Authenticate', 'Bearer realm="admin"');
-    ctx.body = '没有权限';
-    return false;
+  // 有admin前缀的需要登录
+  if (url.startsWith('/api/admin')) {
+    const hasAuth = checkAuth(ctx);
+    if (!hasAuth) {
+      ctx.status = 401;
+      // ctx.set('WWW-Authenticate', 'Bearer realm="admin"');
+      ctx.body = '没有权限';
+      return false;
+    }
   }
 
   await next();

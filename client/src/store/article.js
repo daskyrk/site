@@ -74,7 +74,7 @@ export default {
 
     // 添加文章
     async addArt({ commit, dispatch }, data) {
-      const res = await this.$axios.$post(`/article`, data);
+      const res = await this.$axios.$post(`/admin/article`, data);
       if (res.code === 1) {
         await dispatch('getArtList');
       }
@@ -83,7 +83,7 @@ export default {
 
     // 编辑文章
     async updateArt({ commit, dispatch }, { _id, ...data }) {
-      const res = await this.$axios.$put(`/article/${_id}`, data);
+      const res = await this.$axios.$put(`/admin/article/${_id}`, data);
       // if (res.code === 1) {
       //   await dispatch('getArtList');
       // }
@@ -92,7 +92,7 @@ export default {
 
     // 删除文章
     async delArt({ commit, dispatch, state }, id) {
-      const res = await this.$axios.$delete(`/article/${id}`);
+      const res = await this.$axios.$delete(`/admin/article/${id}`);
       if (res.code === 1) {
         let pageNo = state.query.pageNo;
         if (state.list.length === 1) {
