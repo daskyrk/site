@@ -2,7 +2,10 @@
   <transition-group tag="div" name="slide-down">
     <nuxt-link v-for="article in list" :key='article._id' :to="`/article/${article._id}`">
       <div class="article-item">
-        <img :src="article.thumb" class="article-thumb" alt="thumb">
+        <img v-if="article.thumb" :src="article.thumb" class="article-thumb" alt="thumb">
+        <svg v-else class="thumb-placeholder" aria-hidden="true">
+          <use xlink:href="#icon-longmao"></use>
+        </svg>
         <div class="content-wrap">
           <p class='title'>
             {{article.title}}
@@ -10,15 +13,15 @@
           <div class="meta">
             <span class="time">{{format(article.createdAt)}}</span>
             <span>
-              <i class="iconfont icon-view"></i>
+              <i class="iconfont icon-chakan"></i>
               {{article.meta.views}}
             </span>
             <span>
-              <i class="iconfont icon-comment"></i>
+              <i class="iconfont icon-pinglun"></i>
               {{article.meta.comments}}
             </span>
             <span>
-              <i class="iconfont icon-like"></i>
+              <i class="iconfont icon-xihuan"></i>
               {{article.meta.likes}}
             </span>
           </div>
@@ -53,13 +56,15 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+$article-card-height: 11rem;
+
 .article-item {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 11rem;
-  margin-bottom: 3rem;
+  height: $article-card-height;
+  margin-bottom: 2rem;
   color: $color-text;
   border-radius: $radius;
   box-shadow: 0 0 20px 0px #cccccc8c;
@@ -71,7 +76,12 @@ export default {
 
   .article-thumb {
     height: 100%;
-    min-width: 11rem;
+    min-width: $article-card-height;
+  }
+
+  .thumb-placeholder {
+    width: $article-card-height;
+    height: $article-card-height;
   }
 
   .content-wrap {
@@ -86,6 +96,7 @@ export default {
       font-weight: 700;
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .meta {
@@ -95,12 +106,18 @@ export default {
       margin-bottom: 0.5rem;
       font-size: 0.875rem;
 
-      .time {
-        margin-right: 1.2rem;
+      i {
+        color: $color-text-sub-assist;
+        vertical-align: middle;
       }
 
       span {
         margin-right: 0.75rem;
+        line-height: 1.375rem;
+      }
+
+      .time {
+        margin-right: 1.2rem;
       }
     }
 
@@ -112,9 +129,14 @@ export default {
 
 @media screen and (min-width: 1000px) {
   .article-item {
-    height: 12rem;
+    height: $article-card-height + 1;
     .article-thumb {
-      min-width: 12rem;
+      min-width: $article-card-height + 1;
+    }
+
+    .thumb-placeholder {
+      width: $article-card-height + 1;
+      height: $article-card-height + 1;
     }
   }
 }

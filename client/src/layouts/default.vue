@@ -35,7 +35,7 @@ export default {
   flex: 1;
   width: 100%;
   justify-content: center;
-  margin: 6rem auto 1rem;
+  margin: 8rem auto 1rem;
 }
 </style>
 
