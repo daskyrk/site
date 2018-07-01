@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import ArticleCard from '~/components/common/article-card';
 import LoadMore from '~/components/common/load-more';
 
@@ -22,9 +22,7 @@ export default {
 
   computed: {
     ...mapState('article', ['list', 'total', 'query']),
-    hasMore() {
-      return this.total > this.query.pageNo * this.query.pageSize;
-    },
+    ...mapGetters('article', ['hasMore']),
   },
 
   beforeDestroy() {
@@ -46,6 +44,6 @@ export default {
 .article-list {
   min-width: 40rem;
   width: 56%;
+  margin-top: 1rem;
 }
-
 </style>

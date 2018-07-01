@@ -12,6 +12,12 @@ export default {
     };
   },
 
+  getters: {
+    hasMore: state => {
+      return state.total > state.query.pageNo * state.query.pageSize;
+    },
+  },
+
   mutations: {
     GET_ART_LIST(state, { list, total }) {
       state.list = state.list.concat(list);

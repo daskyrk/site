@@ -3,12 +3,26 @@ const Article = require('../model/article');
 const { handleError, handleResult } = require('../utils/handle');
 
 exports.getArts = async ctx => {
-  const { pageNo = 1, pageSize = 10 } = ctx.query;
+  const { pageNo = 1, pageSize = 10, keyword, tag } = ctx.query;
   const querys = {};
   const options = {
     page: Number(pageNo),
     limit: Number(pageSize),
   };
+
+  // 关键词查询
+  if (keyword) {
+    const keywordReg = new RegExp(keyword)
+    querys['$or'] = [
+      { 'title': keywordReg },
+      { 'content': keywordReg },
+      { 'description': keywordReg }
+    ]
+  }
+
+  if (tag) {
+    querys.tags = tag;
+  }
 
   const result = await Article.paginate(querys, options).catch(
     logError({ ctx }),

@@ -1,4 +1,3 @@
-
 export default {
   state() {
     return {
@@ -6,9 +5,20 @@ export default {
       total: 0,
       query: {
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 1000,
       },
+      nameMap: {},
     };
+  },
+
+  getters: {
+    nameMap: state => {
+      const nameMap = {};
+      state.list.forEach(tag => {
+        nameMap[tag._id] = tag.name;
+      });
+      return nameMap;
+    },
   },
 
   mutations: {

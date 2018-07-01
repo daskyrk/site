@@ -105,6 +105,7 @@
 解决方式：see [issue](https://github.com/ElementUI/babel-plugin-component/issues/36)
 8. bable-plugin-component插件没有效果，总是会引入`element-ui.common.js`，这一个文件就900K+，后来发现是由于引入了`el-form-renderer`时全量引入导致的。
 要么全量引入，要么不使用这个库，或者等作者改了引入方式再用。
+9. route跳转时，先执行后一个组件的`fetch`方法，再执行后一个组件的`beforeDestroy`，这样的话就无法进行清空操作，因为后一个组件先获取了数据后前一个组件再清空，就有问题了。只能放到store中不同的位置。
 
 
 ### 疑惑：

@@ -10,6 +10,15 @@
     </div>
     <div class="content markdown-content" v-html="marked(detail.content)">
     </div>
+    <div class="article-tag">
+      <div class="tags">
+        <i class="iconfont icon-biaoqian"></i>
+        <nuxt-link :to="`/search?tag=${tag}`" :key="tag" v-for="tag in detail.tags">{{nameMap[tag]}}</nuxt-link>
+      </div>
+      <span>
+        <a href="https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh" target="_blank">非商用-署名-自由转载</a>
+      </span>
+    </div>
     <aside class="side">
       <el-tooltip :disabled="!isLiked" effect="dark" content="您已喜欢过该文章啦~" placement="top">
         <div :class="{ red: true, active: isLiked }" @click="like(detail._id)">
@@ -32,7 +41,7 @@
 
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import markdown from '~/plugins/marked';
 import { setLS, getLS } from '~/utils';
 import BackTop from '~/components/common/back-top';
@@ -57,6 +66,7 @@ export default {
 
   computed: {
     ...mapState('article', ['detail']),
+    ...mapGetters('tag', ['nameMap']),
     isLiked: function() {
       return this.likes.includes(this.detail._id);
     },
@@ -64,6 +74,7 @@ export default {
 
   async fetch({ store, params }) {
     await store.dispatch('article/getArt', params.id);
+    await store.dispatch('tag/getTags', { pageSize: 100 });
   },
 
   methods: {
@@ -96,6 +107,7 @@ export default {
   },
 
   beforeMount() {
+    console.log('this.nameMap:', this.nameMap);
     this.likes = getLS('article-like') || [];
   },
 };
@@ -113,6 +125,25 @@ export default {
   color: $color-text-sub;
   span {
     margin-right: 0.5rem;
+  }
+}
+
+.article-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: .75rem;
+  margin-top: 2rem;
+  color: $color-text-assist;
+
+  .tags {
+    a {
+      margin-left: 0.5rem;
+    }
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 }
 

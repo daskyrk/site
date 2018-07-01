@@ -69,14 +69,14 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: '//at.alicdn.com/t/font_683109_eo1btf40h6.css',
+        href: '//at.alicdn.com/t/font_683109_a27ucrgo7ju.css',
       },
     ],
     script: [
       {
         // async: 'async',
         type: 'text/javascript',
-        src: '//at.alicdn.com/t/font_683109_eo1btf40h6.js',
+        src: '//at.alicdn.com/t/font_683109_a27ucrgo7ju.js',
       }
     ],
     noscript: [{ innerHTML: 'This website requires JavaScript.' }],
