@@ -10,14 +10,14 @@
     </div>
     <div class="content markdown-content" v-html="marked(detail.content)">
     </div>
-    <div class="article-tag">
-      <div class="tags">
-        <i class="iconfont icon-biaoqian"></i>
-        <nuxt-link :to="`/search?tag=${tag}`" :key="tag" v-for="tag in detail.tags">{{nameMap[tag]}}</nuxt-link>
-      </div>
+    <div class="article-info">
       <span>
         <a href="https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh" target="_blank">非商用-署名-自由转载</a>
       </span>
+      <div v-if="detail.tags.length" class="tags">
+        <i class="iconfont icon-biaoqian"></i>
+        <nuxt-link :to="`/search?tag=${tag}`" :key="tag" v-for="tag in detail.tags">{{nameMap[tag]}}</nuxt-link>
+      </div>
     </div>
     <aside class="side">
       <el-tooltip :disabled="!isLiked" effect="dark" content="您已喜欢过该文章啦~" placement="top">
@@ -107,7 +107,6 @@ export default {
   },
 
   beforeMount() {
-    console.log('this.nameMap:', this.nameMap);
     this.likes = getLS('article-like') || [];
   },
 };
@@ -128,11 +127,12 @@ export default {
   }
 }
 
-.article-tag {
+.article-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: .75rem;
+  flex-direction: row-reverse;
+  font-size: 0.75rem;
   margin-top: 2rem;
   color: $color-text-assist;
 

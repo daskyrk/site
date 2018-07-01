@@ -11,8 +11,11 @@
         {{keyword}}
       </span>
     </div>
-    <article-card :list="list" />
-    <LoadMore :hasMore="hasMore" :load='loadMore' domSelector=".search-result"></LoadMore>
+    <div v-if="list.length">
+      <article-card :list="list" />
+      <LoadMore :hasMore="hasMore" :load='loadMore' domSelector=".search-result"></LoadMore>
+    </div>
+    <EmptyHolder v-else></EmptyHolder>
   </div>
 </template>
 
@@ -20,26 +23,31 @@
 import { mapState, mapGetters } from 'vuex';
 import ArticleCard from '~/components/common/article-card';
 import LoadMore from '~/components/common/load-more';
+import EmptyHolder from '~/components/common/empty-holder';
 
 export default {
   components: {
     ArticleCard,
     LoadMore,
+    EmptyHolder,
   },
 
   async fetch({ store, query }) {
     await store.dispatch('search/doSearch', query);
   },
 
-  data() {
-    const { tag, keyword } = this.$route.query;
-    return { tag, keyword };
-  },
+  watchQuery: ['tag', 'keyword'],
 
   computed: {
     ...mapState('search', ['list', 'query']),
     ...mapGetters('search', ['hasMore']),
     ...mapGetters('tag', ['nameMap']),
+    tag() {
+      return this.$route.query.tag;
+    },
+    keyword() {
+      return this.$route.query.keyword;
+    },
   },
 
   beforeDestroy() {
@@ -58,7 +66,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.tag-list {
+.search-result {
+  width: 60%;
   margin-top: 1rem;
 }
 

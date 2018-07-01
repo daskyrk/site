@@ -14,7 +14,8 @@
       </nav>
     </div>
     <div class="header-right">
-      <input type="text" class="header-search" maxlength="10" v-model='keyword' @keyup.enter='search'>
+      <input ref="searchInput" type="text" class="header-search-input" :class="{hide: !searchVisible}" maxlength="10" v-model='keyword' @keyup.enter='search' @blur="hideSearch">
+      <i class="iconfont icon-search header-search-icon" :class="{hide: searchVisible}" @click="showSearch"></i>
     </div>
   </header>
 </template>
@@ -28,12 +29,23 @@ export default {
       keyword: '',
       navs: process.env.navs,
       hide: false,
+      searchVisible: false,
     };
   },
 
   methods: {
+    showSearch() {
+      this.searchVisible = true;
+      this.$refs.searchInput.focus();
+    },
+    hideSearch() {
+      this.searchVisible = false;
+    },
     search(e) {
-      console.log('search:', e.target.value);
+      const value = e.target.value.trim();
+      if (value.length) {
+        this.$router.push(`/search?keyword=${e.target.value.trim()}`)
+      }
     },
     getScrollTop() {
       return (
@@ -98,18 +110,35 @@ header {
     }
   }
 
-  .header-search {
-    border-radius: 30px;
-    width: 80px;
-    padding: 0 0.7rem;
-    border: 1px solid $dimgray;
-    transition: all 0.2s;
-    color: $dimgray;
+  .header-right {
+    position: relative;
+  }
 
-    &:focus {
-      width: 160px;
-      border: 1px solid $blue;
-      outline: none;
+  .header-search-icon {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &.hide {
+      opacity: 0;
+    }
+  }
+
+  .header-search-input {
+    width: 160px;
+    padding-left: 0.5rem;
+    border: none;
+    border-bottom: 1px solid $dimgray;
+    transition: all 0.25s;
+    color: $dimgray;
+    outline: none;
+
+    &.hide {
+      opacity: 0;
+      width: 0;
     }
   }
 }
