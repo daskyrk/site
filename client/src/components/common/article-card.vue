@@ -29,6 +29,7 @@
             {{article.descript || '文章没有描述，进去看看？' | textClip(60)}}
           </div>
         </div>
+        <span v-if="article.meta.likes > 10" class="ribbon">很棒</span>
       </div>
     </nuxt-link>
   </transition-group>
@@ -39,11 +40,7 @@ import moment from 'moment';
 
 export default {
   props: ['list'],
-  computed: {
-    fetch() {
-      return this.$store.state.article.fetch;
-    },
-  },
+
   methods: {
     format: function(timestamp) {
       const date = moment(timestamp);
@@ -57,6 +54,7 @@ export default {
 
 <style lang='scss' scoped>
 $article-card-height: 11rem;
+$half-ribbon-width: 1rem;
 
 .article-item {
   position: relative;
@@ -89,6 +87,7 @@ $article-card-height: 11rem;
     height: 100%;
     padding: 10px 20px;
     overflow: hidden;
+    margin-right: 2.2rem;
 
     .title {
       margin-bottom: 0.5rem;
@@ -123,6 +122,42 @@ $article-card-height: 11rem;
 
     .descript {
       color: $color-text-assist;
+    }
+  }
+
+  .ribbon {
+    display: inline-block;
+    top: -6px;
+    right: 1rem;
+    position: absolute;
+    width: 2 * $half-ribbon-width;
+    text-align: center;
+    padding: 10px 0 4px;
+    background: $orange;
+    border-top-left-radius: $radius;
+    color: $white;
+
+    &:before {
+      content: '';
+      position: absolute;
+      height: 0;
+      width: 0;
+      border-bottom: 6px solid #8d5a20;
+      border-right: 4px solid transparent;
+      right: -4px;
+      top: 0;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -$half-ribbon-width;
+      width: 0;
+      height: 0;
+      border-left: $half-ribbon-width solid $orange;
+      border-right: $half-ribbon-width solid $orange;
+      border-bottom: $half-ribbon-width solid transparent;
     }
   }
 }
