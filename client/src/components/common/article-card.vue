@@ -67,11 +67,11 @@ $article-card-height: 11rem;
   margin-bottom: 2rem;
   color: $color-text;
   border-radius: $radius;
-  box-shadow: 0 0 20px 0px #cccccc8c;
+  box-shadow: 0 0 10px 0px #0000004d;
 
   &:hover {
-    box-shadow: 0 4px 50px 0px #ccc;
-    transform: scale(1.02);
+    box-shadow: 0 4px 50px 0px #cccccc8c;
+    transform: scale(1.01);
   }
 
   .article-thumb {
