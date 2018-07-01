@@ -33,7 +33,8 @@ export default {
   },
 
   async fetch({ store, query }) {
-    await store.dispatch('search/doSearch', query);
+    const { tag, keyword } = query;
+    await store.dispatch('search/doSearch', { tag, keyword });
   },
 
   watchQuery: ['tag', 'keyword'],
