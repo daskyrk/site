@@ -1,4 +1,4 @@
 */node_modules
 server/lib/my-config.js
 client/.nuxt
-db/db/*
+db/blog/
