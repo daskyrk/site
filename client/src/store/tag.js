@@ -60,8 +60,8 @@ export default {
       return res;
     },
 
-    async delTag({ commit, dispatch, state }, id) {
-      const res = await this.$axios.$delete('/admin/tag', id);
+    async delTag({ commit, dispatch, state }, _id) {
+      const res = await this.$axios.$delete(`/admin/tag/${_id}`);
       if (res.code === 1) {
         let pageNo = state.query.pageNo;
         if (state.list.length === 1) {
