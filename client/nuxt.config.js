@@ -71,6 +71,10 @@ module.exports = {
         rel: 'stylesheet',
         href: '//at.alicdn.com/t/font_683109_ufv5v1399.css',
       },
+      {
+        rel: 'stylesheet',
+        href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/monokai-sublime.min.css',
+      },
     ],
     script: [
       {
@@ -107,7 +111,6 @@ module.exports = {
     '~/plugins/moment.js',
     '~/plugins/element-ui.js',
     '~/plugins/axios.js',
-    '~/plugins/marked.js',
     '~/plugins/lazy-load.js',
     '~/plugins/filter.js',
   ],

@@ -77,7 +77,7 @@
 <script>
 import { mapState } from 'vuex';
 import gravatar from 'gravatar';
-import marked from '~/plugins/marked';
+import marked from '~/utils/marked';
 import { setLS, getLS } from '~/utils';
 import EmojiBox from '~/components/common/emoji-box';
 

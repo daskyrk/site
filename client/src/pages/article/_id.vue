@@ -42,7 +42,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import markdown from '~/plugins/marked';
+import markdown from '~/utils/marked';
 import { setLS, getLS } from '~/utils';
 import BackTop from '~/components/common/back-top';
 import Share from '~/components/common/share';
@@ -125,6 +125,10 @@ export default {
   span {
     margin-right: 0.5rem;
   }
+}
+
+.content {
+  overflow: auto;
 }
 
 .article-info {

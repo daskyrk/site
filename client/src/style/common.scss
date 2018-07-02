@@ -19,6 +19,27 @@ pre {
   -moz-osx-font-smoothing: initial;
 }
 
+pre {
+  overflow: auto;
+  font-size: 12px;
+  background-color: $black;
+  border-radius: $radius;
+  margin-bottom: 1em;
+}
+
+code {
+  display: block;
+  padding: 1em;
+  line-height: 1.6em;
+  color: $platinum;
+  background-color: transparent;
+  &::selection,
+  *::selection {
+    background: #43d8e4;
+    color: $white;
+  }
+}
+
 *,
 *:hover {
   @include transition(
