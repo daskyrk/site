@@ -95,12 +95,13 @@ $manage-sidebar-close-width: 4.5rem;
     margin-top: 10px;
   }
   .menu-item {
+    height: 3rem;
+    line-height: 3rem;
     overflow: hidden;
     padding-left: 2.5rem;
     text-align: left;
     color: $sidebar-text;
-    height: 3rem;
-    line-height: 3rem;
+    outline: none;
     transition: padding-left 0.3s;
     &:hover {
       color: $sidebar-text-hover;
