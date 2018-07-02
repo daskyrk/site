@@ -95,3 +95,7 @@ cd ../server
 npm i
 # 添加my-config.js
 # npm run start
+
+echo "恢复数据"
+cd ../db
+bash init.sh

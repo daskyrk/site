@@ -26,9 +26,9 @@ if [ ! -d "./$dbname" ]; then
 	fi
 fi
 
-read -p "请输入恢复后的数据库名（默认为blog）：" name
+read -t 5 -p "请输入恢复后的数据库名（5s后自动默认为blog）：" name
 if [ -z "${dbname}" ]; then
 	name=$dbname
 fi
-echo "开始恢复数据库：$dbname..."
+echo "开始恢复数据库：$name..."
 mongorestore -h 127.0.0.1 -d $name ./$dbname
