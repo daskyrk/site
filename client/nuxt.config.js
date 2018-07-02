@@ -48,7 +48,7 @@ module.exports = {
   env: config.envs,
   head: {
     title: 'blog',
-    titleTemplate: '%s | Jun',
+    titleTemplate: '%s | daskyrk',
     meta: [
       { charset: 'utf-8' },
       { 'http-equiv': 'cleartype', content: 'on' },

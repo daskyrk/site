@@ -1,5 +1,5 @@
 <template>
-  <footer>涅尘 | @Jun</footer>
+  <footer>涅尘 | @daskyrk</footer>
 </template>
 
 <style lang="scss" scoped>

@@ -18,4 +18,4 @@
 - [ ] 增加读书页面
 - [ ] 增加about页面
 - [ ] 留言xss过滤
-- [ ] 增加code highlight样式
+- [x] 增加code highlight样式
