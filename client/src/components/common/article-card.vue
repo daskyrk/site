@@ -65,11 +65,27 @@ $half-ribbon-width: 1rem;
   margin-bottom: 2rem;
   color: $color-text;
   border-radius: $radius;
-  box-shadow: 0 0 10px 0px #0000004d;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 30px;
+    left: 2%;
+    bottom: 0px;
+    width: 96%;
+    z-index: -1;
+    transition: box-shadow 0.25s;
+    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 50%/50%;
+  }
 
   &:hover {
-    box-shadow: 0 4px 50px 0px #cccccc8c;
     transform: scale(1.01);
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.3);
+    &::after {
+      box-shadow: 0 0 30px 3px rgba(0, 0, 0, 0.5);
+    }
   }
 
   .article-thumb {
@@ -85,9 +101,10 @@ $half-ribbon-width: 1rem;
   .content-wrap {
     flex: 1;
     height: 100%;
-    padding: 10px 20px;
+    padding: 0.625rem;
+    padding-right: 2.2rem;
+    background: $white;
     overflow: hidden;
-    margin-right: 2.2rem;
 
     .title {
       margin-bottom: 0.5rem;
