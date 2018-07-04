@@ -4,8 +4,8 @@ exports.envs = {
   site: 'https://daskyrk.cn',
   navs: [
     {
-      link: '/poem',
-      text: '诗歌',
+      link: '/read',
+      text: '读书',
     },
     {
       link: '/article',
