@@ -29,7 +29,7 @@
             {{article.descript || '文章没有描述，进去看看？' | textClip(60)}}
           </div>
         </div>
-        <span v-if="article.meta.likes > 10" class="ribbon">很棒</span>
+        <span v-if="topLikeId === article.id" class="ribbon">赞</span>
       </div>
     </nuxt-link>
   </transition-group>
@@ -40,6 +40,20 @@ import moment from 'moment';
 
 export default {
   props: ['list'],
+
+  computed: {
+    topLikeId() {
+      let max = 0;
+      let id = null;
+      this.list.forEach(t => {
+        if (t.meta.likes > max) {
+          max = t.meta.likes;
+          id = t.id;
+        }
+      });
+      return max === 0 ? null : id;
+    },
+  },
 
   methods: {
     format: function(timestamp) {
