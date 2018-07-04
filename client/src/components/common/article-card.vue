@@ -91,6 +91,7 @@ $half-ribbon-width: 1rem;
   .article-thumb {
     height: 100%;
     min-width: $article-card-height;
+    background: white;
   }
 
   .thumb-placeholder {

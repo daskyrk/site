@@ -9,7 +9,7 @@ exports.envs = {
     },
     {
       link: '/article',
-      text: '随笔',
+      text: '文章',
     },
     {
       link: '/music',
