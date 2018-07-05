@@ -2,7 +2,7 @@ const { checkAuth } = require('../utils/auth');
 
 module.exports = async (ctx, next) => {
   // 拦截器
-  const allowedOrigins = ['file://'];
+  const allowedOrigins = ['file://', 'http://lijun.space'];
   const origin = ctx.request.headers.origin || '';
   if (allowedOrigins.includes(origin) || origin.includes('localhost')) {
     ctx.set('Access-Control-Allow-Origin', origin);
