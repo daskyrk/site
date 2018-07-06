@@ -17,15 +17,19 @@ if (secretKey.length !== 16) {
   throw new Error('secretKey length must be 16!');
 }
 
-// 加密配置文件
-cryptoUtil.encodeFile(
-  path.join(__dirname, './my-config.js'),
-  path.join(__dirname, './config.aes'),
-  secretKey,
-);
-// 解密配置文件
-// cryptoUtil.decodeFile(
-//   path.join(__dirname, './config.aes'),
-//   path.join(__dirname, './config.js'),
-//   secretKey,
-// );
+// npm run decode -- sk=secretKey
+if (argMap.de) {
+  // 解密配置文件
+  cryptoUtil.decodeFile(
+    path.join(__dirname, './config.aes'),
+    path.join(__dirname, './config.js'),
+    secretKey,
+  );
+} else {
+  // 加密配置文件
+  cryptoUtil.encodeFile(
+    path.join(__dirname, './my-config.js'),
+    path.join(__dirname, './config.aes'),
+    secretKey,
+  );
+}
