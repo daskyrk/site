@@ -13,7 +13,7 @@
       <el-dropdown @command='handleCommand'>
         <span class="el-dropdown-link">
           <img class="avatar" :src="user.avatar" alt="avatar">
-          <span>daskyrk</span>
+          <span>{{user.nick}}</span>
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">

@@ -1,7 +1,21 @@
 const IS_DEV = process.env.NODE_ENV !== 'production';
 
 exports.envs = {
-  site: 'https://daskyrk.cn',
+  owner: 'lijun',
+  mail: 'daskyrk@gmail.com',
+  site: 'http://lijun.space',
+  footer: {
+    split: '|',
+    data: [
+      {
+        text: '涅尘',
+      },
+      {
+        text: '@lijun',
+        link: '/about',
+      }
+    ]
+  },
   navs: [
     {
       link: '/read',

@@ -137,7 +137,7 @@ export default {
       return `${process.env.site}${this.$route.fullPath}`;
     },
     title() {
-      return document ? document.title : "daskyrk's blog";
+      return document ? document.title : `${process.env.owner}'s blog`;
     },
     content() {
       return this.detail || '';

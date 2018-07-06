@@ -48,7 +48,7 @@ module.exports = {
   env: config.envs,
   head: {
     title: 'blog',
-    titleTemplate: '%s | daskyrk',
+    titleTemplate: '%s | ' + config.envs.owner,
     meta: [
       { charset: 'utf-8' },
       { 'http-equiv': 'cleartype', content: 'on' },
@@ -57,13 +57,13 @@ module.exports = {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1, user-scalable=no',
       },
-      { hid: 'description', name: 'description', content: 'desc' },
+      { hid: 'description', name: 'description', content: 'a personal blog powered by nuxt, koa & mongodb' },
       {
         hid: 'keywords',
         name: 'keywords',
-        content: '前端开发，JavaScript, Node, Vue，nuxt，blog',
+        content: '前端开发，JavaScript, Node, Vue, Nuxt, MongoDb, Blog',
       },
-      { name: 'author', content: 'daskyrk@gmail.com' },
+      { name: 'author', content: config.envs.mail },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

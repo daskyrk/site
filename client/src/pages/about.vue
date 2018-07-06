@@ -40,7 +40,6 @@ export default {
   right: 0;
   width: 100%;
   height: 100%;
-  // background: url(~/static/images/desk.jpeg) no-repeat;
   background: url(http://p9uqlanms.bkt.clouddn.com/desk.webp) no-repeat;
   background-size: cover;
 

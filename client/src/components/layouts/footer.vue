@@ -1,7 +1,25 @@
 <template>
-  <footer>涅尘 | <nuxt-link class="about-link" to="/about">@daskyrk</nuxt-link>
+  <footer>
+    <div class="footer-link">
+      <template v-for="(item, i) in footer.data">
+        {{i === 0 ? '' : footer.split}}
+        <nuxt-link :key="i" v-if="item.link" :to="item.link">{{item.text}}</nuxt-link>
+        <span :key="i" v-else>{{item.text}}</span>
+      </template>
+    </div>
   </footer>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      footer: process.env.footer,
+    };
+  },
+};
+</script>
+
 
 <style lang="scss" scoped>
 footer {
@@ -12,8 +30,14 @@ footer {
   background: $white;
   border-top: 1px solid $color-border;
 
-  .about-link {
-    margin-left: 0.2rem;
+  .footer-link {
+    > a, > span {
+      padding: 0 1rem;
+    }
+  }
+
+  a:hover {
+    color: $color-primary;
   }
 }
 </style>
