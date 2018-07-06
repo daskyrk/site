@@ -1,14 +1,10 @@
-const crypto = require('crypto');
+const { cryptoUtil } = require('../utils');
 const logError = require('../utils/logError');
 const { generateToken, verifyToken, getToken } = require('../utils/auth');
 const User = require('../model/user');
 const { handleError, handleSuccess, handleResult } = require('../utils/handle');
 
-const encrypt = data =>
-  crypto
-    .createHash('sha256')
-    .update(data)
-    .digest('hex');
+const sha256 = cryptoUtil.sha256;
 
 exports.login = async ctx => {
   const { username, password } = ctx.request.body;
@@ -21,7 +17,7 @@ exports.login = async ctx => {
   }).catch(logError({ ctx }));
 
   if (userInfo) {
-    if (userInfo.password === encrypt(password)) {
+    if (userInfo.password === sha256(password)) {
       const maxAge = 1000 * 60 * 60 * 24 * 7;
       const expireTime = Date.now() + maxAge;
       const token = generateToken({
@@ -29,7 +25,7 @@ exports.login = async ctx => {
         password: userInfo.password,
         expireTime,
       });
-      ctx.cookies.set('token', token, { httpOnly: true, maxAge })
+      ctx.cookies.set('token', token, { httpOnly: true, maxAge });
       handleSuccess({
         ctx,
         result: { userInfo, token },
@@ -75,7 +71,7 @@ exports.getUser = async ctx => {
 exports.addUser = async ctx => {
   const { password, ...rest } = ctx.request.body;
 
-  const result = await new User({ password: encrypt(password), ...rest })
+  const result = await new User({ password: sha256(password), ...rest })
     .save()
     .catch(logError({ ctx }));
 
@@ -111,7 +107,7 @@ exports.updateConfig = async ctx => {
   const { username, password, ...rest } = ctx.request.body;
 
   if (password !== '') {
-    rest.password = encrypt(password);
+    rest.password = sha256(password);
   }
 
   const result = await User.findOneAndUpdate({ username }, rest).catch(

@@ -5,6 +5,8 @@
   "main": "lib/index.js",
   "private": true,
   "scripts": {
+    "precommit": "echo test",
+    "encode": "node lib/encode-config.js",
     "start": "node lib/index.js",
     "dev": "nodemon --exec \"NODE_ENV=development node --harmony lib/index.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,6 +34,7 @@
     "require-context": "^1.1.0"
   },
   "devDependencies": {
+    "husky": "^0.14.3",
     "nodemon": "^1.17.5"
   }
 }
