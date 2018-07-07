@@ -5,7 +5,7 @@
 <script>
 import { mapState } from 'vuex';
 import ImageUploader from '~/components/common/image-uploader';
-import ArticleForm from '~/components/common/article-form';
+import ArticleForm from '~/components/article/article-form';
 
 export default {
   meta: {

@@ -21,7 +21,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import ArticleCard from '~/components/common/article-card';
+import ArticleCard from '~/components/article/article-card';
 import LoadMore from '~/components/common/load-more';
 import EmptyHolder from '~/components/common/empty-holder';
 
