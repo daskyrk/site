@@ -15,6 +15,10 @@
         <div class="hobby">
           看书、旅游、摄影（学习ing）
         </div>
+        <div class="wish">
+          <p>这里加个心愿便利贴</p>
+          <p>去日本旅游</p>
+        </div>
         <div class="intro">
           <p>世界这么大，我想去看看 (=・ω・=)</p>
           <p>时间这么少，哪都去不了 _(:з」∠)_</p>
@@ -50,8 +54,6 @@ export default {
     bottom: 3rem;
     left: 20%;
     border-radius: $radius;
-    // color: white;
-    padding: 3rem 2rem;
     background-color: $whitesmoke;
 
     $card-border: 0.6rem;
@@ -84,7 +86,10 @@ export default {
   }
 
   .info {
+    height: 100%;
+    overflow: hidden;
     text-align: center;
+    padding: 3rem 2rem;
 
     > div {
       margin-top: 0.5rem;
