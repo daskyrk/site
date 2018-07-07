@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "PORT=3333 nuxt",
     "debug": "node --inspect-brk=9229 ./node_modules/.bin/nuxt",
-    "build": "nuxt build",
-    "build-prod": "cross-env NODE_ENV=production nuxt build",
+    "build-dev": "nuxt build",
+    "build": "cross-env NODE_ENV=production nuxt build",
     "start": "./node_modules/.bin/pm2 start ./node_modules/.bin/nuxt --name 'blog' -- start .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
