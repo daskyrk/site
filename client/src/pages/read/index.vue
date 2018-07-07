@@ -2,24 +2,72 @@
   <div class="read-list">
     <div class="stage">
       <ul class="books-list">
-        <li><img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg"></li>
-        <li><img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg"></li>
-        <li><img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg"></li>
-        <li><img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg"></li>
-        <li><img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg"></li>
-        <li><img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg"></li>
+        <li>
+          <div class="img-wrap">
+            <img src="http://p9uqlanms.bkt.clouddn.com/our%20young.jpg?imageMogr2/thumbnail/200x268/format/webp/blur/1x0/quality/75|imageslim">
+          </div>
+        </li>
+        <li>
+          <div class="img-wrap">
+            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
+          </div>
+        </li>
+        <li>
+          <div class="img-wrap">
+            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
+          </div>
+        </li>
+        <li>
+          <div class="img-wrap">
+            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
+          </div>
+        </li>
+        <li>
+          <div class="img-wrap">
+            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
+          </div>
+        </li>
+        <li>
+          <div class="img-wrap">
+            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
+          </div>
+        </li>
       </ul>
       <div class="desk"></div>
       <div class="desk-shadow"></div>
     </div>
     <div class="stage">
       <ul class="books-list">
-        <li><img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg"></li>
-        <li><img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg"></li>
-        <li><img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg"></li>
-        <li><img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg"></li>
-        <li><img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg"></li>
-        <li><img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg"></li>
+        <li>
+          <div class="img-wrap">
+            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
+          </div>
+        </li>
+        <li>
+          <div class="img-wrap">
+            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
+          </div>
+        </li>
+        <li>
+          <div class="img-wrap">
+            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
+          </div>
+        </li>
+        <li>
+          <div class="img-wrap">
+            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
+          </div>
+        </li>
+        <li>
+          <div class="img-wrap">
+            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
+          </div>
+        </li>
+        <li>
+          <div class="img-wrap">
+            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
+          </div>
+        </li>
       </ul>
       <div class="desk"></div>
       <div class="desk-shadow"></div>
@@ -105,15 +153,17 @@ export default {
 .books-list {
   padding: 0 80px;
 
+  $book-width: 100px;
+  $book-height: $book-width * 1.45;
+
   li {
     position: relative;
     display: inline-block;
     margin-left: 12px;
-    width: 130px;
-    height: 134px;
+    width: $book-width + 30;
+    height: $book-height;
     z-index: 2;
-    overflow-y: hidden;
-    overflow-x: visible;
+    overflow: hidden;
 
     &::after {
       content: '';
@@ -130,9 +180,35 @@ export default {
       z-index: -1;
     }
 
+    .img-wrap {
+      width: $book-width;
+      &::before {
+        content: '';
+        cursor: pointer;
+        position: absolute;
+        left: -211px;
+        top: 0;
+        width: 180px;
+        height: 100%;
+        background-image: linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0)
+        );
+        transform: skewx(-25deg);
+      }
+
+      &:hover::before {
+        transition: 0.5s;
+        left: 140px;
+      }
+    }
+
     img {
-      width: 100px;
-      height: 134px;
+      width: $book-width;
+      height: $book-height;
+      cursor: pointer;
     }
   }
 }
