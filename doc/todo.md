@@ -22,3 +22,4 @@
 - [ ] 增加留言墙页面
 - [ ] 留言xss过滤
 - [x] 增加code highlight样式
+- [x] 添加google analytics

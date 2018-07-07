@@ -108,6 +108,7 @@ module.exports = {
   plugins: [
     { src: '~plugins/markdown.js', ssr: false },
     { src: '~plugins/copy.js', ssr: false },
+    { src: '~plugins/ga.js', ssr: false },
     '~/plugins/moment.js',
     '~/plugins/element-ui.js',
     '~/plugins/axios.js',
