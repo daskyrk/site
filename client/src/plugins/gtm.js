@@ -5,12 +5,12 @@ export default ({ app }) => {
   */
   if (process.env.NODE_ENV !== 'production') return;
 
-  const gaId = process.env.gaId;
+  const gtmId = process.env.gtmId;
 
   const script = document.createElement('script');
   const firstScript = document.getElementsByTagName('script')[0];
   script.async = 1;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${gtmId}`;
   firstScript.parentNode.insertBefore(script, firstScript);
 
   window.dataLayer = window.dataLayer || [];
@@ -18,5 +18,5 @@ export default ({ app }) => {
     dataLayer.push(arguments);
   }
   gtag('js', new Date());
-  gtag('config', gaId);
+  gtag('config', gtmId);
 };

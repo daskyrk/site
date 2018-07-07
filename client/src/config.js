@@ -4,7 +4,7 @@ exports.envs = {
   owner: 'lijun',
   mail: 'daskyrk@gmail.com',
   site: 'http://lijun.space',
-  gaId: 'UA-121869307-1', // google analytics id
+  gtmId: 'UA-121869307-1', // google tag manager id
   footer: {
     split: '|',
     data: [
