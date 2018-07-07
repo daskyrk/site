@@ -9,6 +9,7 @@
     "build-dev": "nuxt build",
     "build": "cross-env NODE_ENV=production nuxt build",
     "start": "pm2 start nuxt --name 'blog' -- start .",
+    "push": "rsync -rv --delete -e 'ssh root@45.63.119.104' .nuxt/* :/root/workspace/blog/client/.nuxt",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
