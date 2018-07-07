@@ -69,6 +69,7 @@ export default {
   position: relative;
   margin: 100px;
 }
+
 .desk {
   background: #eae1dc;
   width: 100%;
@@ -78,16 +79,18 @@ export default {
   border-bottom: 1px solid #f5ebe9;
   z-index: -1;
   transform-style: preserve-3d;
+
+  &::after {
+    content: '';
+    background: #f2edea;
+    width: calc(100% + 13%);
+    position: absolute;
+    height: 65px;
+    transform: perspective(340px) rotateX(50deg) translateX(-6.6%)
+      translateY(-90px);
+  }
 }
 
-.desk:after {
-  content: '';
-  background: #f2edea;
-  width: calc(100% + 13%);
-  position: absolute;
-  height: 65px;
-  transform: perspective(340px) rotateX(50deg) translateX(-6.6%) translateY(-90px);
-}
 .desk-shadow {
   position: absolute;
   bottom: -100px;
@@ -98,35 +101,39 @@ export default {
   box-shadow: 0 36px 63px rgba(0, 0, 0, 0.3);
   transform: perspective(300px) rotateX(33deg) translateX(3px) translateY(-90px);
 }
+
 .books-list {
   padding: 0 80px;
-}
-.books-list li {
-  position: relative;
-  display: inline-block;
-  margin-left: 12px;
-  width: 130px;
-  height: 134px;
-  z-index: 2;
-  overflow-y: hidden;
-  overflow-x: visible;
-}
-.books-list li img {
-  width: 100px;
-  height: 134px;
-}
-.books-list li:after {
-  content: '';
-  position: absolute;
-  overflow: hidden;
-  right: 28px;
-  bottom: 0px;
-  width: 25px;
-  height: 129px;
-  background: rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
-  transform: perspective(300px) rotateX(29deg) rotateY(-61deg) rotateZ(-11deg)
-    translateX(8px) translateY(8px);
-  z-index: -1;
+
+  li {
+    position: relative;
+    display: inline-block;
+    margin-left: 12px;
+    width: 130px;
+    height: 134px;
+    z-index: 2;
+    overflow-y: hidden;
+    overflow-x: visible;
+
+    &::after {
+      content: '';
+      position: absolute;
+      overflow: hidden;
+      right: 28px;
+      bottom: 0px;
+      width: 25px;
+      height: 129px;
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+      transform: perspective(300px) rotateX(29deg) rotateY(-61deg)
+        rotateZ(-11deg) translateX(8px) translateY(8px);
+      z-index: -1;
+    }
+
+    img {
+      width: 100px;
+      height: 134px;
+    }
+  }
 }
 </style>
