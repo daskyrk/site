@@ -8,7 +8,7 @@
     "precommit": "echo test",
     "encode": "node lib/encode-config.js",
     "decode": "node lib/encode-config.js de=1",
-    "start": "node lib/index.js",
+    "start": "pm2 start lib/index.js --name 'server'",
     "dev": "nodemon --exec \"NODE_ENV=development node --harmony lib/index.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "husky": "^0.14.3",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "pm2": "^3.0.0"
   }
 }

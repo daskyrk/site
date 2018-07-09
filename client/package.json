@@ -36,7 +36,6 @@
     "mavon-editor": "^2.6.5",
     "moment": "^2.22.2",
     "nuxt": "^1.4.0",
-    "pm2": "^3.0.0",
     "postcss-hexrgba": "^1.0.1",
     "postcss-nested": "^3.0.0",
     "postcss-responsive-type": "^1.0.0",
@@ -53,6 +52,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "cross-env": "^5.1.5",
     "node-sass": "^4.9.0",
+    "pm2": "^3.0.0",
     "sass-loader": "^7.0.1"
   }
 }
