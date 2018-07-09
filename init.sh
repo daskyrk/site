@@ -22,6 +22,9 @@
 # echo "设置系统启动时自动启动nginx"
 # sudo systemctl enable nginx
 
+echo "安装net工具包";
+yum -y install net-tools
+
 # echo "安装git"
 # yum -y install git
 # cd ~
