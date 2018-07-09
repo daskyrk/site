@@ -1,9 +1,10 @@
+const config = require('../config');
 const { checkAuth } = require('../utils/auth');
 
 module.exports = async (ctx, next) => {
   // 拦截器
   const allowedOrigins = ['file://', 'http://lijun.space'];
-  const origin = ctx.request.headers.origin || '';
+  const { origin = '', referer = '' } = ctx.request.headers;
   if (allowedOrigins.includes(origin) || origin.includes('localhost')) {
     ctx.set('Access-Control-Allow-Origin', origin);
   }
@@ -22,6 +23,18 @@ module.exports = async (ctx, next) => {
   if (ctx.request.method == 'OPTIONS') {
     ctx.status = 200;
     return false;
+  }
+
+  // 如果是生产环境，需要验证请求来源渠道，防止非正常请求
+  if (Object.is(process.env.NODE_ENV, 'production')) {
+    if (origin !== 'file://') {
+      const site = config.APP.site;
+      const originVerified = origin.includes(site) && referer.includes(site);
+      if (!originVerified) {
+        ctx.throw(403, { code: 0, message: '身份验证失败！' });
+        return false;
+      }
+    }
   }
 
   const url = ctx.request.url;

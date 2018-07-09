@@ -11,7 +11,8 @@ module.exports = myConfig
 // exports.APP = {
 //   port: 8000,
 //   prefix: '/api',
-//   LIMIT: 10,
+//   limit: 10,
+//   site: 'lijun.space',
 // };
 
 // exports.AUTH = {

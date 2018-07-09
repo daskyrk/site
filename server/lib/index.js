@@ -16,7 +16,7 @@ const intercepter = require('./middleware/intercepter');
 mongodb.connect(config.MONGODB);
 
 mongoosePaginate.paginate.options = {
-  limit: config.APP.LIMIT,
+  limit: config.APP.limit,
 };
 
 const app = new Koa();
