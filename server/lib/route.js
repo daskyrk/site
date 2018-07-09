@@ -9,6 +9,7 @@ const controller = requireAll(__dirname + '/controller', false, /(\w|-)+\.js$/);
 
 router
   .get('/article', controller.article.getArts)
+  .get('/admin/article', controller.article.getArts)
   .post('/admin/article', controller.article.addArt)
   .put('/admin/article/:id', controller.article.updateArt)
   .get('/article/:id', controller.article.getArt)

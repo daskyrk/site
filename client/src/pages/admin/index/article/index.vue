@@ -9,9 +9,6 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" class="table-expand">
-            <el-form-item label="标签">
-              <span v-for="item in props.row.tag" :key="item._id" style="margin-right: 10px;">{{ item.name }}</span>
-            </el-form-item>
             <el-form-item label="关键字">
               <span>{{ props.row.keyword }}</span>
             </el-form-item>
@@ -26,7 +23,12 @@
           {{ scope.row.title }}
         </template>
       </el-table-column>
-      <el-table-column label="发布日期" width="180">
+      <el-table-column label="标签">
+        <template slot-scope="scope">
+          <span v-for="item in scope.row.tags" :key="item" style="margin-right: 10px;">{{ item }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="发布日期" width="120">
         <template slot-scope="scope">
           {{ scope.row.createdAt | dateFormat('YYYY.MM.DD') }}
         </template>
@@ -36,12 +38,12 @@
           {{ typeMap[scope.row.type] }}
         </template>
       </el-table-column> -->
-      <el-table-column label="公开" width="180">
+      <el-table-column label="公开" width="80">
         <template slot-scope="scope">
           {{ scope.row.public ? '公开' : '私密' }}
         </template>
       </el-table-column>
-      <el-table-column label="状态" width="180">
+      <el-table-column label="状态" width="80">
         <template slot-scope="scope">
           {{ scope.row.state === 1 ? '发布' : '草稿' }}
         </template>
@@ -54,7 +56,7 @@
       </el-table-column>
     </el-table>
     <div class="pagination">
-      <el-pagination @current-change="pageChange" :current-page="query.pageNo" :page-size="query.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      <el-pagination background @current-change="pageNoChange" @size-change="pageSizeChange" :current-page="query.pageNo" :page-size="query.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
   </div>
@@ -69,7 +71,7 @@ export default {
   },
 
   async fetch({ store }) {
-    await store.dispatch('article/getArtList');
+    await store.dispatch('admin/article/getArtList');
   },
 
   data() {
@@ -83,16 +85,23 @@ export default {
     };
   },
 
-  computed: mapState('article', ['fetch', 'list', 'total', 'query']),
+  computed: mapState('admin/article', ['fetch', 'list', 'total', 'query']),
 
   beforeDestroy() {
-    this.$store.commit('article/RESET_LIST');
+    this.$store.commit('admin/article/RESET_LIST');
   },
 
   methods: {
-    pageChange(pageNo) {
-      this.$store.dispatch('article/getArtList', {
+    pageNoChange(pageNo) {
+      this.$store.dispatch('admin/article/getArtList', {
         pageNo,
+        type: 1,
+      });
+    },
+    pageSizeChange(pageSize) {
+      this.$store.dispatch('admin/article/getArtList', {
+        pageNo: 1,
+        pageSize,
         type: 1,
       });
     },
@@ -100,7 +109,7 @@ export default {
       this.$router.push(`/admin/article/${row._id}`);
     },
     deleteArt(row) {
-      this.$store.dispatch('article/delArt', row._id);
+      this.$store.dispatch('admin/article/delArt', row._id);
     },
     isDeleting(row) {
       return row._id === this.deletingId;

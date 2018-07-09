@@ -18,7 +18,11 @@ export default {
 
   methods: {
     onSubmit(data) {
-      this.$store.dispatch('article/addArt', data);
+      this.$store.dispatch('admin/article/addArt', data).then(res => {
+        if (res.code === 1) {
+          this.$router.push('/admin/article');
+        }
+      });
     },
   },
 };

@@ -5,21 +5,15 @@ export default {
       total: 0,
       query: {
         pageNo: 1,
-        pageSize: 6,
+        pageSize: 10,
       },
       detail: {},
     };
   },
 
-  getters: {
-    hasMore: state => {
-      return state.total > state.query.pageNo * state.query.pageSize;
-    },
-  },
-
   mutations: {
     GET_ART_LIST(state, { list, total }) {
-      state.list = state.list.concat(list);
+      state.list = list;
       state.total = total;
     },
 
@@ -29,12 +23,6 @@ export default {
 
     UPDATE_QUERY(state, data) {
       state.query = data;
-    },
-
-    LIKE_PLUS(state, data) {
-      const detail = { ...state.detail };
-      detail.meta.likes += 1;
-      state.detail = detail;
     },
 
     RESET_LIST(state) {
@@ -51,7 +39,7 @@ export default {
     // 获取文章列表
     async getArtList({ commit, state }, data) {
       const query = { ...state.query, ...data };
-      const res = await this.$axios.$get('/article', { params: query });
+      const res = await this.$axios.$get('/admin/article', { params: query });
       commit('UPDATE_QUERY', query);
       if (res.code === 1) {
         commit('GET_ART_LIST', res.result);
@@ -59,20 +47,43 @@ export default {
     },
 
     // 获取文章详情
-    async getArt({ commit }, id) {
+    async getArt({ commit, ...rest }, id) {
       const res = await this.$axios.$get(`/article/${id}`);
       if (res && res.code === 1) {
         commit('SET_ART_DETAIL', res.result);
       };
     },
 
-    // 喜欢文章
-    async likeArt({ commit, dispatch, state }, id) {
-      const res = await this.$axios.$put(`/likeArt/${id}`);
+    // 添加文章
+    async addArt({ commit, dispatch }, data) {
+      const res = await this.$axios.$post(`/admin/article`, data);
       if (res.code === 1) {
-        commit('LIKE_PLUS', id);
+        await dispatch('getArtList');
       }
       return res;
     },
+
+    // 编辑文章
+    async updateArt({ commit, dispatch }, { _id, ...data }) {
+      const res = await this.$axios.$put(`/admin/article/${_id}`, data);
+      // if (res.code === 1) {
+      //   await dispatch('getArtList');
+      // }
+      return res;
+    },
+
+    // 删除文章
+    async delArt({ commit, dispatch, state }, id) {
+      const res = await this.$axios.$delete(`/admin/article/${id}`);
+      if (res.code === 1) {
+        let pageNo = state.query.pageNo;
+        if (state.list.length === 1) {
+          pageNo--;
+        }
+        await dispatch('getArtList', { pageNo });
+      }
+      return res;
+    },
+
   },
 };

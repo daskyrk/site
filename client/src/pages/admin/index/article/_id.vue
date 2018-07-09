@@ -16,14 +16,14 @@ export default {
   },
 
   async fetch({ store, params }) {
-    await store.dispatch('article/getArt', params.id);
+    await store.dispatch('admin/article/getArt', params.id);
   },
 
-  computed: mapState('article', ['detail']),
+  computed: mapState('admin/article', ['detail']),
 
   methods: {
     onSubmit(data) {
-      this.$store.dispatch('article/updateArt', data);
+      this.$store.dispatch('admin/article/updateArt', data);
     },
   },
 };
