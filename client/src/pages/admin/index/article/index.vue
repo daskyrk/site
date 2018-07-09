@@ -8,14 +8,8 @@
 
       <el-table-column type="expand">
         <template slot-scope="props">
-          <el-form label-position="left" class="table-expand">
-            <el-form-item label="关键字">
-              <span>{{ props.row.keyword }}</span>
-            </el-form-item>
-            <el-form-item label="描述">
-              <span>{{ props.row.descript }}</span>
-            </el-form-item>
-          </el-form>
+          <p>关键字: {{ props.row.keyword }}</p>
+          <p>描述: {{ props.row.descript }}</p>
         </template>
       </el-table-column>
       <el-table-column label="标题">
@@ -25,25 +19,22 @@
       </el-table-column>
       <el-table-column label="标签">
         <template slot-scope="scope">
-          <span v-for="item in scope.row.tags" :key="item" style="margin-right: 10px;">{{ item }}</span>
+          <el-tag class="article-tag" :key="tag" v-for="tag in scope.row.tags">
+            {{nameMap[tag]}}
+          </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="发布日期" width="120">
+      <el-table-column label="发布日期" width="180">
         <template slot-scope="scope">
           {{ scope.row.createdAt | dateFormat('YYYY.MM.DD') }}
         </template>
       </el-table-column>
-      <!-- <el-table-column label="分类" width="180">
-        <template slot-scope="scope">
-          {{ typeMap[scope.row.type] }}
-        </template>
-      </el-table-column> -->
-      <el-table-column label="公开" width="80">
+      <el-table-column label="公开" width="120">
         <template slot-scope="scope">
           {{ scope.row.public ? '公开' : '私密' }}
         </template>
       </el-table-column>
-      <el-table-column label="状态" width="80">
+      <el-table-column label="状态" width="120">
         <template slot-scope="scope">
           {{ scope.row.state === 1 ? '发布' : '草稿' }}
         </template>
@@ -63,7 +54,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   meta: {
@@ -72,24 +63,23 @@ export default {
 
   async fetch({ store }) {
     await store.dispatch('admin/article/getArtList');
+    await store.dispatch('tag/getTags', { pageSize: 100 });
   },
 
   data() {
     return {
       deletingId: null,
-      // typeMap: {
-      //   1: '文章',
-      //   2: '诗歌',
-      //   3: '音乐',
-      // },
     };
   },
 
-  computed: mapState('admin/article', ['fetch', 'list', 'total', 'query']),
-
-  beforeDestroy() {
-    this.$store.commit('admin/article/RESET_LIST');
+  computed: {
+    ...mapState('admin/article', ['fetch', 'list', 'total', 'query']),
+    ...mapGetters('tag', ['nameMap']),
   },
+
+  // beforeDestroy() {
+  //   this.$store.commit('admin/article/RESET_LIST');
+  // },
 
   methods: {
     pageNoChange(pageNo) {
@@ -122,5 +112,9 @@ export default {
 .pagination {
   float: right;
   margin-top: 1rem;
+}
+
+.article-tag {
+  margin-right: 0.5rem;
 }
 </style>
