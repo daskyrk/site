@@ -101,7 +101,7 @@ module.exports = {
   modules: ['@nuxtjs/axios'],
   axios: {
     baseURL: IS_DEV ? 'http://localhost:8000/api' : 'http://lijun.space/api',
-    browserBaseURL: 'http://lijun.space/api',
+    // browserBaseURL: 'http://lijun.space/api',
     // prefix: '/api', // it not work
     credentials: true,
   },

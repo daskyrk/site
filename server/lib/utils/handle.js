@@ -14,7 +14,7 @@ exports.handleResult = ({
   success = '请求成功',
   fail = '请求失败',
 }) => {
-  if (data) {
+  if (data !== undefined) {
     ctx.body = {
       code: 1,
       msg: success,

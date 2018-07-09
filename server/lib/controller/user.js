@@ -121,3 +121,12 @@ exports.updateConfig = async ctx => {
     fail: '更新用户设置失败',
   });
 };
+
+exports.checkRegisterable = async ctx => {
+  const count = await User.count().catch(logError({ ctx }));
+
+  handleResult({
+    ctx,
+    result: count < 1,
+  });
+};

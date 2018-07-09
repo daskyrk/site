@@ -9,17 +9,23 @@
     </el-form-item>
     <el-form-item>
       <el-button type="primary" native-type='submit' :loading="logining" @click.native.prevent="submitForm('form', 'login')">开门</el-button>
-      <el-button @click="submitForm('form', 'add')">入伙</el-button>
+      <el-button v-if="registerable" @click="submitForm('form', 'add')">入伙</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 export default {
   middleware: 'auth',
+
+  async fetch({ store }) {
+    await store.dispatch('user/checkRegisterable');
+  },
+
   data() {
     return {
-      logining: this.$store.state.user.logining,
       form: {
         username: '',
         password: '',
@@ -36,6 +42,11 @@ export default {
       },
     };
   },
+
+  computed: {
+    ...mapState('user', ['logining', 'registerable']),
+  },
+
   methods: {
     submitForm(formName, type) {
       this.$refs[formName].validate(valid => {

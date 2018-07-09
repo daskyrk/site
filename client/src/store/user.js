@@ -5,6 +5,7 @@ export default {
       userInfo: {},
       logining: false,
       token: null,
+      registerable: false,
     };
   },
 
@@ -32,6 +33,10 @@ export default {
 
     CLEAR_TOKEN(state) {
       state.token = null;
+    },
+
+    SET_REGISTERABLE(state, data) {
+      state.registerable = data;
     },
   },
 
@@ -75,6 +80,11 @@ export default {
 
     async updateConfig({ commit, state }, data) {
       const res = await this.$axios.$put('/admin/user/updateConfig', data);
+    },
+
+    async checkRegisterable({ commit, state }) {
+      const res = await this.$axios.$get('/user/registerable');
+      commit('SET_REGISTERABLE', res.result);
     },
   },
 };

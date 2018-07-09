@@ -20,6 +20,7 @@ router
   .delete('/user', controller.user.delUser)
   .put('/admin/user/updateConfig', controller.user.updateConfig)
   .post('/login', controller.user.login)
+  .get('/user/registerable', controller.user.checkRegisterable)
 
   .get('/tag', controller.tag.getTags)
   .post('/admin/tag', controller.tag.addTag)
