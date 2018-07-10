@@ -40,6 +40,7 @@ export default {
 
 .manage-content {
   flex: 1;
+  position: relative;
   overflow: auto;
   padding: $layout-padding;
 }

@@ -35,8 +35,8 @@ export default {
 
 <style lang="scss" scoped>
 $transition: all 0.25s;
-$sidebar-bg: #1f2532;
-$sidebar-bg-hover: #2c3242;
+$sidebar-bg: #303642;
+$sidebar-bg-hover: #222630;
 $sidebar-text: rgba(255, 255, 255, 0.65);
 $sidebar-text-hover: $white;
 $manage-sidebar-open-width: 12.5rem;

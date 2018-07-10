@@ -10,27 +10,15 @@
       </el-breadcrumb>
     </div>
     <div class="header-right">
-      <el-dropdown @command='handleCommand'>
-        <span class="el-dropdown-link">
-          <img class="avatar" :src="user.avatar" alt="avatar">
-          <span>{{user.nick}}</span>
-          <i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <nuxt-link to='/'>
-              <span class="header-operation">
-                <i class="iconfont icon-switch"></i>前台
-              </span>
-            </nuxt-link>
-          </el-dropdown-item>
-          <el-dropdown-item command="logout">
-            <span class="header-operation">
-              <i class="iconfont icon-logout"></i>登出
-            </span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      <span class="header-operation">
+        <img class="avatar" :src="user.avatar" alt="avatar">
+      </span>
+      <nuxt-link class="header-operation" to='/article'>
+        <i class="iconfont icon-switch"></i>
+      </nuxt-link>
+      <span class="header-operation" @click="logout">
+        <i class="iconfont icon-logout"></i>
+      </span>
     </div>
   </header>
 </template>
@@ -46,11 +34,9 @@ export default {
     },
   },
   methods: {
-    handleCommand(command) {
-      if (command === 'logout') {
-        this.$store.commit('user/LOGOUT');
-        this.$router.push('/');
-      }
+    logout(command) {
+      this.$store.commit('user/LOGOUT');
+      this.$router.push('/');
     },
   },
 };
@@ -58,36 +44,58 @@ export default {
 
 
 <style lang="scss" scoped>
+$header-bg: #3c4049;
+$header-bg-hover: #222630;
+$header-color: #aab1c3;
+$header-color-hover: $white;
+
 .manage-header {
-  padding: 0 $layout-padding;
+  padding-left: $layout-padding;
   height: $header-height;
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
   z-index: 9;
+  background: $header-bg;
+  color: $header-color;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+  /deep/ .el-breadcrumb__inner {
+    a,
+    &.is-link {
+      color: $header-color;
+      &:hover {
+        color: $header-color-hover;
+      }
+    }
+  }
 }
 
 .header-right {
+  display: flex;
+  height: 100%;
   .avatar {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 100%;
-    margin-right: 1rem;
   }
-
-  .el-dropdown {
-    display: inline-flex;
-  }
-
 }
 
 .header-operation {
   display: flex;
+  width: 4.5rem;
   align-items: center;
+  justify-content: center;
+
   i {
-    margin-right: 0.625rem;
+    font-size: 1.25rem;
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: $header-color-hover;
+    background-color: $header-bg-hover;
   }
 }
 </style>

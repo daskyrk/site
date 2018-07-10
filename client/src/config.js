@@ -49,7 +49,7 @@ exports.envs = {
     {
       link: '/admin/tag',
       text: '标签管理',
-      icon: 'article',
+      icon: 'tag',
     },
     {
       link: '/admin/setting',
