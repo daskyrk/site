@@ -3,7 +3,7 @@
     <div class="logo"></div>
 
     <ul class="menus">
-      <li v-for="(menu, index) in menus" :key='index'>
+      <li v-for="(menu, index) in menus" :key='index' :class="{ active: menu.active }">
         <nuxt-link :to='menu.link'>
           <el-tooltip effect="dark" :disabled="!foldSidebar" :content="menu.text" placement="right">
             <div class="menu-item">
@@ -26,8 +26,22 @@ export default {
   data() {
     return {
       foldSidebar: false,
-      menus: process.env.adminMenus,
     };
+  },
+
+  computed: {
+    menus() {
+      const menus = process.env.adminMenus;
+      const path = this.$route.path;
+      let longestMatch = menus[0];
+      menus.map(m => {
+        if (path.includes(m.link) && m.link.length > longestMatch.link.length) {
+          longestMatch = m;
+        }
+      });
+      longestMatch.active = true;
+      return menus;
+    },
   },
 };
 </script>
@@ -41,6 +55,7 @@ $sidebar-text: rgba(255, 255, 255, 0.65);
 $sidebar-text-hover: $white;
 $manage-sidebar-open-width: 12.5rem;
 $manage-sidebar-close-width: 4.5rem;
+$sidebar-tip-width: 0.25rem;
 
 .manage-sidebar {
   width: $manage-sidebar-open-width;
@@ -92,13 +107,27 @@ $manage-sidebar-close-width: 4.5rem;
   width: 100%;
   text-align: center;
   > li {
+    position: relative;
     margin-top: 10px;
+    &.active {
+      &::before {
+        content: '';
+        left: 0;
+        height: 100%;
+        position: absolute;
+        border-left: $sidebar-tip-width solid $green;
+      }
+      .menu-item {
+        color: $sidebar-text-hover;
+        background-color: $sidebar-bg-hover;
+      }
+    }
   }
   .menu-item {
     height: 3rem;
     line-height: 3rem;
     overflow: hidden;
-    padding-left: 2.5rem;
+    padding-left: 3rem;
     text-align: left;
     color: $sidebar-text;
     outline: none;
