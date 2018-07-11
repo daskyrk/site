@@ -1,6 +1,9 @@
 <template>
   <aside :class="['manage-sidebar', {fold: foldSidebar}]">
     <div class="logo"></div>
+    <!-- <div class="logo-wrap">
+      <div class="owner">{{owner}}</div>
+    </div> -->
 
     <ul class="menus">
       <li v-for="(menu, index) in menus" :key='index' :class="{ active: menu.active }">
@@ -26,6 +29,7 @@ export default {
   data() {
     return {
       foldSidebar: false,
+      // owner: process.env.owner,
     };
   },
 
@@ -73,9 +77,11 @@ $sidebar-tip-width: 0.25rem;
 
   &.fold {
     width: $manage-sidebar-close-width;
-    .logo {
-      background-image: url(~static/images/t-white.png);
-    }
+    // .owner {
+    //   opacity: 0;
+    //   flex: 0;
+    //   transform: scale(0);
+    // }
     .menu-item {
       padding-left: 1.75rem;
       span {
@@ -90,15 +96,32 @@ $sidebar-tip-width: 0.25rem;
   }
 }
 
+// .logo-wrap {
+//   display: flex;
+//   width: 100%;
+//   height: $header-height;
+// }
+
 .logo {
   width: 100%;
   height: $header-height;
-  background-image: url(~static/images/logo_reverse.png);
-  background-size: auto 1.5rem;
+  background-image: url(~static/images/image.svg);
+  background-size: contain;
   background-position: 50%;
   background-repeat: no-repeat;
-  transition: background-image 0.3s;
+  transition: $transition;
 }
+
+// .owner {
+//   flex: 1;
+//   display: inline-flex;
+//   align-items: center;
+//   color: $white;
+//   opacity: 1;
+//   font-size: 1.125rem;
+//   letter-spacing: 0.25rem;
+//   transition: $transition;
+// }
 
 .menus {
   display: flex;
@@ -120,6 +143,9 @@ $sidebar-tip-width: 0.25rem;
       .menu-item {
         color: $sidebar-text-hover;
         background-color: $sidebar-bg-hover;
+        i {
+          color: $green;
+        }
       }
     }
   }
