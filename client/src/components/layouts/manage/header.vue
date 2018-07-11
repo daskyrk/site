@@ -13,10 +13,10 @@
       <span class="header-operation">
         <img class="avatar" :src="user.avatar" alt="avatar">
       </span>
-      <nuxt-link class="header-operation" to='/article'>
+      <nuxt-link class="header-operation op" to='/article'>
         <i class="iconfont icon-switch"></i>
       </nuxt-link>
-      <span class="header-operation" @click="logout">
+      <span class="header-operation op" @click="logout">
         <i class="iconfont icon-logout"></i>
       </span>
     </div>
@@ -92,7 +92,7 @@ $header-color-hover: $white;
     font-size: 1.25rem;
   }
 
-  &:hover {
+  &.op:hover {
     cursor: pointer;
     color: $header-color-hover;
     background-color: $header-bg-hover;
