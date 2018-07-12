@@ -12,8 +12,8 @@
             <el-col :span="5">
               <el-form-item label="状态">
                 <el-radio-group v-model="filterForm.state">
-                  <el-radio-button label="发布"></el-radio-button>
-                  <el-radio-button label="草稿"></el-radio-button>
+                  <el-radio-button label="1">发布</el-radio-button>
+                  <el-radio-button label="2">草稿</el-radio-button>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -21,8 +21,8 @@
             <el-col :span="5">
               <el-form-item label="公开">
                 <el-radio-group v-model="filterForm.public">
-                  <el-radio-button label="公开"></el-radio-button>
-                  <el-radio-button label="私密"></el-radio-button>
+                  <el-radio-button label="true">公开</el-radio-button>
+                  <el-radio-button label="false">私密</el-radio-button>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -30,16 +30,16 @@
             <el-col :span="6">
               <el-form-item label="分类">
                 <el-radio-group v-model="filterForm.type">
-                  <el-radio-button label="文章"></el-radio-button>
-                  <el-radio-button label="读书"></el-radio-button>
-                  <el-radio-button label="音乐"></el-radio-button>
+                  <el-radio-button label="1">文章</el-radio-button>
+                  <el-radio-button label="2">读书</el-radio-button>
+                  <el-radio-button label="3">音乐</el-radio-button>
                 </el-radio-group>
               </el-form-item>
             </el-col>
 
           </el-row>
-          <el-form-item label="创建时间" prop="startAt" >
-            <el-date-picker v-model="filterForm.startAt" type="daterange" range-separator="到" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions">
+          <el-form-item label="创建时间" prop="timeRange">
+            <el-date-picker v-model="filterForm.timeRange" type="daterange" range-separator="到" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" value-format="timestamp">
             </el-date-picker>
           </el-form-item>
           <el-form-item label="标签">
@@ -111,6 +111,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -128,7 +129,11 @@ export default {
       deletingId: null,
       filterForm: {
         keyword: '',
+        state: 1,
+        public: true,
+        type: 1,
         tag: '',
+        timeRange: [],
       },
       pickerOptions: {
         shortcuts: [
@@ -206,8 +211,18 @@ export default {
       console.log('this.tagList:', this.tagList);
       this.$refs.filterForm.validate(valid => {
         if (valid) {
-          // (this.onSubmit || noop)(this.filterForm);
-          console.log('this.filterForm:', this.filterForm);
+          const { timeRange, ...rest } = this.filterForm;
+          const [startAt, endAt] = timeRange;
+          const data = { pageNo: 1, startAt, endAt, ...rest };
+          this.$store.dispatch(
+            'admin/article/getArtList',
+            _.omitBy(data, a => a === ''),
+          );
+          // .then(res => {
+          //   if (res.code === 1) {
+          //     this.$router.push('/admin/article');
+          //   }
+          // });
         } else {
           return false;
         }
@@ -223,7 +238,6 @@ export default {
   box-shadow: 0 1px 6px $lightgray;
 }
 .filter-form {
-
   .form-content {
     padding: $layout-padding;
   }
