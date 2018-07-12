@@ -87,8 +87,8 @@ module.exports = {
   },
   dev: IS_DEV,
   css: [
-    'mavon-editor/dist/css/index.css',
     '~/style/index.scss',
+    'mavon-editor/dist/css/index.css',
     'element-ui/lib/theme-chalk/index.css',
   ],
   render: {
