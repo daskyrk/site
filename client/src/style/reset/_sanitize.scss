@@ -12,7 +12,7 @@
 ::before,
 ::after {
 	background-repeat: no-repeat; /* 1 */
-	// box-sizing: inherit; /* 2 *//
+	box-sizing: border-box; /* 2 rewrite */
 }
 
 /**
