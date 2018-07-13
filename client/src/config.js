@@ -3,7 +3,7 @@ const IS_DEV = process.env.NODE_ENV !== 'production';
 exports.envs = {
   owner: 'lijun',
   mail: 'daskyrk@gmail.com',
-  site: 'http://lijun.space',
+  site: 'https://lijun.space',
   gtmId: 'UA-121869307-1', // google tag manager id
   footer: {
     split: '|',
