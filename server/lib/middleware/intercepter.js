@@ -49,9 +49,10 @@ module.exports = async (ctx, next) => {
       ctx.body = '没有权限';
       return false;
     }
-    ctx.isAdmin = true;
+    ctx.state.isAdmin = true;
+  }else {
+    ctx.state.isAdmin = false;
   }
-  ctx.isAdmin = false;
 
   await next();
 };

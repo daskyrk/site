@@ -25,7 +25,7 @@ exports.getArts = async ctx => {
   };
 
   // 关键词查询
-  if (keyword !== undefined) {
+  if (typeof keyword === 'string' && keyword.length) {
     const keywordReg = new RegExp(keyword);
     querys['$or'] = [
       { title: keywordReg },
@@ -34,26 +34,30 @@ exports.getArts = async ctx => {
     ];
   }
 
-  if (tag !== undefined) {
+  if (typeof tag === 'string' && tag.length) {
     querys.tags = tag;
   }
 
-  if (state !== undefined) {
+  if (['1', '2', '3'].includes(type)) {
+    querys.type = type;
+  }
+
+  if (['1', '2'].includes(state)) {
     querys.state = state;
   }
 
-  if (public !== undefined) {
+  if ([true, false].includes(public)) {
     querys.public = public;
   }
 
-  const startTime = new Date(startAt);
+  const startTime = new Date(+startAt);
   if (startTime.toString() !== 'Invalid Date') {
     querys.createdAt = {
       $gte: startTime,
     };
   }
 
-  const endTime = new Date(endAt);
+  const endTime = new Date(+endAt);
   if (endTime.toString() !== 'Invalid Date') {
     querys.createdAt = querys.createdAt || {};
     querys.createdAt.$lt = endTime;
@@ -64,12 +68,12 @@ exports.getArts = async ctx => {
     options.sort = {
       'meta.views': -1,
       'meta.likes': -1,
-      'meta.comments': -1
-    }
+      'meta.comments': -1,
+    };
   }
 
   // 非后台请求 重置查询参数
-  if (!ctx.isAdmin) {
+  if (!ctx.state.isAdmin) {
     querys.state = 1;
     querys.public = true;
   }

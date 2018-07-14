@@ -3,54 +3,62 @@
     <div class="page-filter">
       <el-form :model="filterForm" ref="filterForm" class="filter-form" size="medium">
         <div class="form-content">
-          <el-form-item label="关键字">
-            <el-col :span="6">
+
+          <div class="flow-item">
+            <el-form-item label="关键字" prop="keyword" class="kword">
               <el-input v-model="filterForm.keyword"></el-input>
-            </el-col>
-          </el-form-item>
-          <el-row>
-            <el-col :span="5">
-              <el-form-item label="状态">
-                <el-radio-group v-model="filterForm.state">
-                  <el-radio-button label="1">发布</el-radio-button>
-                  <el-radio-button label="2">草稿</el-radio-button>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
+            </el-form-item>
+            <el-form-item label="标签" prop="tag">
+              <el-select v-model="filterForm.tag">
+                <el-option label="无" value=""></el-option>
+                <el-option :key="tag._id" v-for="tag in tagList" :label="tag.name" :value="tag._id"></el-option>
+              </el-select>
+            </el-form-item>
+          </div>
 
-            <el-col :span="5">
-              <el-form-item label="公开">
-                <el-radio-group v-model="filterForm.public">
-                  <el-radio-button label="true">公开</el-radio-button>
-                  <el-radio-button label="false">私密</el-radio-button>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
+          <div class="flow-item">
+            <el-form-item label="分类" prop="type">
+              <el-radio-group v-model="filterForm.type">
+                <el-radio-button label="-1">全部</el-radio-button>
+                <el-radio-button label="1">文章</el-radio-button>
+                <el-radio-button label="2">读书</el-radio-button>
+                <el-radio-button label="3">音乐</el-radio-button>
+              </el-radio-group>
+            </el-form-item>
 
-            <el-col :span="6">
-              <el-form-item label="分类">
-                <el-radio-group v-model="filterForm.type">
-                  <el-radio-button label="1">文章</el-radio-button>
-                  <el-radio-button label="2">读书</el-radio-button>
-                  <el-radio-button label="3">音乐</el-radio-button>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
+            <el-form-item label="状态" prop="state">
+              <el-radio-group v-model="filterForm.state">
+                <el-radio-button label="-1">全部</el-radio-button>
+                <el-radio-button label="1">发布</el-radio-button>
+                <el-radio-button label="2">草稿</el-radio-button>
+              </el-radio-group>
+            </el-form-item>
 
-          </el-row>
+            <el-form-item label="公开" prop="public">
+              <el-radio-group v-model="filterForm.public">
+                <el-radio-button label="-1">全部</el-radio-button>
+                <el-radio-button label="true">公开</el-radio-button>
+                <el-radio-button label="false">私密</el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+
+          </div>
+
           <el-form-item label="创建时间" prop="timeRange">
+            <!-- <el-radio-group v-model="timeRangeDay" @change="this.pickDayRange" class="pick-day-range">
+              <el-radio-button label="1">今天</el-radio-button>
+              <el-radio-button label="2">三天</el-radio-button>
+              <el-radio-button label="3">一周</el-radio-button>
+            </el-radio-group> -->
             <el-date-picker v-model="filterForm.timeRange" type="daterange" range-separator="到" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" value-format="timestamp">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="标签">
-            <el-select v-model="filterForm.tag">
-              <el-option :key="tag._id" v-for="tag in tagList" :label="tag.name" :value="tag._id"></el-option>
-            </el-select>
-          </el-form-item>
         </div>
+
         <div class="form-footer">
           <el-form-item>
             <el-button type="primary" @click="onSubmit">查询</el-button>
+            <el-button @click="reset">重置</el-button>
           </el-form-item>
         </div>
       </el-form>
@@ -59,7 +67,7 @@
       <i class="el-icon-circle-plus"></i>
     </nuxt-link>
 
-    <div class="content-wrap">
+    <div class="admin-content-wrap">
 
       <el-table :data="list" v-loading="fetch" style="width: 100%">
         <el-table-column type="expand">
@@ -80,18 +88,21 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="发布日期" width="180">
+        <el-table-column label="创建日期" width="180">
           <template slot-scope="scope">
+            <i class="iconfont icon-riqi"></i>
             {{ scope.row.createdAt | dateFormat('YYYY.MM.DD') }}
           </template>
         </el-table-column>
-        <el-table-column label="公开" width="120">
+        <el-table-column label="私密" width="120">
           <template slot-scope="scope">
-            {{ scope.row.public ? '公开' : '私密' }}
+            <i class="iconfont icon-lock" v-if="!scope.row.public"></i>
           </template>
         </el-table-column>
         <el-table-column label="状态" width="120">
           <template slot-scope="scope">
+            <i class="iconfont icon-fabu" v-if="scope.row.state === 1"></i>
+            <i class="iconfont icon-caogao" v-if="scope.row.state !== 1"></i>
             {{ scope.row.state === 1 ? '发布' : '草稿' }}
           </template>
         </el-table-column>
@@ -125,40 +136,42 @@ export default {
   },
 
   data() {
+    const getDateRange = this.getDateRange();
     return {
       deletingId: null,
       filterForm: {
         keyword: '',
-        state: 1,
-        public: true,
-        type: 1,
+        state: -1,
+        public: -1,
+        type: -1,
         tag: '',
         timeRange: [],
       },
+      // timeRangeDay: 0,
       pickerOptions: {
         shortcuts: [
           {
             text: '最近三天',
             onClick(picker) {
-              picker.$emit('pick', this.getDateRange(3));
+              picker.$emit('pick', getDateRange(3));
             },
           },
           {
             text: '最近一周',
             onClick(picker) {
-              picker.$emit('pick', this.getDateRange(7));
+              picker.$emit('pick', getDateRange(7));
             },
           },
           {
             text: '最近一个月',
             onClick(picker) {
-              picker.$emit('pick', this.getDateRange(30));
+              picker.$emit('pick', getDateRange(30));
             },
           },
           {
             text: '最近三个月',
             onClick(picker) {
-              picker.$emit('pick', this.getDateRange(90));
+              picker.$emit('pick', getDateRange(90));
             },
           },
         ],
@@ -179,6 +192,9 @@ export default {
   // },
 
   methods: {
+    pickDayRange(e) {
+      console.log('e:', e);
+    },
     getDateRange(days) {
       const oneDayMs = 1000 * 3600 * 24;
       const end = Date.now();
@@ -208,25 +224,20 @@ export default {
       return row._id === this.deletingId;
     },
     onSubmit() {
-      console.log('this.tagList:', this.tagList);
       this.$refs.filterForm.validate(valid => {
         if (valid) {
           const { timeRange, ...rest } = this.filterForm;
           const [startAt, endAt] = timeRange;
           const data = { pageNo: 1, startAt, endAt, ...rest };
-          this.$store.dispatch(
-            'admin/article/getArtList',
-            _.omitBy(data, a => a === ''),
-          );
-          // .then(res => {
-          //   if (res.code === 1) {
-          //     this.$router.push('/admin/article');
-          //   }
-          // });
+          this.$store.dispatch('admin/article/getArtList', data);
         } else {
           return false;
         }
       });
+    },
+    reset() {
+      this.$refs.filterForm.resetFields();
+      // this.timeRangeDay = 0;
     },
   },
 };
@@ -246,15 +257,23 @@ export default {
     width: 100px;
   }
 
+  .flow-item {
+    overflow: hidden;
+    .el-form-item {
+      float: left;
+      display: inline-flex;
+    }
+  }
+
   .form-footer {
-    padding: 1rem;
+    padding: $layout-padding/2 $layout-padding;
     background-color: $ghostwhite;
     .el-form-item {
       margin-bottom: 0;
     }
   }
 }
-.content-wrap {
+.admin-content-wrap {
   margin-top: 1rem;
 }
 </style>
@@ -267,6 +286,17 @@ export default {
   top: 2rem;
   font-size: 2.25rem;
   color: $green;
+}
+
+.kword {
+  width: 380px;
+  /deep/ .el-form-item__content {
+    flex: 1;
+  }
+}
+
+.pick-day-range {
+  margin-right: 6.25rem;
 }
 
 .pagination {
