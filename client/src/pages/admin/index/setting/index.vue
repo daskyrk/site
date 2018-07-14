@@ -1,6 +1,6 @@
 <template>
-  <div class="setting">
-    <p class="title">个人信息</p>
+
+  <ccard title="个人信息" hideFooter>
     <el-form :model="userForm" :rules="userRules" ref="userForm" class="user-setting-form" label-width="100px" label-position="right">
       <el-row>
         <el-col :span="16">
@@ -20,9 +20,6 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <!-- <el-form-item label="原密码" prop="oldPassword">
-        <el-input type="password" v-model="userForm.oldPassword" auto-complete="off" :maxlength="20" placeholder="原密码" @keyup.enter.native="submit('userForm')"></el-input>
-      </el-form-item> -->
       <el-form-item label="邮箱" prop="email">
         <el-input type="email" v-model="userForm.email"></el-input>
       </el-form-item>
@@ -33,10 +30,10 @@
         <el-input type="password" v-model="userForm.checkPass" auto-complete="off" :maxlength="20" placeholder="确认密码" @keyup.enter.native="submit('userForm')"></el-input>
       </el-form-item>
       <el-form-item style="margin-bottom: 0;">
-        <el-button @click="submit('userForm')" :disabled="savingUser">{{ savingUser ? '更改中' : '更改' }}</el-button>
+        <el-button type="primary" @click="submit('userForm')" :disabled="savingUser">{{ savingUser ? '更新中' : '更新' }}</el-button>
       </el-form-item>
     </el-form>
-  </div>
+  </ccard>
 </template>
 
 <script>
@@ -116,6 +113,7 @@ export default {
 
 <style lang="scss" scoped>
 .user-setting-form {
+  padding: 2rem;
   width: 80%;
   margin: 0 auto;
 }
