@@ -13,6 +13,11 @@ export default {
     breadcrumb: '总览',
   },
 
+  async fetch({ store }) {
+    await store.dispatch('admin/article/summary');
+    // await store.dispatch('admin/tag/summary');
+  },
+
   data() {
     return {
       chartData: {

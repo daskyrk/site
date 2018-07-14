@@ -190,3 +190,40 @@ exports.likeArt = async ctx => {
     fail: '喜欢文章失败',
   });
 };
+
+exports.summary = async ctx => {
+  const result = await Article.aggregate([
+    // {
+    //   $project: {
+    //     title: 1,
+    //     createdAt: 1,
+    //     type: 1,
+    //   },
+    // },
+    {
+      $group: {
+        _id: {
+          type: '$type',
+        },
+        // article: {
+        //   $push: {
+        //     title: '$title',
+        //     _id: '$_id',
+        //     create_at: '$createdAt',
+        //   },
+        // },
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+  if (result) {
+    console.log('result:', result);
+  }
+
+  handleResult({
+    ctx,
+    result,
+    success: '获取文章统计成功',
+    fail: '获取文章统计失败',
+  });
+};

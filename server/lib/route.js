@@ -14,6 +14,7 @@ router
   .put('/admin/article/:id', controller.article.updateArt)
   .get('/article/:id', controller.article.getArt)
   .delete('/admin/article/:id', controller.article.delArt)
+  .get('/admin/article/summary', controller.article.summary)
   .put('/likeArt/:id', controller.article.likeArt)
 
   .post('/user', controller.user.addUser)
@@ -27,6 +28,7 @@ router
   .post('/admin/tag', controller.tag.addTag)
   .put('/admin/tag/:id', controller.tag.updateTag)
   .delete('/admin/tag/:id', controller.tag.delTag)
+  // .get('/admin/tag/summary', controller.tag.summary)
 
   .get('/comment', controller.comment.getComments)
   .post('/comment', controller.comment.addComment)

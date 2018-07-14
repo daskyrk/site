@@ -8,6 +8,7 @@ export default {
         pageSize: 1000,
       },
       nameMap: {},
+      summary: {},
     };
   },
 
@@ -30,6 +31,10 @@ export default {
 
     UPDATE_PAGE(state, data) {
       state.query = data;
+    },
+
+    SET_TAG_SUMMARY(state, data) {
+      state.summary = data;
     },
   },
 
@@ -68,6 +73,15 @@ export default {
           pageNo--;
         }
         await dispatch('getTags', { pageNo });
+      }
+      return res;
+    },
+
+    // 统计
+    async summary({ commit }, id) {
+      const res = await this.$axios.$get(`/admin/tag/summary`);
+      if (res.code === 1) {
+        commit('SET_TAG_SUMMARY', res.result);
       }
       return res;
     },

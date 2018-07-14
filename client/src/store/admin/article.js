@@ -8,6 +8,7 @@ export default {
         pageSize: 10,
       },
       detail: {},
+      summary: {},
     };
   },
 
@@ -33,6 +34,10 @@ export default {
         pageSize: 6,
       };
     },
+
+    SET_ART_SUMMARY(state, data) {
+      state.summary = data;
+    },
   },
 
   actions: {
@@ -43,7 +48,7 @@ export default {
       commit('UPDATE_QUERY', query);
       if (res.code === 1) {
         commit('GET_ART_LIST', res.result);
-      };
+      }
     },
 
     // 获取文章详情
@@ -51,7 +56,7 @@ export default {
       const res = await this.$axios.$get(`/article/${id}`);
       if (res && res.code === 1) {
         commit('SET_ART_DETAIL', res.result);
-      };
+      }
     },
 
     // 添加文章
@@ -85,5 +90,13 @@ export default {
       return res;
     },
 
+    // 文章统计
+    async summary({ commit }, id) {
+      const res = await this.$axios.$get(`/admin/article/summary`);
+      if (res.code === 1) {
+        commit('SET_ART_SUMMARY', res.result);
+      }
+      return res;
+    },
   },
 };
