@@ -176,7 +176,10 @@ export default {
   },
 
   computed: {
-    ...mapState('admin/article', ['fetch', 'list', 'total', 'query']),
+    ...mapState({
+      fetch: state => state.fetch['admin/article'],
+    }),
+    ...mapState('admin/article', ['list', 'total', 'query']),
     ...mapGetters('tag', ['nameMap']),
     ...mapState('tag', {
       tagList: 'list',

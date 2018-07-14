@@ -52,7 +52,6 @@ export default {
 
   data() {
     return {
-      fetch: false,
       dialogVisible: false,
       dialogTitle: '',
       fields: [
@@ -82,7 +81,12 @@ export default {
     };
   },
 
-  computed: mapState('tag', ['list', 'total', 'query']),
+  computed: {
+    ...mapState({
+      fetch: state => state.fetch['admin/article'],
+    }),
+    ...mapState('tag', ['list', 'total', 'query']),
+  },
 
   methods: {
     pageChange(pageNo) {

@@ -33,5 +33,13 @@ export default {
     SET_UPLOAD_TOKEN(state, data) {
       state.uploadToken = data;
     },
+
+    START_FETCH(state, url) {
+      state.fetch[url] = true;
+    },
+
+    END_FETCH(state, url) {
+      state.fetch[url] = false;
+    },
   },
 };
