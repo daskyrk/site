@@ -1,9 +1,9 @@
 <template>
-  <div class="empty-holder">
+  <div class="empty-holder" :class="{ large }" :style="{ minHeight }">
     <i class="iconfont icon-empty"></i>
     <div class="tip">
       <slot>
-        这里神马都没有 <span class="btn" @click="goback">返回</span>
+        这里空空如也
       </slot>
     </div>
   </div>
@@ -11,6 +11,16 @@
 
 <script>
 export default {
+  props: {
+    large: Boolean,
+    height: String,
+  },
+
+  computed: {
+    minHeight() {
+      return (this.height || 300) + 'px';
+    },
+  },
 
   methods: {
     goback() {
@@ -25,18 +35,24 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  color: $color-text-sub-assist;
 
-  i {
-    font-size: 10rem;
+  .icon-empty {
+    font-size: 4rem;
   }
 
   .tip {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
+  }
 
-    .btn {
-      text-decoration: underline;
-      color: $color-primary;
-      cursor: pointer;
+  &.large {
+    color: $color-text-assist;
+    .icon-empty {
+      font-size: 10rem;
+    }
+    .tip {
+      font-size: 1.6rem;
     }
   }
 }

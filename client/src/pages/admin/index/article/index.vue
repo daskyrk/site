@@ -67,7 +67,7 @@
       <nuxt-link slot="op" to='add' append>
         <el-button type="primary" size="small">添加</el-button>
       </nuxt-link>
-      <el-table :data="list" v-loading="fetch" style="width: 100%">
+      <el-table v-if="list.length" :data="list" v-loading="fetch" style="width: 100%">
         <el-table-column type="expand">
           <template slot-scope="props">
             <p>关键字: {{ props.row.keyword }}</p>
@@ -111,6 +111,8 @@
           </template>
         </el-table-column>
       </el-table>
+      <empty-holder v-else></empty-holder>
+
       <el-pagination slot="footer" background @current-change="pageNoChange" @size-change="pageSizeChange" :current-page="query.pageNo" :page-size="query.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </ccard>

@@ -7,7 +7,7 @@
       </dialog-form>
     </div>
 
-    <el-table :data="list" style="width: 100%" v-loading="fetch">
+    <el-table v-if="list.length" :data="list" style="width: 100%" v-loading="fetch">
       <el-table-column label="名称" width="160">
         <template slot-scope="scope">
           <i class="iconfont icon-tag"></i>
@@ -27,6 +27,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <empty-holder v-else></empty-holder>
 
     <el-pagination slot="footer" :current-page="query.pageNo" background layout="prev, pager, next" :page-size="query.pageSize" @current-change="pageChange" :total="total">
     </el-pagination>

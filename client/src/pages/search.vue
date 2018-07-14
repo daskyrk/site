@@ -15,7 +15,10 @@
       <article-card :list="list" />
       <LoadMore :hasMore="hasMore" :load='loadMore' domSelector=".search-result"></LoadMore>
     </div>
-    <EmptyHolder v-else></EmptyHolder>
+    <empty-holder v-else large>
+      这里神马都没有
+      <span class="btn" @click="goback">返回</span>
+    </empty-holder>
   </div>
 </template>
 
@@ -23,13 +26,11 @@
 import { mapState, mapGetters } from 'vuex';
 import ArticleCard from '~/components/article/article-card';
 import LoadMore from '~/components/common/load-more';
-import EmptyHolder from '~/components/common/empty-holder';
 
 export default {
   components: {
     ArticleCard,
     LoadMore,
-    EmptyHolder,
   },
 
   async fetch({ store, query }) {
@@ -62,6 +63,9 @@ export default {
         pageNo: this.query.pageNo + 1,
       });
     },
+    goback() {
+      return this.$router.back();
+    },
   },
 };
 </script>
@@ -82,5 +86,11 @@ export default {
   i {
     font-size: 1.4rem;
   }
+}
+
+.btn {
+  text-decoration: underline;
+  color: $color-primary;
+  cursor: pointer;
 }
 </style>
