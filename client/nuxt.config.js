@@ -113,6 +113,7 @@ module.exports = {
     '~/plugins/axios.js',
     '~/plugins/lazy-load.js',
     '~/plugins/filter.js',
+    '~/plugins/custom-compents.js',
   ],
   // loading: '~/components/loading.vue',
   router: {

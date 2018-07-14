@@ -1,16 +1,15 @@
 <template>
   <div class="article-manage">
-    <div class="page-filter">
+    <pg-filter>
       <el-form :model="filterForm" ref="filterForm" class="filter-form" size="medium">
-        <div class="form-content">
+        <div class="filter-content">
 
           <div class="flow-item">
             <el-form-item label="关键字" prop="keyword" class="kword">
               <el-input v-model="filterForm.keyword"></el-input>
             </el-form-item>
             <el-form-item label="标签" prop="tag">
-              <el-select v-model="filterForm.tag">
-                <el-option label="无" value=""></el-option>
+              <el-select v-model="filterForm.tag" placeholder="请选择" clearable>
                 <el-option :key="tag._id" v-for="tag in tagList" :label="tag.name" :value="tag._id"></el-option>
               </el-select>
             </el-form-item>
@@ -55,20 +54,19 @@
           </el-form-item>
         </div>
 
-        <div class="form-footer">
+        <div class="filter-footer">
           <el-form-item>
             <el-button type="primary" @click="onSubmit">查询</el-button>
             <el-button @click="reset">重置</el-button>
           </el-form-item>
         </div>
       </el-form>
-    </div>
-    <nuxt-link class="add-btn" to='add' append>
-      <i class="el-icon-circle-plus"></i>
-    </nuxt-link>
+    </pg-filter>
 
-    <div class="admin-content-wrap">
-
+    <ccard title="文章列表">
+      <nuxt-link slot="op" to='add' append>
+        <el-button type="primary" size="small">添加</el-button>
+      </nuxt-link>
       <el-table :data="list" v-loading="fetch" style="width: 100%">
         <el-table-column type="expand">
           <template slot-scope="props">
@@ -113,11 +111,9 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="pagination">
-        <el-pagination background @current-change="pageNoChange" @size-change="pageSizeChange" :current-page="query.pageNo" :page-size="query.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
-        </el-pagination>
-      </div>
-    </div>
+      <el-pagination slot="footer" background @current-change="pageNoChange" @size-change="pageSizeChange" :current-page="query.pageNo" :page-size="query.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
+    </ccard>
   </div>
 </template>
 
@@ -243,20 +239,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.page-filter {
-  background: $white;
-  box-shadow: 0 1px 6px $lightgray;
-}
+<style lang='scss' scoped>
 .filter-form {
-  .form-content {
-    padding: $layout-padding;
-  }
-
-  .el-form-item__label {
-    width: 100px;
-  }
-
   .flow-item {
     overflow: hidden;
     .el-form-item {
@@ -264,28 +248,6 @@ export default {
       display: inline-flex;
     }
   }
-
-  .form-footer {
-    padding: $layout-padding/2 $layout-padding;
-    background-color: $ghostwhite;
-    .el-form-item {
-      margin-bottom: 0;
-    }
-  }
-}
-.admin-content-wrap {
-  margin-top: 1rem;
-}
-</style>
-
-
-<style lang='scss' scoped>
-.add-btn {
-  position: absolute;
-  right: 3rem;
-  top: 2rem;
-  font-size: 2.25rem;
-  color: $green;
 }
 
 .kword {
