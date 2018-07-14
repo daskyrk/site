@@ -89,7 +89,6 @@ module.exports = {
   css: [
     '~/style/index.scss',
     'mavon-editor/dist/css/index.css',
-    'element-ui/lib/theme-chalk/index.css',
   ],
   render: {
     bundleRenderer: {
@@ -101,7 +100,7 @@ module.exports = {
   modules: ['@nuxtjs/axios'],
   axios: {
     baseURL: 'http://localhost:8000/api',
-    browserBaseURL: 'https://lijun.space/api',
+    browserBaseURL: IS_DEV ? 'http://localhost:8000/api' : 'https://lijun.space/api',
     // prefix: '/api', // it not work
     credentials: true,
   },
