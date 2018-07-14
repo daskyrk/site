@@ -1,43 +1,36 @@
 <template>
-  <div class="list">
-    <div>
-      <el-button type="primary" size="medium" @click="showDialog('添加标签')">添加</el-button>
+
+  <ccard title="标签列表">
+    <div slot="op">
+      <el-button type="primary" size="small" @click="showDialog('添加标签')">添加</el-button>
       <dialog-form :title="dialogTitle" :dialogVisible="dialogVisible" :fields="fields" :fieldsValue="fieldsValue" :onOk="onOk" :onCancel="onCancel" :onClose="onClose">
       </dialog-form>
     </div>
 
-    <div class="table">
-      <el-table :data="list" style="width: 100%" v-loading="fetch">
-        <el-table-column label="名称" width="160">
-          <template slot-scope="scope">
-            <i class="iconfont icon-tag"></i>
-            {{ scope.row.name }}
-          </template>
-        </el-table-column>
-        <el-table-column label="描述" show-overflow-tooltip>
-          <template slot-scope="scope">
-            <i class="iconfont icon-description"></i>
-            {{ scope.row.descript }}
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="240">
-          <template slot-scope="scope">
-            <el-button type="info" size="small" @click="showDialog('修改标签', scope.row)">修改</el-button>
-            <el-button type="danger" size="small" @click="deleteTag(scope.row)" :loading="isDeleting(scope.row) ">{{ isDeleting(scope.row) ? '删除中' : '删 除' }}</el-button>
-            <!-- <el-button type="text" class="darg" size="small">
-              <i class="iconfont icon-drag"></i>
-            </el-button> -->
-          </template>
-        </el-table-column>
-      </el-table>
+    <el-table :data="list" style="width: 100%" v-loading="fetch">
+      <el-table-column label="名称" width="160">
+        <template slot-scope="scope">
+          <i class="iconfont icon-tag"></i>
+          {{ scope.row.name }}
+        </template>
+      </el-table-column>
+      <el-table-column label="描述" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <i class="iconfont icon-description"></i>
+          {{ scope.row.descript }}
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="240">
+        <template slot-scope="scope">
+          <el-button type="info" icon="el-icon-edit" circle size="small" @click="showDialog('修改标签', scope.row)"></el-button>
+          <el-button type="danger" icon="el-icon-delete" circle size="small" @click="deleteTag(scope.row)" :loading="isDeleting(scope.row) "></el-button>
+        </template>
+      </el-table-column>
+    </el-table>
 
-      <div class="pagination">
-        <el-pagination :current-page="query.pageNo" background layout="prev, pager, next" :page-size="query.pageSize" @current-change="pageChange" :total="total">
-        </el-pagination>
-      </div>
-    </div>
-
-  </div>
+    <el-pagination slot="footer" :current-page="query.pageNo" background layout="prev, pager, next" :page-size="query.pageSize" @current-change="pageChange" :total="total">
+    </el-pagination>
+  </ccard>
 </template>
 
 <script>
@@ -129,19 +122,4 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.table {
-  i {
-    margin-right: 5px;
-  }
-}
-
-.pagination {
-  margin-top: 10px;
-  .el-pagination {
-    float: right;
-  }
-}
-</style>
 

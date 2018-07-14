@@ -87,7 +87,6 @@ export default {
 };
 </script>
 
-<!--> TODO: 这里去掉scope为啥就不起作用了？ <-->
 <style lang="scss" scoped>
 .dialog-form {
   width: 80%;
