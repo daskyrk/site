@@ -1,16 +1,18 @@
 <template>
-  <div class="index-page">
+  <div class="index-page" :style="style">
     <div class="welcome">
       <h3 class="slogan">你若温柔，当有力量</h3>
+      <div class="story-desc" v-if="story.title">
+        <p class="title">{{story.title}}</p>
+        <p class="position"> <i class="iconfont icon-zuobiao"></i> {{story.Country}} · {{story.City}}</p>
+        <p class="detail">{{story.story}}</p>
+      </div>
       <h4 class="nav">
         <template v-for="(nav, index) in navs">
-          <nuxt-link :key='index'
-            :to='nav.link'
-            exact>
+          <nuxt-link :key='index' :to='nav.link' exact>
             {{nav.text}}
           </nuxt-link>
-          <span v-if="index < navs.length-1"
-            :key='`split-${index}`'>/</span>
+          <span v-if="index < navs.length-1" :key='`split-${index}`'>/</span>
         </template>
       </h4>
     </div>
@@ -18,16 +20,34 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 export default {
   name: 'index-page',
 
   layout: 'empty',
 
+  async fetch({ store }) {
+    await store.dispatch('getBingStory');
+  },
+
   data() {
     return {
-      navs: process.env.navs
+      navs: process.env.navs,
     };
-  }
+  },
+
+  computed: {
+    ...mapState(['story']),
+    style() {
+      if (this.story.image) {
+        return {
+          backgroundImage: `url(${this.story.image})`,
+        };
+      }
+      return {};
+    },
+  },
 };
 </script>
 
@@ -56,7 +76,7 @@ export default {
 
   .nav {
     position: absolute;
-    right: 200px;
+    right: 190px;
     top: 320px;
     color: $lightgray;
 
@@ -66,6 +86,26 @@ export default {
     }
     span {
       padding: 0.35rem;
+    }
+  }
+
+  .story-desc {
+    position: absolute;
+    bottom: 4rem;
+    right: 0;
+    font-size: 1rem;
+    padding: 1rem 4rem;
+    color: $white;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 6px #000;
+    // background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+
+    > p {
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-weight: bold;
     }
   }
 }

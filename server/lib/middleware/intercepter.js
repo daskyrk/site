@@ -4,7 +4,7 @@ const { checkAuth } = require('../utils/auth');
 module.exports = async (ctx, next) => {
   // 拦截器
   const site = config.APP.site;
-  const allowedOrigins = ['file://', `https://${site}`];
+  const allowedOrigins = ['file://', `https://${site}`, 'https://api.lylares.com'];
   const { origin = '', referer = '' } = ctx.request.headers;
   if (allowedOrigins.includes(origin) || origin.includes('localhost')) {
     ctx.set('Access-Control-Allow-Origin', origin);

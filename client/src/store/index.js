@@ -6,6 +6,7 @@ export default {
       fetch: {},
       breadcrumb: [],
       uploadToken: null,
+      story: {},
     };
   },
   actions: {
@@ -24,6 +25,13 @@ export default {
         commit('SET_UPLOAD_TOKEN', res.result);
       }
     },
+
+    async getBingStory({ commit }) {
+      const res = await this.$axios.get(`https://api.lylares.com/bing/?AppKey=rOQmtNTWzw`);
+      if (res.data) {
+        commit('SET_BING_STORY', res.data);
+      }
+    },
   },
   mutations: {
     SET_BREADCRUMB(state, data) {
@@ -40,6 +48,10 @@ export default {
 
     END_FETCH(state, url) {
       state.fetch[url] = false;
+    },
+
+    SET_BING_STORY(state, data) {
+      state.story = data;
     },
   },
 };

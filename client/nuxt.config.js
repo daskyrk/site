@@ -69,7 +69,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: '//at.alicdn.com/t/font_683109_snzdp6iyy6.css',
+        href: '//at.alicdn.com/t/font_683109_fmqg93z4zf.css',
       },
       {
         rel: 'stylesheet',
@@ -80,7 +80,7 @@ module.exports = {
       {
         // async: 'async',
         type: 'text/javascript',
-        src: '//at.alicdn.com/t/font_683109_ufv5v1399.js',
+        src: '//at.alicdn.com/t/font_683109_fmqg93z4zf.js',
       }
     ],
     noscript: [{ innerHTML: 'This website requires JavaScript.' }],
