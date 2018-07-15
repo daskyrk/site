@@ -27,8 +27,8 @@ exports.envs = {
       text: '文章',
     },
     {
-      link: '/music',
-      text: '音乐',
+      link: '/wall',
+      text: '留言墙',
     },
     {
       link: '/admin',
