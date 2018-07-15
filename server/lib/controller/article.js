@@ -192,18 +192,29 @@ exports.likeArt = async ctx => {
 };
 
 exports.summary = async ctx => {
+  const typeMap = {
+    1: '文章',
+    2: '读书',
+    3: '音乐',
+  };
   const result = await Article.aggregate([
-    // {
-    //   $project: {
-    //     title: 1,
-    //     createdAt: 1,
-    //     type: 1,
-    //   },
-    // },
+    {
+      $project: {
+        // title: 1,
+        createdAt: 1,
+        type: 1,
+        name: typeMap['$type'],
+      },
+    },
     {
       $group: {
         _id: {
           type: '$type',
+          name: '$name',
+          // name: typeMap['$type'],
+          // $push: {
+          //   title: typeMap['$type'],
+          // },
         },
         // article: {
         //   $push: {

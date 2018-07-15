@@ -8,7 +8,7 @@ export default {
         pageSize: 10,
       },
       detail: {},
-      summary: {},
+      summary: [],
     };
   },
 
