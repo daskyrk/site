@@ -19,7 +19,9 @@
 - [x] 部署上线
 - [x] 配置加密
 - [x] 增加about页面
-- [ ] 增加留言墙页面
+- [x] 增加留言墙页面
+- [x] 改版后台管理主题风格
+- [x] 主页添加Bing每日一图
 - [ ] 留言xss过滤
 - [x] 增加code highlight样式
 - [x] 添加google analytics
