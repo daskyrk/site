@@ -79,6 +79,7 @@ $half-ribbon-width: 1rem;
   margin-bottom: 2rem;
   color: $color-text;
   border-radius: $radius;
+  background-color: $white;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 
   &::after {

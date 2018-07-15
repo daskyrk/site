@@ -17,7 +17,7 @@ export default {
   },
 
   async fetch({ store }) {
-    await store.dispatch('article/getArtList');
+    await store.dispatch('article/getArtList', { type: 1 });
   },
 
   computed: {
