@@ -1,9 +1,16 @@
 <template>
   <div class="back">
-    <div class="card">
-      <div class="ding"></div>
-      留言墙正在装修中，敬请期待~
-      <!-- <textarea class="" name="wish"></textarea> -->
+    <div class="ding-area">
+      <div class="card">
+        <div class="ding"></div>
+        <div class="content">留言墙正在装修中，敬请期待~</div>
+        <div class="by">- 管理员</div>
+      </div>
+      <div class="card" :key="wish._id" v-for="wish in list">
+        <div class="ding"></div>
+        <div class="content">{{wish.content}}</div>
+        <div class="by">- {{wish.name}}</div>
+      </div>
     </div>
     <div class="panel">
       <textarea ref="wish" class="wish" name="wish" maxlength="300" placeholder="想说点什么呢">
@@ -16,10 +23,16 @@
 
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'wish-wall',
 
   layout: 'empty',
+
+  async fetch({ store }) {
+    await store.dispatch('wish/getWishes');
+  },
 
   data() {
     return {
@@ -28,11 +41,18 @@ export default {
     };
   },
 
+  computed: {
+    ...mapState('wish', ['list']),
+  },
+
   methods: {
     submit() {
-      const wish = this.$refs.wish.value;
-      const name = this.$refs.name.value;
-      console.log('data:', { name, wish });
+      if (this.list.length > 20) {
+        return this.$message('留言有些多了，待我先归档一下~');
+      }
+      const name = this.$refs.name.value || '路过的朋友';
+      const content = this.$refs.wish.value.slice(0, 300);
+      this.$store.dispatch('wish/addWish', { name, content });
     },
   },
 };
@@ -47,20 +67,31 @@ export default {
   background: url(~static/images/wood.jpg) repeat top left;
 }
 
+.ding-area {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 400px;
+  bottom: 0;
+  padding: 2rem;
+  display: flex;
+}
+
 .card {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 300px;
   height: 220px;
-  left: calc(50% - 150px);
-  top: 230px;
-  padding: 4rem 1rem 1rem;
+  margin: 0 1rem 1rem 0;
+  padding: 2.4rem 1rem 0rem;
   background: repeating-linear-gradient(
       180deg,
-      rgba(129, 203, 188, 0.5) 0,
-      rgba(129, 203, 188, 0.5) 0.44%,
+      rgba(224, 224, 224, 0.5) 0,
+      rgba(202, 202, 202, 0.5) 0.44%,
       rgba(0, 0, 0, 0) 0.44%,
-      rgba(0, 0, 0, 0) 22%
+      rgba(0, 0, 0, 0) 17%
     ),
     #fcf59b;
   background-color: rgb(220, 179, 113);
@@ -86,6 +117,17 @@ export default {
     left: 25px;
     right: 25px;
     transform: skew(15deg) rotate(6deg);
+  }
+
+  .content,
+  .by {
+    line-height: 36px;
+    word-break: break-word;
+    overflow: hidden;
+  }
+
+  .by {
+    text-align: right;
   }
 }
 

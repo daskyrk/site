@@ -34,6 +34,10 @@ router
   .post('/comment', controller.comment.addComment)
   .put('/likeComment/:id', controller.comment.likeComment)
 
+  .get('/wish', controller.wish.getWishes)
+  .post('/wish', controller.wish.addWish)
+  .delete('/admin/wish/:id', controller.wish.delWish)
+
   .get('/uploadToken', controller.upload.getToken);
 
 module.exports = router;
