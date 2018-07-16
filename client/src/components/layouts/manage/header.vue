@@ -13,7 +13,7 @@
       <span class="header-operation">
         <img class="avatar" :src="user.avatar" alt="avatar">
       </span>
-      <nuxt-link class="header-operation op" to='/article'>
+      <nuxt-link class="header-operation op" to='/'>
         <i class="iconfont icon-switch"></i>
       </nuxt-link>
       <span class="header-operation op" @click="logout">
