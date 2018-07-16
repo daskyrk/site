@@ -1,11 +1,6 @@
 <template>
   <div class="back">
     <div class="ding-area">
-      <div class="card">
-        <div class="ding"></div>
-        <div class="content">留言墙正在装修中，敬请期待~</div>
-        <div class="by">- 管理员</div>
-      </div>
       <div class="card" :key="wish._id" v-for="wish in list">
         <div class="ding"></div>
         <div class="content">{{wish.content}}</div>
@@ -52,6 +47,9 @@ export default {
       }
       const name = this.$refs.name.value || '路过的朋友';
       const content = this.$refs.wish.value.slice(0, 300);
+      if (!content.length) {
+        return this.$message('没有想说的吗~');
+      }
       this.$store.dispatch('wish/addWish', { name, content });
     },
   },

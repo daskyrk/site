@@ -11,6 +11,11 @@ const WishSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    // 置顶
+    sticky: {
+      type: Boolean,
+      default: false,
+    }
   },
   {
     timestamps: true,
