@@ -47,7 +47,7 @@ export default {
 
   methods: {
     submit() {
-      if (this.list.length > 20) {
+      if (this.list.length > 40) {
         return this.$message('留言有些多了，待我先归档一下~');
       }
       const name = this.$refs.name.value || '路过的朋友';
@@ -73,8 +73,11 @@ export default {
   top: 0;
   right: 400px;
   bottom: 0;
-  padding: 2rem;
+  padding: 1rem;
+  padding-top: 2rem;
   display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
 }
 
 .card {
@@ -84,7 +87,7 @@ export default {
   justify-content: space-between;
   width: 300px;
   height: 220px;
-  margin: 0 1rem 1rem 0;
+  margin: 0 0.3rem 1rem 0.3rem;
   padding: 2.4rem 1rem 0rem;
   background: repeating-linear-gradient(
       180deg,
