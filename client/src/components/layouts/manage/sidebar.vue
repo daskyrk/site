@@ -105,7 +105,7 @@ $sidebar-tip-width: 0.25rem;
 .logo {
   width: 100%;
   height: $header-height;
-  background-image: url(~static/images/logo.svg);
+  background-image: url(~/static/images/logo.svg);
   background-size: contain;
   background-position: 50%;
   background-repeat: no-repeat;

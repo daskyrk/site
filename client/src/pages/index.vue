@@ -66,7 +66,7 @@ export default {
   right: 0;
   width: 100%;
   height: 100%;
-  background: url(~static/images/main_bg.jpg) no-repeat 20% 20%;
+  background: url(~/static/images/main_bg.jpg) no-repeat 20% 20%;
   background-size: cover;
 
   .slogan {

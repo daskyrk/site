@@ -62,7 +62,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: url(~static/images/wood.jpg) repeat top left;
+  background: url(~/static/images/wood.jpg) repeat top left;
 }
 
 .ding-area {
@@ -317,7 +317,7 @@ export default {
   //   left: 0;
   //   margin: -20px;
   //   filter: blur(4px);
-  //   background: url(~static/images/wood.jpg) repeat top left;
+  //   background: url(~/static/images/wood.jpg) repeat top left;
   // }
 }
 </style>
