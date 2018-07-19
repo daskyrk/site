@@ -4,7 +4,7 @@ exports.envs = {
   owner: 'lijun',
   mail: 'daskyrk@gmail.com',
   site: 'https://lijun.space',
-  bg_mode: 'story', // story or random
+  bg_mode: 'static', // static | story | random
   gtmId: 'UA-121869307-1', // google tag manager id
   footer: {
     split: '|',
@@ -31,16 +31,17 @@ exports.envs = {
       link: '/wall',
       text: '留言墙',
     },
-    {
-      link: '/admin',
-      text: '管理',
-    },
   ],
   adminMenus: [
     {
       link: '/admin',
       text: '总览',
       icon: 'home',
+    },
+    {
+      link: '/admin/read',
+      text: '读书管理',
+      icon: 'book',
     },
     {
       link: '/admin/article',

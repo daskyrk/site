@@ -1,7 +1,7 @@
 // import { encode } from 'querystring';
 import { Message } from 'element-ui';
 
-export default function({ $axios, store, redirect }) {
+export default function({ $axios, store }) {
   // $axios.setToken(store.state.user.token || '', 'Bearer');
   $axios.onRequest(config => {
     store.commit('START_FETCH', config.url.substring(1));
