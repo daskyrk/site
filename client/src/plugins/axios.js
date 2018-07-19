@@ -12,7 +12,7 @@ export default function({ $axios, store, redirect }) {
     const url = config.url.slice(config.url.indexOf('/api') + 5);
     store.commit('END_FETCH', url);
     // get请求不展示消息
-    if (data && config.method !== 'get') {
+    if (process.browser && data && config.method !== 'get') {
       Message[data.code === 1 ? 'success' : 'warning']({
         message: data.msg,
       });
