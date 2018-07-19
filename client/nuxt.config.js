@@ -39,11 +39,7 @@ module.exports = {
       scss: ['./src/style/variable.scss', './src/style/mixin.scss'],
       options: {},
     },
-    vendor: [
-      'axios',
-      'moment',
-      '~/utils',
-    ],
+    vendor: ['axios', 'moment', '~/utils'],
   },
   env: config.envs,
   head: {
@@ -57,7 +53,11 @@ module.exports = {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1, user-scalable=no',
       },
-      { hid: 'description', name: 'description', content: 'a personal blog powered by nuxt, koa & mongodb' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'a personal blog powered by nuxt, koa & mongodb',
+      },
       {
         hid: 'keywords',
         name: 'keywords',
@@ -69,7 +69,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: '//at.alicdn.com/t/font_683109_fmqg93z4zf.css',
+        href: '//at.alicdn.com/t/font_683109_3parpm26kvp.css',
       },
       {
         rel: 'stylesheet',
