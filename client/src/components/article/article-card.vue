@@ -7,7 +7,7 @@
           <use xlink:href="#icon-longmao"></use>
         </svg>
         <div class="content-wrap">
-          <p class='title'>
+          <p class='title nowrap'>
             {{article.title}}
           </p>
           <div class="meta">
@@ -126,9 +126,6 @@ $half-ribbon-width: 1rem;
       margin-bottom: 0.5rem;
       font-size: 1.2rem;
       font-weight: 700;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
 
     .meta {

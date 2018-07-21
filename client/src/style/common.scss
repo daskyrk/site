@@ -82,33 +82,11 @@ code {
 //   }
 // }
 
-// #share {
-//   &.article-share {
-//     > .share-box {
-//       opacity: 0.6;
-
-//       &:hover {
-//         opacity: 1;
-//       }
-
-//       > .share-link {
-//         width: calc((100% - (0.445em * 11)) / 12);
-//         height: 2.2em;
-//         line-height: 2.3em;
-//         background-color: #eee;
-//         margin-right: 0.445em;
-
-//         > .iconfont {
-//           font-size: 1.3em;
-//         }
-
-//         &:last-child {
-//           margin-right: 0;
-//         }
-//       }
-//     }
-//   }
-// }
+.nowrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .markdown-content {
   a {
