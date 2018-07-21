@@ -112,7 +112,7 @@ module.exports = {
       pathRewrite: { '^/api/douban': '' },
     },
     '/api': {
-      target: (IS_DEV || process.server)
+      target: IS_DEV
       ? 'http://localhost:8000'
       : 'https://lijun.space',
       changeOrigin: true,
