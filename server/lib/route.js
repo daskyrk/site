@@ -38,6 +38,4 @@ router
   .post('/wish', controller.wish.addWish)
   .delete('/admin/wish/:id', controller.wish.delWish)
 
-  .get('/uploadToken', controller.upload.getToken);
-
 module.exports = router;

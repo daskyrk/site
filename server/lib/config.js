@@ -18,12 +18,3 @@ module.exports = myConfig
 // exports.AUTH = {
 //   secretKey: 'your secretKey',
 // };
-
-// exports.UPLOAD = {
-//   accessKey: 'your accessKey',
-//   secretKey: 'your secretKey',
-//   bucket: 'bucket name',
-//   origin: 'http://blog.u.qiniudn.com',
-//   uploadURL: 'http://up.qiniu.com/',
-//   // timeout: 3600000, // default rpc timeout: one hour, optional
-// };
