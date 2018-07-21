@@ -27,7 +27,7 @@ export default {
     },
 
     async getBingStory({ commit }) {
-      const res = await this.$axios.$get(`https://api.lylares.com/bing/?AppKey=rOQmtNTWzw`);
+      const res = await this.$axios.$get(`/lylares/bing/?AppKey=rOQmtNTWzw`);
       if (res.code === 200) {
         commit('SET_BING_STORY', res);
       }

@@ -77,6 +77,7 @@
 所以，要想直接通过/admin这一层来控制所有子路由权限，就必须建立index目录，把其他文件都放到这个目录下，否则展开时就需要在每个文件中都进行权限控制
 9. nuxt-config中可以直接配webpack的插件，并且执行时加`-a`参数可以直接使用bundle-analysis进行依赖库分析
 10. mongodb默认连接到name为`admin`的数据库，指定数据库时在连接时的路径后追加dbname即可
+11. 配置跨域时做了好久一直有问题，后来偶然间发现proxy是可以执行的，又仔细看了一遍nuxtjs/axios文档，才总算发现了一些问题，一个是`prefix`配置不是不起作用，而是在proxy enable时才有效，`baseUrl`是服务端渲染时走的url，如果配置了服务端渲染时就不会走proxy，`browserBaseURL`同理，因为有的跨域api会在服务端渲染调用，所以不能配置`baseUrl`, 所有api都需要走proxy，这也是官方文档里proxy开启时只有这一个配置的原因吧。因为所以api都有了前缀`api`，如何辨别跨域呢？还好proxy是按照注册顺序进行匹配的，所以把跨域的api放在前面优先匹配就好了。
 
 
 ### 遇到的坑

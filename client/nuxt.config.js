@@ -69,7 +69,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: '//at.alicdn.com/t/font_683109_3parpm26kvp.css',
+        href: '//at.alicdn.com/t/font_683109_ayknx7v0byb.css',
       },
       {
         rel: 'stylesheet',
@@ -86,10 +86,7 @@ module.exports = {
     noscript: [{ innerHTML: 'This website requires JavaScript.' }],
   },
   dev: IS_DEV,
-  css: [
-    '~/style/index.scss',
-    'mavon-editor/dist/css/index.css',
-  ],
+  css: ['~/style/index.scss', 'mavon-editor/dist/css/index.css'],
   render: {
     bundleRenderer: {
       shouldPreload: (file, type) => {
@@ -99,10 +96,27 @@ module.exports = {
   },
   modules: ['@nuxtjs/axios'],
   axios: {
-    baseURL: 'http://localhost:8000/api',
-    browserBaseURL: IS_DEV ? 'http://localhost:8000/api' : 'https://lijun.space/api',
-    // prefix: '/api', // it not work
+    proxy: true,
+    prefix: '/api', // it only work when proxy is enabled
     credentials: true,
+  },
+  proxy: {
+    '/api/lylares': {
+      target: 'https://api.lylares.com',
+      changeOrigin: true,
+      pathRewrite: { '^/api/lylares': '' },
+    },
+    '/api/douban': {
+      target: 'https://api.douban.com',
+      changeOrigin: true,
+      pathRewrite: { '^/api/douban': '' },
+    },
+    '/api': {
+      target: (IS_DEV || process.server)
+      ? 'http://localhost:8000'
+      : 'https://lijun.space',
+      changeOrigin: true,
+    },
   },
   plugins: [
     { src: '~plugins/markdown.js', ssr: false },
@@ -116,7 +130,7 @@ module.exports = {
     '~/plugins/custom-compents.js',
   ],
   // loading: '~/components/loading.vue',
-  router: {
-    middleware: [],
-  },
+  // router: {
+  //   middleware: [],
+  // },
 };
