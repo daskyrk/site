@@ -101,18 +101,18 @@ module.exports = {
     credentials: true,
   },
   proxy: {
-    '/api/lylares': {
+    '/api/proxy/lylares': {
       target: 'https://api.lylares.com',
       changeOrigin: true,
-      pathRewrite: { '^/api/lylares': '' },
+      pathRewrite: { '^/api/proxy/lylares': '' },
     },
-    '/api/douban': {
+    '/api/proxy/douban': {
       target: 'https://api.douban.com',
       changeOrigin: true,
-      pathRewrite: { '^/api/douban': '' },
+      pathRewrite: { '^/api/proxy/douban': '' },
     },
     '/api': {
-      target: IS_DEV
+      target: (IS_DEV || process.server)
       ? 'http://localhost:8000'
       : 'https://lijun.space',
       changeOrigin: true,
