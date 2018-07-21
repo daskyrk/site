@@ -1,4 +1,3 @@
-
 export default {
   state() {
     return {
@@ -41,7 +40,7 @@ export default {
   },
 
   actions: {
-    async login({ commit, state }, data) {
+    async login({ commit }, data) {
       commit('SET_LOGGING', true);
       const res = await this.$axios.$post('/login', data);
 
@@ -56,7 +55,7 @@ export default {
       return res;
     },
 
-    async add({ commit, state }, data) {
+    async add({ commit }, data) {
       const res = await this.$axios.$post('/user', data);
 
       if (res && res.code === 1) {
@@ -69,7 +68,7 @@ export default {
       return res;
     },
 
-    async getUserInfo({ commit, state }) {
+    async getUserInfo({ commit }) {
       const res = await this.$axios.$get('/user');
 
       if (res && res.code === 1) {
@@ -78,11 +77,13 @@ export default {
       return res;
     },
 
-    async updateConfig({ commit, state }, data) {
+    async updateConfig({ dispatch }, data) {
       const res = await this.$axios.$put('/admin/user/updateConfig', data);
+      await dispatch('getUserInfo');
+      return res;
     },
 
-    async checkRegisterable({ commit, state }) {
+    async checkRegisterable({ commit }) {
       const res = await this.$axios.$get('/user/registerable');
       commit('SET_REGISTERABLE', res.result);
     },
