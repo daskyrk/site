@@ -128,7 +128,7 @@ export default {
 
       var points = [];
 
-      for (var i = 0; i < 40; i++) {
+      for (var i = 0; i < 80; i++) {
         points.push(new Point(Math.random() * w, Math.random() * h));
       }
 
