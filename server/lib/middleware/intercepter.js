@@ -22,7 +22,7 @@ module.exports = async (ctx, next) => {
 
   // OPTIONS
   if (ctx.request.method == 'OPTIONS') {
-    ctx.status = 200;
+    ctx.status = 204;
     return false;
   }
 
