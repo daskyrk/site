@@ -12,9 +12,16 @@ module.exports = myConfig
 //   port: 8000,
 //   prefix: '/api',
 //   limit: 10,
+//   owner: 'lijun',
+//   mail: 'ljunsky@foxmail.com',
 //   site: 'lijun.space',
 // };
 
 // exports.AUTH = {
 //   secretKey: 'your secretKey',
+// };
+
+// exports.EMAIL = {
+//   account: 'qq号',
+//   password: 'qq密码',
 // };

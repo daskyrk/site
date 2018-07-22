@@ -38,12 +38,12 @@
       </div>
       <div class="author-info">
 
-        <el-tooltip :value="nameError" manual effect="dark" content="名字忘了写吧~" placement="bottom">
-          <input type="input" name="name" :class="{error: nameError}" required maxlength="20" placeholder="尊姓大名" v-model="author.name" @blur="checkName" />
+        <el-tooltip :value="nameHasError" manual effect="dark" content="名字忘了写吧~" placement="bottom">
+          <input type="input" name="name" :class="{error: nameHasError}" required maxlength="20" placeholder="尊姓大名" v-model="author.name" @blur="checkName" />
         </el-tooltip>
 
-        <el-tooltip :value="emailError" manual effect="dark" content="格式不对哦~" placement="bottom">
-          <input type="email" name="email" :class="{error: emailError}" required maxlength="40" placeholder="邮箱会保密的" v-model="author.email" @blur="checkEmail" />
+        <el-tooltip :value="emailHasError" manual effect="dark" content="格式不对哦~" placement="bottom">
+          <input type="email" name="email" :class="{error: emailHasError}" required maxlength="40" placeholder="邮箱会保密的" v-model="author.email" @blur="checkEmail" />
         </el-tooltip>
         <!-- <input type="input" name="site" maxlength="20" placeholder="您的网站？" v-model="author.site" /> -->
       </div>
@@ -106,8 +106,8 @@ export default {
         gravatar: null,
       },
       likeComments: [],
-      nameError: false,
-      emailError: false,
+      nameHasError: false,
+      emailHasError: false,
       regexs: {
         email: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/,
         // url: /^((https|http):\/\/)+[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/,
@@ -155,28 +155,35 @@ export default {
       this.comment.content += emj;
     },
     checkName() {
-      this.nameError = !this.author.name.length;
+      this.nameHasError = !this.author.name.length;
     },
     checkEmail() {
-      this.emailError = !this.regexs.email.test(this.author.email);
-      this.upadteGravatar()
+      this.emailHasError = !this.regexs.email.test(this.author.email);
+      this.updateGravatar();
     },
     // 更新头像
-    upadteGravatar() {
-      this.author.gravatar = this.emailError
-        ? this.gravatar(this.author.email)
-        : null;
+    updateGravatar() {
+      this.author.gravatar = this.emailHasError
+        ? null
+        : this.gravatar(this.author.email);
     },
     addComment(e) {
       e.preventDefault();
-      if (this.nameError || this.emailError) {
+      if (this.nameHasError || this.emailHasError) {
         return this.$message.error('是不是写错了什么？');
       }
-      this.$store.dispatch('comment/addComment', {
-        articleId: this.articleId,
-        ...this.comment,
-        author: this.author,
-      });
+      this.$store
+        .dispatch('comment/addComment', {
+          articleId: this.articleId,
+          ...this.comment,
+          pageUrl: location.href,
+          author: this.author,
+        })
+        .then(res => {
+          if (res.code === 1) {
+            this.getComments({ pageNo: 1 });
+          }
+        });
     },
     isLiked(id) {
       return this.likeComments.includes(id);

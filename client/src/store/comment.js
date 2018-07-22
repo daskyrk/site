@@ -5,7 +5,7 @@ export default {
       total: 0,
       query: {
         pageNo: 1,
-        pageSize: 20,
+        pageSize: 50,
       },
     };
   },
@@ -36,13 +36,13 @@ export default {
     },
 
     // 添加评论
-    async addComment({ commit, state }, data) {
+    async addComment({ state }, data) {
       const res = await this.$axios.$post(`/comment`, data);
       return res;
     },
 
     // 点赞评论
-    async likeComment({ commit, dispatch, state }, id) {
+    async likeComment({ commit }, id) {
       const res = await this.$axios.$put(`/likeComment/${id}`);
       if (res.code === 1) {
         commit('LIKE_PLUS', id);

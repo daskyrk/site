@@ -1,12 +1,15 @@
+const config = require('../config');
 const logError = require('../utils/logError');
 const Comment = require('../model/comment');
 const Article = require('../model/article');
 const { handleError, handleResult } = require('../utils/handle');
+const { sendMail } = require('../utils/email');
 
 exports.getComments = async ctx => {
   const { pageNo = 1, pageSize = 20, articleId, state } = ctx.query;
   const query = {};
   const options = {
+    sort: { createdAt: -1 },
     page: Number(pageNo),
     limit: Number(pageSize),
   };
@@ -38,9 +41,9 @@ exports.getComments = async ctx => {
 exports.addComment = async ctx => {
   const articleId = ctx.request.body.articleId;
 
-  const result = await new Comment(ctx.request.body)
-    .save()
-    .catch(logError({ ctx }));
+  const { pageUrl, ...comment } = ctx.request.body;
+
+  const result = await new Comment(comment).save().catch(logError({ ctx }));
 
   const article = await Article.findById(articleId).catch(logError({ ctx }));
   if (article) {
@@ -48,12 +51,39 @@ exports.addComment = async ctx => {
     article.save();
   }
 
+  // 发布成功后，向网站主及被回复者发送邮件提醒，并更新网站聚合
+  sendMailToAdminAndTargetUser(result, pageUrl);
+
   handleResult({
     ctx,
     result,
     success: '发布评论成功',
     fail: '发布评论失败',
   });
+};
+
+// 邮件通知网站主及目标对象
+const sendMailToAdminAndTargetUser = (comment, permalink) => {
+  sendMail({
+    to: config.APP.mail,
+    subject: '博客有新的留言',
+    text: `来自 ${comment.author.name} 的留言：${comment.content}`,
+    html: `<p> 来自 ${comment.author.name} 的留言：${
+      comment.content
+    }</p><br><a href="${permalink}" target="_blank">[ 点击查看 ]</a>`,
+  });
+  if (comment.pid) {
+    Comment.findOne({ id: comment.pid }).then(parentComment => {
+      sendMail({
+        to: parentComment.author.email,
+        subject: `你在http://${config.APP.site}有新的评论回复`,
+        text: `来自 ${comment.author.name} 的评论回复：${comment.content}`,
+        html: `<p> 来自${comment.author.name} 的评论回复：${
+          comment.content
+        }</p><br><a href="${permalink}" target="_blank">[ 点击查看 ]</a>`,
+      });
+    });
+  }
 };
 
 exports.likeComment = async ctx => {
