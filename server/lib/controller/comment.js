@@ -44,6 +44,10 @@ exports.addComment = async ctx => {
   const { pageUrl, ...comment } = ctx.request.body;
 
   const result = await new Comment(comment).save().catch(logError({ ctx }));
+  if (result) {
+    // 发布成功后，向网站主及被回复者发送邮件提醒，并更新网站聚合
+    sendMailToAdminAndTargetUser(result, pageUrl);
+  }
 
   const article = await Article.findById(articleId).catch(logError({ ctx }));
   if (article) {
@@ -51,8 +55,6 @@ exports.addComment = async ctx => {
     article.save();
   }
 
-  // 发布成功后，向网站主及被回复者发送邮件提醒，并更新网站聚合
-  sendMailToAdminAndTargetUser(result, pageUrl);
 
   handleResult({
     ctx,
