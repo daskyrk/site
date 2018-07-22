@@ -27,20 +27,18 @@ export default {
   actions: {
     // 获取评论列表
     async getComments({ commit, state }, params) {
-      // commit('FETCH_ART_START');
       const res = await this.$axios.$get(`/comment`, {
         params: { ...state.query, ...params },
       });
       if (res.code === 1) {
         commit('SET_COMMENT_LIST', res.result);
       }
-      //  else commit('FETCH_ART_END');
     },
 
     // 添加评论
     async addComment({ commit, state }, data) {
-      // const { id, comment } = data;
       const res = await this.$axios.$post(`/comment`, data);
+      return res;
     },
 
     // 点赞评论

@@ -58,8 +58,7 @@
         </el-form-item>
         <el-form-item label="内容" prop="content">
           <no-ssr>
-            <!-- FIXME: 切换源码后宽度不对  -->
-            <mavon-editor class="markdown-editor markdown-content" v-model="form.content" />
+            <mavon-editor ref=md class="markdown-editor markdown-content" v-model="form.content" @imgAdd="imgAdd" @imgDel="imgDel" />
           </no-ssr>
         </el-form-item>
       </el-col>
@@ -73,6 +72,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { mapState } from 'vuex';
 import ImageUploader from '~/components/common/image-uploader';
 
@@ -105,6 +105,7 @@ export default {
         title: [{ required: true, trigger: 'blur' }],
         content: [{ required: true, trigger: 'blur' }],
       },
+      images: [],
     };
   },
 
@@ -127,6 +128,32 @@ export default {
   methods: {
     onSuccess(url) {
       this.form.thumb = url;
+    },
+
+    imgAdd(pos, $file) {
+      const $md = this.$refs.md;
+      const formdata = new FormData();
+      formdata.append('smfile', $file);
+      axios({
+        url: 'https://sm.ms/api/upload',
+        method: 'post',
+        data: formdata,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      }).then(res => {
+        const { code, data } = res.data;
+        if (code === 'success') {
+          $md.$img2Url(pos, data.url);
+          this.images[pos] = data;
+        } else {
+          this.$message('上传图片失败');
+        }
+      });
+    },
+
+    imgDel(pos) {
+      const target = this.images[pos];
+      axios.get(target.delete);
+      // this.$refs.md.$refs.toolbar_left.$imgDelByFilename(target.filename);
     },
 
     submitForm(formName) {

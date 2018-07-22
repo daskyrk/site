@@ -21,12 +21,6 @@ export default {
 
   data() {
     return {
-      uploadUrl: 'https://sm.ms/api/upload',
-      reqConfig: {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      },
       upSrc: '',
       imageSrc: this.src || '',
       // fileList: [],
@@ -48,10 +42,6 @@ export default {
     },
   },
 
-  mounted() {
-    this.form = new FormData();
-  },
-
   methods: {
     selectFile() {
       this.$refs.input.click();
@@ -65,13 +55,19 @@ export default {
       if (!this.beforeUpload(file)) {
         return;
       }
-      this.form.append('smfile', file);
-      axios
-        .post(this.uploadUrl, this.form, this.reqConfig)
+      const formdata = new FormData();
+      formdata.append('smfile', file);
+      axios({
+        url: 'https://sm.ms/api/upload',
+        method: 'post',
+        data: formdata,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
         .then(res => {
-          const resp = res.data;
-          if (resp.code === 'success') {
-            this.handleSuccess(resp.data);
+          const { code, data } = res.data;
+          if (code === 'success') {
+            this.handleSuccess(data);
+            this.$store.dispatch('image/addImage', data);
           }
         })
         .catch(this.handleError);

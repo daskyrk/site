@@ -1,5 +1,7 @@
 <template>
-  <article-form :onSubmit="onSubmit" />
+  <div class="form-wrap">
+    <article-form :onSubmit="onSubmit" />
+  </div>
 </template>
 
 <script>
@@ -27,3 +29,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.form-wrap {
+  background-color: $white;
+  padding: 2rem 0;
+}
+</style>

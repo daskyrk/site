@@ -34,6 +34,9 @@ router
   .post('/comment', controller.comment.addComment)
   .put('/likeComment/:id', controller.comment.likeComment)
 
+  .get('/image', controller.image.getImages)
+  .post('/admin/image', controller.image.addImage)
+
   .get('/wish', controller.wish.getWishes)
   .post('/wish', controller.wish.addWish)
   .delete('/admin/wish/:id', controller.wish.delWish)

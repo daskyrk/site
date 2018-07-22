@@ -129,6 +129,7 @@ export default {
 
 .content {
   overflow: auto;
+  margin-top: 1rem;
 }
 
 .article-info {
