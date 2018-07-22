@@ -7,6 +7,9 @@
         </filter>
       </svg> -->
       <nav>
+        <nuxt-link to='/'>
+          首页
+        </nuxt-link>
         <nuxt-link v-for="(nav, index) in navs" :key='index' :to='nav.link' exact>
           {{nav.text}}
         </nuxt-link>
