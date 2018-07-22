@@ -172,8 +172,6 @@ export default {
       if (this.nameError || this.emailError) {
         return this.$message.error('是不是写错了什么？');
       }
-      console.log('this.comment:', this.comment);
-      console.log('this.author:', this.author);
       this.$store.dispatch('comment/addComment', {
         articleId: this.articleId,
         ...this.comment,
