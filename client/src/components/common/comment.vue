@@ -10,31 +10,7 @@
           <img v-if="author.gravatar" :alt="author.name || '匿名用户'" :src="author.gravatar">
           <i v-else class="iconfont icon-niming"></i>
         </div>
-        <div class="comment-editor">
-          <textarea rows="4" cols="20" name="content" maxlength="400" placeholder="想说点什么呢O(∩_∩)O~" v-model="comment.content">
-          </textarea>
-          <div class="editor-tools">
-            <span class="tool-btn emoji">
-              <i class="iconfont icon-biaoqing"></i>
-              <transition name="fade">
-                <emoji-box :onClick="insertEmoji" />
-              </transition>
-            </span>
-            <span class="tool-btn" @click="insert('img')">
-              <i class="iconfont icon-image"></i>
-            </span>
-            <span class="tool-btn" @click="insert('link')">
-              <i class="iconfont icon-lianjie"></i>
-            </span>
-            <span class="tool-btn" @click="insert('code')">
-              <i class="iconfont icon-daimakuai"></i>
-            </span>
-            <button type="submit" @click="addComment($event)">
-              提交
-              <i class="iconfont icon-fabu"></i>
-            </button>
-          </div>
-        </div>
+        <comment-editor :onSubmit="addComment" :onFocus="hideReply" />
       </div>
       <div class="author-info">
 
@@ -43,7 +19,7 @@
         </el-tooltip>
 
         <el-tooltip :value="emailHasError" manual effect="dark" content="格式不对哦~" placement="bottom">
-          <input type="email" name="email" :class="{error: emailHasError}" required maxlength="40" placeholder="邮箱会保密的" v-model="author.email" @blur="checkEmail" />
+          <input type="email" name="email" :class="{error: emailHasError}" required maxlength="40" placeholder="接收回复用" v-model="author.email" @blur="checkEmail" />
         </el-tooltip>
         <!-- <input type="input" name="site" maxlength="20" placeholder="您的网站？" v-model="author.site" /> -->
       </div>
@@ -64,9 +40,15 @@
             <span :class="{ like: true, active: isLiked(comment._id) }" @click="likeComment(comment._id)">
               <i class="iconfont icon-ding"></i> 顶({{comment.likes}})
             </span>
-            <span class="reply">
+            <span v-if="!reply.pid" class="reply" @click="showReply(comment._id)">
               <i class="iconfont icon-reply"></i> 回复(0)
             </span>
+            <span v-if="reply.pid" class="reply" @click="hideReply()">
+              <i class="iconfont icon-quxiao"></i> 取消回复
+            </span>
+          </div>
+          <div class="comment-reply" v-if="reply.pid === comment._id">
+            <comment-editor :onSubmit="addComment" :placeholder="'回复: '+comment.author.name" />
           </div>
         </div>
       </li>
@@ -80,10 +62,12 @@ import gravatar from 'gravatar';
 import marked from '~/utils/marked';
 import { setLS, getLS } from '~/utils';
 import EmojiBox from '~/components/common/emoji-box';
+import CommentEditor from '~/components/common/comment-editor';
 
 export default {
   components: {
     EmojiBox,
+    CommentEditor,
   },
 
   props: {
@@ -106,6 +90,10 @@ export default {
         gravatar: null,
       },
       likeComments: [],
+      reply: {
+        content: '',
+        pid: '',
+      },
       nameHasError: false,
       emailHasError: false,
       regexs: {
@@ -168,22 +156,23 @@ export default {
         : this.gravatar(this.author.email);
     },
     addComment(e) {
-      e.preventDefault();
+      // e.preventDefault();
+      console.log('e:', e);
       if (this.nameHasError || this.emailHasError) {
         return this.$message.error('是不是写错了什么？');
       }
-      this.$store
-        .dispatch('comment/addComment', {
-          articleId: this.articleId,
-          ...this.comment,
-          pageUrl: location.href,
-          author: this.author,
-        })
-        .then(res => {
-          if (res.code === 1) {
-            this.getComments({ pageNo: 1 });
-          }
-        });
+      // this.$store
+      //   .dispatch('comment/addComment', {
+      //     articleId: this.articleId,
+      //     ...this.comment,
+      //     pageUrl: location.href,
+      //     author: this.author,
+      //   })
+      //   .then(res => {
+      //     if (res.code === 1) {
+      //       this.getComments({ pageNo: 1 });
+      //     }
+      //   });
     },
     isLiked(id) {
       return this.likeComments.includes(id);
@@ -193,6 +182,20 @@ export default {
         return;
       }
       this.$store.dispatch('comment/likeComment', id).then(res => {
+        if (res.code === 1) {
+          this.likeComments.push(id);
+          setLS('comment-like', this.likeComments);
+        }
+      });
+    },
+    showReply(commentId) {
+      this.reply.pid = commentId;
+    },
+    hideReply() {
+      this.reply.pid = null;
+    },
+    replyComment(id) {
+      this.$store.dispatch('comment/replyComment', id).then(res => {
         if (res.code === 1) {
           this.likeComments.push(id);
           setLS('comment-like', this.likeComments);
@@ -231,76 +234,6 @@ export default {
       }
       i {
         font-size: 3rem;
-      }
-    }
-    .comment-editor {
-      flex: 1;
-      textarea {
-        width: 100%;
-        min-height: 6em;
-        max-height: 30em;
-        overflow: auto;
-        outline: none;
-        padding: 0.5em;
-        cursor: auto;
-        font-size: 0.95em;
-        line-height: 1.8em;
-        border: 1px solid $platinum;
-        border-radius: 4px;
-        &:hover {
-          border-color: $lightblack;
-        }
-        &:focus {
-          border-color: $color-primary;
-        }
-      }
-
-      .editor-tools {
-        height: 2rem;
-        line-height: 2rem;
-
-        .tool-btn {
-          width: 2em;
-          height: 2em;
-          border-radius: $radius;
-          text-align: center;
-          display: inline-block;
-          cursor: pointer;
-          &:hover {
-            background: $color-hover-bg;
-          }
-        }
-
-        .emoji {
-          position: relative;
-          .emoji-box {
-            display: none;
-            position: absolute;
-            top: 2rem;
-            left: 0;
-          }
-
-          &:hover {
-            .emoji-box {
-              display: block;
-            }
-          }
-        }
-
-        button {
-          float: right;
-          border: none;
-          border-radius: 4px;
-          text-align: center;
-          vertical-align: middle;
-          background: transparent;
-          white-space: nowrap;
-          cursor: pointer;
-          padding: 0 0.5rem;
-          &:hover {
-            background: $color-hover-bg;
-          }
-        }
       }
     }
   }
@@ -405,6 +338,10 @@ export default {
           opacity: 0;
         }
       }
+    }
+
+    .comment-reply {
+      padding-top: 0.5rem;
     }
   }
 }

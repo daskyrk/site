@@ -26,3 +26,7 @@
 - [x] 增加code highlight样式
 - [x] 添加google analytics
 - [x] 迁移https
+- [ ] 读书内容页
+- [ ] 页面添加音乐播放器
+- [ ] 迁移到访问速度更快更稳定的机器上，aws or google?
+- [ ] ts重构

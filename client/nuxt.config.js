@@ -69,7 +69,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: '//at.alicdn.com/t/font_683109_ayknx7v0byb.css',
+        href: '//at.alicdn.com/t/font_683109_zoj3ov1oqte.css',
       },
       {
         rel: 'stylesheet',
@@ -122,10 +122,10 @@ module.exports = {
     { src: '~plugins/markdown.js', ssr: false },
     { src: '~plugins/copy.js', ssr: false },
     { src: '~plugins/gtm.js', ssr: false },
-    { src: '~/plugins/lazy-load.js', ssr: false },
     '~/plugins/moment.js',
     '~/plugins/element-ui.js',
     '~/plugins/axios.js',
+    '~/plugins/lazy-load.js',
     '~/plugins/filter.js',
     '~/plugins/custom-compents.js',
   ],
