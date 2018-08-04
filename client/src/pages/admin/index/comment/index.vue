@@ -14,7 +14,7 @@
                 <el-radio-button label="0">待审核</el-radio-button>
                 <el-radio-button label="1">通过</el-radio-button>
                 <el-radio-button label="2">不通过</el-radio-button>
-                <el-radio-button label="3">归档</el-radio-button>
+                <el-radio-button label="3">已归档</el-radio-button>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="时间" prop="timeRange">
@@ -23,7 +23,7 @@
               <el-radio-button label="2">三天</el-radio-button>
               <el-radio-button label="3">一周</el-radio-button>
             </el-radio-group> -->
-              <el-date-picker v-model="filterForm.timeRange" type="daterange" range-separator="到" start-placeholder="开始时间" end-placeholder="结束时间" :picker-options="pickerOptions" value-format="timestamp">
+              <el-date-picker v-model="filterForm.timeRange" type="datetimerange" range-separator="到" start-placeholder="开始时间" end-placeholder="结束时间" :picker-options="pickerOptions" value-format="timestamp">
               </el-date-picker>
             </el-form-item>
           </div>

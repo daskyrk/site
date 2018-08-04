@@ -13,15 +13,14 @@ exports.getComments = async ctx => {
     sort: { createdAt: -1 },
     page: Number(pageNo),
     limit: Number(pageSize),
+    select: '-state -ip',
   };
 
   if (postId !== undefined) {
     query.postId = postId;
   }
 
-  if (state !== undefined && [1, 2, 3].includes(state)) {
-    query.state = state;
-  }
+  query.state = 1;
 
   const result = await Comment.paginate(query, options).catch(
     logError({ ctx }),
@@ -133,23 +132,55 @@ exports.likeComment = async ctx => {
 };
 
 exports.getCommentsForAdmin = async ctx => {
-  const { pageNo = 1, pageSize = 20, postId, state } = ctx.query;
-  const query = {};
+  const {
+    pageNo = 1,
+    pageSize = 10,
+    keyword,
+    postId,
+    state,
+    startAt,
+    endAt,
+  } = ctx.query;
+  console.log('ctx.query:', ctx.query);
+  const querys = {};
   const options = {
     sort: { createdAt: -1 },
     page: Number(pageNo),
     limit: Number(pageSize),
   };
 
+  // 关键词查询
+  if (typeof keyword === 'string' && keyword.length) {
+    const keywordReg = new RegExp(keyword);
+    querys['$or'] = [
+      { content: keywordReg },
+      { 'author.name': keywordReg },
+    ];
+  }
+
+
   if (postId !== undefined) {
-    query.postId = postId;
+    querys.postId = postId;
   }
 
-  if (state !== undefined && [1, 2, 3].includes(state)) {
-    query.state = state;
+  if (state !== undefined && ['1', '2', '3'].includes(state)) {
+    querys.state = +state;
   }
 
-  const result = await Comment.paginate(query, options).catch(
+  const startTime = new Date(+startAt);
+  if (startTime.toString() !== 'Invalid Date') {
+    querys.createdAt = {
+      $gte: startTime,
+    };
+  }
+
+  const endTime = new Date(+endAt);
+  if (endTime.toString() !== 'Invalid Date') {
+    querys.createdAt = querys.createdAt || {};
+    querys.createdAt.$lt = endTime;
+  }
+
+  const result = await Comment.paginate(querys, options).catch(
     logError({ ctx }),
   );
 
