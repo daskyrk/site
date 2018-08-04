@@ -13,7 +13,6 @@
 
 <script>
 import _ from 'lodash';
-import gravatar from 'gravatar';
 import { mapState } from 'vuex';
 import { setLS, getLS, regexp } from '~/utils';
 import CommentForm from '~/components/common/comment-form';
@@ -110,11 +109,6 @@ export default {
     findChildren(item, list) {
       return list.filter(i => i.pid === item._id);
     },
-    gravatar(email) {
-      if (!regexp.email.test(email)) return null;
-      let gravatar_url = gravatar.url(email);
-      return gravatar_url;
-    },
     addComment(data) {
       this.$store
         .dispatch('comment/addComment', {
@@ -144,11 +138,7 @@ export default {
       });
     },
     showReply(commentId) {
-      console.log('show:', commentId);
       this.pid = commentId;
-    },
-    hideReply() {
-      this.pid = null;
     },
   },
 };
