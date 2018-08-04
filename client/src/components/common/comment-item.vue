@@ -19,14 +19,14 @@
           <i class="iconfont icon-ding"></i> 赞({{comment.likes}})
         </span>
         <span v-if="!pid || pid !== comment._id" class="reply" @click="showReply(comment._id)">
-          <i class="iconfont icon-reply"></i> 回复(0)
+          <i class="iconfont icon-reply"></i> 回复({{comment.children.length}})
         </span>
         <span v-if="pid === comment._id" class="reply" @click="hideReply()">
           <i class="iconfont icon-quxiao"></i> 取消回复
         </span>
       </div>
       <div class="comment-reply" v-if="pid === comment._id">
-        <comment-form :onSubmit="addComment" :placeholder="'回复: '+comment.author.name" />
+        <comment-form :onSubmit="addComment" :placeholder="'@'+comment.author.name+': '" />
       </div>
     </div>
     <ol class="comment-list">
