@@ -88,11 +88,10 @@ export default {
 .comment-item {
   position: relative;
   .comment-avatar {
-    position: absolute;
-    left: 0;
-    top: 0;
+    position: relative;
+    float: left;
     z-index: 1;
-    width: 3rem;
+    width: 3.2rem;
     padding: 0.5rem 0;
     background-color: $white;
     img {
@@ -186,5 +185,6 @@ export default {
 
 .comment-reply {
   padding-top: 0.5rem;
+  margin-bottom: 100px;
 }
 </style>
