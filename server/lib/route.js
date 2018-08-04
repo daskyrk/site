@@ -34,6 +34,9 @@ router
   .post('/comment', controller.comment.addComment)
   .put('/likeComment/:id', controller.comment.likeComment)
 
+  .get('/admin/comment', controller.comment.getCommentsForAdmin)
+  .put('/admin/comment', controller.comment.updateComment)
+
   .get('/image', controller.image.getImages)
   .post('/admin/image', controller.image.addImage)
 

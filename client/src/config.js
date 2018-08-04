@@ -49,6 +49,11 @@ exports.envs = {
       icon: 'article',
     },
     {
+      link: '/admin/comment',
+      text: '留言管理',
+      icon: 'comment',
+    },
+    {
       link: '/admin/tag',
       text: '标签管理',
       icon: 'tag',

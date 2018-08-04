@@ -1,5 +1,5 @@
 <template>
-  <div class="article-manage">
+  <div class="comment-manage">
     <pg-filter>
       <el-form :model="filterForm" ref="filterForm" class="filter-form" size="medium">
         <div class="filter-content">
@@ -28,8 +28,10 @@
             <el-form-item label="状态" prop="state">
               <el-radio-group v-model="filterForm.state">
                 <el-radio-button label="-1">全部</el-radio-button>
-                <el-radio-button label="1">发布</el-radio-button>
-                <el-radio-button label="2">草稿</el-radio-button>
+                <el-radio-button label="0">待审核</el-radio-button>
+                <el-radio-button label="1">通过</el-radio-button>
+                <el-radio-button label="2">不通过</el-radio-button>
+                <el-radio-button label="3">归档</el-radio-button>
               </el-radio-group>
             </el-form-item>
 
@@ -63,51 +65,57 @@
       </el-form>
     </pg-filter>
 
-    <ccard title="文章列表">
-      <nuxt-link slot="op" to='add' append>
-        <el-button type="primary" size="small">添加</el-button>
-      </nuxt-link>
+    <ccard title="留言列表">
       <el-table v-if="list.length" :data="list" v-loading="fetch" style="width: 100%">
-        <el-table-column type="expand">
-          <template slot-scope="props">
-            <p>关键字: {{ props.row.keyword }}</p>
-            <p>描述: {{ props.row.descript }}</p>
-          </template>
-        </el-table-column>
-        <el-table-column label="标题">
+        <el-table-column label="内容">
           <template slot-scope="scope">
-            {{ scope.row.title }}
+            {{ scope.row.content }}
           </template>
         </el-table-column>
-        <el-table-column label="标签">
+        <el-table-column label="留言人" width="200">
           <template slot-scope="scope">
-            <el-tag class="article-tag" :key="tag" v-for="tag in scope.row.tags">
-              {{nameMap[tag]}}
-            </el-tag>
+            <el-tooltip :disabled="!scope.row.author.site" :content="scope.row.author.site" effect="dark" placement="top">
+              <a v-if="!!scope.row.author.site" :href="scope.row.author.site | dealSite" class="site-link" target="_blank" rel='noopener noreferrer'>
+                {{ scope.row.author.name }}
+              </a>
+              <span v-else>
+                {{ scope.row.author.name }}
+              </span>
+            </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column label="创建日期" width="180">
+        <el-table-column label="时间" width="200">
           <template slot-scope="scope">
             <i class="iconfont icon-riqi"></i>
-            {{ scope.row.createdAt | dateFormat('YYYY.MM.DD') }}
+            {{ scope.row.createdAt | dateFormat('YYYY.MM.DD HH:mm:ss') }}
           </template>
         </el-table-column>
-        <el-table-column label="私密" width="120">
+        <el-table-column label="邮箱" width="180">
           <template slot-scope="scope">
-            <i class="iconfont icon-lock" v-if="!scope.row.public"></i>
+            {{ scope.row.author.email }}
           </template>
         </el-table-column>
+        <el-table-column label="ip" width="100">
+          <template slot-scope="scope">
+            {{ scope.row.ip }}
+          </template>
+        </el-table-column>
+        <!-- <el-table-column label="终端">
+          <template slot-scope="scope">
+            {{ scope.row.agent }}
+          </template>
+        </el-table-column> -->
         <el-table-column label="状态" width="120">
           <template slot-scope="scope">
-            <i class="iconfont icon-fabu" v-if="scope.row.state === 1"></i>
-            <i class="iconfont icon-caogao" v-if="scope.row.state !== 1"></i>
-            {{ scope.row.state === 1 ? '发布' : '草稿' }}
+            <i :class="scope.row.state | stateIcon"></i>
+            {{ stateMap[scope.row.state] }}
           </template>
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="180">
           <template slot-scope="scope">
-            <el-button type="info" size="small" @click="editArt(scope.row)">修改</el-button>
-            <el-button type="danger" size="small" @click="deleteArt(scope.row)" :loading="isDeleting(scope.row)">{{ isDeleting(scope.row) ? '删除中' : '删 除' }}</el-button>
+            <el-button v-if="scope.row.state === 0 || scope.row.state === 2" type="primary" size="small" @click="updateComment(scope.row, 1)">通过</el-button>
+            <el-button v-if="scope.row.state === 0 || scope.row.state === 1" type="danger" size="small" @click="updateComment(scope.row, 2)">不通过</el-button>
+            <el-button v-if="scope.row.state !== 3" size="small" @click="updateComment(scope.row, 3)">归档</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -125,18 +133,16 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
   meta: {
-    breadcrumb: '文章列表',
+    breadcrumb: '留言列表',
   },
 
   async fetch({ store }) {
-    await store.dispatch('admin/article/getArtList');
-    await store.dispatch('tag/getTags', { pageSize: 100 });
+    await store.dispatch('admin/comment/getComments');
   },
 
   data() {
     const getDateRange = this.getDateRange();
     return {
-      deletingId: null,
       filterForm: {
         keyword: '',
         state: -1,
@@ -145,7 +151,12 @@ export default {
         tag: '',
         timeRange: [],
       },
-      // timeRangeDay: 0,
+      stateMap: {
+        0: '待审核',
+        1: '通过',
+        2: '不通过',
+        3: '已归档',
+      },
       pickerOptions: {
         shortcuts: [
           {
@@ -179,18 +190,29 @@ export default {
 
   computed: {
     ...mapState({
-      fetch: state => state.fetch['admin/article#get'],
+      fetch: state => state.fetch['admin/comment#get'],
     }),
-    ...mapState('admin/article', ['list', 'total', 'query']),
+    ...mapState('admin/comment', ['list', 'total', 'query']),
     ...mapGetters('tag', ['nameMap']),
     ...mapState('tag', {
       tagList: 'list',
     }),
   },
 
-  // beforeDestroy() {
-  //   this.$store.commit('admin/article/RESET_LIST');
-  // },
+  filters: {
+    stateIcon: function(state) {
+      const iconMap = {
+        0: 'shenhe',
+        1: 'circle-check',
+        2: 'circle-cross',
+        3: 'guidang',
+      };
+      return 'iconfont icon-' + iconMap[state];
+    },
+    dealSite: function(site) {
+      return site.includes('http') ? site : `http://${site}`;
+    },
+  },
 
   methods: {
     pickDayRange(e) {
@@ -203,26 +225,26 @@ export default {
       return [start, end];
     },
     pageNoChange(pageNo) {
-      this.$store.dispatch('admin/article/getArtList', {
+      this.$store.dispatch('admin/comment/getComments', {
         pageNo,
         type: 1,
       });
     },
     pageSizeChange(pageSize) {
-      this.$store.dispatch('admin/article/getArtList', {
+      this.$store.dispatch('admin/comment/getComments', {
         pageNo: 1,
         pageSize,
         type: 1,
       });
     },
-    editArt(row) {
-      this.$router.push(`/admin/article/${row._id}`);
+    updateComment(row, state) {
+      this.$store.dispatch('admin/comment/updateComment', {
+        id: row._id,
+        state,
+      });
     },
-    deleteArt(row) {
-      this.$store.dispatch('admin/article/delArt', row._id);
-    },
-    isDeleting(row) {
-      return row._id === this.deletingId;
+    delComment(row) {
+      this.$store.dispatch('admin/comment/delComment', row._id);
     },
     onSubmit() {
       this.$refs.filterForm.validate(valid => {
@@ -230,7 +252,7 @@ export default {
           const { timeRange, ...rest } = this.filterForm;
           const [startAt, endAt] = timeRange;
           const data = { pageNo: 1, startAt, endAt, ...rest };
-          this.$store.dispatch('admin/article/getArtList', data);
+          this.$store.dispatch('admin/comment/getComments', data);
         } else {
           return false;
         }
@@ -271,7 +293,8 @@ export default {
   margin-top: 1rem;
 }
 
-.article-tag {
-  margin-right: 0.5rem;
+.site-link {
+  color: $color-primary;
+  font-weight: bold;
 }
 </style>

@@ -84,7 +84,7 @@ export default {
 
   computed: {
     ...mapState({
-      fetch: state => state.fetch['admin/article'],
+      fetch: state => state.fetch['admin/article#get'],
     }),
     ...mapState('tag', ['list', 'total', 'query']),
   },

@@ -131,3 +131,51 @@ exports.likeComment = async ctx => {
     fail: '点赞评论失败',
   });
 };
+
+exports.getCommentsForAdmin = async ctx => {
+  const { pageNo = 1, pageSize = 20, postId, state } = ctx.query;
+  const query = {};
+  const options = {
+    sort: { createdAt: -1 },
+    page: Number(pageNo),
+    limit: Number(pageSize),
+  };
+
+  if (postId !== undefined) {
+    query.postId = postId;
+  }
+
+  if (state !== undefined && [1, 2, 3].includes(state)) {
+    query.state = state;
+  }
+
+  const result = await Comment.paginate(query, options).catch(
+    logError({ ctx }),
+  );
+
+  handleResult({
+    ctx,
+    result,
+    success: '获取评论列表成功',
+    fail: '获取评论列表失败',
+    deal: data => ({
+      total: result.total,
+      list: result.docs,
+    }),
+  });
+};
+
+exports.updateComment = async ctx => {
+  const { id, state } = ctx.request.body;
+
+  const result = await Comment.findByIdAndUpdate(id, { state }).catch(
+    logError({ ctx }),
+  );
+
+  handleResult({
+    ctx,
+    result,
+    success: '更新评论成功',
+    fail: '更新评论失败',
+  });
+};
