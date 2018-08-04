@@ -1,7 +1,7 @@
 <template>
   <li class="comment-item" :class="itemClass">
     <div class="comment-avatar">
-      <a :href="comment.author.site" v-if="comment.author.site">
+      <a :href="dealSite(comment.author.site)" target="_blank" rel='noopener noreferrer' v-if="comment.author.site">
         <img alt="comment-avatar" :src="gravatar(comment.author.email)">
       </a>
       <img v-else alt="comment-avatar" :src="gravatar(comment.author.email)">
@@ -78,6 +78,9 @@ export default {
       if (!regexp.email.test(email)) return null;
       let gravatar_url = gravatar.url(email);
       return gravatar_url;
+    },
+    dealSite(site) {
+      return site.includes('http') ? site : `http://${site}`;
     },
   },
 };
