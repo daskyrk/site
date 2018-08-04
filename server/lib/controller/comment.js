@@ -1,3 +1,4 @@
+const geoip = require('geoip-lite');
 const config = require('../config');
 const logError = require('../utils/logError');
 const Comment = require('../model/comment');
@@ -6,7 +7,7 @@ const { handleError, handleResult } = require('../utils/handle');
 const { sendMail } = require('../utils/email');
 
 exports.getComments = async ctx => {
-  const { pageNo = 1, pageSize = 20, articleId, state } = ctx.query;
+  const { pageNo = 1, pageSize = 20, postId, state } = ctx.query;
   const query = {};
   const options = {
     sort: { createdAt: -1 },
@@ -14,8 +15,8 @@ exports.getComments = async ctx => {
     limit: Number(pageSize),
   };
 
-  if (articleId !== undefined) {
-    query.articleId = articleId;
+  if (postId !== undefined) {
+    query.postId = postId;
   }
 
   if (state !== undefined && [1, 2, 3].includes(state)) {
@@ -39,9 +40,31 @@ exports.getComments = async ctx => {
 };
 
 exports.addComment = async ctx => {
-  const articleId = ctx.request.body.articleId;
+  const postId = ctx.request.body.postId;
 
   const { pageUrl, ...comment } = ctx.request.body;
+
+  // 获取ip地址以及物理地理地址
+  const ip = (
+    ctx.req.headers['x-forwarded-for'] ||
+    ctx.req.headers['x-real-ip'] ||
+    ctx.req.connection.remoteAddress ||
+    ctx.req.socket.remoteAddress ||
+    ctx.req.connection.socket.remoteAddress ||
+    ctx.req.ip ||
+    ctx.req.ips[0]
+  ).replace('::ffff:', '');
+  comment.ip = ip;
+  comment.agent = ctx.headers['user-agent'] || comment.agent;
+
+  const ip_location = geoip.lookup(ip);
+
+  if (ip_location) {
+    console.log('ip_location:', ip_location);
+    comment.city = ip_location.city;
+    comment.range = ip_location.range;
+    comment.country = ip_location.country;
+  }
 
   const result = await new Comment(comment).save().catch(logError({ ctx }));
   if (result) {
@@ -49,12 +72,11 @@ exports.addComment = async ctx => {
     sendMailToAdminAndTargetUser(result, pageUrl);
   }
 
-  const article = await Article.findById(articleId).catch(logError({ ctx }));
+  const article = await Article.findById(postId).catch(logError({ ctx }));
   if (article) {
     article.meta.comments++;
     article.save();
   }
-
 
   handleResult({
     ctx,

@@ -71,6 +71,7 @@ export default {
     },
     submit() {
       this.onSubmit(this.value);
+      this.value = '';
     },
   },
 };

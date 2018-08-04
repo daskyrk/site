@@ -5,9 +5,10 @@ const { autoIncrement } = require('mongoose-plugin-autoinc');
 
 const CommentSchema = new mongoose.Schema(
   {
-    articleId: { type: mongoose.Schema.Types.ObjectId, ref: 'Article' },
-    // pid，0代表默认留言
-    pid: { type: Number, default: 0 },
+    // articleId: { type: mongoose.Schema.Types.ObjectId, ref: 'Article' },
+    postId: { type: String, required: true },
+
+    pid: { type: String },
     content: { type: String, required: true },
 
     author: {
@@ -18,6 +19,16 @@ const CommentSchema = new mongoose.Schema(
     likes: { type: Number, default: 0 },
     // 状态 0待审核 1通过 2不通过
     state: { type: Number, default: 1 },
+    // ip
+    ip: { type: String },
+
+    // ip 物理地址
+    city: { type: String },
+    range: { type: String },
+    country: { type: String },
+
+    // 用户ua
+    agent: { type: String, validate: /\S+/ },
 
   },
   {
