@@ -15,38 +15,35 @@
         <span class="reply-author" v-if="comment.pName">@{{comment.pName}}:</span> {{comment.content}}
       </div>
       <div class="comment-footer">
-        <span :class="{ like: true, active: isLiked(comment._id) }" @click="likeComment(comment._id)">
+        <span :class="{ like: true, active: comment.isLiked }" @click="likeComment(comment._id)">
           <i class="iconfont icon-ding"></i> 赞({{comment.likes}})
         </span>
-        <span v-if="!pid || pid !== comment._id" class="reply" @click="showReply(comment._id)">
+        <span v-if="!targetId || targetId !== comment._id" class="reply" @click="showReply(comment._id)">
           <i class="iconfont icon-reply"></i> 回复({{comment.children.length}})
         </span>
-        <span v-if="pid === comment._id" class="reply" @click="hideReply()">
+        <span v-if="targetId === comment._id" class="reply" @click="showReply()">
           <i class="iconfont icon-quxiao"></i> 取消回复
         </span>
       </div>
-      <div class="comment-reply" v-if="pid === comment._id">
-        <comment-form :onSubmit="addComment" :placeholder="'@'+comment.author.name+': '" />
+      <div class="comment-reply" v-if="targetId === comment._id">
+        <component :is="comment.form.comp" :onSubmit="comment.form.addComment"></component>
       </div>
     </div>
-    <ol class="comment-list">
-      <comment-item :key="child._id" v-for="child in comment.children" postId={postId} :comment="child" />
+    <ol class="comment-list" v-if="comment.children.length">
+      <comment-item :key="child._id" v-for="child in comment.children" v-bind="$props" :comment="child" />
     </ol>
   </li>
 </template>
 
 <script>
 import gravatar from 'gravatar';
-import { mapState } from 'vuex';
-import { setLS, getLS, regexp } from '~/utils';
-import CommentForm from '~/components/common/comment-form';
+import { regexp } from '~/utils';
 import CommentItem from '~/components/common/comment-item';
 
 export default {
   name: 'comment-item',
 
   components: {
-    CommentForm,
     CommentItem,
   },
 
@@ -55,23 +52,20 @@ export default {
       type: Object,
       required: true,
     },
-    postId: {
-      type: [String, Number],
+    likeComment: {
+      type: Function,
       required: true,
     },
-  },
-
-  data() {
-    return {
-      likeComments: [],
-      pid: '',
-    };
+    showReply: {
+      type: Function,
+      required: true,
+    },
+    targetId: String,
   },
 
   computed: {
     itemClass() {
       const cls = {};
-      // const hasChildren = !!this.comment.children.length;
       if (this.comment.depth === 1) {
         cls['depth-1'] = true;
       }
@@ -84,40 +78,6 @@ export default {
       if (!regexp.email.test(email)) return null;
       let gravatar_url = gravatar.url(email);
       return gravatar_url;
-    },
-    addComment(data) {
-      this.$store
-        .dispatch('comment/addComment', {
-          ...data,
-          pid: this.pid,
-          postId: this.postId,
-          pageUrl: location.href,
-        })
-        .then(res => {
-          if (res.code === 1) {
-            this.getComments({ pageNo: 1 });
-          }
-        });
-    },
-    isLiked(id) {
-      return this.likeComments.includes(id);
-    },
-    likeComment(id) {
-      if (this.isLiked(id)) {
-        return;
-      }
-      this.$store.dispatch('comment/likeComment', id).then(res => {
-        if (res.code === 1) {
-          this.likeComments.push(id);
-          setLS('comment-like', this.likeComments);
-        }
-      });
-    },
-    showReply(commentId) {
-      this.pid = commentId;
-    },
-    hideReply() {
-      this.pid = null;
     },
   },
 };
@@ -154,7 +114,7 @@ export default {
   &.depth-1 {
     overflow: hidden;
     border-bottom: 1px solid $color-border;
-    margin-bottom: .75rem;
+    margin-bottom: 0.75rem;
 
     &:last-child {
       border-bottom: none;

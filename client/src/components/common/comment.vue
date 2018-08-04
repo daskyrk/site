@@ -5,9 +5,8 @@
       <span class="line"></span>
     </div>
     <comment-form v-if="!pid" :onSubmit="addComment" />
-
     <ol class="comment-list comment-pad">
-      <comment-item :key="comment._id" v-for="comment in data" :comment="comment" :postId="articleId" />
+      <comment-item :key="comment._id" v-for="comment in data" :comment="comment" :targetId="pid" :showReply="showReply" :likeComment="likeComment" />
     </ol>
   </div>
 </template>
@@ -90,11 +89,20 @@ export default {
       });
       return list.map(item => {
         const pComment = commentMap[item.pid];
+        const enchancedItem = {
+          ...item,
+          isLiked: this.isLiked(item.id),
+          form: {
+            comp: CommentForm,
+            addComment: this.addComment,
+          },
+        };
+
         if (!pComment) {
-          return item;
+          return enchancedItem;
         }
         return {
-          ...item,
+          ...enchancedItem,
           pName: pComment.author.name,
         };
       });
@@ -136,6 +144,7 @@ export default {
       });
     },
     showReply(commentId) {
+      console.log('show:', commentId);
       this.pid = commentId;
     },
     hideReply() {
