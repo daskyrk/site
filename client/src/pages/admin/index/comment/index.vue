@@ -8,23 +8,6 @@
             <el-form-item label="关键字" prop="keyword" class="kword">
               <el-input v-model="filterForm.keyword"></el-input>
             </el-form-item>
-            <el-form-item label="标签" prop="tag">
-              <el-select v-model="filterForm.tag" placeholder="请选择" clearable>
-                <el-option :key="tag._id" v-for="tag in tagList" :label="tag.name" :value="tag._id"></el-option>
-              </el-select>
-            </el-form-item>
-          </div>
-
-          <div class="flow-item">
-            <el-form-item label="分类" prop="type">
-              <el-radio-group v-model="filterForm.type">
-                <el-radio-button label="-1">全部</el-radio-button>
-                <el-radio-button label="1">文章</el-radio-button>
-                <el-radio-button label="2">读书</el-radio-button>
-                <el-radio-button label="3">音乐</el-radio-button>
-              </el-radio-group>
-            </el-form-item>
-
             <el-form-item label="状态" prop="state">
               <el-radio-group v-model="filterForm.state">
                 <el-radio-button label="-1">全部</el-radio-button>
@@ -34,26 +17,17 @@
                 <el-radio-button label="3">归档</el-radio-button>
               </el-radio-group>
             </el-form-item>
-
-            <el-form-item label="公开" prop="public">
-              <el-radio-group v-model="filterForm.public">
-                <el-radio-button label="-1">全部</el-radio-button>
-                <el-radio-button label="true">公开</el-radio-button>
-                <el-radio-button label="false">私密</el-radio-button>
-              </el-radio-group>
-            </el-form-item>
-
-          </div>
-
-          <el-form-item label="创建时间" prop="timeRange">
-            <!-- <el-radio-group v-model="timeRangeDay" @change="this.pickDayRange" class="pick-day-range">
+            <el-form-item label="时间" prop="timeRange">
+              <!-- <el-radio-group v-model="timeRangeDay" @change="this.pickDayRange" class="pick-day-range">
               <el-radio-button label="1">今天</el-radio-button>
               <el-radio-button label="2">三天</el-radio-button>
               <el-radio-button label="3">一周</el-radio-button>
             </el-radio-group> -->
-            <el-date-picker v-model="filterForm.timeRange" type="daterange" range-separator="到" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" value-format="timestamp">
-            </el-date-picker>
-          </el-form-item>
+              <el-date-picker v-model="filterForm.timeRange" type="daterange" range-separator="到" start-placeholder="开始时间" end-placeholder="结束时间" :picker-options="pickerOptions" value-format="timestamp">
+              </el-date-picker>
+            </el-form-item>
+          </div>
+
         </div>
 
         <div class="filter-footer">
@@ -146,9 +120,6 @@ export default {
       filterForm: {
         keyword: '',
         state: -1,
-        public: -1,
-        type: -1,
-        tag: '',
         timeRange: [],
       },
       stateMap: {
@@ -193,10 +164,6 @@ export default {
       fetch: state => state.fetch['admin/comment#get'],
     }),
     ...mapState('admin/comment', ['list', 'total', 'query']),
-    ...mapGetters('tag', ['nameMap']),
-    ...mapState('tag', {
-      tagList: 'list',
-    }),
   },
 
   filters: {
