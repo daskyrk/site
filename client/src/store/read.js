@@ -9,6 +9,7 @@ export default {
       },
       searchList: [],
       summary: {},
+      count: 36,
     };
   },
 
@@ -24,7 +25,7 @@ export default {
     },
 
     SET_BOOK_QUERY(state, data) {
-      state.searchList = data.slice(0, 3);
+      state.searchList = data;
     },
 
     SET_BOOK_SUMMARY(state, data) {
