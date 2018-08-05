@@ -69,7 +69,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: '//at.alicdn.com/t/font_683109_zoj3ov1oqte.css',
+        href: '//at.alicdn.com/t/font_683109_ml3wue5xieh.css',
       },
       {
         rel: 'stylesheet',
