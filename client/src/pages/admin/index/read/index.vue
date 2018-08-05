@@ -5,6 +5,16 @@
       <SearchBook :onSelect="selectBook" :selected="basket" />
       <el-button type="info" icon="el-icon-close" circle @click="toggleSearch"></el-button>
     </div>
+    <el-dialog title="书籍信息" :visible.sync="dialogVisible" width="30%">
+      <div>
+        <p style="margin-bottom: 1rem;">{{selectedBook.title}}</p>
+        <el-input v-model="saying" placeholder="请输入书内名言"></el-input>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="updateArt">确 定</el-button>
+      </span>
+    </el-dialog>
 
     <ccard title="读书列表">
       <el-table v-if="list.length" :data="list" v-loading="fetch" style="width: 100%">
@@ -78,8 +88,11 @@ export default {
     return {
       type: 2,
       basket: {},
+      selectedBook: {},
+      saying: '',
       selectSingleMode: true,
       searchVisible: false,
+      dialogVisible: false,
     };
   },
 
@@ -97,8 +110,8 @@ export default {
     },
     selectBook(book) {
       if (this.selectSingleMode && book) {
-        this.toggleSearch();
-        this.updateArt(book);
+        this.dialogVisible = true;
+        this.selectedBook = book;
       } else {
         if (this.basket[book.isbn13]) {
           this.$set(this.basket, book.isbn13, undefined);
@@ -111,7 +124,11 @@ export default {
       this.toggleSearch();
       this.currentRow = row;
     },
-    updateArt(book) {
+    updateArt() {
+      this.toggleSearch();
+      this.dialogVisible = false;
+      const book = this.selectedBook;
+      console.log('this.saying:', this.saying);
       const data = {
         ...this.currentRow,
         extra: {
@@ -120,12 +137,14 @@ export default {
             title: book.title,
             author: book.author,
             image: book.image,
+            saying: this.saying,
             url: book.url,
           },
         },
       };
       this.$store.dispatch('admin/article/updateArt', data);
-      this.currentRow = null;
+      this.currentRow = {};
+      this.selectedBook = {};
     },
     pageNoChange(pageNo) {
       this.$store.dispatch('admin/article/getArtList', {

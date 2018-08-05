@@ -1,114 +1,46 @@
 <template>
   <div class="read-list">
-    <div class="stage">
-      <ul class="books-list">
-        <li>
-          <div class="img-wrap">
-            <img src="http://p9uqlanms.bkt.clouddn.com/our%20young.jpg?imageMogr2/thumbnail/200x268/format/webp/blur/1x0/quality/75|imageslim">
-          </div>
-        </li>
-        <li>
-          <div class="img-wrap">
-            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
-          </div>
-        </li>
-        <li>
-          <div class="img-wrap">
-            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
-          </div>
-        </li>
-        <li>
-          <div class="img-wrap">
-            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
-          </div>
-        </li>
-        <li>
-          <div class="img-wrap">
-            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
-          </div>
-        </li>
-        <li>
-          <div class="img-wrap">
-            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
-          </div>
-        </li>
-      </ul>
-      <div class="desk"></div>
-      <div class="desk-shadow"></div>
+
+    <div class="stage" :key="i" v-for="(row, i) in recent">
+      <template v-if="row.length">
+        <ul class="books-list">
+          <li :key="item._id" v-for="item in row">
+            <div class="img-wrap">
+              <nuxt-link :to='item._id' append>
+                <img :src="item.extra.book.image | dealImg({w:100})">
+              </nuxt-link>
+            </div>
+          </li>
+        </ul>
+        <div class="desk"></div>
+        <div class="desk-shadow"></div>
+      </template>
     </div>
-    <div class="stage">
-      <ul class="books-list">
-        <li>
-          <div class="img-wrap">
-            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
-          </div>
-        </li>
-        <li>
-          <div class="img-wrap">
-            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
-          </div>
-        </li>
-        <li>
-          <div class="img-wrap">
-            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
-          </div>
-        </li>
-        <li>
-          <div class="img-wrap">
-            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
-          </div>
-        </li>
-        <li>
-          <div class="img-wrap">
-            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
-          </div>
-        </li>
-        <li>
-          <div class="img-wrap">
-            <img src="http://jjckb.xinhuanet.com/2016-05/20/135374404_14637120163591n.jpg">
-          </div>
-        </li>
-      </ul>
-      <div class="desk"></div>
-      <div class="desk-shadow"></div>
-    </div>
+
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-// import ArticleCard from '~/components/article/article-card';
-import LoadMore from '~/components/common/load-more';
 
 export default {
-  components: {
-    // ArticleCard,
-    LoadMore,
-  },
-
   async fetch({ store }) {
-    // await store.dispatch('article/getArtList');
+    await store.dispatch('article/getArtList', { type: 2 });
   },
 
-  // computed: {
-  //   ...mapState('article', ['list', 'total', 'query']),
-  //   hasMore() {
-  //     return this.total > this.query.pageNo * this.query.pageSize;
-  //   },
-  // },
+  computed: {
+    ...mapState('article', ['list', 'total', 'query']),
+    hasMore() {
+      return this.total > this.query.pageNo * this.query.pageSize;
+    },
+    recent() {
+      return [this.list.slice(0, 6), this.list.slice(6, 12)];
+    },
+  },
 
-  // beforeDestroy() {
-  //   this.$store.commit('article/RESET_LIST');
-  // },
-
-  // methods: {
-  //   loadMore() {
-  //     return this.$store.dispatch('article/getArtList', {
-  //       pageNo: this.query.pageNo + 1,
-  //       type: 1,
-  //     });
-  //   },
-  // },
+  beforeDestroy() {
+    this.$store.commit('article/RESET_LIST');
+  },
 };
 </script>
 
@@ -152,6 +84,7 @@ export default {
 
 .books-list {
   padding: 0 80px;
+  min-width: 1000px;
 
   $book-width: 100px;
   $book-height: $book-width * 1.45;
@@ -209,6 +142,7 @@ export default {
       width: $book-width;
       height: $book-height;
       cursor: pointer;
+      background-color: $white;
     }
   }
 }
