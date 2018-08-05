@@ -22,6 +22,10 @@ export default {
       state.detail = data;
     },
 
+    SET_ART(state, data) {
+      state.list = state.list.map(art => (art._id === data._id ? data : art));
+    },
+
     UPDATE_QUERY(state, data) {
       state.query = data;
     },
@@ -71,9 +75,10 @@ export default {
     // 编辑文章
     async updateArt({ commit, dispatch }, { _id, ...data }) {
       const res = await this.$axios.$put(`/admin/article/${_id}`, data);
-      // if (res.code === 1) {
-      //   await dispatch('getArtList');
-      // }
+      if (res.code === 1) {
+        // await dispatch('getArtList');
+        commit('SET_ART', { _id, ...data });
+      }
       return res;
     },
 

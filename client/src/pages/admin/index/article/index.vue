@@ -129,7 +129,7 @@ export default {
   },
 
   async fetch({ store }) {
-    await store.dispatch('admin/article/getArtList');
+    await store.dispatch('admin/article/getArtList', { type: -1 });// 用-1来移除type过滤，获取全部类型
     await store.dispatch('tag/getTags', { pageSize: 100 });
   },
 
@@ -205,14 +205,14 @@ export default {
     pageNoChange(pageNo) {
       this.$store.dispatch('admin/article/getArtList', {
         pageNo,
-        type: 1,
+        type: -1,
       });
     },
     pageSizeChange(pageSize) {
       this.$store.dispatch('admin/article/getArtList', {
         pageNo: 1,
         pageSize,
-        type: 1,
+        type: -1,
       });
     },
     editArt(row) {

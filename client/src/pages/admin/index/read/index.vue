@@ -1,100 +1,144 @@
 <template>
 
   <div class="read-manage">
-
-    <div class="search-wrap">
-      <!-- <el-select v-model="q" multiple filterable remote reserve-keyword placeholder="请输入关键词" :remote-method="searchBook" :loading="loading">
-        <el-option v-for="item in searchList" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select> -->
-      <div data-v-7fdf388c="" class="search-input el-input el-input--prefix">
-        <input type="text" autocomplete="off" placeholder="请输入关键字" class="el-input__inner" v-model="q" @keyup.enter="search">
-        <span class="el-input__prefix">
-          <i class="el-input__icon el-icon-search"></i>
-        </span>
-      </div>
-
-      <div class="search-result">
-        <div class="book-info-wrap" :key="book.isbn13" v-for="book in searchList">
-          <div class="img-wrap">
-            <img :src="book.images.small | dealImg({w:80})" alt="book-image">
-          </div>
-          <div class="book-info">
-            <p v-if="book.ebook_url" class="title">
-              <a :href="book.ebook_url">{{book.title}}
-                <span v-if="book.subtitle" class="subtitle">({{book.subtitle}})</span>
-              </a>
-            </p>
-            <p v-else class="title">{{book.title}}
-              <span v-if="book.subtitle" class="subtitle">({{book.subtitle}})</span>
-            </p>
-            <p>{{book.author.join(' ')}}</p>
-            <p>{{book.publisher}} - {{book.pubdate}}</p>
-
-            <el-tooltip>
-              <div slot="content">
-                <div class="summary">{{book.summary | textClip(300)}}</div>
-              </div>
-              <p>{{book.summary | textClip(30)}}</p>
-            </el-tooltip>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- <div class="book-detail">
-        {{bookDetail}}
-      </div> -->
+    <div class="search-panel" :class="searchVisible && 'visible'">
+      <SearchBook :onSelect="selectBook" :selected="basket" />
+      <el-button type="info" icon="el-icon-close" circle @click="toggleSearch"></el-button>
     </div>
 
+    <ccard title="读书列表">
+      <el-table v-if="list.length" :data="list" v-loading="fetch" style="width: 100%">
+        <el-table-column label="封面" width="180">
+          <template v-if="scope.row.extra.book" slot-scope="scope">
+            <img :src="scope.row.extra.book.image | dealImg({h:80})" alt="book-image">
+          </template>
+        </el-table-column>
+        <el-table-column label="书名" width="180">
+          <template v-if="scope.row.extra.book" slot-scope="scope">
+            {{ scope.row.extra.book.title }}
+          </template>
+        </el-table-column>
+        <el-table-column label="文章标题">
+          <template slot-scope="scope">
+            {{ scope.row.title }}
+          </template>
+        </el-table-column>
+        <el-table-column label="文章描述">
+          <template slot-scope="scope">
+            {{ scope.row.descript }}
+          </template>
+        </el-table-column>
+        <el-table-column label="创建日期" width="180">
+          <template slot-scope="scope">
+            <i class="iconfont icon-riqi"></i>
+            {{ scope.row.createdAt | dateFormat('YYYY.MM.DD') }}
+          </template>
+        </el-table-column>
+        <el-table-column label="状态" width="120">
+          <template slot-scope="scope">
+            <i class="iconfont icon-fabu" v-if="scope.row.state === 1"></i>
+            <i class="iconfont icon-caogao" v-if="scope.row.state !== 1"></i>
+            {{ scope.row.state === 1 ? '发布' : '草稿' }}
+          </template>
+        </el-table-column>
+        <el-table-column fixed="right" label="操作" width="100">
+          <template slot-scope="scope">
+            <el-button type="primary" size="small" @click="attachBook(scope.row)">选书</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <empty-holder v-else></empty-holder>
+
+      <el-pagination slot="footer" background @current-change="pageNoChange" @size-change="pageSizeChange" :current-page="query.pageNo" :page-size="query.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
+    </ccard>
   </div>
 
 </template>
 
 <script>
-// import DialogForm from '~/components/common/dialog-form';
+import _ from 'lodash';
 import { mapState } from 'vuex';
+import SearchBook from '~/components/read/search';
 
 export default {
   meta: {
     breadcrumb: '读书管理',
   },
 
-  // async fetch({ store }) {
-  //   await store.dispatch('read/getBooks');
-  // },
+  components: {
+    SearchBook,
+  },
+
+  async fetch({ store }) {
+    await store.dispatch('admin/article/getArtList', { type: 2 });
+  },
 
   data() {
     return {
-      q: '',
-      bookDetail: {},
+      type: 2,
+      basket: {},
+      selectSingleMode: true,
+      searchVisible: false,
     };
   },
 
   computed: {
+    ...mapState({
+      fetch: state => state.fetch['admin/article#get'],
+    }),
+    ...mapState('admin/article', ['list', 'total', 'query']),
     ...mapState('read', ['searchList']),
   },
 
-  filters: {
-    cacheImage(url) {
-      if (url !== undefined) {
-        let _u = url.substring('https://'.length);
-        return 'https://images.weserv.nl/?url=' + _u;
+  methods: {
+    toggleSearch() {
+      this.searchVisible = !this.searchVisible;
+    },
+    selectBook(book) {
+      if (this.selectSingleMode && book) {
+        this.toggleSearch();
+        this.updateArt(book);
+      } else {
+        if (this.basket[book.isbn13]) {
+          this.$set(this.basket, book.isbn13, undefined);
+        } else {
+          this.$set(this.basket, book.isbn13, book);
+        }
       }
     },
-  },
-
-  methods: {
-    search() {
-      const q = this.q;
-      if (q !== '') {
-        this.loading = true;
-        this.$store.dispatch('read/search', { q, count: 36 }).then(() => {
-          this.loading = false;
-        });
-      } else {
-        this.searchList = [];
-      }
+    attachBook(row) {
+      this.toggleSearch();
+      this.currentRow = row;
+    },
+    updateArt(book) {
+      const data = {
+        ...this.currentRow,
+        extra: {
+          book: {
+            isbn13: book.isbn13,
+            title: book.title,
+            author: book.author,
+            image: book.image,
+            url: book.url,
+          },
+        },
+      };
+      this.$store.dispatch('admin/article/updateArt', data);
+      this.currentRow = null;
+    },
+    pageNoChange(pageNo) {
+      this.$store.dispatch('admin/article/getArtList', {
+        pageNo,
+        type: this.type,
+      });
+    },
+    pageSizeChange(pageSize) {
+      this.$store.dispatch('admin/article/getArtList', {
+        pageNo: 1,
+        pageSize,
+        type: this.type,
+      });
     },
   },
 
@@ -105,73 +149,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .read-manage {
-// }
-
-.search-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.search-input {
-  width: 60%;
-  margin-top: 5rem;
-}
-
-.search-result {
-  margin-top: 3rem;
-  width: 90%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.book-info-wrap {
-  display: flex;
-  height: 150px;
-  width: 32%;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  background-color: $white;
-  border-radius: $radius;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
-  }
-
-  .img-wrap {
-    width: 80px;
-  }
-}
-
-.book-info {
-  margin-left: 1rem;
-  font-size: 0.8rem;
-  line-height: 1.5rem;
+.read-manage {
+  position: relative;
+  height: 100%;
   overflow: hidden;
-  flex: 1;
-
-  p {
-    @include text-overflow;
-  }
-
-  .title {
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    a {
-      color: $green;
-    }
-    .subtitle {
-      font-size: 0.8rem;
-    }
-  }
 }
 
-.summary {
-  width: 400px;
+.search-panel {
+  position: absolute;
+  width: 100%;
+  height: 60%;
+  bottom: 0;
+  background-color: $white;
+  transition: transform 0.3s;
+  transform: translateY(100%);
+
+  &.visible {
+    transform: translateY(0);
+  }
+
+  button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
 }
 </style>
