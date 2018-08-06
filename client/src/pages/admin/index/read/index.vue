@@ -19,12 +19,12 @@
     <ccard title="读书列表">
       <el-table v-if="list.length" :data="list" v-loading="fetch" style="width: 100%">
         <el-table-column label="封面" width="180">
-          <template v-if="scope.row.extra.book" slot-scope="scope">
+          <template v-if="scope.row.extra && scope.row.extra.book" slot-scope="scope">
             <img :src="scope.row.extra.book.image | dealImg({h:80})" alt="book-image">
           </template>
         </el-table-column>
         <el-table-column label="书名" width="180">
-          <template v-if="scope.row.extra.book" slot-scope="scope">
+          <template v-if="scope.row.extra && scope.row.extra.book" slot-scope="scope">
             {{ scope.row.extra.book.title }}
           </template>
         </el-table-column>
@@ -161,9 +161,9 @@ export default {
     },
   },
 
-  mounted() {
-    console.log('placeholder:', placeholder);
-  },
+  // mounted() {
+  //   console.log('placeholder:', placeholder);
+  // },
 };
 </script>
 

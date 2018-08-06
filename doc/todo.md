@@ -22,11 +22,10 @@
 - [x] 增加留言墙页面
 - [x] 改版后台管理主题风格
 - [x] 主页添加Bing每日一图
-- [ ] 留言xss过滤
 - [x] 增加code highlight样式
 - [x] 添加google analytics
 - [x] 迁移https
-- [ ] 读书内容页
+- [x] 读书内容页
 - [ ] 页面添加音乐播放器
 - [ ] 迁移到访问速度更快更稳定的机器上，aws or google?
 - [ ] ts重构
