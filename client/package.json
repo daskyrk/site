@@ -37,6 +37,7 @@
     "lodash": "^4.17.10",
     "marked": "^0.4.0",
     "mavon-editor": "^2.6.5",
+    "meplayer": "^0.1.4",
     "moment": "^2.22.2",
     "nuxt": "^1.4.0",
     "postcss-hexrgba": "^1.0.1",
