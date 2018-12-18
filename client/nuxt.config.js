@@ -10,10 +10,10 @@ module.exports = {
       maxAge: 900000,
     },
     babel: {
-      presets: ['es2015', 'stage-2'],
+      // presets: ['@babel/preset-env'],
       plugins: [
-        'transform-async-to-generator',
-        'transform-runtime',
+        '@babel/plugin-transform-async-to-generator',
+        '@babel/plugin-transform-runtime',
         'lodash',
         // [
         //   'component',
@@ -35,11 +35,6 @@ module.exports = {
       //   browsers: ['last 3 versions']
       // })
     ],
-    styleResources: {
-      scss: ['./src/style/variable.scss', './src/style/mixin.scss'],
-      options: {},
-    },
-    vendor: ['axios', 'moment', '~/utils'],
   },
   env: config.envs,
   head: {
@@ -73,7 +68,8 @@ module.exports = {
       },
       {
         rel: 'stylesheet',
-        href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/monokai-sublime.min.css',
+        href:
+          'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/monokai-sublime.min.css',
       },
     ],
     script: [
@@ -94,7 +90,17 @@ module.exports = {
       },
     },
   },
-  modules: ['@nuxtjs/axios'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/style-resources',
+    [
+      'nuxt-sass-resources-loader',
+      ['style/index.scss'],
+    ],
+  ],
+  styleResources: {
+    scss: ['./src/style/variable.scss', './src/style/mixin.scss'],
+  },
   axios: {
     proxy: true,
     prefix: '/api', // it only work when proxy is enabled
@@ -112,9 +118,10 @@ module.exports = {
       pathRewrite: { '^/api/proxy/douban': '' },
     },
     '/api': {
-      target: (IS_DEV || process.server)
-      ? 'http://localhost:8000'
-      : 'https://lijun.space',
+      target:
+        IS_DEV || process.server
+          ? 'http://localhost:8000'
+          : 'https://lijun.space',
       changeOrigin: true,
     },
   },
