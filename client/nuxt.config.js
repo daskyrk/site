@@ -92,11 +92,11 @@ module.exports = {
     credentials: true,
   },
   proxy: {
-    '/api/proxy/lylares': {
-      target: 'https://api.lylares.com',
-      changeOrigin: true,
-      pathRewrite: { '^/api/proxy/lylares': '' },
-    },
+    // '/api/proxy/lylares': {
+    //   target: 'https://api.berryapi.net',
+    //   changeOrigin: true,
+    //   pathRewrite: { '^/api/proxy/lylares': '' },
+    // },
     '/api/proxy/douban': {
       target: 'https://api.douban.com',
       changeOrigin: true,

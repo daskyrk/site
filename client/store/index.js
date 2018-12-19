@@ -28,7 +28,7 @@ export default {
 
     async getBingStory({ commit }) {
       const res = await this.$axios.$get(
-        `/proxy/lylares/bing/?AppKey=rOQmtNTWzw`,
+        'https://api.berryapi.net/bing/?AppKey=rOQmtNTWzw',
       )
       if (res.code === 200) {
         commit('SET_BING_STORY', res)
@@ -53,7 +53,7 @@ export default {
     },
 
     SET_BING_STORY(state, data) {
-      state.story = data
+      state.story = data.data.primary
     },
   },
 }
