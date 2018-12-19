@@ -1,44 +1,15 @@
-const webpack = require('webpack');
-const config = require('./src/config');
-const IS_DEV = process.env.NODE_ENV !== 'production';
+const webpack = require('webpack')
+const pkg = require('./package')
+const config = require('./config')
+const IS_DEV = process.env.NODE_ENV !== 'production'
 
 module.exports = {
-  srcDir: 'src/',
-  build: {
-    cache: {
-      max: 1000,
-      maxAge: 900000,
-    },
-    babel: {
-      // presets: ['@babel/preset-env'],
-      plugins: [
-        '@babel/plugin-transform-async-to-generator',
-        '@babel/plugin-transform-runtime',
-        'lodash',
-        // [
-        //   'component',
-        //   {
-        //     libraryName: 'element-ui',
-        //     styleLibraryName: 'theme-chalk',
-        //   },
-        // ],
-      ],
-    },
-    plugins: [
-      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
-    ],
-    postcss: [
-      require('postcss-nested')(),
-      require('postcss-responsive-type')(),
-      require('postcss-hexrgba')(),
-      // require('autoprefixer')({
-      //   browsers: ['last 3 versions']
-      // })
-    ],
-  },
+  mode: 'universal',
+  dev: IS_DEV,
   env: config.envs,
+
   head: {
-    title: 'blog',
+    title: pkg.name,
     titleTemplate: '%s | ' + config.envs.owner,
     meta: [
       { charset: 'utf-8' },
@@ -51,7 +22,7 @@ module.exports = {
       {
         hid: 'description',
         name: 'description',
-        content: 'a personal blog powered by nuxt, koa & mongodb',
+        content: pkg.description,
       },
       {
         hid: 'keywords',
@@ -81,26 +52,40 @@ module.exports = {
     ],
     noscript: [{ innerHTML: 'This website requires JavaScript.' }],
   },
-  dev: IS_DEV,
-  css: ['~/style/index.scss', 'mavon-editor/dist/css/index.css'],
-  render: {
-    bundleRenderer: {
-      shouldPreload: (file, type) => {
-        return ['script', 'style', 'font'].includes(type);
-      },
-    },
-  },
+
+  // loading: '~/components/loading.vue',
+
+  /*
+  ** Global CSS
+  */
+  css: [
+    'element-ui/lib/theme-chalk/index.css',
+    'mavon-editor/dist/css/index.css',
+  ],
+  // bugs here,see: https://github.com/anteriovieira/nuxt-sass-resources-loader/issues/17
+  // styleResources: {
+  //   scss: ['./assets/style/index.scss']
+  // },
+  sassResources: ['./assets/style/index.scss'],
+
+  plugins: [
+    { src: '@/plugins/markdown.js', ssr: false },
+    { src: '@/plugins/copy.js', ssr: false },
+    { src: '@/plugins/gtm.js', ssr: false },
+    '@/plugins/moment.js',
+    '@/plugins/element-ui.js',
+    '@/plugins/axios.js',
+    '@/plugins/lazy-load.js',
+    '@/plugins/filter.js',
+    '@/plugins/custom-compents.js',
+  ],
+
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/style-resources',
-    [
-      'nuxt-sass-resources-loader',
-      ['style/index.scss'],
-    ],
+    'nuxt-sass-resources-loader',
   ],
-  styleResources: {
-    scss: ['./src/style/variable.scss', './src/style/mixin.scss'],
-  },
+
   axios: {
     proxy: true,
     prefix: '/api', // it only work when proxy is enabled
@@ -125,19 +110,24 @@ module.exports = {
       changeOrigin: true,
     },
   },
-  plugins: [
-    { src: '~plugins/markdown.js', ssr: false },
-    { src: '~plugins/copy.js', ssr: false },
-    { src: '~plugins/gtm.js', ssr: false },
-    '~/plugins/moment.js',
-    '~/plugins/element-ui.js',
-    '~/plugins/axios.js',
-    '~/plugins/lazy-load.js',
-    '~/plugins/filter.js',
-    '~/plugins/custom-compents.js',
-  ],
-  // loading: '~/components/loading.vue',
-  // router: {
-  //   middleware: [],
-  // },
-};
+
+  build: {
+    /*
+    ** You can extend webpack config here
+    */
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/,
+        })
+      }
+      config.plugins.push(
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
+      )
+    },
+  },
+}
