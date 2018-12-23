@@ -2,7 +2,8 @@
   <div class="player-container">
     <div
       ref="container"
-      :class="containerClass">
+      :class="containerClass"
+    >
       <audio
         ref="audio"
         :src="music.src"
@@ -10,64 +11,84 @@
         @ended="handleAudioEnd"
         @canplaythrough="handleCanPlayThrough($event)"
         @durationchange="handleDurationChange($event)"
-        @timeupdate="handleTimeUpdate"/>
+        @timeupdate="handleTimeUpdate"
+      />
       <div class="uplayer-info">
-        <div class="uplayer-info-cover"><img
-          :src="music.coverSrc || 'https://picsum.photos/100/?random'"
-          alt="cd-cover"></div>
+        <div class="uplayer-info-cover">
+          <img
+            :src="music.coverSrc || 'https://picsum.photos/100/?random'"
+            alt="cd-cover"
+          >
+        </div>
         <div class="uplayer-meta">
-          <div class="uplayer-meta-title">{{ music.title }}</div>
-          <div class="uplayer-meta-author">{{ music.author }}</div>
+          <div class="uplayer-meta-title">
+            {{ music.title }}
+          </div>
+          <div class="uplayer-meta-author">
+            {{ music.author }}
+          </div>
           <div class="uplayer-meta-time-tick">
             <span
               ref="timeTick"
-              class="uplayer-meta-time-tick-text"/>
+              class="uplayer-meta-time-tick-text"
+            />
           </div>
         </div>
       </div>
       <canvas
         ref="canvas"
-        class="uplayer-spectrum"/>
+        class="uplayer-spectrum"
+      />
       <div
         ref="lyricArea"
-        class="uplayer-lyric">
-        <div class="uplayer-lyric-area"/>
+        class="uplayer-lyric"
+      >
+        <div class="uplayer-lyric-area" />
       </div>
       <div class="uplayer-control">
         <div
           ref="playBtn"
           class="uplayer-control-play"
-          @click="handlePlayClick">
-          <i class="icon-music-play"/>
-          <i class="icon-music-pause"/>
+          @click="handlePlayClick"
+        >
+          <i class="icon-music-play" />
+          <i class="icon-music-pause" />
         </div>
       </div>
       <div class="uplayer-volume-bg">
         <div
           ref="volumeArea"
-          class="uplayer-volume">
-          <i class="icon-music-volume"/>
+          class="uplayer-volume"
+        >
+          <i class="icon-music-volume" />
           <div
             ref="volumeProgress"
-            class="uplayer-volume-progress"/>
+            class="uplayer-volume-progress"
+          />
         </div>
       </div>
       <div
         ref="duration"
-        class="uplayer-duration">
-        <i class="icon-music-clock"/>
-        <span class="uplayer-duration-text">{{ durationText }}</span>
+        class="uplayer-duration"
+      >
+        <i class="icon-music-clock" />
+        <span class="uplayer-duration-text">
+          {{ durationText }}
+        </span>
       </div>
       <div class="uplayer-loadingsign">
-      <i class="icon-music-spin animate-spin"/>loading</div>
+        <i class="icon-music-spin animate-spin" />loading
+      </div>
       <div class="uplayer-timeline-bg">
         <div
           ref="timeline"
           class="uplayer-timeline"
-          @click="handleTimeLineClick($event)">
+          @click="handleTimeLineClick($event)"
+        >
           <div
             ref="timePassed"
-            class="uplayer-timeline-passed"/>
+            class="uplayer-timeline-passed"
+          />
         </div>
       </div>
     </div>

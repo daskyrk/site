@@ -1,8 +1,9 @@
 <template>
   <div 
     :style="style" 
-    class="chart-container">
-    <canvas ref="chart"/>
+    class="chart-container"
+  >
+    <canvas ref="chart" />
   </div>
 </template>
 

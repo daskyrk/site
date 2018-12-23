@@ -4,7 +4,10 @@
     <div class="load-more-btn" v-else>加载更多</div> -->
     <div 
       v-if="isLoading" 
-      class="loading">加载更多...</div>
+      class="loading"
+    >
+      加载更多...
+    </div>
   </div>
 </template>
 

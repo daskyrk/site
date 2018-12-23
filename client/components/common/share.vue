@@ -3,29 +3,34 @@
     <el-popover 
       placement="top-start" 
       title="扫一扫用微信查看" 
-      trigger="hover">
+      trigger="hover"
+    >
       <span 
         slot="reference" 
-        class="share-item">
-        <i class="iconfont icon-wechat"/>
+        class="share-item"
+      >
+        <i class="iconfont icon-wechat" />
       </span>
       <img 
         :src="qrCodeImg" 
-        alt="qrCode">
+        alt="qrCode"
+      >
     </el-popover>
     <span 
       v-for="share in shareList" 
       :key="share.type" 
       class="share-item" 
-      @click="bindThis(share.click)">
-      <i :class="['iconfont', `icon-${share.type}`]"/>
+      @click="bindThis(share.click)"
+    >
+      <i :class="['iconfont', `icon-${share.type}`]" />
     </span>
     <span 
       ref="share_copy_btn" 
       :data-clipboard-text="url" 
       class="share-item" 
-      data-clipboard-tip="链接">
-      <i class="iconfont icon-link"/>
+      data-clipboard-tip="链接"
+    >
+      <i class="iconfont icon-link" />
     </span>
   </div>
 </template>

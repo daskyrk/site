@@ -1,11 +1,13 @@
 <template>
-
   <ccard title="标签列表">
     <div slot="op">
       <el-button 
         type="primary" 
         size="small" 
-        @click="showDialog('添加标签')">添加</el-button>
+        @click="showDialog('添加标签')"
+      >
+        添加
+      </el-button>
       <dialog-form 
         :title="dialogTitle" 
         :dialog-visible="dialogVisible" 
@@ -13,51 +15,58 @@
         :fields-value="fieldsValue" 
         :on-ok="onOk" 
         :on-cancel="onCancel" 
-        :on-close="onClose"/>
+        :on-close="onClose"
+      />
     </div>
 
     <el-table 
-      v-loading="fetch" 
       v-if="list.length" 
+      v-loading="fetch" 
       :data="list" 
-      style="width: 100%">
+      style="width: 100%"
+    >
       <el-table-column 
         label="名称" 
-        width="160">
+        width="160"
+      >
         <template slot-scope="scope">
-          <i class="iconfont icon-tag"/>
+          <i class="iconfont icon-tag" />
           {{ scope.row.name }}
         </template>
       </el-table-column>
       <el-table-column 
         label="描述" 
-        show-overflow-tooltip>
+        show-overflow-tooltip
+      >
         <template slot-scope="scope">
-          <i class="iconfont icon-description"/>
+          <i class="iconfont icon-description" />
           {{ scope.row.descript }}
         </template>
       </el-table-column>
       <el-table-column 
         label="操作" 
-        width="240">
+        width="240"
+      >
         <template slot-scope="scope">
           <el-button 
             type="info" 
             icon="el-icon-edit" 
             circle 
             size="small" 
-            @click="showDialog('修改标签', scope.row)"/>
+            @click="showDialog('修改标签', scope.row)"
+          />
           <el-button 
             :loading="isDeleting(scope.row) " 
             type="danger" 
             icon="el-icon-delete" 
             circle 
             size="small" 
-            @click="deleteTag(scope.row)"/>
+            @click="deleteTag(scope.row)"
+          />
         </template>
       </el-table-column>
     </el-table>
-    <empty-holder v-else/>
+    <empty-holder v-else />
 
     <el-pagination 
       slot="footer" 
@@ -66,7 +75,8 @@
       :total="total" 
       background 
       layout="prev, pager, next" 
-      @current-change="pageChange"/>
+      @current-change="pageChange"
+    />
   </ccard>
 </template>
 

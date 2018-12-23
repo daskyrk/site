@@ -3,22 +3,30 @@
     :title="title"
     :visible.sync="visible"
     @open="handleOpen"
-    @close="handleClose">
+    @close="handleClose"
+  >
     <el-form-renderer
       ref="form"
       :content="fields"
       v-bind="formProps"
       label-width="120px"
-      class="dialog-form">
+      class="dialog-form"
+    >
       <slot />
     </el-form-renderer>
     <div
       slot="footer"
-      class="dialog-footer">
-      <el-button @click="handleCancel">{{ cancelText || '取 消' }}</el-button>
+      class="dialog-footer"
+    >
+      <el-button @click="handleCancel">
+        {{ cancelText || '取 消' }}
+      </el-button>
       <el-button
         type="primary"
-        @click="handleOk">{{ okText || '确 定' }}</el-button>
+        @click="handleOk"
+      >
+        {{ okText || '确 定' }}
+      </el-button>
     </div>
   </el-dialog>
 </template>

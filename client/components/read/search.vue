@@ -7,58 +7,75 @@
         autocomplete="off" 
         placeholder="请输入关键字" 
         class="el-input__inner" 
-        @keyup.enter="search">
+        @keyup.enter="search"
+      >
       <span class="el-input__prefix">
-        <i class="el-input__icon el-icon-search"/>
+        <i class="el-input__icon el-icon-search" />
       </span>
     </div>
 
     <div class="search-result">
       <div 
         v-for="book in searchList" 
-        :class="isSelected(book.isbn13)" 
         :key="book.isbn13" 
+        :class="isSelected(book.isbn13)" 
         class="book-info-wrap" 
-        @click="onSelect(book)">
+        @click="onSelect(book)"
+      >
         <div class="img-wrap">
           <img 
             :src="book.images.small | dealImg({w:80})" 
-            alt="book-image">
+            alt="book-image"
+          >
         </div>
         <div class="book-info">
           <p 
             v-if="book.ebook_url" 
-            class="title">
-            <a :href="book.ebook_url">{{ book.title }}
+            class="title"
+          >
+            <a :href="book.ebook_url">
+              {{ book.title }}
               <span 
                 v-if="book.subtitle" 
-                class="subtitle">({{ book.subtitle }})</span>
+                class="subtitle"
+              >
+                ({{ book.subtitle }})
+              </span>
             </a>
           </p>
           <p 
             v-else 
-            class="title">{{ book.title }}
+            class="title"
+          >
+            {{ book.title }}
             <span 
               v-if="book.subtitle" 
-              class="subtitle">({{ book.subtitle }})</span>
+              class="subtitle"
+            >
+              ({{ book.subtitle }})
+            </span>
           </p>
           <p>{{ book.author.join(' ') }}</p>
           <p>
-            <span v-if="book.publisher">{{ book.publisher }} · </span>
-            <span v-if="book.pubdate">{{ book.pubdate }}</span>
+            <span v-if="book.publisher">
+              {{ book.publisher }} ·
+            </span>
+            <span v-if="book.pubdate">
+              {{ book.pubdate }}
+            </span>
           </p>
 
           <el-tooltip>
             <div slot="content">
-              <div class="summary">{{ book.summary | textClip(300) }}</div>
+              <div class="summary">
+                {{ book.summary | textClip(300) }}
+              </div>
             </div>
             <p>{{ book.summary | textClip(30) }}</p>
           </el-tooltip>
-
         </div>
       </div>
     </div>
-
   </div>
 </template>
 

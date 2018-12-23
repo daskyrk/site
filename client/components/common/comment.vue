@@ -1,12 +1,15 @@
 <template>
   <div class="comment-box">
     <div class="summary">
-      <strong class="total">{{ total }} 条评论</strong>
-      <span class="line"/>
+      <strong class="total">
+        {{ total }} 条评论
+      </strong>
+      <span class="line" />
     </div>
     <comment-form 
       v-if="!pid" 
-      :on-submit="addComment" />
+      :on-submit="addComment"
+    />
     <ol class="comment-list comment-pad">
       <comment-item 
         v-for="comment in data" 
@@ -14,7 +17,8 @@
         :comment="comment" 
         :target-id="pid" 
         :show-reply="showReply" 
-        :like-comment="likeComment" />
+        :like-comment="likeComment"
+      />
     </ol>
   </div>
 </template>

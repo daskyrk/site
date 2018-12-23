@@ -1,29 +1,30 @@
 <template>
   <div class="read-list">
-
     <div 
       v-for="(row, i) in recent" 
       :key="i" 
-      class="stage">
+      class="stage"
+    >
       <template v-if="row.length">
         <ul class="books-list">
           <li 
             v-for="item in row" 
-            :key="item._id">
+            :key="item._id"
+          >
             <div class="img-wrap">
               <nuxt-link 
                 :to="item._id" 
-                append>
+                append
+              >
                 <img :src="item.extra.book.image | dealImg({w:100})">
               </nuxt-link>
             </div>
           </li>
         </ul>
-        <div class="desk"/>
-        <div class="desk-shadow"/>
+        <div class="desk" />
+        <div class="desk-shadow" />
       </template>
     </div>
-
   </div>
 </template>
 

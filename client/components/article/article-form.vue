@@ -5,20 +5,24 @@
     :rules="rules"
     status-icon
     label-width="120px"
-    class="article-form">
+    class="article-form"
+  >
     <el-row>
       <el-col :span="12">
         <el-form-item
           label="题目"
-          prop="title">
-          <el-input v-model="form.title"/>
+          prop="title"
+        >
+          <el-input v-model="form.title" />
         </el-form-item>
         <el-form-item
           label="关键字"
-          prop="keyword">
+          prop="keyword"
+        >
           <el-input
             v-model="form.keyword"
-            placeholder="请输入关键字"/>
+            placeholder="请输入关键字"
+          />
         </el-form-item>
         <!-- <el-form-item label="标签" prop="descript">
           <el-select v-model="form.tags" multiple filterable allow-create default-first-option placeholder="请选择文章标签">
@@ -28,14 +32,19 @@
         </el-form-item> -->
         <el-form-item
           label="标签"
-          prop="tags">
+          prop="tags"
+        >
           <el-checkbox-group
             v-model="form.tags"
-            size="small">
+            size="small"
+          >
             <el-checkbox-button
               v-for="tag in tags"
+              :key="tag._id"
               :label="tag._id"
-              :key="tag._id">{{ tag.name }}</el-checkbox-button>
+            >
+              {{ tag.name }}
+            </el-checkbox-button>
           </el-checkbox-group>
         </el-form-item>
       </el-col>
@@ -43,26 +52,43 @@
         <el-form-item label="分类">
           <el-radio-group
             v-model="form.type"
-            size="small">
-            <el-radio-button :label="1">文章</el-radio-button>
-            <el-radio-button :label="2">读书</el-radio-button>
-            <el-radio-button :label="3">音乐</el-radio-button>
+            size="small"
+          >
+            <el-radio-button :label="1">
+              文章
+            </el-radio-button>
+            <el-radio-button :label="2">
+              读书
+            </el-radio-button>
+            <el-radio-button :label="3">
+              音乐
+            </el-radio-button>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="状态">
           <el-radio-group
             v-model="form.state"
-            size="small">
-            <el-radio-button :label="1">发布</el-radio-button>
-            <el-radio-button :label="2">草稿</el-radio-button>
+            size="small"
+          >
+            <el-radio-button :label="1">
+              发布
+            </el-radio-button>
+            <el-radio-button :label="2">
+              草稿
+            </el-radio-button>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="公开">
           <el-radio-group
             v-model="form.public"
-            size="small">
-            <el-radio-button :label="true">公开</el-radio-button>
-            <el-radio-button :label="false">私密</el-radio-button>
+            size="small"
+          >
+            <el-radio-button :label="true">
+              公开
+            </el-radio-button>
+            <el-radio-button :label="false">
+              私密
+            </el-radio-button>
           </el-radio-group>
         </el-form-item>
       </el-col>
@@ -70,10 +96,12 @@
         <el-form-item label="缩略图">
           <el-form-item
             class="img-item"
-            prop="avatar">
+            prop="avatar"
+          >
             <image-uploader
               :on-success="onSuccess"
-              :src="form.thumb" />
+              :src="form.thumb"
+            />
           </el-form-item>
         </el-form-item>
       </el-col>
@@ -82,24 +110,28 @@
       <el-col :span="23">
         <el-form-item
           label="描述"
-          prop="descript">
+          prop="descript"
+        >
           <el-input
             v-model="form.descript"
             type="textarea"
             rows="4"
             maxlength="200"
-            placeholder="请输入描述"/>
+            placeholder="请输入描述"
+          />
         </el-form-item>
         <el-form-item
           label="内容"
-          prop="content">
+          prop="content"
+        >
           <no-ssr>
             <mavon-editor
               ref="md"
               v-model="form.content"
               class="markdown-editor markdown-content"
               @imgAdd="imgAdd"
-              @imgDel="imgDel" />
+              @imgDel="imgDel"
+            />
           </no-ssr>
         </el-form-item>
       </el-col>
@@ -107,10 +139,14 @@
     <el-form-item>
       <el-button
         type="primary"
-        @click="submitForm('form')">提交</el-button>
-      <el-button @click="resetForm('form')">重置</el-button>
+        @click="submitForm('form')"
+      >
+        提交
+      </el-button>
+      <el-button @click="resetForm('form')">
+        重置
+      </el-button>
     </el-form-item>
-
   </el-form>
 </template>
 

@@ -2,8 +2,9 @@
   <div 
     :class="{ large }" 
     :style="{ minHeight }" 
-    class="empty-holder">
-    <i class="iconfont icon-empty"/>
+    class="empty-holder"
+  >
+    <i class="iconfont icon-empty" />
     <div class="tip">
       <slot>
         这里空空如也

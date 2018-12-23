@@ -1,7 +1,8 @@
 <template>
   <div 
     v-if="loading" 
-    class="loading-page">
+    class="loading-page"
+  >
     <p>Loading...</p>
   </div>
 </template>

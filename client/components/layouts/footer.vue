@@ -6,10 +6,16 @@
         <nuxt-link 
           v-if="item.link" 
           :key="i" 
-          :to="item.link">{{ item.text }}</nuxt-link>
+          :to="item.link"
+        >
+          {{ item.text }}
+        </nuxt-link>
         <span 
           v-else 
-          :key="i">{{ item.text }}</span>
+          :key="i"
+        >
+          {{ item.text }}
+        </span>
       </template>
     </div>
   </footer>

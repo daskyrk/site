@@ -1,16 +1,19 @@
 <template>
   <div 
     class="uploader" 
-    @click="selectFile">
-    <i class="el-icon-plus avatar-uploader-icon"/>
+    @click="selectFile"
+  >
+    <i class="el-icon-plus avatar-uploader-icon" />
     <input 
       ref="input" 
       type="file" 
       accept="image/*" 
-      @change="handleUpload($event)">
+      @change="handleUpload($event)"
+    >
     <img 
       v-if="imageSrc" 
-      :src="imageSrc">
+      :src="imageSrc"
+    >
   </div>
 </template>
 

@@ -1,21 +1,25 @@
 <template>
   <li 
     :class="itemClass" 
-    class="comment-item">
+    class="comment-item"
+  >
     <div class="comment-avatar">
       <a 
         v-if="comment.author.site" 
         :href="dealSite(comment.author.site)" 
         target="_blank" 
-        rel="noopener noreferrer">
+        rel="noopener noreferrer"
+      >
         <img 
           :src="gravatar(comment.author.email)" 
-          alt="comment-avatar">
+          alt="comment-avatar"
+        >
       </a>
       <img 
         v-else 
         :src="gravatar(comment.author.email)" 
-        alt="comment-avatar">
+        alt="comment-avatar"
+      >
     </div>
     <div class="comment-body">
       <div class="comment-header">
@@ -25,43 +29,53 @@
       <div class="comment-content">
         <span 
           v-if="comment.pName" 
-          class="reply-author">@{{ comment.pName }}:</span> {{ comment.content }}
+          class="reply-author"
+        >
+          @{{ comment.pName }}:
+        </span> {{ comment.content }}
       </div>
       <div class="comment-footer">
         <span 
           :class="{ like: true, active: comment.isLiked }" 
-          @click="likeComment(comment._id)">
-          <i class="iconfont icon-ding"/> 赞({{ comment.likes }})
+          @click="likeComment(comment._id)"
+        >
+          <i class="iconfont icon-ding" /> 赞({{ comment.likes }})
         </span>
         <span 
           v-if="!targetId || targetId !== comment._id" 
           class="reply" 
-          @click="showReply(comment._id)">
-          <i class="iconfont icon-reply"/> 回复({{ comment.children.length }})
+          @click="showReply(comment._id)"
+        >
+          <i class="iconfont icon-reply" /> 回复({{ comment.children.length }})
         </span>
         <span 
           v-if="targetId === comment._id" 
           class="reply" 
-          @click="showReply()">
-          <i class="iconfont icon-quxiao"/> 取消回复
+          @click="showReply()"
+        >
+          <i class="iconfont icon-quxiao" /> 取消回复
         </span>
       </div>
       <div 
         v-if="targetId === comment._id" 
-        class="comment-reply">
+        class="comment-reply"
+      >
         <component 
           :is="comment.form.comp" 
-          :on-submit="comment.form.addComment"/>
+          :on-submit="comment.form.addComment"
+        />
       </div>
     </div>
     <ol 
       v-if="comment.children.length" 
-      class="comment-list">
+      class="comment-list"
+    >
       <comment-item 
         v-for="child in comment.children" 
         :key="child._id" 
         v-bind="$props" 
-        :comment="child" />
+        :comment="child"
+      />
     </ol>
   </li>
 </template>

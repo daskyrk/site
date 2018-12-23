@@ -2,25 +2,35 @@
   <div
     :class="mode"
     :style="style"
-    class="welcome">
+    class="welcome"
+  >
     <div class="slogan-wrap">
       <img
         src="~/assets/images/slogan.png"
         class="slogan"
-        alt="slogan">
+        alt="slogan"
+      >
       <div
         :style="style"
-        class="blur"/>
+        class="blur"
+      />
     </div>
     <div
       v-if="story.title"
-      class="story-desc">
-      <p class="title">{{ story.title }}</p>
+      class="story-desc"
+    >
+      <p class="title">
+        {{ story.title }}
+      </p>
       <p
         v-if="story.Country"
-        class="position">
-      <i class="iconfont icon-zuobiao"/> {{ story.Country }} · {{ story.City }}</p>
-      <p class="detail">{{ story.story }}</p>
+        class="position"
+      >
+        <i class="iconfont icon-zuobiao" /> {{ story.Country }} · {{ story.City }}
+      </p>
+      <p class="detail">
+        {{ story.story }}
+      </p>
     </div>
     <h4 class="nav">
       <template v-for="(nav, index) in navs">
@@ -28,18 +38,26 @@
           :key="index"
           :to="nav.link"
           class="link"
-          exact>
+          exact
+        >
           <span
             v-for="t in nav.text.split('')"
-            :key="t">{{ t }}</span>
+            :key="t"
+          >
+            {{ t }}
+          </span>
         </nuxt-link>
         <span
           v-if="index < navs.length-1"
-          :key="`split-${index}`">/</span>
+          :key="`split-${index}`"
+        >
+          /
+        </span>
       </template>
       <div
         :style="style"
-        class="blur"/>
+        class="blur"
+      />
     </h4>
     <admin-entry />
   </div>

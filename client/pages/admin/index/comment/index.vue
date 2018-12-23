@@ -5,30 +5,43 @@
         ref="filterForm"
         :model="filterForm"
         class="filter-form"
-        size="medium">
+        size="medium"
+      >
         <div class="filter-content">
-
           <div class="flow-item">
             <el-form-item
               label="关键字"
               prop="keyword"
-              class="kword">
-              <el-input v-model="filterForm.keyword"/>
+              class="kword"
+            >
+              <el-input v-model="filterForm.keyword" />
             </el-form-item>
             <el-form-item
               label="状态"
-              prop="state">
+              prop="state"
+            >
               <el-radio-group v-model="filterForm.state">
-                <el-radio-button label="-1">全部</el-radio-button>
-                <el-radio-button label="0">待审核</el-radio-button>
-                <el-radio-button label="1">通过</el-radio-button>
-                <el-radio-button label="2">不通过</el-radio-button>
-                <el-radio-button label="3">已归档</el-radio-button>
+                <el-radio-button label="-1">
+                  全部
+                </el-radio-button>
+                <el-radio-button label="0">
+                  待审核
+                </el-radio-button>
+                <el-radio-button label="1">
+                  通过
+                </el-radio-button>
+                <el-radio-button label="2">
+                  不通过
+                </el-radio-button>
+                <el-radio-button label="3">
+                  已归档
+                </el-radio-button>
               </el-radio-group>
             </el-form-item>
             <el-form-item
               label="时间"
-              prop="timeRange">
+              prop="timeRange"
+            >
               <!-- <el-radio-group v-model="timeRangeDay" @change="this.pickDayRange" class="pick-day-range">
               <el-radio-button label="1">今天</el-radio-button>
               <el-radio-button label="2">三天</el-radio-button>
@@ -41,18 +54,23 @@
                 range-separator="到"
                 start-placeholder="开始时间"
                 end-placeholder="结束时间"
-                value-format="timestamp"/>
+                value-format="timestamp"
+              />
             </el-form-item>
           </div>
-
         </div>
 
         <div class="filter-footer">
           <el-form-item>
             <el-button
               type="primary"
-              @click="onSubmit">查询</el-button>
-            <el-button @click="reset">重置</el-button>
+              @click="onSubmit"
+            >
+              查询
+            </el-button>
+            <el-button @click="reset">
+              重置
+            </el-button>
           </el-form-item>
         </div>
       </el-form>
@@ -60,10 +78,11 @@
 
     <ccard title="留言列表">
       <el-table
-        v-loading="fetch"
         v-if="list.length"
+        v-loading="fetch"
         :data="list"
-        style="width: 100%">
+        style="width: 100%"
+      >
         <el-table-column label="内容">
           <template slot-scope="scope">
             {{ scope.row.content }}
@@ -71,19 +90,22 @@
         </el-table-column>
         <el-table-column
           label="留言人"
-          width="200">
+          width="200"
+        >
           <template slot-scope="scope">
             <el-tooltip
               :disabled="!scope.row.author.site"
               :content="scope.row.author.site"
               effect="dark"
-              placement="top">
+              placement="top"
+            >
               <a
                 v-if="!!scope.row.author.site"
                 :href="scope.row.author.site | dealSite"
                 class="site-link"
                 target="_blank"
-                rel="noopener noreferrer">
+                rel="noopener noreferrer"
+              >
                 {{ scope.row.author.name }}
               </a>
               <span v-else>
@@ -94,22 +116,25 @@
         </el-table-column>
         <el-table-column
           label="时间"
-          width="200">
+          width="200"
+        >
           <template slot-scope="scope">
-            <i class="iconfont icon-riqi"/>
+            <i class="iconfont icon-riqi" />
             {{ scope.row.createdAt | dateFormat('YYYY.MM.DD HH:mm:ss') }}
           </template>
         </el-table-column>
         <el-table-column
           label="邮箱"
-          width="180">
+          width="180"
+        >
           <template slot-scope="scope">
             {{ scope.row.author.email }}
           </template>
         </el-table-column>
         <el-table-column
           label="ip"
-          width="100">
+          width="100"
+        >
           <template slot-scope="scope">
             {{ scope.row.ip }}
           </template>
@@ -121,35 +146,46 @@
         </el-table-column> -->
         <el-table-column
           label="状态"
-          width="120">
+          width="120"
+        >
           <template slot-scope="scope">
-            <i :class="scope.row.state | stateIcon"/>
+            <i :class="scope.row.state | stateIcon" />
             {{ stateMap[scope.row.state] }}
           </template>
         </el-table-column>
         <el-table-column
           fixed="right"
           label="操作"
-          width="180">
+          width="180"
+        >
           <template slot-scope="scope">
             <el-button
               v-if="scope.row.state === 0 || scope.row.state === 2"
               type="primary"
               size="small"
-              @click="updateComment(scope.row, 1)">通过</el-button>
+              @click="updateComment(scope.row, 1)"
+            >
+              通过
+            </el-button>
             <el-button
               v-if="scope.row.state === 0 || scope.row.state === 1"
               type="danger"
               size="small"
-              @click="updateComment(scope.row, 2)">不通过</el-button>
+              @click="updateComment(scope.row, 2)"
+            >
+              不通过
+            </el-button>
             <el-button
               v-if="scope.row.state !== 3"
               size="small"
-              @click="updateComment(scope.row, 3)">归档</el-button>
+              @click="updateComment(scope.row, 3)"
+            >
+              归档
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
-      <empty-holder v-else/>
+      <empty-holder v-else />
 
       <el-pagination
         slot="footer"
@@ -159,7 +195,8 @@
         background
         layout="total, sizes, prev, pager, next, jumper"
         @current-change="pageNoChange"
-        @size-change="pageSizeChange"/>
+        @size-change="pageSizeChange"
+      />
     </ccard>
   </div>
 </template>

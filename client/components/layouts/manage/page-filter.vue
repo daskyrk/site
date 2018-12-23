@@ -1,7 +1,6 @@
 <template>
   <section class="page-filter">
-    <slot/>
-
+    <slot />
   </section>
 </template>
 

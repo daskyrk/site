@@ -2,7 +2,10 @@
   <div class="uplayer-lyric-area">
     <p 
       v-for="(lyric, i) in lyrics" 
-      :key="i">${lyric.text}</p>
+      :key="i"
+    >
+      ${lyric.text}
+    </p>
   </div>
 </template>
 

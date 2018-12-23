@@ -1,84 +1,103 @@
 <template>
-
   <ccard 
     title="个人信息" 
-    hide-footer>
+    hide-footer
+  >
     <el-form 
       ref="userForm" 
       :model="userForm" 
       :rules="userRules" 
       class="user-setting-form" 
       label-width="100px" 
-      label-position="right">
+      label-position="right"
+    >
       <el-row>
         <el-col :span="16">
           <el-form-item 
             label="用户名" 
-            prop="username">
+            prop="username"
+          >
             <el-input 
               v-model="userForm.username" 
-              :maxlength="20"/>
+              :maxlength="20"
+            />
           </el-form-item>
           <el-form-item 
             label="昵称" 
-            prop="nick">
+            prop="nick"
+          >
             <el-input 
               v-model="userForm.nick" 
-              :maxlength="20"/>
+              :maxlength="20"
+            />
           </el-form-item>
           <el-form-item 
             label="个性签名" 
-            prop="slogan">
+            prop="slogan"
+          >
             <el-input 
               v-model="userForm.slogan" 
-              :maxlength="60"/>
+              :maxlength="60"
+            />
           </el-form-item>
         </el-col>
         <el-col 
           :span="7" 
-          :offset="1">
+          :offset="1"
+        >
           <el-form-item 
             class="img-item" 
-            prop="avatar">
+            prop="avatar"
+          >
             <image-uploader 
               :on-success="onSuccess" 
-              :src="userForm.avatar" />
+              :src="userForm.avatar"
+            />
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item 
         label="邮箱" 
-        prop="email">
+        prop="email"
+      >
         <el-input 
           v-model="userForm.email" 
-          type="email"/>
+          type="email"
+        />
       </el-form-item>
       <el-form-item 
         label="新密码" 
-        prop="newPassword">
+        prop="newPassword"
+      >
         <el-input 
           v-model="userForm.newPassword" 
           :maxlength="20" 
           type="password" 
           auto-complete="off" 
-          placeholder="新密码"/>
+          placeholder="新密码"
+        />
       </el-form-item>
       <el-form-item 
         label="确认密码" 
-        prop="checkPass">
+        prop="checkPass"
+      >
         <el-input 
           v-model="userForm.checkPass" 
           :maxlength="20" 
           type="password" 
           auto-complete="off" 
           placeholder="确认密码" 
-          @keyup.enter.native="submit('userForm')"/>
+          @keyup.enter.native="submit('userForm')"
+        />
       </el-form-item>
       <el-form-item style="margin-bottom: 0;">
         <el-button 
           :disabled="savingUser" 
           type="primary" 
-          @click="submit('userForm')">{{ savingUser ? '更新中' : '更新' }}</el-button>
+          @click="submit('userForm')"
+        >
+          {{ savingUser ? '更新中' : '更新' }}
+        </el-button>
       </el-form-item>
     </el-form>
   </ccard>

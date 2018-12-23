@@ -5,7 +5,8 @@
         <template v-for="item in breadcrumb">
           <el-breadcrumb-item 
             :key="item.path" 
-            :to="item.url">
+            :to="item.url"
+          >
             {{ item.title }}
           </el-breadcrumb-item>
         </template>
@@ -16,17 +17,20 @@
         <img 
           :src="user.avatar" 
           class="avatar" 
-          alt="avatar">
+          alt="avatar"
+        >
       </span>
       <nuxt-link 
         class="header-operation op" 
-        to="/">
-        <i class="iconfont icon-switch"/>
+        to="/"
+      >
+        <i class="iconfont icon-switch" />
       </nuxt-link>
       <span 
         class="header-operation op" 
-        @click="logout">
-        <i class="iconfont icon-logout"/>
+        @click="logout"
+      >
+        <i class="iconfont icon-logout" />
       </span>
     </div>
   </header>

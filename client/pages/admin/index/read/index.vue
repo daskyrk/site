@@ -1,61 +1,79 @@
 <template>
-
   <div class="read-manage">
     <div 
       :class="searchVisible && 'visible'" 
-      class="search-panel">
+      class="search-panel"
+    >
       <SearchBook 
         :on-select="selectBook" 
-        :selected="basket" />
+        :selected="basket"
+      />
       <el-button 
         type="info" 
         icon="el-icon-close" 
         circle 
-        @click="toggleSearch"/>
+        @click="toggleSearch"
+      />
     </div>
     <el-dialog 
       :visible.sync="dialogVisible" 
       title="书籍信息" 
-      width="30%">
+      width="30%"
+    >
       <div>
-        <p style="margin-bottom: 1rem;">{{ selectedBook.title }}</p>
+        <p style="margin-bottom: 1rem;">
+          {{ selectedBook.title }}
+        </p>
         <el-input 
           v-model="saying" 
-          placeholder="请输入书内名言"/>
+          placeholder="请输入书内名言"
+        />
       </div>
       <span 
         slot="footer" 
-        class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        class="dialog-footer"
+      >
+        <el-button @click="dialogVisible = false">
+          取 消
+        </el-button>
         <el-button 
           type="primary" 
-          @click="updateArt">确 定</el-button>
+          @click="updateArt"
+        >
+          确 定
+        </el-button>
       </span>
     </el-dialog>
 
     <ccard title="读书列表">
       <el-table 
-        v-loading="fetch" 
         v-if="list.length" 
+        v-loading="fetch" 
         :data="list" 
-        style="width: 100%">
+        style="width: 100%"
+      >
         <el-table-column 
           label="封面" 
-          width="180">
+          width="180"
+        >
           <template 
             v-if="scope.row.extra && scope.row.extra.book" 
-            slot-scope="scope">
+            slot-scope="scope"
+          >
             <img 
               :src="scope.row.extra.book.image | dealImg({h:80})" 
-              alt="book-image">
+              alt="book-image"
+            >
           </template>
         </el-table-column>
         <el-table-column 
           label="书名" 
-          width="180">
+          width="180"
+        >
           <template 
             v-if="scope.row.extra && scope.row.extra.book" 
-            slot-scope="scope">
+            slot-scope="scope"
+          >
             {{ scope.row.extra.book.title }}
           </template>
         </el-table-column>
@@ -71,38 +89,46 @@
         </el-table-column>
         <el-table-column 
           label="创建日期" 
-          width="180">
+          width="180"
+        >
           <template slot-scope="scope">
-            <i class="iconfont icon-riqi"/>
+            <i class="iconfont icon-riqi" />
             {{ scope.row.createdAt | dateFormat('YYYY.MM.DD') }}
           </template>
         </el-table-column>
         <el-table-column 
           label="状态" 
-          width="120">
+          width="120"
+        >
           <template slot-scope="scope">
             <i 
               v-if="scope.row.state === 1" 
-              class="iconfont icon-fabu"/>
+              class="iconfont icon-fabu"
+            />
             <i 
               v-if="scope.row.state !== 1" 
-              class="iconfont icon-caogao"/>
+              class="iconfont icon-caogao"
+            />
             {{ scope.row.state === 1 ? '发布' : '草稿' }}
           </template>
         </el-table-column>
         <el-table-column 
           fixed="right" 
           label="操作" 
-          width="100">
+          width="100"
+        >
           <template slot-scope="scope">
             <el-button 
               type="primary" 
               size="small" 
-              @click="attachBook(scope.row)">选书</el-button>
+              @click="attachBook(scope.row)"
+            >
+              选书
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
-      <empty-holder v-else/>
+      <empty-holder v-else />
 
       <el-pagination 
         slot="footer" 
@@ -112,10 +138,10 @@
         background 
         layout="total, sizes, prev, pager, next, jumper" 
         @current-change="pageNoChange" 
-        @size-change="pageSizeChange"/>
+        @size-change="pageSizeChange"
+      />
     </ccard>
   </div>
-
 </template>
 
 <script>

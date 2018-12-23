@@ -1,30 +1,43 @@
 <template>
   <div 
     id="listen" 
-    style="display: block;">
+    style="display: block;"
+  >
     <div class="player">
       <div class="box">
         <img 
           src="https://p3.music.126.net/Jkr2d7T0r51pVA9utSRiig==/109951163096071991.jpg?param=300y300" 
           width="80" 
           height="80" 
-          class="cover pull-left">
+          class="cover pull-left"
+        >
         <div class="info pull-left">
           <h4 
             class="title nowrap" 
-            title="Wild - Monogem">Wild - Monogem</h4>
+            title="Wild - Monogem"
+          >
+            Wild - Monogem
+          </h4>
           <ul class="items control icon">
             <li class="item">
-              <span class="rewind">&#xe67b;</span>
+              <span class="rewind">
+                &#xe67b;
+              </span>
             </li>
             <li class="item">
-              <span class="play">&#xe66e;</span>
+              <span class="play">
+                &#xe66e;
+              </span>
             </li>
             <li class="item">
-              <span class="fastforward">&#xe63a;</span>
+              <span class="fastforward">
+                &#xe63a;
+              </span>
             </li>
             <li class="item">
-              <span class="onlist">&#xe61b;</span>
+              <span class="onlist">
+                &#xe61b;
+              </span>
             </li>
           </ul>
         </div>
@@ -34,107 +47,198 @@
           method="get" 
           class="music-search" 
           action="" 
-          role="search">
-          <span class="icon search-icon"></span> <input 
+          role="search"
+        >
+          <span class="icon search-icon">
+            
+          </span> <input 
             id="song-msg" 
             type="text" 
             name="song" 
             class="textinput" 
             placeholder="回车搜索..." 
-            required="required"> <input 
-              id="list-page" 
-              type="hidden" 
-              name="page" 
-              value="1">
+            required="required"
+          > <input 
+            id="list-page" 
+            type="hidden" 
+            name="page" 
+            value="1"
+          >
           <div class="search-source">
             <span 
               id="onsource" 
-              class="icon"></span>
+              class="icon"
+            >
+              
+            </span>
           </div>
           <div class="source-items">
-            <label><input 
-              type="radio" 
-              name="source" 
-              class="source checkbox-radio" 
-              value="netease" 
-              checked="checked">
-            <span class="radioinput"/>网易</label>
-            <label><input 
-              type="radio" 
-              name="source" 
-              class="source checkbox-radio" 
-              value="tencent">
-            <span class="radioinput"/>QQ</label>
-            <label><input 
-              type="radio" 
-              name="source" 
-              class="source checkbox-radio" 
-              value="xiami">
-            <span class="radioinput"/>虾米</label>
-            <label><input 
-              type="radio" 
-              name="source" 
-              class="source checkbox-radio" 
-              value="kugou">
-            <span class="radioinput"/>酷狗</label>
-            <label><input 
-              type="radio" 
-              name="source" 
-              class="source checkbox-radio" 
-              value="baidu">
-            <span class="radioinput"/>百度</label>
+            <label>
+              <input 
+                type="radio" 
+                name="source" 
+                class="source checkbox-radio" 
+                value="netease" 
+                checked="checked"
+              >
+              <span class="radioinput" />网易
+            </label>
+            <label>
+              <input 
+                type="radio" 
+                name="source" 
+                class="source checkbox-radio" 
+                value="tencent"
+              >
+              <span class="radioinput" />QQ
+            </label>
+            <label>
+              <input 
+                type="radio" 
+                name="source" 
+                class="source checkbox-radio" 
+                value="xiami"
+              >
+              <span class="radioinput" />虾米
+            </label>
+            <label>
+              <input 
+                type="radio" 
+                name="source" 
+                class="source checkbox-radio" 
+                value="kugou"
+              >
+              <span class="radioinput" />酷狗
+            </label>
+            <label>
+              <input 
+                type="radio" 
+                name="source" 
+                class="source checkbox-radio" 
+                value="baidu"
+              >
+              <span class="radioinput" />百度
+            </label>
           </div>
         </form>
         <ul 
           id="playlist" 
-          class="items">
-          <li class="nowrap playing">1. Wild - Monogem</li>
-          <li class="nowrap">2. Crush - Yuna</li>
-          <li class="nowrap">3. Edge Of The Night - Sheppard</li>
-          <li class="nowrap">4. Be Here Now - Brennan Heart</li>
-          <li class="nowrap">5. Parallel Lines - Jewelz &amp; Sparks</li>
-          <li class="nowrap">6. Stan - Dido</li>
-          <li class="nowrap">7. Adventures - Alex Skrindo</li>
-          <li class="nowrap">8. Home - Vexento</li>
-          <li class="nowrap">9. Somebody To Love - Leighton Meester</li>
-          <li class="nowrap">10. Waterfalls (Extended Mix) - LVNDSCAPE</li>
-          <li class="nowrap">11. Journey (Full Version) - Andreas B.</li>
-          <li class="nowrap">12. On The Top - LIZOT</li>
-          <li class="nowrap">13. Everyday &amp; Everynight (KANT Remix) - Nolan</li>
-          <li class="nowrap">14. Save Me - DEAMN</li>
-          <li class="nowrap">15. Home Again - Darone</li>
-          <li class="nowrap">16. Sweet Escape - Alesso</li>
-          <li class="nowrap">17. Your Love Shot Me Down (Radio Edit) - Pawl</li>
-          <li class="nowrap">18. Empty House - LU2VYK</li>
-          <li class="nowrap">19. U - Gareth Emery</li>
-          <li class="nowrap">20. The Boy Who Murdered Love - Diana Vickers</li>
-          <li class="nowrap">21. Where I Begin (Club Mix) - Dennis Sheperd</li>
-          <li class="nowrap">22. Hero - Charlotte Perrelli</li>
-          <li class="nowrap">23. Cry for You - September</li>
-          <li class="nowrap">24. Do It Again - River Valley Worship</li>
-          <li class="nowrap">25. Here For You Love - LIZOT</li>
-          <li class="nowrap">26. Kaleidoscope - Vicetone</li>
-          <li class="nowrap">27. The Last Saint - Mario M</li>
-          <li class="nowrap">28. Take Me To Infinity - Consoul Trainin</li>
-          <li class="nowrap">29. Something Just Like This - The Chainsmokers</li>
-          <li class="nowrap">30. The Greatest Thing - Cher</li>
+          class="items"
+        >
+          <li class="nowrap playing">
+            1. Wild - Monogem
+          </li>
+          <li class="nowrap">
+            2. Crush - Yuna
+          </li>
+          <li class="nowrap">
+            3. Edge Of The Night - Sheppard
+          </li>
+          <li class="nowrap">
+            4. Be Here Now - Brennan Heart
+          </li>
+          <li class="nowrap">
+            5. Parallel Lines - Jewelz &amp; Sparks
+          </li>
+          <li class="nowrap">
+            6. Stan - Dido
+          </li>
+          <li class="nowrap">
+            7. Adventures - Alex Skrindo
+          </li>
+          <li class="nowrap">
+            8. Home - Vexento
+          </li>
+          <li class="nowrap">
+            9. Somebody To Love - Leighton Meester
+          </li>
+          <li class="nowrap">
+            10. Waterfalls (Extended Mix) - LVNDSCAPE
+          </li>
+          <li class="nowrap">
+            11. Journey (Full Version) - Andreas B.
+          </li>
+          <li class="nowrap">
+            12. On The Top - LIZOT
+          </li>
+          <li class="nowrap">
+            13. Everyday &amp; Everynight (KANT Remix) - Nolan
+          </li>
+          <li class="nowrap">
+            14. Save Me - DEAMN
+          </li>
+          <li class="nowrap">
+            15. Home Again - Darone
+          </li>
+          <li class="nowrap">
+            16. Sweet Escape - Alesso
+          </li>
+          <li class="nowrap">
+            17. Your Love Shot Me Down (Radio Edit) - Pawl
+          </li>
+          <li class="nowrap">
+            18. Empty House - LU2VYK
+          </li>
+          <li class="nowrap">
+            19. U - Gareth Emery
+          </li>
+          <li class="nowrap">
+            20. The Boy Who Murdered Love - Diana Vickers
+          </li>
+          <li class="nowrap">
+            21. Where I Begin (Club Mix) - Dennis Sheperd
+          </li>
+          <li class="nowrap">
+            22. Hero - Charlotte Perrelli
+          </li>
+          <li class="nowrap">
+            23. Cry for You - September
+          </li>
+          <li class="nowrap">
+            24. Do It Again - River Valley Worship
+          </li>
+          <li class="nowrap">
+            25. Here For You Love - LIZOT
+          </li>
+          <li class="nowrap">
+            26. Kaleidoscope - Vicetone
+          </li>
+          <li class="nowrap">
+            27. The Last Saint - Mario M
+          </li>
+          <li class="nowrap">
+            28. Take Me To Infinity - Consoul Trainin
+          </li>
+          <li class="nowrap">
+            29. Something Just Like This - The Chainsmokers
+          </li>
+          <li class="nowrap">
+            30. The Greatest Thing - Cher
+          </li>
         </ul>
         <div class="list-page-btn">
           <a 
             id="list-previous" 
-            href="javascript:;">上一页</a>
+            href="javascript:;"
+          >
+            上一页
+          </a>
           <a 
             id="list-next" 
-            href="javascript:;">下一页</a>
+            href="javascript:;"
+          >
+            下一页
+          </a>
         </div>
       </div>
       <audio 
         id="audio" 
         class="bgm" 
         type="audio/ogg" 
-        src="https://m10.music.126.net/20180806223625/9ce043c3fd42b2ed0f70ecd21cb152d2/ymusic/2b2e/a4ce/fb9f/0a8326bac44c452fd8dc3731cf4680f1.mp3"/>
+        src="https://m10.music.126.net/20180806223625/9ce043c3fd42b2ed0f70ecd21cb152d2/ymusic/2b2e/a4ce/fb9f/0a8326bac44c452fd8dc3731cf4680f1.mp3"
+      />
     </div>
-    <div id="temp"/>
+    <div id="temp" />
   </div>
 </template>
 

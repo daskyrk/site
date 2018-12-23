@@ -1,63 +1,83 @@
 <template>
-  <div 
-    ref="article" 
-    class="article">
-    <h3 class="title">{{ detail.title }}</h3>
+  <div
+    ref="article"
+    class="article"
+  >
+    <h3 class="title">
+      {{ detail.title }}
+    </h3>
     <div class="meta">
-      <span class="time">{{ detail.createdAt | dateFormat('YYYY.MM.DD HH:MM') }}</span>
+      <span class="time">
+        {{ detail.createdAt | dateFormat('YYYY.MM.DD HH:MM') }}
+      </span>
       <span>字数 {{ detail.content.length }}</span>
       <span>阅读 {{ detail.meta.views }}</span>
       <span>喜欢 {{ detail.meta.likes }}</span>
       <span>评论 {{ detail.meta.comments }}</span>
     </div>
-    <div 
-      class="content markdown-content" 
-      v-html="marked(detail.content)"/>
+    <!-- eslint-disable -->
+    <div
+      class="content markdown-content"
+      v-html="marked(detail.content)"
+    />
+    <!-- eslint-enable -->
     <div class="article-info">
       <span>
-        <a 
-          href="https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh" 
-          target="_blank">非商用-署名-自由转载</a>
+        <a
+          href="https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh"
+          target="_blank"
+        >
+          非商用-署名-自由转载
+        </a>
       </span>
-      <div 
-        v-if="detail.tags.length" 
-        class="tags">
-        <i class="iconfont icon-biaoqian"/>
-        <nuxt-link 
-          v-for="tag in detail.tags" 
-          :to="`/search?tag=${tag}`" 
-          :key="tag">{{ nameMap[tag] }}</nuxt-link>
+      <div
+        v-if="detail.tags.length"
+        class="tags"
+      >
+        <i class="iconfont icon-biaoqian" />
+        <nuxt-link
+          v-for="tag in detail.tags"
+          :key="tag"
+          :to="`/search?tag=${tag}`"
+        >
+          {{ nameMap[tag] }}
+        </nuxt-link>
       </div>
     </div>
     <aside class="side">
-      <el-tooltip 
-        :disabled="!isLiked" 
-        effect="dark" 
-        content="您已喜欢过该文章啦~" 
-        placement="top">
-        <div 
-          :class="{ red: true, active: isLiked }" 
-          @click="like(detail._id)">
-          <i class="iconfont icon-xin"/>
+      <el-tooltip
+        :disabled="!isLiked"
+        effect="dark"
+        content="您已喜欢过该文章啦~"
+        placement="top"
+      >
+        <div
+          :class="{ red: true, active: isLiked }"
+          @click="like(detail._id)"
+        >
+          <i class="iconfont icon-xin" />
         </div>
       </el-tooltip>
-      <div 
-        v-if="mounted.comment" 
-        class="green" 
-        @click="scrollToComment">
-        <i class="iconfont icon-liuyan"/>
+      <div
+        v-if="mounted.comment"
+        class="green"
+        @click="scrollToComment"
+      >
+        <i class="iconfont icon-liuyan" />
       </div>
-      <back-top 
-        :distance="260" 
-        cls="blue" />
+      <back-top
+        :distance="260"
+        cls="blue"
+      />
     </aside>
     <lazy-component>
       <Share :detail="detail.content" />
     </lazy-component>
     <lazy-component @show="markMounted('comment')">
-      <comment 
-        ref="comment" 
-        :article-id="detail._id" />
+      <comment
+        ref="comment"
+        :article-id="detail._id"
+      />
     </lazy-component>
   </div>
 </template>

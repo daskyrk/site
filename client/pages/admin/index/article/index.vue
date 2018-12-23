@@ -5,28 +5,32 @@
         ref="filterForm" 
         :model="filterForm" 
         class="filter-form" 
-        size="medium">
+        size="medium"
+      >
         <div class="filter-content">
-
           <div class="flow-item">
             <el-form-item 
               label="关键字" 
               prop="keyword" 
-              class="kword">
-              <el-input v-model="filterForm.keyword"/>
+              class="kword"
+            >
+              <el-input v-model="filterForm.keyword" />
             </el-form-item>
             <el-form-item 
               label="标签" 
-              prop="tag">
+              prop="tag"
+            >
               <el-select 
                 v-model="filterForm.tag" 
                 placeholder="请选择" 
-                clearable>
+                clearable
+              >
                 <el-option 
                   v-for="tag in tagList" 
                   :key="tag._id" 
                   :label="tag.name" 
-                  :value="tag._id"/>
+                  :value="tag._id"
+                />
               </el-select>
             </el-form-item>
           </div>
@@ -34,40 +38,63 @@
           <div class="flow-item">
             <el-form-item 
               label="分类" 
-              prop="type">
+              prop="type"
+            >
               <el-radio-group v-model="filterForm.type">
-                <el-radio-button label="-1">全部</el-radio-button>
-                <el-radio-button label="1">文章</el-radio-button>
-                <el-radio-button label="2">读书</el-radio-button>
-                <el-radio-button label="3">音乐</el-radio-button>
+                <el-radio-button label="-1">
+                  全部
+                </el-radio-button>
+                <el-radio-button label="1">
+                  文章
+                </el-radio-button>
+                <el-radio-button label="2">
+                  读书
+                </el-radio-button>
+                <el-radio-button label="3">
+                  音乐
+                </el-radio-button>
               </el-radio-group>
             </el-form-item>
 
             <el-form-item 
               label="状态" 
-              prop="state">
+              prop="state"
+            >
               <el-radio-group v-model="filterForm.state">
-                <el-radio-button label="-1">全部</el-radio-button>
-                <el-radio-button label="1">发布</el-radio-button>
-                <el-radio-button label="2">草稿</el-radio-button>
+                <el-radio-button label="-1">
+                  全部
+                </el-radio-button>
+                <el-radio-button label="1">
+                  发布
+                </el-radio-button>
+                <el-radio-button label="2">
+                  草稿
+                </el-radio-button>
               </el-radio-group>
             </el-form-item>
 
             <el-form-item 
               label="公开" 
-              prop="public">
+              prop="public"
+            >
               <el-radio-group v-model="filterForm.public">
-                <el-radio-button label="-1">全部</el-radio-button>
-                <el-radio-button label="true">公开</el-radio-button>
-                <el-radio-button label="false">私密</el-radio-button>
+                <el-radio-button label="-1">
+                  全部
+                </el-radio-button>
+                <el-radio-button label="true">
+                  公开
+                </el-radio-button>
+                <el-radio-button label="false">
+                  私密
+                </el-radio-button>
               </el-radio-group>
             </el-form-item>
-
           </div>
 
           <el-form-item 
             label="创建时间" 
-            prop="timeRange">
+            prop="timeRange"
+          >
             <!-- <el-radio-group v-model="timeRangeDay" @change="this.pickDayRange" class="pick-day-range">
               <el-radio-button label="1">今天</el-radio-button>
               <el-radio-button label="2">三天</el-radio-button>
@@ -80,7 +107,8 @@
               range-separator="到" 
               start-placeholder="开始日期" 
               end-placeholder="结束日期" 
-              value-format="timestamp"/>
+              value-format="timestamp"
+            />
           </el-form-item>
         </div>
 
@@ -88,8 +116,13 @@
           <el-form-item>
             <el-button 
               type="primary" 
-              @click="onSubmit">查询</el-button>
-            <el-button @click="reset">重置</el-button>
+              @click="onSubmit"
+            >
+              查询
+            </el-button>
+            <el-button @click="reset">
+              重置
+            </el-button>
           </el-form-item>
         </div>
       </el-form>
@@ -99,16 +132,21 @@
       <nuxt-link 
         slot="op" 
         to="add" 
-        append>
+        append
+      >
         <el-button 
           type="primary" 
-          size="small">添加</el-button>
+          size="small"
+        >
+          添加
+        </el-button>
       </nuxt-link>
       <el-table 
-        v-loading="fetch" 
         v-if="list.length" 
+        v-loading="fetch" 
         :data="list" 
-        style="width: 100%">
+        style="width: 100%"
+      >
         <el-table-column type="expand">
           <template slot-scope="props">
             <p>关键字: {{ props.row.keyword }}</p>
@@ -125,59 +163,73 @@
             <el-tag 
               v-for="tag in scope.row.tags" 
               :key="tag" 
-              class="article-tag">
+              class="article-tag"
+            >
               {{ nameMap[tag] }}
             </el-tag>
           </template>
         </el-table-column>
         <el-table-column 
           label="创建日期" 
-          width="180">
+          width="180"
+        >
           <template slot-scope="scope">
-            <i class="iconfont icon-riqi"/>
+            <i class="iconfont icon-riqi" />
             {{ scope.row.createdAt | dateFormat('YYYY.MM.DD') }}
           </template>
         </el-table-column>
         <el-table-column 
           label="私密" 
-          width="120">
+          width="120"
+        >
           <template slot-scope="scope">
             <i 
               v-if="!scope.row.public" 
-              class="iconfont icon-lock"/>
+              class="iconfont icon-lock"
+            />
           </template>
         </el-table-column>
         <el-table-column 
           label="状态" 
-          width="120">
+          width="120"
+        >
           <template slot-scope="scope">
             <i 
               v-if="scope.row.state === 1" 
-              class="iconfont icon-fabu"/>
+              class="iconfont icon-fabu"
+            />
             <i 
               v-if="scope.row.state !== 1" 
-              class="iconfont icon-caogao"/>
+              class="iconfont icon-caogao"
+            />
             {{ scope.row.state === 1 ? '发布' : '草稿' }}
           </template>
         </el-table-column>
         <el-table-column 
           fixed="right" 
           label="操作" 
-          width="180">
+          width="180"
+        >
           <template slot-scope="scope">
             <el-button 
               type="info" 
               size="small" 
-              @click="editArt(scope.row)">修改</el-button>
+              @click="editArt(scope.row)"
+            >
+              修改
+            </el-button>
             <el-button 
               :loading="isDeleting(scope.row)" 
               type="danger" 
               size="small" 
-              @click="deleteArt(scope.row)">{{ isDeleting(scope.row) ? '删除中' : '删 除' }}</el-button>
+              @click="deleteArt(scope.row)"
+            >
+              {{ isDeleting(scope.row) ? '删除中' : '删 除' }}
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
-      <empty-holder v-else/>
+      <empty-holder v-else />
 
       <el-pagination 
         slot="footer" 
@@ -187,7 +239,8 @@
         background 
         layout="total, sizes, prev, pager, next, jumper" 
         @current-change="pageNoChange" 
-        @size-change="pageSizeChange"/>
+        @size-change="pageSizeChange"
+      />
     </ccard>
   </div>
 </template>

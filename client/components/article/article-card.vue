@@ -1,39 +1,45 @@
 <template>
   <transition-group
     tag="div"
-    name="slide-down">
+    name="slide-down"
+  >
     <nuxt-link
       v-for="article in list"
       :key="article._id"
-      :to="`/article/${article._id}`">
+      :to="`/article/${article._id}`"
+    >
       <div class="article-item">
         <img
           v-if="article.thumb"
           :src="article.thumb"
           class="article-thumb"
-          alt="thumb">
+          alt="thumb"
+        >
         <svg
           v-else
           class="thumb-placeholder"
-          aria-hidden="true">
-          <use xlink:href="#icon-longmao"/>
+          aria-hidden="true"
+        >
+          <use xlink:href="#icon-longmao" />
         </svg>
         <div class="content-wrap">
           <p class="title nowrap">
             {{ article.title }}
           </p>
           <div class="meta">
-            <span class="time">{{ format(article.createdAt) }}</span>
+            <span class="time">
+              {{ format(article.createdAt) }}
+            </span>
             <span>
-              <i class="iconfont icon-chakan"/>
+              <i class="iconfont icon-chakan" />
               {{ article.meta.views }}
             </span>
             <span>
-              <i class="iconfont icon-pinglun"/>
+              <i class="iconfont icon-pinglun" />
               {{ article.meta.comments }}
             </span>
             <span>
-              <i class="iconfont icon-xihuan"/>
+              <i class="iconfont icon-xihuan" />
               {{ article.meta.likes }}
             </span>
           </div>
@@ -43,7 +49,10 @@
         </div>
         <span
           v-if="topLikeId === article.id"
-          class="ribbon">赞</span>
+          class="ribbon"
+        >
+          赞
+        </span>
       </div>
     </nuxt-link>
   </transition-group>

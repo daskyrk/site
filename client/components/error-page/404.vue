@@ -3,15 +3,18 @@
     class="page-404" 
     @click="toHome" 
     @mousemove="moveLight($event)" 
-    @mouseout="mouseOut">
+    @mouseout="mouseOut"
+  >
     <div 
       ref="tip" 
-      class="tip">
-      emmm 这里什么都没有.... <br >点击一下，立马回家
+      class="tip"
+    >
+      emmm 这里什么都没有.... <br>点击一下，立马回家
     </div>
     <span 
       ref="light" 
-      class="light"/>
+      class="light"
+    />
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <aside :class="['manage-sidebar', {fold: foldSidebar}]">
-    <div class="logo"/>
+    <div class="logo" />
     <!-- <div class="logo-wrap">
       <div class="owner">{{owner}}</div>
     </div> -->
@@ -9,15 +9,17 @@
       <li
         v-for="(menu, index) in menus"
         :key="index"
-        :class="{ active: menu.active }">
+        :class="{ active: menu.active }"
+      >
         <nuxt-link :to="menu.link">
           <el-tooltip
             :disabled="!foldSidebar"
             :content="menu.text"
             effect="dark"
-            placement="right">
+            placement="right"
+          >
             <div class="menu-item">
-              <i :class="['iconfont', `icon-${menu.icon}`]"/>
+              <i :class="['iconfont', `icon-${menu.icon}`]" />
               <span>{{ menu.text }}</span>
             </div>
           </el-tooltip>
@@ -27,8 +29,9 @@
 
     <div
       class="toggle-side"
-      @click="foldSidebar = !foldSidebar">
-      <i class="iconfont icon-fold"/>
+      @click="foldSidebar = !foldSidebar"
+    >
+      <i class="iconfont icon-fold" />
     </div>
   </aside>
 </template>

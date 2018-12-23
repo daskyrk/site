@@ -13,8 +13,11 @@
         <img
           src="http://p9uqlanms.bkt.clouddn.com/无脸男-1528469109147.jpg"
           alt="avatar"
-          class="avatar">
-        <div class="nick">daskyrk</div>
+          class="avatar"
+        >
+        <div class="nick">
+          daskyrk
+        </div>
         <div class="hobby">
           看书、旅游、摄影（学习ing）
         </div>
@@ -26,9 +29,7 @@
           <p>世界这么大，我想去看看 (=・ω・=)</p>
           <p>时间这么少，哪都去不了 _(:з」∠)_</p>
         </div>
-
       </div>
-
     </div>
     <!-- <img :src="'http://p9uqlanms.bkt.clouddn.com/photo.webp' | waterMark" alt="my photo" class="photo"> -->
   </div>

@@ -1,7 +1,10 @@
 <template>
   <el-form-renderer 
     ref="form" 
-    :content="fields"><slot /></el-form-renderer>
+    :content="fields"
+  >
+    <slot />
+  </el-form-renderer>
 </template>
 
 <script>

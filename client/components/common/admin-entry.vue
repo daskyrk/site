@@ -1,7 +1,8 @@
 <template>
   <div 
     class="admin-entry" 
-    @dblclick="toLogin"/>
+    @dblclick="toLogin"
+  />
 </template>
 
 <script>

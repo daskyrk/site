@@ -14,27 +14,29 @@
           v-for="(nav, index) in navs" 
           :key="index" 
           :to="nav.link" 
-          exact>
+          exact
+        >
           {{ nav.text }}
         </nuxt-link>
-
       </nav>
     </div>
     <div class="header-right">
       <input 
         ref="searchInput" 
-        :class="{hide: !searchVisible}" 
         v-model="keyword" 
+        :class="{hide: !searchVisible}" 
         type="text" 
         class="header-search-input" 
         maxlength="10" 
         @keyup.enter="search" 
-        @blur="hideSearch">
+        @blur="hideSearch"
+      >
       <i 
         :class="{hide: searchVisible}" 
         class="iconfont icon-search header-search-icon" 
-        @click="showSearch"/>
-      <music-player v-bind="musicConf"/>
+        @click="showSearch"
+      />
+      <music-player v-bind="musicConf" />
     </div>
   </header>
 </template>

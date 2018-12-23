@@ -1,12 +1,14 @@
 <template>
   <transition 
     tag="div" 
-    name="slide-down">
+    name="slide-down"
+  >
     <div 
       v-if="visible" 
       :class="_cls" 
-      @click="scrollToTop">
-      <slot><i class="iconfont icon-shang"/></slot>
+      @click="scrollToTop"
+    >
+      <slot><i class="iconfont icon-shang" /></slot>
     </div>
   </transition>
 </template>

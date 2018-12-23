@@ -1,38 +1,42 @@
 <template>
   <div class="comment-editor">
     <textarea 
-      :placeholder="holder" 
       v-model="value" 
+      :placeholder="holder" 
       rows="4" 
       cols="20" 
       name="content" 
       maxlength="400" 
-      @focus="focus"/>
+      @focus="focus"
+    />
     <div class="editor-tools">
       <span class="tool-btn emoji">
-        <i class="iconfont icon-biaoqing"/>
+        <i class="iconfont icon-biaoqing" />
         <transition name="fade">
           <emoji-box :on-click="insertEmoji" />
         </transition>
       </span>
       <span 
         class="tool-btn" 
-        @click="insert('img')">
-        <i class="iconfont icon-image"/>
+        @click="insert('img')"
+      >
+        <i class="iconfont icon-image" />
       </span>
       <span 
         class="tool-btn" 
-        @click="insert('link')">
-        <i class="iconfont icon-lianjie"/>
+        @click="insert('link')"
+      >
+        <i class="iconfont icon-lianjie" />
       </span>
       <span 
         class="tool-btn" 
-        @click="insert('code')">
-        <i class="iconfont icon-daimakuai"/>
+        @click="insert('code')"
+      >
+        <i class="iconfont icon-daimakuai" />
       </span>
       <button @click="submit">
         提交
-        <i class="iconfont icon-fabu"/>
+        <i class="iconfont icon-fabu" />
       </button>
     </div>
   </div>

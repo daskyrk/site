@@ -4,10 +4,15 @@
       <div
         v-for="wish in list"
         :key="wish._id"
-        class="card">
-        <div class="ding"/>
-        <div class="content">{{ wish.content }}</div>
-        <div class="by">- {{ wish.name }}</div>
+        class="card"
+      >
+        <div class="ding" />
+        <div class="content">
+          {{ wish.content }}
+        </div>
+        <div class="by">
+          - {{ wish.name }}
+        </div>
       </div>
     </div>
     <div class="panel">
@@ -16,13 +21,17 @@
         class="wish"
         name="wish"
         maxlength="300"
-        placeholder="想说点什么呢"/>
+        placeholder="想说点什么呢"
+      />
       <input
         ref="name"
         name="name"
         type="text"
-        placeholder="路过的朋友">
-      <button @click="submit">提交</button>
+        placeholder="路过的朋友"
+      >
+      <button @click="submit">
+        提交
+      </button>
     </div>
   </div>
 </template>

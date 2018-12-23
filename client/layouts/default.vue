@@ -3,7 +3,7 @@
     <my-header />
 
     <div class="container">
-      <nuxt/>
+      <nuxt />
     </div>
 
     <my-footer />

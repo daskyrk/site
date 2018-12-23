@@ -1,6 +1,5 @@
 <template>
   <div class="manage-layout">
-
     <manageSidebar />
 
     <div class="manage-main">
@@ -9,7 +8,6 @@
         <nuxt />
       </div>
     </div>
-
   </div>
 </template>
 

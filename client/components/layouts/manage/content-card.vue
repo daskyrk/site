@@ -3,18 +3,18 @@
     <div class="header">
       {{ title }}
       <div class="op">
-        <slot name="op"/>
+        <slot name="op" />
       </div>
     </div>
 
-    <slot/>
+    <slot />
 
     <div 
       v-if="!hideFooter" 
-      class="footer">
-      <slot name="footer"/>
+      class="footer"
+    >
+      <slot name="footer" />
     </div>
-
   </section>
 </template>
 

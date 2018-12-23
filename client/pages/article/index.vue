@@ -4,7 +4,8 @@
     <LoadMore 
       :has-more="hasMore" 
       :load="loadMore" 
-      dom-selector=".article-list"/>
+      dom-selector=".article-list"
+    />
   </div>
 </template>
 

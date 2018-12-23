@@ -5,7 +5,10 @@
         v-for="emj in emojiList" 
         :key="emj" 
         class="emoji-item" 
-        @click="onClick(emj)">{{ emj }}</li>
+        @click="onClick(emj)"
+      >
+        {{ emj }}
+      </li>
     </ul>
   </div>
 </template>

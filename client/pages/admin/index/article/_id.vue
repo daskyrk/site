@@ -2,7 +2,8 @@
   <div class="form-wrap">
     <article-form 
       :detail="detail" 
-      :on-submit="onSubmit"/>
+      :on-submit="onSubmit"
+    />
   </div>
 </template>
 

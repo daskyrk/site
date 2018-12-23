@@ -2,17 +2,20 @@
   <ccard title="文章统计">
     <div
       v-if="summary"
-      class="chart-wrap">
+      class="chart-wrap"
+    >
       <chart
         :data="articleChartData"
         :options="chartOptions"
         type="bar"
-        width="50%"/>
+        width="50%"
+      />
       <chart
         :data="articleChartData"
         :options="chartOptions"
         type="bar"
-        width="50%"/>
+        width="50%"
+      />
     </div>
   </ccard>
 </template>

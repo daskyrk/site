@@ -1,38 +1,50 @@
 <template>
   <div
     ref="page"
-    class="login-page">
-    <canvas id="canvas">your browser does not support the canvas tag </canvas>
+    class="login-page"
+  >
+    <canvas id="canvas">
+      your browser does not support the canvas tag
+    </canvas>
     <!-- <div class="title">
       Welcome
     </div> -->
     <form
       class="login-form"
-      @submit.prevent>
+      @submit.prevent
+    >
       <div class="input-wrap">
-        <i class="iconfont icon-username"/>
+        <i class="iconfont icon-username" />
         <input
           v-model="form.username"
           type="text"
           placeholder="你是？"
           @focus="toggleFocus($event, true)"
-          @blur="toggleFocus($event, false)">
+          @blur="toggleFocus($event, false)"
+        >
       </div>
       <div class="input-wrap">
-        <i class="iconfont icon-password"/>
+        <i class="iconfont icon-password" />
         <input
           v-model="form.password"
           type="password"
           placeholder="口令？"
           @focus="toggleFocus($event, true)"
-          @blur="toggleFocus($event, false)">
+          @blur="toggleFocus($event, false)"
+        >
       </div>
       <button
         type="submit"
-        @click="submitForm('form', 'login')">开门</button>
+        @click="submitForm('form', 'login')"
+      >
+        开门
+      </button>
       <button
         v-if="registerable"
-        @click="submitForm('form', 'add')">入伙</button>
+        @click="submitForm('form', 'add')"
+      >
+        入伙
+      </button>
     </form>
   </div>
 </template>

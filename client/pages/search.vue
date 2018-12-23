@@ -2,33 +2,40 @@
   <div class="search-result">
     <div class="search-by">
       Searched By:
-      <span 
-        v-if="tag" 
-        class="search-tag">
-        <i class="iconfont icon-biaoqian"/>
-        {{ nameMap[tag] }}
-      </span>
-      <span 
-        v-if="keyword" 
-        class="search-keyword">
-        <i class="iconfont icon-search"/>
-        {{ keyword }}
-      </span>
+               <span 
+                 v-if="tag" 
+                 class="search-tag"
+               >
+                 <i class="iconfont icon-biaoqian" />
+                 {{ nameMap[tag] }}
+               </span>
+               <span 
+                 v-if="keyword" 
+                 class="search-keyword"
+               >
+                 <i class="iconfont icon-search" />
+                 {{ keyword }}
+               </span>
     </div>
     <div v-if="list.length">
       <article-card :list="list" />
       <LoadMore 
         :has-more="hasMore" 
         :load="loadMore" 
-        dom-selector=".search-result"/>
+        dom-selector=".search-result"
+      />
     </div>
     <empty-holder 
       v-else 
-      large>
+      large
+    >
       这里神马都没有
       <span 
         class="btn" 
-        @click="goback">返回</span>
+        @click="goback"
+      >
+        返回
+      </span>
     </empty-holder>
   </div>
 </template>

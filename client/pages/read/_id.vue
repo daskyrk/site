@@ -4,7 +4,10 @@
       <div class="title">
         <nuxt-link
           to="../"
-          append><i class="back iconfont icon-fanhui"/></nuxt-link>
+          append
+        >
+          <i class="back iconfont icon-fanhui" />
+        </nuxt-link>
         {{ bookInfo.title }}
       </div>
       <div class="author">
@@ -13,17 +16,18 @@
       <div class="img-wrap">
         <img
           :src="bookInfo.image | dealImg({h: 300})"
-          alt="book-image">
+          alt="book-image"
+        >
       </div>
       <div
         v-if="bookInfo.saying"
-        class="saying">
-        <i class="iconfont icon-quotation"/>
+        class="saying"
+      >
+        <i class="iconfont icon-quotation" />
         <p>
           {{ bookInfo.saying }}
         </p>
       </div>
-
     </div>
     <div class="article-wrap">
       <Article :detail="detail" />

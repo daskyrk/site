@@ -1,15 +1,22 @@
 <template>
   <el-dialog
     :title="title"
-    :visible.sync="dialogVisible">
+    :visible.sync="dialogVisible"
+  >
     <slot />
     <div
       slot="footer"
-      class="dialog-footer">
-      <el-button @click="handleCancel">{{ cancelText || '取 消' }}</el-button>
+      class="dialog-footer"
+    >
+      <el-button @click="handleCancel">
+        {{ cancelText || '取 消' }}
+      </el-button>
       <el-button
         type="primary"
-        @click="handleOk">{{ okText || '确 定' }}</el-button>
+        @click="handleOk"
+      >
+        {{ okText || '确 定' }}
+      </el-button>
     </div>
   </el-dialog>
 </template>

@@ -1,7 +1,8 @@
 <template>
   <component
+    :is="comp"
     v-if="show"
-    :is="comp"/>
+  />
 </template>
 
 <script>
