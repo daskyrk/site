@@ -5,7 +5,7 @@
 # 下面部分直接放到start script中在机器启动时执行
 # mkdir ~/.ssh
 # echo "生成本机ssh-key";
-# ssh-keygen -t rsa -P ''  -C 'daskyrk@gmail.com' -f ~/.ssh/id_rsa
+# ssh-keygen -t rsa -N "" -P ''  -C 'daskyrk@gmail.com' -f ~/.ssh/id_rsa
 
 # echo "保存终端的ssh-key"
 # echo ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCo2FMfZXLKcfa98JvOKrThX/p0MvLf2sEbCfOwoIn1BkkGCyaMJvS8KW0dSQGru1l1Ampleqlxlaa+f3JOiXDrlQIC2r9j7UyQVya3h8bJQQzZn+1KxuIxSrfsajCMxZbA68hkoDRL36IbfwNLw/5OnNe8VERfXAXizkQPH9nxlWhR22JXja35/OayHxsomVwxWO904S3g5fgXQF0kiGwTtsApXQt9wIO29gvAySZ8cTa0asbFY5chqQ715NAHURc8tQb1m5Mqa6oRH1pSFG8QjaWlAoyZJSh64ocduU1DP5Uj8f5PSCAefcIpwzGsbTo3fQ/B8VLDTnTSK5DHQtTh daskyrk@gmail.com >> ~/.ssh/authorized_keys
@@ -22,8 +22,8 @@
 # echo "设置系统启动时自动启动nginx"
 # sudo systemctl enable nginx
 
-echo "安装net工具包";
-yum -y install net-tools
+# echo "安装net工具包";
+# yum -y install net-tools
 
 # echo "安装git"
 # yum -y install git
