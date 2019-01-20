@@ -27,13 +27,13 @@ if (argMap.de) {
   cryptoUtil.decodeFile(
     path.join(__dirname, './config.aes'),
     path.join(__dirname, './config.ts'),
-    secretKey
+    secretKey,
   );
 } else {
   // 加密配置文件
   cryptoUtil.encodeFile(
     path.join(__dirname, './my-config.ts'),
     path.join(__dirname, './config.aes'),
-    secretKey
+    secretKey,
   );
 }

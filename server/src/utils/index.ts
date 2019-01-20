@@ -1,22 +1,22 @@
 import fs from 'fs';
 import crypto from 'crypto';
-// import requireContext from 'require-context';
+import requireContext from 'require-context';
 
-// export const requireAll = (path: string, recursive: boolean, regExp: RegExp, filter: any) => {
-//   const files = requireContext(path, recursive, regExp);
-//   let filenames = files.keys();
+export const requireAll = (path: string, recursive: boolean, regExp: RegExp, filter: any) => {
+  const files = requireContext(path, recursive, regExp);
+  let filenames = files.keys();
 
-//   if (typeof filter === 'function') {
-//     filenames = filenames.filter(filter);
-//   }
+  if (typeof filter === 'function') {
+    filenames = filenames.filter(filter);
+  }
 
-//   const moduleObj: any = {};
-//   filenames.map( (filename: string) => {
-//     moduleObj[filename.slice(0, filename.lastIndexOf('.'))]= files(filename);
-//   });
+  const moduleObj: any = {};
+  filenames.map( (filename: string) => {
+    moduleObj[filename.slice(0, filename.lastIndexOf('.'))]= files(filename);
+  });
 
-//   return moduleObj;
-// };
+  return moduleObj;
+};
 
 /******************** 文件操作 **************************/
 function readFile(path: string, filesList: any[]) {
@@ -30,7 +30,7 @@ function readFile(path: string, filesList: any[]) {
       filesList.push({
         size: states.size,
         name: file,
-        path: path + '/' + file
+        path: path + '/' + file,
       });
     }
   }
@@ -65,7 +65,7 @@ const fileUtil = {
   getFileName,
   getFileContent,
   writeFileAsync,
-  writeFileSync: fs.writeFileSync
+  writeFileSync: fs.writeFileSync,
 };
 exports.fileUtil = fileUtil;
 
@@ -81,7 +81,7 @@ function encode(content: Buffer, cryptkey: string) {
   const cipher = crypto.createCipheriv(
     'aes-128-cbc',
     cryptkey,
-    '9cd5b4cf89949207'
+    '9cd5b4cf89949207',
   );
   const bf = [];
   bf.push(cipher.update(content));
@@ -93,7 +93,7 @@ function decode(content: Buffer, cryptkey: string) {
   const decipher = crypto.createDecipheriv(
     'aes-128-cbc',
     cryptkey,
-    '9cd5b4cf89949207'
+    '9cd5b4cf89949207',
   );
   try {
     const a = [];
@@ -126,5 +126,5 @@ export const cryptoUtil = {
   encode,
   decode,
   encodeFile,
-  decodeFile
+  decodeFile,
 };
