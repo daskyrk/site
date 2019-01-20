@@ -1,7 +1,6 @@
-const myConfig = require('./my-config');
-module.exports = myConfig
+export * from './config';
 
-// 以下为my-config文件内容示例
+// 以下为config文件内容示例
 // exports.MONGODB = {
 //   type: 'mongodb',
 //   uris: 'mongodb://127.0.0.1:27017',

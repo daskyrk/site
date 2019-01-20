@@ -19,8 +19,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "encode": "node src/config/encode-config.js",
-    "decode": "node src/config/encode-config.js de=1",
+    "encode": "ts-node src/config/encode-config.ts",
+    "decode": "ts-node src/config/encode-config.ts de=1",
     "old-start": "pm2 start lib/index.js --name 'server'",
     "dev": "nodemon --exec \"NODE_ENV=development node --harmony lib/index.js\""
   },

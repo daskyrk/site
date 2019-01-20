@@ -1,5 +1,8 @@
 {
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "./interface/*",
+  ],
   "exclude": ["node_modules", "**/*.spec.ts"],
   "compilerOptions": {
     "esModuleInterop": true,

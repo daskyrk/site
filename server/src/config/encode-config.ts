@@ -1,12 +1,16 @@
-const path = require('path');
-const { cryptoUtil } = require('./utils/index');
+import path from 'path';
+import { cryptoUtil } from '../utils';
 
+interface IArg {
+  sk: string;
+  de?: boolean;
+}
 const args = process.argv.splice(2);
-const argMap = args.reduce((o, a) => {
+const argMap: IArg = args.reduce((o, a) => {
   const [k, v] = a.split('=');
   o[k] = v;
   return o;
-}, {});
+}, {} as any);
 
 const secretKey = argMap.sk;
 
@@ -22,14 +26,14 @@ if (argMap.de) {
   // 解密配置文件
   cryptoUtil.decodeFile(
     path.join(__dirname, './config.aes'),
-    path.join(__dirname, './config.js'),
-    secretKey,
+    path.join(__dirname, './config.ts'),
+    secretKey
   );
 } else {
   // 加密配置文件
   cryptoUtil.encodeFile(
-    path.join(__dirname, './my-config.js'),
+    path.join(__dirname, './my-config.ts'),
     path.join(__dirname, './config.aes'),
-    secretKey,
+    secretKey
   );
 }
