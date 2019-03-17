@@ -1,0 +1,92 @@
+type Query {
+  getArticles(
+    offset: Float
+    limit: Float
+    keyword: String
+    state: ArticleState
+    publish: Publish
+    type: ArticleType
+    data: Date
+    hot: Float
+    tag: String
+  ): Articles
+  getArticleById(_id: ObjectID): ArticlesItem
+}
+
+type Mutation {
+  createArticle(articleInfo: CreateArticleInput!): ArticlesItem
+  updateArticle(articleInfo: UpdateArticleInput!): ArticlesItem
+  deleteArticle(_id: ObjectID!): Message
+}
+
+input CreateArticleInput {
+  title: String!
+  keyword: String!
+  content: String
+  descript: String
+  state: ArticleState
+  publish: Publish
+  thumb: String
+  type: ArticleType
+  tag: [String]!
+}
+
+input UpdateArticleInput {
+  _id: ObjectID!
+  title: String!
+  keyword: String!
+  content: String
+  descript: String
+  state: ArticleState
+  publish: Publish
+  thumb: String
+  type: ArticleType
+  tag: [String!]
+}
+
+type Articles {
+  total: Float
+  offset: Float!
+  limit: Float!
+  docs: [ArticlesItem]
+}
+
+type ArticlesItem {
+  id: Float
+  _id: ObjectID!
+  title: String
+  keyword: String
+  content: String
+  state: ArticleState
+  publish: Publish
+  thumb: String
+  type: ArticleType
+  meta: ArticleMeta
+  tag: [TagsItem]
+  update_at: Date
+  create_at: Date
+}
+
+type ArticleMeta {
+  views: Float
+  likes: Float
+  comments: Float
+}
+
+enum Publish {
+  PUBLIC
+  PRIVATE
+}
+
+enum ArticleType {
+  CODE
+  THINK
+  FOLK
+}
+
+enum ArticleState {
+  RELEASE
+  DRAFT
+}
+
+scalar ObjectID

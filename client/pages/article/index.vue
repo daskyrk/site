@@ -1,9 +1,9 @@
 <template>
   <div class="article-list">
     <article-card :list="list" />
-    <LoadMore 
-      :has-more="hasMore" 
-      :load="loadMore" 
+    <LoadMore
+      :has-more="hasMore"
+      :load="loadMore"
       dom-selector=".article-list"
     />
   </div>
@@ -21,7 +21,7 @@ export default {
   },
 
   async fetch({ store }) {
-    await store.dispatch('article/getArtList', { type: 1 })
+    await store.dispatch('article/getArtList', { type: 'READ' })
   },
 
   computed: {
@@ -37,7 +37,7 @@ export default {
     loadMore() {
       return this.$store.dispatch('article/getArtList', {
         pageNo: this.query.pageNo + 1,
-        type: 1,
+        type: 'READ',
       })
     },
   },

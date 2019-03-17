@@ -1,19 +1,19 @@
 <template>
   <div class="read-list">
-    <div 
-      v-for="(row, i) in recent" 
-      :key="i" 
+    <div
+      v-for="(row, i) in recent"
+      :key="i"
       class="stage"
     >
       <template v-if="row.length">
         <ul class="books-list">
-          <li 
-            v-for="item in row" 
+          <li
+            v-for="item in row"
             :key="item._id"
           >
             <div class="img-wrap">
-              <nuxt-link 
-                :to="item._id" 
+              <nuxt-link
+                :to="item._id"
                 append
               >
                 <img :src="item.extra.book.image | dealImg({w:100})">
@@ -33,7 +33,7 @@ import { mapState } from 'vuex'
 
 export default {
   async fetch({ store }) {
-    await store.dispatch('article/getArtList', { type: 2 })
+    await store.dispatch('article/getArtList', { type: 'READ' })
   },
 
   computed: {

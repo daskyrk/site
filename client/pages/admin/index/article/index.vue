@@ -1,34 +1,34 @@
 <template>
   <div class="article-manage">
     <pg-filter>
-      <el-form 
-        ref="filterForm" 
-        :model="filterForm" 
-        class="filter-form" 
+      <el-form
+        ref="filterForm"
+        :model="filterForm"
+        class="filter-form"
         size="medium"
       >
         <div class="filter-content">
           <div class="flow-item">
-            <el-form-item 
-              label="关键字" 
-              prop="keyword" 
+            <el-form-item
+              label="关键字"
+              prop="keyword"
               class="kword"
             >
               <el-input v-model="filterForm.keyword" />
             </el-form-item>
-            <el-form-item 
-              label="标签" 
+            <el-form-item
+              label="标签"
               prop="tag"
             >
-              <el-select 
-                v-model="filterForm.tag" 
-                placeholder="请选择" 
+              <el-select
+                v-model="filterForm.tag"
+                placeholder="请选择"
                 clearable
               >
-                <el-option 
-                  v-for="tag in tagList" 
-                  :key="tag._id" 
-                  :label="tag.name" 
+                <el-option
+                  v-for="tag in tagList"
+                  :key="tag._id"
+                  :label="tag.name"
                   :value="tag._id"
                 />
               </el-select>
@@ -36,8 +36,8 @@
           </div>
 
           <div class="flow-item">
-            <el-form-item 
-              label="分类" 
+            <el-form-item
+              label="分类"
               prop="type"
             >
               <el-radio-group v-model="filterForm.type">
@@ -56,8 +56,8 @@
               </el-radio-group>
             </el-form-item>
 
-            <el-form-item 
-              label="状态" 
+            <el-form-item
+              label="状态"
               prop="state"
             >
               <el-radio-group v-model="filterForm.state">
@@ -73,8 +73,8 @@
               </el-radio-group>
             </el-form-item>
 
-            <el-form-item 
-              label="公开" 
+            <el-form-item
+              label="公开"
               prop="public"
             >
               <el-radio-group v-model="filterForm.public">
@@ -91,8 +91,8 @@
             </el-form-item>
           </div>
 
-          <el-form-item 
-            label="创建时间" 
+          <el-form-item
+            label="创建时间"
             prop="timeRange"
           >
             <!-- <el-radio-group v-model="timeRangeDay" @change="this.pickDayRange" class="pick-day-range">
@@ -100,13 +100,13 @@
               <el-radio-button label="2">三天</el-radio-button>
               <el-radio-button label="3">一周</el-radio-button>
             </el-radio-group> -->
-            <el-date-picker 
-              v-model="filterForm.timeRange" 
-              :picker-options="pickerOptions" 
-              type="daterange" 
-              range-separator="到" 
-              start-placeholder="开始日期" 
-              end-placeholder="结束日期" 
+            <el-date-picker
+              v-model="filterForm.timeRange"
+              :picker-options="pickerOptions"
+              type="daterange"
+              range-separator="到"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
               value-format="timestamp"
             />
           </el-form-item>
@@ -114,8 +114,8 @@
 
         <div class="filter-footer">
           <el-form-item>
-            <el-button 
-              type="primary" 
+            <el-button
+              type="primary"
               @click="onSubmit"
             >
               查询
@@ -129,22 +129,22 @@
     </pg-filter>
 
     <ccard title="文章列表">
-      <nuxt-link 
-        slot="op" 
-        to="add" 
+      <nuxt-link
+        slot="op"
+        to="add"
         append
       >
-        <el-button 
-          type="primary" 
+        <el-button
+          type="primary"
           size="small"
         >
           添加
         </el-button>
       </nuxt-link>
-      <el-table 
-        v-if="list.length" 
-        v-loading="fetch" 
-        :data="list" 
+      <el-table
+        v-if="list.length"
+        v-loading="fetch"
+        :data="list"
         style="width: 100%"
       >
         <el-table-column type="expand">
@@ -160,17 +160,17 @@
         </el-table-column>
         <el-table-column label="标签">
           <template slot-scope="scope">
-            <el-tag 
-              v-for="tag in scope.row.tags" 
-              :key="tag" 
+            <el-tag
+              v-for="tag in scope.row.tags"
+              :key="tag"
               class="article-tag"
             >
               {{ nameMap[tag] }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column 
-          label="创建日期" 
+        <el-table-column
+          label="创建日期"
           width="180"
         >
           <template slot-scope="scope">
@@ -178,50 +178,50 @@
             {{ scope.row.createdAt | dateFormat('YYYY.MM.DD') }}
           </template>
         </el-table-column>
-        <el-table-column 
-          label="私密" 
+        <el-table-column
+          label="私密"
           width="120"
         >
           <template slot-scope="scope">
-            <i 
-              v-if="!scope.row.public" 
+            <i
+              v-if="!scope.row.public"
               class="iconfont icon-lock"
             />
           </template>
         </el-table-column>
-        <el-table-column 
-          label="状态" 
+        <el-table-column
+          label="状态"
           width="120"
         >
           <template slot-scope="scope">
-            <i 
-              v-if="scope.row.state === 1" 
+            <i
+              v-if="scope.row.state === 1"
               class="iconfont icon-fabu"
             />
-            <i 
-              v-if="scope.row.state !== 1" 
+            <i
+              v-if="scope.row.state !== 1"
               class="iconfont icon-caogao"
             />
             {{ scope.row.state === 1 ? '发布' : '草稿' }}
           </template>
         </el-table-column>
-        <el-table-column 
-          fixed="right" 
-          label="操作" 
+        <el-table-column
+          fixed="right"
+          label="操作"
           width="180"
         >
           <template slot-scope="scope">
-            <el-button 
-              type="info" 
-              size="small" 
+            <el-button
+              type="info"
+              size="small"
               @click="editArt(scope.row)"
             >
               修改
             </el-button>
-            <el-button 
-              :loading="isDeleting(scope.row)" 
-              type="danger" 
-              size="small" 
+            <el-button
+              :loading="isDeleting(scope.row)"
+              type="danger"
+              size="small"
               @click="deleteArt(scope.row)"
             >
               {{ isDeleting(scope.row) ? '删除中' : '删 除' }}
@@ -231,14 +231,14 @@
       </el-table>
       <empty-holder v-else />
 
-      <el-pagination 
-        slot="footer" 
-        :current-page="query.pageNo" 
-        :page-size="query.pageSize" 
-        :total="total" 
-        background 
-        layout="total, sizes, prev, pager, next, jumper" 
-        @current-change="pageNoChange" 
+      <el-pagination
+        slot="footer"
+        :current-page="query.pageNo"
+        :page-size="query.pageSize"
+        :total="total"
+        background
+        layout="total, sizes, prev, pager, next, jumper"
+        @current-change="pageNoChange"
         @size-change="pageSizeChange"
       />
     </ccard>
@@ -255,7 +255,7 @@ export default {
   },
 
   async fetch({ store }) {
-    await store.dispatch('admin/article/getArtList', { type: -1 }) // 用-1来移除type过滤，获取全部类型
+    await store.dispatch('admin/article/getArtList')
     await store.dispatch('tag/getTags', { pageSize: 100 })
   },
 
@@ -331,14 +331,12 @@ export default {
     pageNoChange(pageNo) {
       this.$store.dispatch('admin/article/getArtList', {
         pageNo,
-        type: -1,
       })
     },
     pageSizeChange(pageSize) {
       this.$store.dispatch('admin/article/getArtList', {
         pageNo: 1,
         pageSize,
-        type: -1,
       })
     },
     editArt(row) {

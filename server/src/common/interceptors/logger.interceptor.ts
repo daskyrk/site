@@ -6,7 +6,7 @@ import { Injectable, NestInterceptor, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { BlogLogger } from '@/module/common/logger/logger';
+import { BlogLogger } from '../../module/common/logger/logger';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
