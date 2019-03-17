@@ -16,7 +16,6 @@ import { AppModule } from './module/app.module';
 
 declare const module: any;
 async function bootstrap() {
-  console.log('*****************');
 
   const app = await NestFactory.create(AppModule);
   // const logger = app.get(BlogLogger);

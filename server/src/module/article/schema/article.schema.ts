@@ -29,7 +29,7 @@ export const ArticleSchema = new Mongoose.Schema(
     thumb: String,
 
     // 文章分类
-    type: { type: Number },
+    type: { type: String, required: true },
 
     // 其他元信息
     meta: {
