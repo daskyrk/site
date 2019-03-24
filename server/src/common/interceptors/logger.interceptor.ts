@@ -1,7 +1,3 @@
-/**
- * 响应时间拦截器
- */
-
 import { Injectable, NestInterceptor, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';

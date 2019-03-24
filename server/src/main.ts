@@ -11,6 +11,7 @@ import { APP } from './config/config';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { LoggingInterceptor } from './common/interceptors/logger.interceptor';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
+import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 
 import { AppModule } from './module/app.module';
 
@@ -26,7 +27,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  // app.useGlobalInterceptors(new LoggingInterceptor(logger), new TimeoutInterceptor());
+  app.useGlobalInterceptors(new TimeoutInterceptor(), new TransformInterceptor());
 
   app.useGlobalPipes(
     new ValidationPipe({
