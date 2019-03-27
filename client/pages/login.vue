@@ -218,7 +218,7 @@ export default {
       }
       const action = type === 'login' ? 'user/login' : 'user/add'
       this.$store.dispatch(action, this.form).then(res => {
-        if (res.code === 1) {
+        if (res.success) {
           this.$router.push(this.$route.query.redirectTo || '/')
         }
       })

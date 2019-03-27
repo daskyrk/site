@@ -50,7 +50,7 @@ export default {
       const query = { ...state.query, ...data }
       const res = await this.$axios.$get('/admin/article', { params: query })
       commit('UPDATE_QUERY', query)
-      if (res.code === 1) {
+      if (res.success) {
         commit('GET_ART_LIST', res.result)
       }
     },
@@ -58,7 +58,7 @@ export default {
     // 获取文章详情
     async getArt({ commit, ...rest }, id) {
       const res = await this.$axios.$get(`/article/${id}`)
-      if (res && res.code === 1) {
+      if (res && res.success) {
         commit('SET_ART_DETAIL', res.result)
       }
     },
@@ -66,7 +66,7 @@ export default {
     // 添加文章
     async addArt({ commit, dispatch }, data) {
       const res = await this.$axios.$post(`/admin/article`, data)
-      if (res.code === 1) {
+      if (res.success) {
         await dispatch('getArtList')
       }
       return res
@@ -75,7 +75,7 @@ export default {
     // 编辑文章
     async updateArt({ commit, dispatch }, { _id, ...data }) {
       const res = await this.$axios.$put(`/admin/article/${_id}`, data)
-      if (res.code === 1) {
+      if (res.success) {
         // await dispatch('getArtList');
         commit('SET_ART', { _id, ...data })
       }
@@ -85,7 +85,7 @@ export default {
     // 删除文章
     async delArt({ commit, dispatch, state }, id) {
       const res = await this.$axios.$delete(`/admin/article/${id}`)
-      if (res.code === 1) {
+      if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {
           pageNo--
@@ -98,7 +98,7 @@ export default {
     // 文章统计
     async summary({ commit }, id) {
       const res = await this.$axios.$get(`/admin/article/summary`)
-      if (res.code === 1) {
+      if (res.success) {
         commit('SET_ART_SUMMARY', res.result)
       }
       return res

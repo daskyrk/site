@@ -21,7 +21,7 @@ export default {
 
     async getUploadToken({ commit }) {
       const res = await this.$axios.$get('/uploadToken')
-      if (res && res.code === 1) {
+      if (res && res.success) {
         commit('SET_UPLOAD_TOKEN', res.result)
       }
     },

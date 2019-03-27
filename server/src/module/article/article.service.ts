@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
 import { PaginateModel } from 'mongoose';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Article } from './interface/article.interface';
 import { ArticleInfoDto, QueryArticleDto } from './dto/article.dto';
+import { Article } from './interface/article.interface';
 
 @Injectable()
 export class ArticleService {

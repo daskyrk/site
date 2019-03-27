@@ -44,7 +44,7 @@ export default {
       commit('SET_LOGGING', true)
       const res = await this.$axios.$post('/login', data)
 
-      if (res && res.code === 1) {
+      if (res && res.success) {
         const { userInfo, token } = res.result
         commit('SET_USER_INFO', userInfo)
         commit('SET_TOKEN', token)
@@ -58,7 +58,7 @@ export default {
     async add({ commit }, data) {
       const res = await this.$axios.$post('/user', data)
 
-      if (res && res.code === 1) {
+      if (res && res.success) {
         const { userInfo, token } = res.result
         commit('SET_USER_INFO', userInfo)
         commit('SET_TOKEN', token)
@@ -71,7 +71,7 @@ export default {
     async getUserInfo({ commit }) {
       const res = await this.$axios.$get('/user')
 
-      if (res && res.code === 1) {
+      if (res && res.success) {
         commit('SET_USER_INFO', res.result)
       }
       return res

@@ -135,7 +135,7 @@ export default {
         return
       }
       this.$store.dispatch('article/likeArt', id).then(res => {
-        if (res.code === 1) {
+        if (res.success) {
           this.likes.push(id)
           setLS('article-like', this.likes)
         }

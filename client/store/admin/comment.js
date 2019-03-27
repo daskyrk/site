@@ -30,7 +30,7 @@ export default {
       const res = await this.$axios.$get(`/admin/comment`, {
         params: { ...state.query, ...params },
       })
-      if (res.code === 1) {
+      if (res.success) {
         commit('SET_COMMENT_LIST', res.result)
       }
     },

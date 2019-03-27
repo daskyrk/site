@@ -8,15 +8,17 @@ export default function({ $axios, store }) {
   })
 
   $axios.onResponse(response => {
-    const { data, config } = response
+    const { data: body, config } = response
     const url = config.url.slice(config.url.indexOf('/api') + 5)
+    const { success, msg } = body || {}
     store.commit('END_FETCH', url + '#' + config.method)
     // get请求不展示消息
-    if (process.browser && data && config.method !== 'get') {
-      Message[data.code === 1 ? 'success' : 'warning']({
-        message: data.msg,
+    if (process.browser && msg && config.method !== 'get') {
+      Message[success ? 'success' : 'warning']({
+        message: msg,
       })
     }
+    return body
   })
 
   $axios.onError(error => {

@@ -6,17 +6,17 @@
       </strong>
       <span class="line" />
     </div>
-    <comment-form 
-      v-if="!pid" 
+    <comment-form
+      v-if="!pid"
       :on-submit="addComment"
     />
     <ol class="comment-list comment-pad">
-      <comment-item 
-        v-for="comment in data" 
-        :key="comment._id" 
-        :comment="comment" 
-        :target-id="pid" 
-        :show-reply="showReply" 
+      <comment-item
+        v-for="comment in data"
+        :key="comment._id"
+        :comment="comment"
+        :target-id="pid"
+        :show-reply="showReply"
         :like-comment="likeComment"
       />
     </ol>
@@ -130,7 +130,7 @@ export default {
           pageUrl: location.href,
         })
         .then(res => {
-          if (res.code === 1) {
+          if (res.success) {
             this.getComments({ pageNo: 1 })
           }
         })
@@ -143,7 +143,7 @@ export default {
         return
       }
       this.$store.dispatch('comment/likeComment', id).then(res => {
-        if (res.code === 1) {
+        if (res.success) {
           this.likeComments.push(id)
           setLS('comment-like', this.likeComments)
         }

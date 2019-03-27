@@ -46,7 +46,7 @@ export default {
       const res = await this.$axios.$get('/article', {
         params: { ...state.query, ...params },
       })
-      if (res.code === 1) {
+      if (res.success) {
         commit('SET_RESULT', res.result)
       }
       return res

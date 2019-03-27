@@ -23,7 +23,7 @@ export default {
       const res = await this.$axios.$get(`/image`, {
         params: { ...state.query, ...params },
       })
-      if (res.code === 1) {
+      if (res.success) {
         commit('SET_IMAGE_LIST', res.result)
       }
     },

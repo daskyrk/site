@@ -38,7 +38,7 @@ export default {
       const query = { ...state.query, ...data }
       const res = await this.$axios.$get('/book', { params: query })
       commit('UPDATE_PAGE', query)
-      if (res.code === 1) {
+      if (res.success) {
         commit('GET_BOOKS', res.result)
       }
       return res
@@ -54,7 +54,7 @@ export default {
 
     async addBook({ dispatch }, data) {
       const res = await this.$axios.$post('/admin/book', data)
-      if (res.code === 1) {
+      if (res.success) {
         await dispatch('getBooks')
       }
       return res
@@ -62,7 +62,7 @@ export default {
 
     async updateBook({ dispatch }, { _id, ...data }) {
       const res = await this.$axios.$put(`/admin/book/${_id}`, data)
-      if (res.code === 1) {
+      if (res.success) {
         await dispatch('getBooks')
       }
       return res
@@ -70,7 +70,7 @@ export default {
 
     async delBook({ dispatch }, _id) {
       const res = await this.$axios.$delete(`/admin/book/${_id}`)
-      if (res.code === 1) {
+      if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {
           pageNo--
@@ -83,7 +83,7 @@ export default {
     // 统计
     async summary({ commit }, id) {
       const res = await this.$axios.$get(`/admin/book/summary`)
-      if (res.code === 1) {
+      if (res.success) {
         commit('SET_BOOK_SUMMARY', res.result)
       }
       return res

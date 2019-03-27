@@ -1,23 +1,24 @@
-import {
-  Injectable,
-  NestInterceptor,
-  ExecutionContext,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { ExecutionContext, HttpException, HttpStatus, Injectable, NestInterceptor } from '@nestjs/common';
 
-export interface Response<T> {
-  data: T;
+export interface Response {
+  docs: object[];
+  [prop: string]: any;
 }
 
 @Injectable()
-export class TransformInterceptor<T>
-  implements NestInterceptor<T, Response<T>> {
-  public intercept(context: ExecutionContext, call$: Observable<T>) {
+export class TransformInterceptor
+  implements NestInterceptor<Response> {
+  public intercept(context: ExecutionContext, call$: Observable<Response>) {
     return call$.pipe(
-      map(data => ({ data, success: true })),
+      map(data => {
+        const { docs, ...rest } = data;
+        if (docs) {
+          return { data: { ...rest, list: docs }, success: true };
+        }
+        return { data, success: true };
+      }),
       catchError(err =>
         throwError(new HttpException('Message', HttpStatus.BAD_GATEWAY)),
       ),

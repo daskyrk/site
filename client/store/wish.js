@@ -27,7 +27,7 @@ export default {
       const query = { ...state.query, ...data }
       const res = await this.$axios.$get('/wish', { params: query })
       commit('UPDATE_PAGE', query)
-      if (res.code === 1) {
+      if (res.success) {
         commit('GET_WISHES', res.result)
       }
       return res
@@ -35,7 +35,7 @@ export default {
 
     async addWish({ dispatch }, data) {
       const res = await this.$axios.$post('/wish', data)
-      if (res.code === 1) {
+      if (res.success) {
         await dispatch('getWishes')
       }
       return res
@@ -43,7 +43,7 @@ export default {
 
     async delWish({ dispatch, state }, _id) {
       const res = await this.$axios.$delete(`/admin/wish/${_id}`)
-      if (res.code === 1) {
+      if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {
           pageNo--

@@ -43,7 +43,7 @@ export default {
       const query = { ...state.query, ...data }
       const res = await this.$axios.$get('/tag', { params: query })
       commit('UPDATE_PAGE', query)
-      if (res.code === 1) {
+      if (res.success) {
         commit('GET_TAGS', res.result)
       }
       return res
@@ -51,7 +51,7 @@ export default {
 
     async addTag({ dispatch }, data) {
       const res = await this.$axios.$post('/admin/tag', data)
-      if (res.code === 1) {
+      if (res.success) {
         await dispatch('getTags')
       }
       return res
@@ -59,7 +59,7 @@ export default {
 
     async updateTag({ dispatch }, { _id, ...data }) {
       const res = await this.$axios.$put(`/admin/tag/${_id}`, data)
-      if (res.code === 1) {
+      if (res.success) {
         await dispatch('getTags')
       }
       return res
@@ -67,7 +67,7 @@ export default {
 
     async delTag({ dispatch, state }, _id) {
       const res = await this.$axios.$delete(`/admin/tag/${_id}`)
-      if (res.code === 1) {
+      if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {
           pageNo--
@@ -80,7 +80,7 @@ export default {
     // 统计
     async summary({ commit }, id) {
       const res = await this.$axios.$get(`/admin/tag/summary`)
-      if (res.code === 1) {
+      if (res.success) {
         commit('SET_TAG_SUMMARY', res.result)
       }
       return res

@@ -53,7 +53,7 @@ export default {
       const query = { ...state.query, ...data }
       const res = await this.$axios.$get('/article', { params: query })
       commit('UPDATE_QUERY', query)
-      if (res.code === 1) {
+      if (res.success) {
         commit('GET_ART_LIST', res.result)
       }
     },
@@ -61,7 +61,7 @@ export default {
     // 获取文章详情
     async getArt({ commit }, id) {
       const res = await this.$axios.$get(`/article/${id}`)
-      if (res && res.code === 1) {
+      if (res && res.success) {
         commit('SET_ART_DETAIL', res.result)
       }
     },
@@ -69,7 +69,7 @@ export default {
     // 喜欢文章
     async likeArt({ commit, dispatch, state }, id) {
       const res = await this.$axios.$put(`/likeArt/${id}`)
-      if (res.code === 1) {
+      if (res.success) {
         commit('LIKE_PLUS', id)
       }
       return res

@@ -21,7 +21,7 @@ export default {
   methods: {
     onSubmit(data) {
       this.$store.dispatch('admin/article/addArt', data).then(res => {
-        if (res.code === 1) {
+        if (res.success) {
           this.$router.push('/admin/article')
         }
       })

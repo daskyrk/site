@@ -30,7 +30,7 @@ export default {
       const res = await this.$axios.$get(`/comment`, {
         params: { ...state.query, ...params },
       })
-      if (res.code === 1) {
+      if (res.success) {
         commit('SET_COMMENT_LIST', res.result)
       }
     },
@@ -44,7 +44,7 @@ export default {
     // 点赞评论
     async likeComment({ commit }, id) {
       const res = await this.$axios.$put(`/likeComment/${id}`)
-      if (res.code === 1) {
+      if (res.success) {
         commit('LIKE_PLUS', id)
       }
       return res
