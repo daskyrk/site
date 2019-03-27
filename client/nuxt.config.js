@@ -7,6 +7,7 @@ module.exports = {
   mode: 'universal',
   dev: IS_DEV,
   env: config.envs,
+  srcDir: 'src/',
 
   head: {
     title: pkg.name,
@@ -69,15 +70,15 @@ module.exports = {
   sassResources: ['./assets/style/index.scss'],
 
   plugins: [
-    { src: '@/plugins/markdown.js', ssr: false },
-    { src: '@/plugins/copy.js', ssr: false },
-    { src: '@/plugins/gtm.js', ssr: false },
-    '@/plugins/moment.js',
-    '@/plugins/element-ui.js',
-    '@/plugins/axios.js',
-    '@/plugins/lazy-load.js',
-    '@/plugins/filter.js',
-    '@/plugins/custom-compents.js',
+    { src: '~/plugins/markdown.js', ssr: false },
+    { src: '~/plugins/copy.js', ssr: false },
+    { src: '~/plugins/gtm.js', ssr: false },
+    '~/plugins/moment.js',
+    '~/plugins/element-ui.js',
+    '~/plugins/axios.js',
+    '~/plugins/lazy-load.js',
+    '~/plugins/filter.js',
+    '~/plugins/custom-compents.js',
   ],
 
   modules: [
