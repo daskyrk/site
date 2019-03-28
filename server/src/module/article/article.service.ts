@@ -7,11 +7,11 @@ import { IArticle } from './interface/article.interface';
 @Injectable()
 export class ArticleService {
   constructor(
-    @InjectModel('Article') private readonly articleModel: PaginateModel<IArticle>,
+    @InjectModel('Article') private readonly model: PaginateModel<IArticle>,
   ) {}
 
   public async getArticleById(id: string) {
-    const res = await this.articleModel.findById(id);
+    const res = await this.model.findById(id);
     if (res) {
       res.meta.views += 1;
       res.save();
@@ -21,17 +21,17 @@ export class ArticleService {
   }
 
   public async create(data: ArticleInfoDto): Promise<IArticle> {
-    const createdCat = new this.articleModel(data);
+    const createdCat = new this.model(data);
     return await createdCat.save();
   }
 
   public async update(data: ArticleInfoDto) {
-    const res = await this.articleModel.findByIdAndUpdate(data._id, data, { new: true });
+    const res = await this.model.findByIdAndUpdate(data._id, data, { new: true });
     return res;
   }
 
   public async delete(id: string) {
-    const res = await this.articleModel.findByIdAndRemove(id);
+    const res = await this.model.findByIdAndRemove(id);
     return res;
   }
 
@@ -116,6 +116,6 @@ export class ArticleService {
       };
     }
 
-    return await this.articleModel.paginate(querys, options);
+    return await this.model.paginate(querys, options);
   }
 }

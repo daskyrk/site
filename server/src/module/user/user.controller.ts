@@ -12,8 +12,8 @@ export class UserController {
   }
 
   @Get()
-  public getAll() {
-    return this.userService.getAll();
+  public search(@Param('key') key: string) {
+    return this.userService.search(key);
   }
 
   @Get(':id')
@@ -30,4 +30,5 @@ export class UserController {
   public remove(@Param('id') id: string) {
     return this.userService.delete(id);
   }
+
 }

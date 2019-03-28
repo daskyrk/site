@@ -6,32 +6,7 @@ import { IUser } from './interface/user.interface';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel('User') private readonly userModel: Model<IUser>) {}
-
-  public async getAll() {
-    return await this.userModel.find({});
-  }
-
-  public async getById(id: string) {
-    return await this.userModel.findById(id);
-  }
-
-  public async create(data: UserInfoDto): Promise<IUser> {
-    const createdCat = new this.userModel(data);
-    return await createdCat.save();
-  }
-
-  public async update(data: UserInfoDto) {
-    const res = await this.userModel.findByIdAndUpdate(data._id, data, {
-      new: true,
-    });
-    return res;
-  }
-
-  public async delete(id: string) {
-    const res = await this.userModel.findByIdAndRemove(id);
-    return res;
-  }
+  constructor(@InjectModel('User') private readonly model: Model<IUser>) {}
 
   public async search(keyword: string) {
     const query = {} as any;
@@ -40,6 +15,28 @@ export class UserService {
       query.$or = [{ name: keywordReg }, { nick: keywordReg }];
     }
 
-    return await this.userModel.find(query);
+    return await this.model.find(query);
   }
+
+  public async getById(id: string) {
+    return await this.model.findById(id);
+  }
+
+  public async create(data: UserInfoDto): Promise<IUser> {
+    const createdCat = new this.model(data);
+    return await createdCat.save();
+  }
+
+  public async update(data: UserInfoDto) {
+    const res = await this.model.findByIdAndUpdate(data._id, data, {
+      new: true,
+    });
+    return res;
+  }
+
+  public async delete(id: string) {
+    const res = await this.model.findByIdAndRemove(id);
+    return res;
+  }
+
 }
