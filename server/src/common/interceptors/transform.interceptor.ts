@@ -1,6 +1,13 @@
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { ExecutionContext, HttpException, HttpStatus, Injectable, NestInterceptor } from '@nestjs/common';
+import {
+  CallHandler,
+  ExecutionContext,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NestInterceptor,
+} from '@nestjs/common';
 
 export interface Response {
   docs: object[];
@@ -8,10 +15,9 @@ export interface Response {
 }
 
 @Injectable()
-export class TransformInterceptor
-  implements NestInterceptor<Response> {
-  public intercept(context: ExecutionContext, call$: Observable<Response>) {
-    return call$.pipe(
+export class TransformInterceptor implements NestInterceptor<Response> {
+  public intercept(context: ExecutionContext, next: CallHandler<Response>) {
+    return next.handle().pipe(
       map(data => {
         const { docs, ...rest } = data;
         if (docs) {
