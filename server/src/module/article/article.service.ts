@@ -2,12 +2,12 @@ import { PaginateModel } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ArticleInfoDto, QueryArticleDto } from './dto/article.dto';
-import { Article } from './interface/article.interface';
+import { IArticle } from './interface/article.interface';
 
 @Injectable()
 export class ArticleService {
   constructor(
-    @InjectModel('Article') private readonly articleModel: PaginateModel<Article>,
+    @InjectModel('Article') private readonly articleModel: PaginateModel<IArticle>,
   ) {}
 
   public async getArticleById(id: string) {
@@ -20,7 +20,7 @@ export class ArticleService {
     return res;
   }
 
-  public async create(data: ArticleInfoDto): Promise<Article> {
+  public async create(data: ArticleInfoDto): Promise<IArticle> {
     const createdCat = new this.articleModel(data);
     return await createdCat.save();
   }

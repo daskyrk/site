@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsNumber, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 import { ArticleState, ArticleType } from '../interface/article.interface';
 
 export class ArticleTransformDto {

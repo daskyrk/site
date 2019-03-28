@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
+import { MongooseModule } from '@nestjs/mongoose';
 // import { AppController } from '../app.controller';
 // import { AppService } from './app.service';
 import { MONGODB } from '../config/config';
-import { GraphQLModule } from '@nestjs/graphql';
-import { MongooseModule } from '@nestjs/mongoose';
 // import { ConfigModule } from './config/config.module';
 // import { UserModule } from './user/user.module';
 import { ArticleModule } from './article/article.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { ArticleModule } from './article/article.module';
     // }),
     // ConfigModule,
     MongooseModule.forRoot(MONGODB.uris),
-    // UserModule,
+    UserModule,
     ArticleModule,
   ],
   // controllers: [AppController],

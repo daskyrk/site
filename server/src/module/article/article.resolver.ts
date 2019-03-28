@@ -1,8 +1,7 @@
-import { Resolver, Query, Args, Mutation, Context } from '@nestjs/graphql';
 import { Request } from 'express';
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ArticleService } from './article.service';
-import { QueryArticleDto, ArticleInfoDto } from './dto/article.dto';
-
+import { ArticleInfoDto, QueryArticleDto } from './dto/article.dto';
 
 @Resolver('Article')
 export class ArticleResolver {

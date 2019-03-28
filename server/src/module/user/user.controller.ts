@@ -1,29 +1,33 @@
-import { Controller, Get, Post, Put, Delete, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { UserInfoDto } from './dto/user.dto';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @Post()
+  public create(@Body() userInfoDto: UserInfoDto) {
+    return this.userService.create(userInfoDto);
+  }
+
   @Get()
-  public findAll() {
-    return 'This action returns all cats';
+  public getAll() {
+    return this.userService.getAll();
   }
 
   @Get(':id')
-  public findOne(@Param() params: any) {
-    console.log(params.id);
-    return `This action returns a #${params.id} cat`;
+  public findOne(@Param('id') id: string) {
+    return this.userService.getById(id);
   }
 
-  @Post()
-  public create() {
-    return 'This action adds a new cat';
-  }
-  @Put(':id')
-  public update(@Param('id') id: string) {
-    return `This action updates a #${id} cat`;
+  @Put()
+  public update(@Body() userInfoDto: UserInfoDto) {
+    return this.userService.update(userInfoDto);
   }
 
   @Delete(':id')
   public remove(@Param('id') id: string) {
-    return `This action removes a #${id} cat`;
+    return this.userService.delete(id);
   }
 }

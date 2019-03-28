@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 import { ArticleInfoDto } from '../dto/article.dto';
 
-export interface Article extends ArticleInfoDto, Document {
+export interface IArticle extends ArticleInfoDto, Document {
   _id: string;
 }
 
