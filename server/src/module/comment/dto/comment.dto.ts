@@ -1,5 +1,16 @@
 import { IsInt, IsNotEmpty } from 'class-validator';
 
+export class CommentAuthorDto {
+  @IsNotEmpty()
+  public name: string;
+
+  @IsNotEmpty()
+  public email: string;
+
+  @IsNotEmpty()
+  public site: string;
+}
+
 export class CommentDto {
   public _id: string;
 
@@ -31,15 +42,4 @@ export class CommentDto {
 
   // 用户ua
   public agent: string;
-}
-
-export class CommentAuthorDto {
-  @IsNotEmpty()
-  public name: string;
-
-  @IsNotEmpty()
-  public email: string;
-
-  @IsNotEmpty()
-  public site: string;
 }
