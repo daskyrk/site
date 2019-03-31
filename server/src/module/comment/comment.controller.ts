@@ -1,33 +1,33 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CommentService } from './comment.service';
-import { CommentDto } from './dto/comment.dto';
+import { CommentDto, QueryCommentDto } from './dto/comment.dto';
 
 @Controller('comment')
 export class CommentController {
-  constructor(private readonly CommentService: CommentService) {}
+  constructor(private readonly commentService: CommentService) {}
 
   @Post()
   public create(@Body() commentDto: CommentDto) {
-    return this.CommentService.create(commentDto);
+    return this.commentService.create(commentDto);
   }
 
   @Get()
-  public getAll() {
-    return this.CommentService.getAll();
+  public search(@Query() query: QueryCommentDto) {
+    return this.commentService.search(query);
   }
 
   @Get(':id')
   public findOne(@Param('id') id: string) {
-    return this.CommentService.getById(id);
+    return this.commentService.getById(id);
   }
 
   @Put()
   public update(@Body() commentDto: CommentDto) {
-    return this.CommentService.update(commentDto);
+    return this.commentService.update(commentDto);
   }
 
   @Delete(':id')
   public remove(@Param('id') id: string) {
-    return this.CommentService.delete(id);
+    return this.commentService.delete(id);
   }
 }

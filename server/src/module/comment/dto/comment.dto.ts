@@ -43,3 +43,9 @@ export class CommentDto {
   // 用户ua
   public agent: string;
 }
+
+export class QueryCommentDto {
+  public pageNo: number;
+  public pageSize: number;
+  public keyword?: string;
+}
