@@ -28,7 +28,7 @@ export default {
       const res = await this.$axios.$get('/wish', { params: query })
       commit('UPDATE_PAGE', query)
       if (res.success) {
-        commit('GET_WISHES', res.result)
+        commit('GET_WISHES', res.data)
       }
       return res
     },

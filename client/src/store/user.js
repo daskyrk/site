@@ -45,7 +45,7 @@ export default {
       const res = await this.$axios.$post('/login', data)
 
       if (res && res.success) {
-        const { userInfo, token } = res.result
+        const { userInfo, token } = res.data
         commit('SET_USER_INFO', userInfo)
         commit('SET_TOKEN', token)
       } else {
@@ -59,7 +59,7 @@ export default {
       const res = await this.$axios.$post('/user', data)
 
       if (res && res.success) {
-        const { userInfo, token } = res.result
+        const { userInfo, token } = res.data
         commit('SET_USER_INFO', userInfo)
         commit('SET_TOKEN', token)
       } else {
@@ -72,7 +72,7 @@ export default {
       const res = await this.$axios.$get('/user')
 
       if (res && res.success) {
-        commit('SET_USER_INFO', res.result)
+        commit('SET_USER_INFO', res.data)
       }
       return res
     },
@@ -85,7 +85,7 @@ export default {
 
     async checkRegisterable({ commit }) {
       const res = await this.$axios.$get('/user/registerable')
-      commit('SET_REGISTERABLE', res.result)
+      commit('SET_REGISTERABLE', res.data)
     },
   },
 }

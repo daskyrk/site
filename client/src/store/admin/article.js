@@ -51,7 +51,7 @@ export default {
       const res = await this.$axios.$get('/admin/article', { params: query })
       commit('UPDATE_QUERY', query)
       if (res.success) {
-        commit('GET_ART_LIST', res.result)
+        commit('GET_ART_LIST', res.data)
       }
     },
 
@@ -59,7 +59,7 @@ export default {
     async getArt({ commit, ...rest }, id) {
       const res = await this.$axios.$get(`/article/${id}`)
       if (res && res.success) {
-        commit('SET_ART_DETAIL', res.result)
+        commit('SET_ART_DETAIL', res.data)
       }
     },
 
@@ -99,7 +99,7 @@ export default {
     async summary({ commit }, id) {
       const res = await this.$axios.$get(`/admin/article/summary`)
       if (res.success) {
-        commit('SET_ART_SUMMARY', res.result)
+        commit('SET_ART_SUMMARY', res.data)
       }
       return res
     },

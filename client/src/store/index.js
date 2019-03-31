@@ -22,17 +22,16 @@ export default {
     async getUploadToken({ commit }) {
       const res = await this.$axios.$get('/uploadToken')
       if (res && res.success) {
-        commit('SET_UPLOAD_TOKEN', res.result)
+        commit('SET_UPLOAD_TOKEN', res.data)
       }
     },
 
     async getBingStory({ commit }) {
       const res = await this.$axios.$get(
-        'https://api.berryapi.net/bing/?AppKey=rOQmtNTWzw',
+        'https://api.berryapi.net/bing?AppKey=rOQmtNTWzw',
       )
-      if (res.code === 200) {
-        commit('SET_BING_STORY', res)
-      }
+      console.log('res:', res);
+      // commit('SET_BING_STORY', res)
     },
   },
   mutations: {
@@ -53,7 +52,7 @@ export default {
     },
 
     SET_BING_STORY(state, data) {
-      state.story = data.data.primary
+      state.story = data
     },
   },
 }

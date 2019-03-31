@@ -44,7 +44,7 @@ export default {
       const res = await this.$axios.$get('/tag', { params: query })
       commit('UPDATE_PAGE', query)
       if (res.success) {
-        commit('GET_TAGS', res.result)
+        commit('GET_TAGS', res.data)
       }
       return res
     },
@@ -81,7 +81,7 @@ export default {
     async summary({ commit }, id) {
       const res = await this.$axios.$get(`/admin/tag/summary`)
       if (res.success) {
-        commit('SET_TAG_SUMMARY', res.result)
+        commit('SET_TAG_SUMMARY', res.data)
       }
       return res
     },

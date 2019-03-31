@@ -39,7 +39,7 @@ export default {
       const res = await this.$axios.$get('/book', { params: query })
       commit('UPDATE_PAGE', query)
       if (res.success) {
-        commit('GET_BOOKS', res.result)
+        commit('GET_BOOKS', res.data)
       }
       return res
     },
@@ -84,7 +84,7 @@ export default {
     async summary({ commit }, id) {
       const res = await this.$axios.$get(`/admin/book/summary`)
       if (res.success) {
-        commit('SET_BOOK_SUMMARY', res.result)
+        commit('SET_BOOK_SUMMARY', res.data)
       }
       return res
     },

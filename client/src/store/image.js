@@ -24,7 +24,7 @@ export default {
         params: { ...state.query, ...params },
       })
       if (res.success) {
-        commit('SET_IMAGE_LIST', res.result)
+        commit('SET_IMAGE_LIST', res.data)
       }
     },
 

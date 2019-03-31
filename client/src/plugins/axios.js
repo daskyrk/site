@@ -18,7 +18,12 @@ export default function({ $axios, store }) {
         message: msg,
       })
     }
-    return body
+    const keys = Object.keys(body);
+    // 包含success和data字段的认为是blog后台的接口返回，取出data
+    if (keys.length < 3 && keys.includes('success' && keys.includes('data'))) {
+      return body;
+    }
+    return response
   })
 
   $axios.onError(error => {

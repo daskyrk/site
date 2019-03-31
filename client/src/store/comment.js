@@ -31,7 +31,7 @@ export default {
         params: { ...state.query, ...params },
       })
       if (res.success) {
-        commit('SET_COMMENT_LIST', res.result)
+        commit('SET_COMMENT_LIST', res.data)
       }
     },
 

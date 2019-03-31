@@ -47,7 +47,7 @@ export default {
         params: { ...state.query, ...params },
       })
       if (res.success) {
-        commit('SET_RESULT', res.result)
+        commit('SET_RESULT', res.data)
       }
       return res
     },
