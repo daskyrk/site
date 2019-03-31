@@ -14,6 +14,8 @@ export class CommentAuthorDto {
 export class CommentDto {
   public _id: string;
 
+  public pageUrl: string;
+
   @IsNotEmpty()
   public postId: string;
 
