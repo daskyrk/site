@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { TagDto } from './dto/tag.dto';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { QueryTagDto, TagDto } from './dto/tag.dto';
 import { TagService } from './tag.service';
 
 @Controller('tag')
@@ -12,8 +12,8 @@ export class TagController {
   }
 
   @Get()
-  public search(@Param('key') key: string) {
-    return this.service.search(key);
+  public search(@Query() query: QueryTagDto) {
+    return this.service.search(query);
   }
 
   @Put()

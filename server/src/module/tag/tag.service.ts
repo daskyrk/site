@@ -1,21 +1,35 @@
-import { Model } from 'mongoose';
+import { PaginateModel } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { TagDto } from './dto/tag.dto';
+import { QueryTagDto, TagDto } from './dto/tag.dto';
 import { ITag } from './interface/tag.interface';
 
 @Injectable()
 export class TagService {
-  constructor(@InjectModel('Tag') private readonly model: Model<ITag>) {}
+  constructor(@InjectModel('Tag') private readonly model: PaginateModel<ITag>) {}
 
-  public async search(keyword: string) {
+  public async search({ pageNo = 1, pageSize = 10, keyword }: QueryTagDto) {
     const query = {} as any;
+    const options: {
+      sort: any;
+      page: number;
+      limit: number;
+      select?: string;
+      // populate: string[];
+    } = {
+      sort: { createdAt: -1 },
+      page: Number(pageNo),
+      limit: Number(pageSize),
+      select: '-__v',
+      // populate: ['tag'],
+    };
+
     if (keyword) {
       const keywordReg = new RegExp(keyword);
       query.$or = [{ name: keywordReg }, { descript: keywordReg }];
     }
 
-    return await this.model.find(query);
+    return await this.model.paginate(query, options);
   }
 
   public async create(data: TagDto): Promise<ITag> {
