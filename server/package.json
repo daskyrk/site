@@ -40,6 +40,7 @@
     "@nestjs/mongoose": "^6.0.0",
     "@nestjs/passport": "^6.0.0",
     "@nestjs/platform-express": "^6.0.4",
+    "@types/geoip-lite": "^1.1.29",
     "apollo-server-express": "^2.4.8",
     "body-parser": "^1.18.3",
     "cache-manager": "^2.9.0",
