@@ -57,17 +57,23 @@ module.exports = {
   // loading: '~/components/loading.vue',
 
   /*
-  ** Global CSS
-  */
+   ** Global CSS
+   */
   css: [
     'element-ui/lib/theme-chalk/index.css',
     'mavon-editor/dist/css/index.css',
   ],
-  // bugs here,see: https://github.com/anteriovieira/nuxt-sass-resources-loader/issues/17
-  // styleResources: {
-  //   scss: ['./assets/style/index.scss']
-  // },
-  sassResources: ['./assets/style/index.scss'],
+  styleResources: {
+    scss: [
+      '~/assets/style/reset/typography.scss',
+      '~/assets/style/reset/sanitize.scss',
+      '~/assets/style/variable.scss',
+      '~/assets/style/mixin.scss',
+      '~/assets/style/transition.scss',
+      '~/assets/style/common.scss',
+      '~/assets/style/syntax.scss',
+    ],
+  },
 
   plugins: [
     { src: '~/plugins/markdown.js', ssr: false },
@@ -84,7 +90,6 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/style-resources',
-    'nuxt-sass-resources-loader',
   ],
 
   axios: {
@@ -114,8 +119,8 @@ module.exports = {
 
   build: {
     /*
-    ** You can extend webpack config here
-    */
+     ** You can extend webpack config here
+     */
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
