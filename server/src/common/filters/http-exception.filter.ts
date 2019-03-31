@@ -1,4 +1,4 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException, Logger } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, Logger } from '@nestjs/common';
 
 const logger = new Logger();
 
@@ -11,11 +11,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const status = exception.getStatus();
 
     logger.error(
-      JSON.stringify({
-        message: exception.message,
-        time: new Date().toLocaleString(),
-        path: request.url,
-      }),
+      exception.message,
+      exception.stack,
     );
 
     response
