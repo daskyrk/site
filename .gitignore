@@ -4,3 +4,4 @@ client/.nuxt
 db/blog/
 .env*
 */dist
+temp
