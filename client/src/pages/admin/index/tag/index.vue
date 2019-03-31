@@ -1,32 +1,32 @@
 <template>
   <ccard title="标签列表">
     <div slot="op">
-      <el-button 
-        type="primary" 
-        size="small" 
+      <el-button
+        type="primary"
+        size="small"
         @click="showDialog('添加标签')"
       >
         添加
       </el-button>
-      <dialog-form 
-        :title="dialogTitle" 
-        :dialog-visible="dialogVisible" 
-        :fields="fields" 
-        :fields-value="fieldsValue" 
-        :on-ok="onOk" 
-        :on-cancel="onCancel" 
+      <dialog-form
+        :title="dialogTitle"
+        :dialog-visible="dialogVisible"
+        :fields="fields"
+        :fields-value="fieldsValue"
+        :on-ok="onOk"
+        :on-cancel="onCancel"
         :on-close="onClose"
       />
     </div>
 
-    <el-table 
-      v-if="list.length" 
-      v-loading="fetch" 
-      :data="list" 
+    <el-table
+      v-if="list.length"
+      v-loading="fetch"
+      :data="list"
       style="width: 100%"
     >
-      <el-table-column 
-        label="名称" 
+      <el-table-column
+        label="名称"
         width="160"
       >
         <template slot-scope="scope">
@@ -34,8 +34,8 @@
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column 
-        label="描述" 
+      <el-table-column
+        label="描述"
         show-overflow-tooltip
       >
         <template slot-scope="scope">
@@ -43,24 +43,24 @@
           {{ scope.row.descript }}
         </template>
       </el-table-column>
-      <el-table-column 
-        label="操作" 
+      <el-table-column
+        label="操作"
         width="240"
       >
         <template slot-scope="scope">
-          <el-button 
-            type="info" 
-            icon="el-icon-edit" 
-            circle 
-            size="small" 
+          <el-button
+            type="info"
+            icon="el-icon-edit"
+            circle
+            size="small"
             @click="showDialog('修改标签', scope.row)"
           />
-          <el-button 
-            :loading="isDeleting(scope.row) " 
-            type="danger" 
-            icon="el-icon-delete" 
-            circle 
-            size="small" 
+          <el-button
+            :loading="isDeleting(scope.row) "
+            type="danger"
+            icon="el-icon-delete"
+            circle
+            size="small"
             @click="deleteTag(scope.row)"
           />
         </template>
@@ -68,13 +68,13 @@
     </el-table>
     <empty-holder v-else />
 
-    <el-pagination 
-      slot="footer" 
-      :current-page="query.pageNo" 
-      :page-size="query.pageSize" 
-      :total="total" 
-      background 
-      layout="prev, pager, next" 
+    <el-pagination
+      slot="footer"
+      :current-page="query.pageNo"
+      :page-size="query.pageSize"
+      :total="total"
+      background
+      layout="prev, pager, next"
       @current-change="pageChange"
     />
   </ccard>
@@ -91,10 +91,6 @@ export default {
 
   components: {
     DialogForm,
-  },
-
-  async fetch({ store }) {
-    await store.dispatch('tag/getTags')
   },
 
   data() {
@@ -133,6 +129,10 @@ export default {
       fetch: state => state.fetch['admin/article#get'],
     }),
     ...mapState('tag', ['list', 'total', 'query']),
+  },
+
+  async fetch({ store }) {
+    await store.dispatch('tag/getTags')
   },
 
   methods: {

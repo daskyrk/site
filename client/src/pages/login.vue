@@ -57,10 +57,6 @@ export default {
 
   layout: 'empty',
 
-  async fetch({ store }) {
-    await store.dispatch('user/checkRegisterable')
-  },
-
   data() {
     return {
       form: {
@@ -82,6 +78,10 @@ export default {
 
   computed: {
     ...mapState('user', ['logining', 'registerable']),
+  },
+
+  async fetch({ store }) {
+    await store.dispatch('user/checkRegisterable')
   },
 
   mounted() {

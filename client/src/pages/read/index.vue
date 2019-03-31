@@ -32,10 +32,6 @@
 import { mapState } from 'vuex'
 
 export default {
-  async fetch({ store }) {
-    await store.dispatch('article/getArtList', { type: 'READ' })
-  },
-
   computed: {
     ...mapState('article', ['list', 'total', 'query']),
     hasMore() {
@@ -44,6 +40,10 @@ export default {
     recent() {
       return [this.list.slice(0, 6), this.list.slice(6, 12)]
     },
+  },
+
+  async fetch({ store }) {
+    await store.dispatch('article/getArtList', { type: 'READ' })
   },
 
   beforeDestroy() {

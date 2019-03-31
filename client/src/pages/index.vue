@@ -76,12 +76,6 @@ export default {
 
   layout: 'empty',
 
-  async fetch({ app, store }) {
-    if (process.env.bg_mode === 'story') {
-      await store.dispatch('getBingStory')
-    }
-  },
-
   data() {
     return {
       navs: process.env.navs,
@@ -104,6 +98,12 @@ export default {
       }
       return {}
     },
+  },
+
+  async fetch({ app, store }) {
+    if (process.env.bg_mode === 'story') {
+      await store.dispatch('getBingStory')
+    }
   },
 }
 </script>

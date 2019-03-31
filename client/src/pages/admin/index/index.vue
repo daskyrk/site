@@ -44,11 +44,6 @@ export default {
     breadcrumb: '总览',
   },
 
-  async fetch({ store }) {
-    await store.dispatch('admin/article/summary')
-    // await store.dispatch('admin/tag/summary');
-  },
-
   data() {
     return {
       chartOptions: {
@@ -96,6 +91,11 @@ export default {
         ],
       }
     },
+  },
+
+  async fetch({ store }) {
+    await store.dispatch('admin/article/summary')
+    // await store.dispatch('admin/tag/summary');
   },
 }
 </script>

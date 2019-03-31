@@ -12,13 +12,13 @@ export default {
     Article,
   },
 
+  computed: {
+    ...mapState('article', ['detail']),
+  },
+
   async fetch({ store, params }) {
     await store.dispatch('article/getArt', params.id)
     await store.dispatch('tag/getTags', { pageSize: 100 })
-  },
-
-  computed: {
-    ...mapState('article', ['detail']),
   },
 }
 </script>

@@ -158,10 +158,6 @@ export default {
     SearchBook,
   },
 
-  async fetch({ store }) {
-    await store.dispatch('admin/article/getArtList', { type: 'READ' })
-  },
-
   data() {
     return {
       type: 'READ',
@@ -180,6 +176,10 @@ export default {
     }),
     ...mapState('admin/article', ['list', 'total', 'query']),
     ...mapState('read', ['searchList']),
+  },
+
+  async fetch({ store }) {
+    await store.dispatch('admin/article/getArtList', { type: 'READ' })
   },
 
   methods: {

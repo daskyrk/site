@@ -254,11 +254,6 @@ export default {
     breadcrumb: '文章列表',
   },
 
-  async fetch({ store }) {
-    await store.dispatch('admin/article/getArtList')
-    await store.dispatch('tag/getTags', { pageSize: 100 })
-  },
-
   data() {
     const getDateRange = this.getDateRange()
     return {
@@ -312,6 +307,11 @@ export default {
     ...mapState('tag', {
       tagList: 'list',
     }),
+  },
+
+  async fetch({ store }) {
+    await store.dispatch('admin/article/getArtList')
+    await store.dispatch('tag/getTags', { pageSize: 100 })
   },
 
   // beforeDestroy() {

@@ -1,7 +1,7 @@
 <template>
   <div class="form-wrap">
-    <article-form 
-      :detail="detail" 
+    <article-form
+      :detail="detail"
       :on-submit="onSubmit"
     />
   </div>
@@ -20,11 +20,11 @@ export default {
     ArticleForm,
   },
 
+  computed: mapState('admin/article', ['detail']),
+
   async fetch({ store, params }) {
     await store.dispatch('admin/article/getArt', params.id)
   },
-
-  computed: mapState('admin/article', ['detail']),
 
   methods: {
     onSubmit(data) {

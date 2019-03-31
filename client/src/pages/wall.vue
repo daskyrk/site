@@ -45,10 +45,6 @@ export default {
 
   layout: 'empty',
 
-  async fetch({ store }) {
-    await store.dispatch('wish/getWishes')
-  },
-
   data() {
     return {
       submiting: false,
@@ -58,6 +54,10 @@ export default {
 
   computed: {
     ...mapState('wish', ['list']),
+  },
+
+  async fetch({ store }) {
+    await store.dispatch('wish/getWishes')
   },
 
   methods: {

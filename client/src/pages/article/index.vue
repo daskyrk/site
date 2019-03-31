@@ -20,13 +20,13 @@ export default {
     LoadMore,
   },
 
-  async fetch({ store }) {
-    await store.dispatch('article/getArtList', { type: 'READ' })
-  },
-
   computed: {
     ...mapState('article', ['list', 'total', 'query']),
     ...mapGetters('article', ['hasMore']),
+  },
+
+  async fetch({ store }) {
+    await store.dispatch('article/getArtList', { type: 'READ' })
   },
 
   beforeDestroy() {

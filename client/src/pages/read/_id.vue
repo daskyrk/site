@@ -46,16 +46,16 @@ export default {
 
   layout: 'empty',
 
-  async fetch({ store, params }) {
-    await store.dispatch('article/getArt', params.id)
-    await store.dispatch('tag/getTags', { pageSize: 100 })
-  },
-
   computed: {
     ...mapState('article', ['detail']),
     bookInfo() {
       return this.detail.extra ? this.detail.extra.book : {}
     },
+  },
+
+  async fetch({ store, params }) {
+    await store.dispatch('article/getArt', params.id)
+    await store.dispatch('tag/getTags', { pageSize: 100 })
   },
 }
 </script>

@@ -2,36 +2,36 @@
   <div class="search-result">
     <div class="search-by">
       Searched By:
-               <span 
-                 v-if="tag" 
-                 class="search-tag"
-               >
-                 <i class="iconfont icon-biaoqian" />
-                 {{ nameMap[tag] }}
-               </span>
-               <span 
-                 v-if="keyword" 
-                 class="search-keyword"
-               >
-                 <i class="iconfont icon-search" />
-                 {{ keyword }}
-               </span>
+      <span
+        v-if="tag"
+        class="search-tag"
+      >
+        <i class="iconfont icon-biaoqian" />
+        {{ nameMap[tag] }}
+      </span>
+      <span
+        v-if="keyword"
+        class="search-keyword"
+      >
+        <i class="iconfont icon-search" />
+        {{ keyword }}
+      </span>
     </div>
     <div v-if="list.length">
       <article-card :list="list" />
-      <LoadMore 
-        :has-more="hasMore" 
-        :load="loadMore" 
+      <LoadMore
+        :has-more="hasMore"
+        :load="loadMore"
         dom-selector=".search-result"
       />
     </div>
-    <empty-holder 
-      v-else 
+    <empty-holder
+      v-else
       large
     >
       这里神马都没有
-      <span 
-        class="btn" 
+      <span
+        class="btn"
         @click="goback"
       >
         返回
@@ -51,11 +51,6 @@ export default {
     LoadMore,
   },
 
-  async fetch({ store, query }) {
-    const { tag, keyword } = query
-    await store.dispatch('search/doSearch', { tag, keyword })
-  },
-
   watchQuery: ['tag', 'keyword'],
 
   computed: {
@@ -68,6 +63,11 @@ export default {
     keyword() {
       return this.$route.query.keyword
     },
+  },
+
+  async fetch({ store, query }) {
+    const { tag, keyword } = query
+    await store.dispatch('search/doSearch', { tag, keyword })
   },
 
   beforeDestroy() {

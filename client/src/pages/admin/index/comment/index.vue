@@ -210,10 +210,6 @@ export default {
     breadcrumb: '留言列表',
   },
 
-  async fetch({ store }) {
-    await store.dispatch('admin/comment/getComments')
-  },
-
   filters: {
     stateIcon: function(state) {
       const iconMap = {
@@ -279,6 +275,10 @@ export default {
       fetch: state => state.fetch['admin/comment#get'],
     }),
     ...mapState('admin/comment', ['list', 'total', 'query']),
+  },
+
+  async fetch({ store }) {
+    await store.dispatch('admin/comment/getComments')
   },
 
   methods: {
