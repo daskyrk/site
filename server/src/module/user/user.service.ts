@@ -23,8 +23,8 @@ export class UserService {
   }
 
   public async create(data: UserInfoDto): Promise<IUser> {
-    const createdCat = new this.model(data);
-    return await createdCat.save();
+    const newModel = new this.model(data);
+    return await newModel.save();
   }
 
   public async update(data: UserInfoDto) {

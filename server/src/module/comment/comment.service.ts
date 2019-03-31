@@ -17,8 +17,8 @@ export class CommentService {
   }
 
   public async create(data: CommentDto): Promise<IComment> {
-    const createdCat = new this.model(data);
-    return await createdCat.save();
+    const newModel = new this.model(data);
+    return await newModel.save();
   }
 
   public async update(data: CommentDto) {

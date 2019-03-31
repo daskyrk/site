@@ -33,8 +33,8 @@ export class TagService {
   }
 
   public async create(data: TagDto): Promise<ITag> {
-    const createdCat = new this.model(data);
-    return await createdCat.save();
+    const newModel = new this.model(data);
+    return await newModel.save();
   }
 
   public async update(data: TagDto) {
