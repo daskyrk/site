@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-const log = require('../log');
+const { logger } = require('./logger');
 
 function generateToken(data) {
   return jwt.sign(data, config.AUTH.secretKey);
@@ -18,7 +18,7 @@ function getTime(tmp) {
   var h = time.getHours(); //时
   var mm = time.getMinutes(); //分
   var s = time.getSeconds(); //秒
-  return (y + '-' + m + '-' + d + ' ' + h + ':' + mm + ':' + s);
+  return y + '-' + m + '-' + d + ' ' + h + ':' + mm + ':' + s;
 }
 
 function checkToken(token) {
@@ -29,7 +29,7 @@ function checkToken(token) {
     // console.log('当前时间:', getTime(Date.now()));
     return decoded.expireTime > now;
   } catch (err) {
-    log.warn('token 错误', err);
+    logger.warn('token 错误', err);
   }
 }
 

@@ -5,4 +5,4 @@ import { BlogLogger } from './logger';
   providers: [BlogLogger],
   exports: [BlogLogger],
 })
-export class BlogLoggerModule {}
+export class LoggerModule {}

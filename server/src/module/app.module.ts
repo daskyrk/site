@@ -5,6 +5,7 @@ import { MONGODB } from '../config/config';
 // import { ConfigModule } from './config/config.module';
 import { ArticleModule } from './article/article.module';
 import { CommentModule } from './comment/comment.module';
+// import { LoggerModule } from './common/logger/logger.module';
 import { TagModule } from './tag/tag.module';
 import { UserModule } from './user/user.module';
 
@@ -21,6 +22,7 @@ import { UserModule } from './user/user.module';
     ArticleModule,
     CommentModule,
     TagModule,
+    // LoggerModule,
   ],
 })
 export class AppModule {}

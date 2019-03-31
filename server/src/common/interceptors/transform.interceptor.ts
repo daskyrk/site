@@ -25,9 +25,9 @@ export class TransformInterceptor implements NestInterceptor<Response> {
         }
         return { data, success: true };
       }),
-      catchError(err =>
-        throwError(new HttpException('Message', HttpStatus.BAD_GATEWAY)),
-      ),
+      // catchError(err =>
+      //   throwError(new HttpException(err, HttpStatus.BAD_GATEWAY)),
+      // ),
     );
   }
 }
