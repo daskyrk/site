@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/
 import { ArticleService } from './article.service';
 import { ArticleInfoDto, QueryArticleDto } from './dto/article.dto';
 
-@Controller('api/article')
+@Controller('article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 

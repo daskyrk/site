@@ -1,26 +1,24 @@
-import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
-
-import helmet from 'helmet';
+import bodyParser from 'body-parser';
 import csurf from 'csurf';
 import rateLimit from 'express-rate-limit';
-import bodyParser from 'body-parser';
-// import compression from 'compression';
-import { APP } from './config/config';
+import helmet from 'helmet';
+import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 // import { BlogLogger } from './module/common/logger/logger';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { LoggingInterceptor } from './common/interceptors/logger.interceptor';
 import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
-
+// import compression from 'compression';
+import { APP } from './config/config';
 import { AppModule } from './module/app.module';
 
 declare const module: any;
 async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
   // const logger = app.get(BlogLogger);
-
   // app.useLogger(logger);
 
   // logger.log(APP.name + ' start...');
