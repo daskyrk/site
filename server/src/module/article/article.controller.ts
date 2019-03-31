@@ -18,7 +18,6 @@ export class ArticleController {
 
   @Get()
   public searchArticles(@Query() query: QueryArticleDto) {
-    console.log('query:', query);
     return this.articleService.search(query);
   }
 

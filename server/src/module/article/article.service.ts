@@ -105,8 +105,6 @@ export class ArticleService {
       }
     }
 
-    console.log('options:', options);
-
     // 按热度排行
     if (hot) {
       options.sort = {
