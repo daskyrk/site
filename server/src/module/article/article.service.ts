@@ -58,7 +58,7 @@ export class ArticleService {
       sort: { createdAt: -1 },
       page: Number(pageNo),
       limit: Number(pageSize),
-      // select: '-content -__v',
+      select: '-content -__v',
       // populate: ['tag'],
     };
 
