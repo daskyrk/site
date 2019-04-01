@@ -1,6 +1,7 @@
-import log4js, { Logger } from 'log4js';
 import { Injectable, LoggerService } from '@nestjs/common';
-import { APP, LOG4J } from '../../../config/config';
+import log4js, { Logger } from 'log4js';
+
+import { LOG4J } from '@/config/config';
 
 @Injectable()
 export class BlogLogger implements LoggerService {
