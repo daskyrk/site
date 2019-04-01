@@ -28,8 +28,16 @@ export class ConfigService {
       NODE_ENV: Joi.string()
         .valid(['development', 'production', 'test', 'provision'])
         .default('development'),
-      PORT: Joi.number().default(3000),
+      APP_NAME: Joi.string(),
+      APP_PORT: Joi.number().default(8000),
+      APP_LIMIT: Joi.number().default(10),
+      API_PRIFIX: Joi.string().default('/'),
       MONGO_URI: Joi.string().required(),
+      AUTHOR: Joi.string(),
+      AUTHOR_SITE: Joi.string(),
+      AUTHOR_MAIL: Joi.string(),
+      EMAIL_ACCOUNT: Joi.string(),
+      EMAIL_PASSWORD: Joi.string(),
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(
