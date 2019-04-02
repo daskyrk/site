@@ -1,16 +1,12 @@
-import { GraphQLModule } from '@nestjs/graphql';
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-import config from '@/config';
+import { ServicesModule } from './services/services.module';
 
+/**
+ * 业务模块共享的模块
+ */
 @Module({
   imports: [
-    // GraphQLModule.forRoot({
-    //   typePaths: ['./**/*.graphql'],
-    //   // debug: false,
-    //   // playground: false,
-    // }),
-    MongooseModule.forRoot(config.MONGO_URI),
+    // ServicesModule,
   ],
 })
 export class SharedModule {}

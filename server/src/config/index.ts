@@ -37,6 +37,8 @@ export class ConfigService {
       AUTHOR: Joi.string(),
       AUTHOR_SITE: Joi.string(),
       AUTHOR_MAIL: Joi.string(),
+      EMAIL_HOST: Joi.string(),
+      EMAIL_PORT: Joi.number(),
       EMAIL_ACCOUNT: Joi.string(),
       EMAIL_PASSWORD: Joi.string(),
     });
@@ -83,6 +85,14 @@ export class ConfigService {
     return this.envConfig.AUTHOR_MAIL;
   }
 
+  public get EMAIL_HOST() {
+    return this.envConfig.EMAIL_HOST;
+  }
+
+  public get EMAIL_PORT() {
+    return this.envConfig.EMAIL_PORT;
+  }
+
   public get EMAIL_ACCOUNT() {
     return this.envConfig.EMAIL_ACCOUNT;
   }
@@ -107,6 +117,8 @@ export class ConfigService {
 
   public get EMAIL_INFO() {
     return {
+      host: this.envConfig.EMAIL_HOST,
+      port: this.envConfig.EMAIL_PORT,
       account: this.envConfig.EMAIL_ACCOUNT,
       password: this.envConfig.EMAIL_PASSWORD,
     };

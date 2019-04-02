@@ -6,6 +6,9 @@ import { SharedModule } from '@/shared/shared.module';
 import { TagModule } from '@/feature/tag/tag.module';
 import { UserModule } from '@/feature/user/user.module';
 
+/**
+ * 包含所有的业务模块
+ */
 @Module({
   imports: [SharedModule, UserModule, ArticleModule, CommentModule, TagModule],
   exports: [UserModule, ArticleModule, CommentModule, TagModule],
