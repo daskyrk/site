@@ -1,4 +1,4 @@
-import { AppModule } from '@/feature/app.module';
+import { AppModule } from '@/app.module';
 import { BlogLogger } from '@/feature/common/logger/logger';
 import { HttpExceptionFilter } from '@/core/filters/http-exception.filter';
 import { Logger } from '@nestjs/common';

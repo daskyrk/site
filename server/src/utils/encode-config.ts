@@ -1,5 +1,5 @@
+import { cryptoUtil } from '.';
 import path from 'path';
-import { cryptoUtil } from '../utils';
 
 interface IArg {
   sk: string;
@@ -25,15 +25,15 @@ if (secretKey.length !== 16) {
 if (argMap.de) {
   // 解密配置文件
   cryptoUtil.decodeFile(
-    path.join(__dirname, './config.aes'),
-    path.join(__dirname, './config.ts'),
+    path.join(__dirname, '../config/config.aes'),
+    path.join(__dirname, '../config/config.ts'),
     secretKey,
   );
 } else {
   // 加密配置文件
   cryptoUtil.encodeFile(
-    path.join(__dirname, './my-config.ts'),
-    path.join(__dirname, './config.aes'),
+    path.join(__dirname, '../config/my-config.ts'),
+    path.join(__dirname, '../config/config.aes'),
     secretKey,
   );
 }
