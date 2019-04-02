@@ -1,8 +1,7 @@
 import { AppModule } from '@/app.module';
-import { BlogLogger } from '@/feature/common/logger/logger';
+import { BlogLogger } from '@/shared/logger/logger';
 import { HttpExceptionFilter } from '@/core/filters/http-exception.filter';
 import { Logger } from '@nestjs/common';
-import { LoggingInterceptor } from '@/core/interceptors/logger.interceptor';
 import { NestFactory } from '@nestjs/core';
 import { TimeoutInterceptor } from '@/core/interceptors/timeout.interceptor';
 import { TransformInterceptor } from '@/core/interceptors/transform.interceptor';

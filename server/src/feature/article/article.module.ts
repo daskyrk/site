@@ -1,9 +1,10 @@
 import { HttpModule, Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+
 import { ArticleController } from './article.controller';
+import { ArticleSchema } from './schema/article.schema';
 // import { ArticleResolver } from './article.resolver';
 import { ArticleService } from './article.service';
-import { ArticleSchema } from './schema/article.schema';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -11,6 +12,5 @@ import { ArticleSchema } from './schema/article.schema';
   ],
   controllers: [ArticleController],
   providers: [ArticleService],
-  // exports: [ArticleService],
 })
 export class ArticleModule {}

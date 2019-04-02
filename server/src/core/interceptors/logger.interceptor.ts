@@ -1,6 +1,6 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 
-import { BlogLogger } from '@/feature/common/logger/logger';
+import { BlogLogger } from '@/shared/logger/logger';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { tap } from 'rxjs/operators';
 
