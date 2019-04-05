@@ -2,14 +2,11 @@ import {
   ArgumentMetadata,
   BadRequestException,
   Injectable,
-  Logger,
   PipeTransform,
 } from '@nestjs/common';
 
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-
-const logger = new Logger();
 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
@@ -24,10 +21,12 @@ export class ValidationPipe implements PipeTransform<any> {
       return value;
     }
     const object = plainToClass(metatype, value);
-    const errors = await validate(object);
+    const errors = await validate(object, { skipMissingProperties: true });
     if (errors.length > 0) {
-      const errMsgs = errors.map(err => Object.values(err.constraints).join(', '));
-      throw new BadRequestException('Validation failed', errMsgs.join(', '));
+      const errMsgs = errors.map(err =>
+        Object.values(err.constraints).join(', '),
+      );
+      throw new BadRequestException(`Validation failed: ${errMsgs.join(', ')}`);
     }
     return value;
   }

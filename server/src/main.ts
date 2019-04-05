@@ -1,6 +1,6 @@
+import { AnyExceptionFilter } from '@/core/filters/any-exception.filter';
 import { AppModule } from '@/app.module';
 import { BlogLogger } from '@/shared/logger/logger';
-import { HttpExceptionFilter } from '@/core/filters/http-exception.filter';
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { TimeoutInterceptor } from '@/core/interceptors/timeout.interceptor';
@@ -21,7 +21,7 @@ async function bootstrap() {
   // 开启自定义logger需要在app.module中引入LoggerModule
   // app.useLogger(app.get(BlogLogger));
 
-  app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalFilters(new AnyExceptionFilter());
 
   app.useGlobalInterceptors(new TimeoutInterceptor(), new TransformInterceptor());
 
