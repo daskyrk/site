@@ -1,8 +1,9 @@
-import { PaginateModel } from 'mongoose';
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { CommentDto, QueryCommentDto } from './dto/comment.dto';
+
 import { IComment } from './interface/comment.interface';
+import { InjectModel } from '@nestjs/mongoose';
+import { Injectable } from '@nestjs/common';
+import { PaginateModel } from 'mongoose';
 
 @Injectable()
 export class CommentService {
@@ -22,7 +23,7 @@ export class CommentService {
       sort: { createdAt: -1 },
       page: Number(pageNo),
       limit: Number(pageSize),
-      select: '-__v',
+      // select: '',
       // populate: ['tag'],
     };
 

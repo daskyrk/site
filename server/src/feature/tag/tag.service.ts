@@ -1,8 +1,9 @@
-import { PaginateModel } from 'mongoose';
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { QueryTagDto, TagDto } from './dto/tag.dto';
+
 import { ITag } from './interface/tag.interface';
+import { InjectModel } from '@nestjs/mongoose';
+import { Injectable } from '@nestjs/common';
+import { PaginateModel } from 'mongoose';
 
 @Injectable()
 export class TagService {
@@ -20,7 +21,7 @@ export class TagService {
       sort: { createdAt: -1 },
       page: Number(pageNo),
       limit: Number(pageSize),
-      select: '-__v',
+      // select: '',
       // populate: ['tag'],
     };
 

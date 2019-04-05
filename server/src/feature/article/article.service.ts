@@ -1,8 +1,9 @@
-import { PaginateModel } from 'mongoose';
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { ArticleInfoDto, QueryArticleDto } from './dto/article.dto';
+
 import { IArticle } from './interface/article.interface';
+import { InjectModel } from '@nestjs/mongoose';
+import { Injectable } from '@nestjs/common';
+import { PaginateModel } from 'mongoose';
 
 @Injectable()
 export class ArticleService {
@@ -58,7 +59,7 @@ export class ArticleService {
       sort: { createdAt: -1 },
       page: Number(pageNo),
       limit: Number(pageSize),
-      select: '-content -__v',
+      select: '-content',
       // populate: ['tag'],
     };
 
