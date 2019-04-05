@@ -6,22 +6,29 @@ import {
   Logger,
 } from '@nestjs/common';
 
-const logger = new Logger();
+const logger = new Logger('Exception filter');
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
   public catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
-    const status = exception.getStatus();
 
-    const { message, stack } = exception;
+    const errorRes = exception.getResponse();
+    if (typeof errorRes === 'object') {
+      const { message, statusCode, error } = errorRes as any;
 
-    logger.error(message, stack);
+      // logger.error(error);
 
-    response.status(status).json({
-      message,
-      success:false,
-    });
+      response.status(statusCode).json({
+        message: error,
+        success: false,
+      });
+    } else {
+      response.status(exception.getStatus()).json({
+        message: exception.message,
+        success: false,
+      });
+    }
   }
 }

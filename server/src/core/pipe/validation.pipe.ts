@@ -1,5 +1,3 @@
-import { plainToClass } from 'class-transformer';
-import { validate } from 'class-validator';
 import {
   ArgumentMetadata,
   BadRequestException,
@@ -7,6 +5,9 @@ import {
   Logger,
   PipeTransform,
 } from '@nestjs/common';
+
+import { plainToClass } from 'class-transformer';
+import { validate } from 'class-validator';
 
 const logger = new Logger();
 
@@ -25,9 +26,8 @@ export class ValidationPipe implements PipeTransform<any> {
     const object = plainToClass(metatype, value);
     const errors = await validate(object);
     if (errors.length > 0) {
-      const errMsg = errors.reduce((msg, err) => msg+=Object.values(err.constraints).join(', '), '');
-      logger.error(errMsg);
-      throw new BadRequestException('Validation failed', errMsg);
+      const errMsgs = errors.map(err => Object.values(err.constraints).join(', '));
+      throw new BadRequestException('Validation failed', errMsgs.join(', '));
     }
     return value;
   }
