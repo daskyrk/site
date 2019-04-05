@@ -54,10 +54,7 @@ export abstract class BaseService<T extends Document> {
    * @returns {(Promise<T | T[] | null>)}
    * @memberof BaseService
    */
-  private populates<R>(
-    docsQuery: any,
-    populates?: any,
-  ): Promise<R> {
+  private populates<R>(docsQuery: any, populates?: any): Promise<R> {
     if (populates) {
       [].concat(populates).forEach((item: any) => {
         docsQuery.populate(item);
@@ -200,7 +197,7 @@ export abstract class BaseService<T extends Document> {
 
   /**
    * 根据id获取单条数据
-   * @param {(any | string | number)} id
+   * @param {(string)} id
    * @param {*} [projection]
    * @param {({
    *         lean?: boolean;
@@ -211,7 +208,7 @@ export abstract class BaseService<T extends Document> {
    * @memberof BaseService
    */
   public findById(
-    id: any | string | number,
+    id: string,
     projection?: any,
     options: {
       lean?: boolean;
@@ -250,7 +247,7 @@ export abstract class BaseService<T extends Document> {
 
   /**
    * 删除指定id数据
-   * @param {string} id
+   * @param {(string)} id
    * @returns {Promise<T>}
    * @memberof BaseService
    */
@@ -266,20 +263,16 @@ export abstract class BaseService<T extends Document> {
   /**
    * 更新指定对象数据
    * @param {Partial<T>} [item={}]
+   * @param {Partial<T>} [item={}]
    * @returns {Promise<T>}
    * @memberof BaseService
    */
   public async update(
+    id: string,
     update: Partial<T>,
     options: QueryFindOneAndUpdateOptions = { new: true },
   ): Promise<T | null> {
-    const conditions = {...update};
-    if (update._id) {
-      conditions._id = this.toObjectId(update._id);
-    }
-    return this._model
-      .findOneAndUpdate(conditions, update, options)
-      .exec();
+    return this._model.findByIdAndUpdate(this.toObjectId(id), update, options).exec();
   }
 
   /**
