@@ -7,8 +7,7 @@ import {
   QueryFindOneAndUpdateOptions,
   Types,
 } from 'mongoose';
-
-import { WriteOpResult } from 'mongodb';
+import { ObjectID, WriteOpResult } from 'mongodb';
 
 /**
  * 分页器返回结果
@@ -43,6 +42,9 @@ export abstract class BaseService<T extends Document> {
    * @memberof BaseService
    */
   private toObjectId(id: string): Types.ObjectId {
+    if (!ObjectID.isValid(id)) {
+      throw new Error('id is not a valid objectID');
+    }
     return Types.ObjectId(id);
   }
 

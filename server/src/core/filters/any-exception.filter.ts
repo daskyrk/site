@@ -4,7 +4,10 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
+
+const logger = new Logger('Exception Filter');
 
 @Catch()
 export class AnyExceptionFilter implements ExceptionFilter {
@@ -12,6 +15,9 @@ export class AnyExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
 
+    if (process.env.NODE_ENV !== 'production') {
+      logger.error(exception.message, exception.stack);
+    }
     if (exception instanceof HttpException) {
       const errorRes = exception.getResponse();
       if (typeof errorRes === 'object') {
