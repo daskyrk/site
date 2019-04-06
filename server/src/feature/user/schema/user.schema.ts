@@ -1,25 +1,50 @@
+import * as utility from 'utility';
+
+import { IUser } from '../interface/user.interface';
 import Mongoose from 'mongoose';
+import { schemaOptions } from '@/shared/base';
 
 export const UserSchema = new Mongoose.Schema(
   {
-    username: {
+    email: {
       type: String,
       required: true,
-      match: /.{1,30}/,
     },
     password: {
       type: String,
       required: true,
-      match: /.{6,30}/,
     },
     nick: String,
     slogan: String,
     avatar: String,
-    email: String,
     address: String,
-    contact: String,
+    phone: String,
+    site: String,
   },
-  {
-    timestamps: true,
-  },
+  schemaOptions,
 );
+
+// 设置索引
+UserSchema.index({ email: 1 });
+
+// 设置虚拟属性
+UserSchema.virtual('avatar_url').get(function(this: IUser) {
+  if (!this.email) {
+    return '';
+  }
+  let url = this.avatar || `https://gravatar.com/avatar/${utility.md5(this.email)}?size=48`;
+
+  // www.gravatar.com 被墙
+  url = url.replace('www.gravatar.com', 'gravatar.com');
+
+  // 让协议自适应 protocol，使用 `//` 开头
+  if (url.indexOf('http:') === 0) {
+      url = url.slice(5);
+  }
+
+  // 如果是 github 的头像，则限制大小
+  if (url.indexOf('githubusercontent') !== -1) {
+      url += '&s=120';
+  }
+  return url;
+});

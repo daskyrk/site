@@ -1,24 +1,45 @@
-import { IsEmail, IsNotEmpty, Length } from 'class-validator';
+import {
+  IsDefined,
+  IsEmail,
+  IsFQDN,
+  IsMobilePhone,
+  Length,
+} from 'class-validator';
 
 export class UserInfoDto {
   public _id: string;
 
-  @IsNotEmpty()
-  @Length(1, 30)
-  public username: string;
+  @IsEmail() // gmail时validator验证要求用户名大于6个字符....
+  @IsDefined({ message: "email can't not be empty" })
+  public email: string;
 
-  @IsNotEmpty()
+  @IsDefined({ message: "password can't not be empty" })
   @Length(6, 30)
   public password: string;
 
+  @Length(1, 30)
   public nick: string;
 
+  @Length(1, 100)
   public slogan: string;
 
   public avatar: string;
 
-  @IsEmail()
-  public email: string;
   public address: string;
-  public contact: string;
+
+  @IsMobilePhone('zh-CN')
+  public phone: string;
+
+  @IsFQDN()
+  public site: string;
+}
+
+export class LoginDto {
+  @IsEmail() // gmail时validator验证要求用户名大于6个字符....
+  @IsDefined({ message: "email can't not be empty" })
+  public email: string;
+
+  @IsDefined({ message: "password can't not be empty" })
+  @Length(6, 30)
+  public password: string;
 }

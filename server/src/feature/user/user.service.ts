@@ -1,42 +1,57 @@
-import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { UserInfoDto } from './dto/user.dto';
+import { LoginDto, UserInfoDto } from './dto/user.dto';
+
+import { BaseService } from 'shared/base';
 import { IUser } from './interface/user.interface';
+import { InjectModel } from '@nestjs/mongoose';
+import { Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
+import utility from 'utility';
 
 @Injectable()
-export class UserService {
-  constructor(@InjectModel('User') private readonly model: Model<IUser>) {}
+export class UserService extends BaseService<IUser> {
+  constructor(@InjectModel('User') private readonly model: Model<IUser>) {
+    super(model);
+  }
 
   public async search(keyword: string) {
     const query = {} as any;
     if (keyword) {
-      const keywordReg = new RegExp(keyword);
-      query.$or = [{ name: keywordReg }, { nick: keywordReg }];
+      const keywordReg = new RegExp(keyword, 'i');
+      query.$or = [
+        { email: keywordReg },
+        { nick: keywordReg },
+        { phone: keywordReg },
+      ];
     }
 
-    return await this.model.find(query);
+    return await super.findAll(query);
   }
 
-  public async getById(id: string) {
-    return await this.model.findById(id);
-  }
+  public async create(data: UserInfoDto) {
+    const { email, password } = data;
+    const exist = await super.findOne({ email });
+    if (exist) {
+      throw new Error('该email已注册');
+    }
 
-  public async create(data: UserInfoDto): Promise<IUser> {
-    const newModel = new this.model(data);
-    return await newModel.save();
-  }
-
-  public async update(data: UserInfoDto) {
-    const res = await this.model.findByIdAndUpdate(data._id, data, {
-      new: true,
+    const user = await super.create({
+      ...data,
+      password: utility.sha256(password),
     });
-    return res;
+    return await user.save();
   }
 
-  public async delete(id: string) {
-    const res = await this.model.findByIdAndRemove(id);
-    return res;
-  }
+  public async login(data: LoginDto) {
+    const { email, password } = data;
+    const exist = await super.findOne({ email });
+    if (!exist) {
+      throw new Error('该email未注册');
+    }
+    if (exist.password !== utility.sha256(password)) {
+      throw new Error('密码错误');
+    }
+    // TODO: set cookie
 
+    return exist;
+  }
 }
