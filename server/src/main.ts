@@ -32,7 +32,10 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  app.useGlobalGuards(new AuthGuard(), new RolesGuard(new Reflector()));
+  app.useGlobalGuards(
+    new AuthGuard(),
+    // new RolesGuard(new Reflector()),
+  );
 
   // 支持 CORS
   app.enableCors({

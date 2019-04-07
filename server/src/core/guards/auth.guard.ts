@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 
 import { Observable } from 'rxjs';
 import { checkToken } from '@/utils/auth';
@@ -13,10 +18,16 @@ export class AuthGuard implements CanActivate {
       const [type, token] = request.headers.authorization.split(' ');
       if (type === 'Bearer') {
         const encoded = checkToken(token);
-        return !!encoded;
+        if (encoded) {
+          request.user = encoded;
+          return true;
+        }
+        throw new UnauthorizedException('token is invalid');
       }
-      return false;
+      throw new UnauthorizedException('Authorization type invalid');
     }
-    return false;
+    throw new UnauthorizedException(
+      `missing Authorization header when request to ${request.path}`,
+    );
   }
 }
