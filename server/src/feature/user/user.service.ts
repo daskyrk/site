@@ -28,7 +28,7 @@ export class UserService extends BaseService<IUser> {
     return await super.findAll(query);
   }
 
-  public async create(data: UserInfoDto) {
+  public async createUser(data: UserInfoDto) {
     const { email, password } = data;
     const exist = await super.findOne({ email });
     if (exist) {
@@ -39,7 +39,12 @@ export class UserService extends BaseService<IUser> {
       ...data,
       password: utility.sha256(password),
     });
-    return await user.save();
+    const result = await user.save();
+    const token = generateToken({ email });
+    return {
+      user: result,
+      token,
+    };
   }
 
   public async login(data: LoginDto) {

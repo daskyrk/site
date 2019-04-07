@@ -23,7 +23,7 @@ export class UserController {
 
   @Post()
   public create(@Body() userInfoDto: UserInfoDto) {
-    return this.userService.create(userInfoDto);
+    return this.userService.createUser(userInfoDto);
   }
 
   @Post('login')
@@ -33,7 +33,7 @@ export class UserController {
       .cookie('token', token, { httpOnly: true, maxAge: config.TOKEN_TIME })
       .status(HttpStatus.OK)
       .json({
-        data: user,
+        data: { user, token },
         success: true,
       });
   }
