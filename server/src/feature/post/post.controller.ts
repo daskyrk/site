@@ -24,7 +24,6 @@ export class PostController {
   @Get()
   public searchPosts(@Query() query: QueryPostDto, @Req() req: Request) {
     if (!req.user) {
-      console.log('not login:');
       query.state = PostState.RELEASE;
       query.public = true;
     }

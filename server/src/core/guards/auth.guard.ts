@@ -26,8 +26,6 @@ export class AuthGuard implements CanActivate {
       }
       throw new UnauthorizedException('Authorization type invalid');
     }
-    throw new UnauthorizedException(
-      `missing Authorization header when request to ${request.path}`,
-    );
+    return true;
   }
 }
