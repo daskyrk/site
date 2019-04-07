@@ -5,8 +5,8 @@ export interface IPost extends PostInfoDto, BaseInterface {
 }
 
 export enum PostType {
+  ARTICLE = "ARTICLE",
   READ = "READ",
-  CODE = "CODE",
   THINK = "THINK",
 }
 

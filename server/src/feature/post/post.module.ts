@@ -1,5 +1,4 @@
-import { HttpModule, Module } from '@nestjs/common';
-
+import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PostController } from './post.controller';
 import { PostSchema } from './schema/post.schema';
