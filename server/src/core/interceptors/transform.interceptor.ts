@@ -1,13 +1,11 @@
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 import {
   CallHandler,
   ExecutionContext,
-  HttpException,
-  HttpStatus,
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
+
+import { map } from 'rxjs/operators';
 
 export interface Response {
   docs: object[];
@@ -19,15 +17,14 @@ export class TransformInterceptor implements NestInterceptor<Response> {
   public intercept(context: ExecutionContext, next: CallHandler<Response>) {
     return next.handle().pipe(
       map(data => {
-        const { docs, ...rest } = data;
-        if (docs) {
-          return { data: { ...rest, list: docs }, success: true };
+        if (data) {
+          const { docs, ...rest } = data;
+          if (docs) {
+            return { data: { ...rest, list: docs }, success: true };
+          }
         }
         return { data, success: true };
       }),
-      // catchError(err =>
-      //   throwError(new HttpException(err, HttpStatus.BAD_GATEWAY)),
-      // ),
     );
   }
 }

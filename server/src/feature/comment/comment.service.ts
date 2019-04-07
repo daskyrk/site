@@ -1,17 +1,22 @@
 import { CommentDto, QueryCommentDto } from './dto/comment.dto';
 
+import { BaseService } from '@/shared/base';
 import { IComment } from './interface/comment.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { PaginateModel } from 'mongoose';
+import { Request } from 'express';
+import geoip from 'geoip-lite';
 
 @Injectable()
-export class CommentService {
+export class CommentService extends BaseService<IComment> {
   constructor(
     @InjectModel('Comment') private readonly model: PaginateModel<IComment>,
-  ) {}
+  ) {
+    super(model);
+  }
 
-  public async search({ pageNo = 1, pageSize = 10, keyword }: QueryCommentDto) {
+  public async search({ pageNo = 1, pageSize = 10, q }: QueryCommentDto) {
     const query = {} as any;
     const options: {
       sort: any;
@@ -28,8 +33,8 @@ export class CommentService {
     };
 
     // 关键词查询
-    if (keyword) {
-      const keywordReg = new RegExp(keyword);
+    if (q) {
+      const keywordReg = new RegExp(q, 'i');
       query.$or = [
         { title: keywordReg },
         { content: keywordReg },
@@ -40,24 +45,28 @@ export class CommentService {
     return await this.model.paginate(query, options);
   }
 
-  public async getById(id: string) {
-    return await this.model.findById(id);
-  }
+  public async createComment(data: CommentDto, req: Request) {
+    // 获取ip地址以及物理地理地址
+    let ip =
+      req.headers['x-forwarded-for'] ||
+      req.headers['x-real-ip'] ||
+      req.connection.remoteAddress ||
+      req.ip ||
+      req.ips[0];
+    ip = Array.isArray(ip) ? ip[0] : ip;
+    ip.replace('::ffff:', '');
+    data.ip = ip;
+    data.agent = req.headers['user-agent'] || data.agent;
 
-  public async create(data: CommentDto): Promise<IComment> {
-    const newModel = new this.model(data);
-    return await newModel.save();
-  }
+    const ipLocation = geoip.lookup(ip);
 
-  public async update(data: CommentDto) {
-    const res = await this.model.findByIdAndUpdate(data._id, data, {
-      new: true,
-    });
-    return res;
-  }
+    if (ipLocation) {
+      data.city = ipLocation.city;
+      data.range = ipLocation.range;
+      data.country = ipLocation.country;
+    }
+    const comment = await super.create(data);
 
-  public async delete(id: string) {
-    const res = await this.model.findByIdAndRemove(id);
-    return res;
+    return await comment.save();
   }
 }

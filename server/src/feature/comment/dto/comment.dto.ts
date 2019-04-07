@@ -1,19 +1,21 @@
-import { IsInt, IsNotEmpty } from 'class-validator';
+import { IsFQDN, IsInt, IsNotEmpty, IsString, Length, ValidateNested } from 'class-validator';
 
 export class CommentAuthorDto {
   @IsNotEmpty()
+  @IsString()
   public name: string;
 
   @IsNotEmpty()
   public email: string;
 
-  @IsNotEmpty()
+  @IsFQDN()
   public site: string;
 }
 
 export class CommentDto {
-  public _id: string;
+  public id: string;
 
+  // 页面url，发邮件时用
   public pageUrl: string;
 
   @IsNotEmpty()
@@ -22,9 +24,11 @@ export class CommentDto {
   public pid: string;
 
   @IsNotEmpty()
+  @Length(0, 2000)
   public content: string;
 
   @IsNotEmpty()
+  @ValidateNested()
   public author: CommentAuthorDto;
 
   @IsInt()
@@ -39,7 +43,7 @@ export class CommentDto {
 
   // ip 物理地址
   public city: string;
-  public range: string;
+  public range: number[];
   public country: string;
 
   // 用户ua
@@ -49,5 +53,5 @@ export class CommentDto {
 export class QueryCommentDto {
   public pageNo: number;
   public pageSize: number;
-  public keyword?: string;
+  public q?: string;
 }
