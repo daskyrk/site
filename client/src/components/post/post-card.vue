@@ -5,8 +5,8 @@ t<template>
   >
     <nuxt-link
       v-for="post in list"
-      :key="post._id"
-      :to="`/post/${post._id}`"
+      :key="post.id"
+      :to="`/post/${post.id}`"
     >
       <div class="post-item">
         <img

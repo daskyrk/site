@@ -27,9 +27,9 @@
               >
                 <el-option
                   v-for="tag in tagList"
-                  :key="tag._id"
+                  :key="tag.id"
                   :label="tag.name"
-                  :value="tag._id"
+                  :value="tag.id"
                 />
               </el-select>
             </el-form-item>
@@ -340,13 +340,13 @@ export default {
       })
     },
     editPost(row) {
-      this.$router.push(`/admin/post/${row._id}`)
+      this.$router.push(`/admin/post/${row.id}`)
     },
     deletePost(row) {
-      this.$store.dispatch('admin/post/delPost', row._id)
+      this.$store.dispatch('admin/post/delPost', row.id)
     },
     isDeleting(row) {
-      return row._id === this.deletingId
+      return row.id === this.deletingId
     },
     onSubmit() {
       this.$refs.filterForm.validate(valid => {

@@ -3,7 +3,7 @@
     <div class="ding-area">
       <div
         v-for="wish in list"
-        :key="wish._id"
+        :key="wish.id"
         class="card"
       >
         <div class="ding" />

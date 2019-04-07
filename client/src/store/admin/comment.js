@@ -18,7 +18,7 @@ export default {
 
     SET_COMMENT_STATE(state, { id, state: newState }) {
       state.list = state.list.map(
-        item => (item._id === id ? { ...item, state: newState } : item),
+        item => (item.id === id ? { ...item, state: newState } : item),
       )
       // const target
     },

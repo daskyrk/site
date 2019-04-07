@@ -17,10 +17,10 @@ export default {
     },
 
     LIKE_PLUS(state, id) {
-      const target = state.list.find(cm => cm._id === id)
+      const target = state.list.find(cm => cm.id === id)
       console.log('target:', target)
       target.likes++
-      state.list = state.list.map(cm => (cm._id === id ? target : cm))
+      state.list = state.list.map(cm => (cm.id === id ? target : cm))
     },
   },
 

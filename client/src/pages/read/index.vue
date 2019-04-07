@@ -9,11 +9,11 @@
         <ul class="books-list">
           <li
             v-for="item in row"
-            :key="item._id"
+            :key="item.id"
           >
             <div class="img-wrap">
               <nuxt-link
-                :to="item._id"
+                :to="item.id"
                 append
               >
                 <img :src="item.extra.book.image | dealImg({w:100})">

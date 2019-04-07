@@ -60,16 +60,16 @@ export default {
       return res
     },
 
-    async updateBook({ dispatch }, { _id, ...data }) {
-      const res = await this.$axios.$put(`/admin/book/${_id}`, data)
+    async updateBook({ dispatch }, { id, ...data }) {
+      const res = await this.$axios.$put(`/admin/book/${id}`, data)
       if (res.success) {
         await dispatch('getBooks')
       }
       return res
     },
 
-    async delBook({ dispatch }, _id) {
-      const res = await this.$axios.$delete(`/admin/book/${_id}`)
+    async delBook({ dispatch }, id) {
+      const res = await this.$axios.$delete(`/admin/book/${id}`)
       if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {

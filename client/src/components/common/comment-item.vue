@@ -37,19 +37,19 @@
       <div class="comment-footer">
         <span
           :class="{ like: true, active: comment.isLiked }"
-          @click="likeComment(comment._id)"
+          @click="likeComment(comment.id)"
         >
           <i class="iconfont icon-ding" /> 赞({{ comment.likes }})
         </span>
         <span
-          v-if="!targetId || targetId !== comment._id"
+          v-if="!targetId || targetId !== comment.id"
           class="reply"
-          @click="showReply(comment._id)"
+          @click="showReply(comment.id)"
         >
           <i class="iconfont icon-reply" /> 回复({{ comment.children.length }})
         </span>
         <span
-          v-if="targetId === comment._id"
+          v-if="targetId === comment.id"
           class="reply"
           @click="showReply()"
         >
@@ -57,7 +57,7 @@
         </span>
       </div>
       <div
-        v-if="targetId === comment._id"
+        v-if="targetId === comment.id"
         class="comment-reply"
       >
         <component
@@ -72,7 +72,7 @@
     >
       <comment-item
         v-for="child in comment.children"
-        :key="child._id"
+        :key="child.id"
         v-bind="$props"
         :comment="child"
       />

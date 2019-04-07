@@ -16,7 +16,7 @@ export default {
     nameMap: state => {
       const nameMap = {}
       state.list.forEach(tag => {
-        nameMap[tag._id] = tag.name
+        nameMap[tag.id] = tag.name
       })
       return nameMap
     },
@@ -57,16 +57,16 @@ export default {
       return res
     },
 
-    async updateTag({ dispatch }, { _id, ...data }) {
-      const res = await this.$axios.$put(`/admin/tag/${_id}`, data)
+    async updateTag({ dispatch }, { id, ...data }) {
+      const res = await this.$axios.$put(`/admin/tag/${id}`, data)
       if (res.success) {
         await dispatch('getTags')
       }
       return res
     },
 
-    async delTag({ dispatch, state }, _id) {
-      const res = await this.$axios.$delete(`/admin/tag/${_id}`)
+    async delTag({ dispatch, state }, id) {
+      const res = await this.$axios.$delete(`/admin/tag/${id}`)
       if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {

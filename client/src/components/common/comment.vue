@@ -13,7 +13,7 @@
     <ol class="comment-list comment-pad">
       <comment-item
         v-for="comment in data"
-        :key="comment._id"
+        :key="comment.id"
         :comment="comment"
         :target-id="pid"
         :show-reply="showReply"
@@ -96,7 +96,7 @@ export default {
     addPName(list) {
       const commentMap = {}
       list.forEach(item => {
-        commentMap[item._id] = item
+        commentMap[item.id] = item
       })
       return list.map(item => {
         const pComment = commentMap[item.pid]
@@ -119,7 +119,7 @@ export default {
       })
     },
     findChildren(item, list) {
-      return list.filter(i => i.pid === item._id)
+      return list.filter(i => i.pid === item.id)
     },
     addComment(data) {
       this.$store

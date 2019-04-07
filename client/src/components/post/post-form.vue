@@ -26,7 +26,7 @@
         </el-form-item>
         <!-- <el-form-item label="标签" prop="descript">
           <el-select v-model="form.tags" multiple filterable allow-create default-first-option placeholder="请选择文章标签">
-            <el-option v-for="tag in tags" :key="tag._id" :label="tag.name" :value="tag.name">
+            <el-option v-for="tag in tags" :key="tag.id" :label="tag.name" :value="tag.name">
             </el-option>
           </el-select>
         </el-form-item> -->
@@ -40,8 +40,8 @@
           >
             <el-checkbox-button
               v-for="tag in tags"
-              :key="tag._id"
-              :label="tag._id"
+              :key="tag.id"
+              :label="tag.id"
             >
               {{ tag.name }}
             </el-checkbox-button>

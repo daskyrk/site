@@ -23,7 +23,7 @@ export default {
     },
 
     SET_POST(state, data) {
-      state.list = state.list.map(art => (art._id === data._id ? data : art))
+      state.list = state.list.map(art => (art.id === data.id ? data : art))
     },
 
     UPDATE_QUERY(state, data) {
@@ -73,11 +73,11 @@ export default {
     },
 
     // 编辑文章
-    async updatePost({ commit, dispatch }, { _id, ...data }) {
-      const res = await this.$axios.$put(`/post/${_id}`, data)
+    async updatePost({ commit, dispatch }, { id, ...data }) {
+      const res = await this.$axios.$put(`/post/${id}`, data)
       if (res.success) {
         // await dispatch('getPostList');
-        commit('SET_POST', { _id, ...data })
+        commit('SET_POST', { id, ...data })
       }
       return res
     },

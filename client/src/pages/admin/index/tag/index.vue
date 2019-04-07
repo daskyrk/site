@@ -156,13 +156,13 @@ export default {
       this.dialogVisible = false
     },
     deleteTag(data) {
-      this.deletingId = data._id
-      this.$store.dispatch('tag/delTag', data._id).then(() => {
+      this.deletingId = data.id
+      this.$store.dispatch('tag/delTag', data.id).then(() => {
         this.deletingId = null
       })
     },
     isDeleting(row) {
-      return row._id === this.deletingId
+      return row.id === this.deletingId
     },
     onCancel() {
       this.dialogVisible = false

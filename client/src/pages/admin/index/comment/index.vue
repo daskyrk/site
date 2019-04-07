@@ -306,12 +306,12 @@ export default {
     },
     updateComment(row, state) {
       this.$store.dispatch('admin/comment/updateComment', {
-        id: row._id,
+        id: row.id,
         state,
       })
     },
     delComment(row) {
-      this.$store.dispatch('admin/comment/delComment', row._id)
+      this.$store.dispatch('admin/comment/delComment', row.id)
     },
     onSubmit() {
       this.$refs.filterForm.validate(valid => {

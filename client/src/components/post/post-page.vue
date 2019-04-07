@@ -53,7 +53,7 @@
       >
         <div
           :class="{ red: true, active: isLiked }"
-          @click="like(detail._id)"
+          @click="like(detail.id)"
         >
           <i class="iconfont icon-xin" />
         </div>
@@ -76,7 +76,7 @@
     <lazy-component @show="markMounted('comment')">
       <comment
         ref="comment"
-        :post-id="detail._id"
+        :post-id="detail.id"
       />
     </lazy-component>
   </div>
@@ -118,7 +118,7 @@ export default {
     // ...mapState('post', ['detail']),
     ...mapGetters('tag', ['nameMap']),
     isLiked: function() {
-      return this.likes.includes(this.detail._id)
+      return this.likes.includes(this.detail.id)
     },
   },
 

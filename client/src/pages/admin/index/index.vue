@@ -74,7 +74,7 @@ export default {
       const data = []
       if (this.summary) {
         this.summary.forEach(a => {
-          labels.push(typeMap[a._id.type])
+          labels.push(typeMap[a.id.type])
           data.push(a.count)
         })
       }
