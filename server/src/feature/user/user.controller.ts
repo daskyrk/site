@@ -9,9 +9,11 @@ import {
   Put,
   Query,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { LoginDto, UserInfoDto } from './dto/user.dto';
 
+import { AuthGuard } from '@/core/guards';
 import { UserService } from './user.service';
 import config from '@/config';
 
@@ -37,6 +39,7 @@ export class UserController {
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   public search(@Query('key') key: string) {
     return this.userService.search(key);
   }
@@ -47,11 +50,13 @@ export class UserController {
   }
 
   @Put()
+  @UseGuards(AuthGuard)
   public update(@Body() userInfoDto: UserInfoDto) {
-    return this.userService.update(userInfoDto._id, userInfoDto);
+    return this.userService.update(userInfoDto);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   public remove(@Param('id') id: string) {
     return this.userService.delete(id);
   }

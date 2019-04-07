@@ -17,7 +17,7 @@ export class LoginDto {
 }
 
 export class UserInfoDto extends LoginDto {
-  public _id: string;
+  public id: string;
 
   @Length(1, 30)
   public nick: string;

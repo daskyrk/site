@@ -265,16 +265,17 @@ export abstract class BaseService<T extends Document> {
   /**
    * 更新指定对象数据
    * @param {Partial<T>} [item={}]
-   * @param {Partial<T>} [item={}]
    * @returns {Promise<T>}
    * @memberof BaseService
    */
   public async update(
-    id: string,
     update: Partial<T>,
     options: QueryFindOneAndUpdateOptions = { new: true },
   ): Promise<T | null> {
-    return this._model.findByIdAndUpdate(this.toObjectId(id), update, options).exec();
+    if (!update.id) {
+      throw new Error('id not exist when update model');
+    }
+    return this._model.findByIdAndUpdate(this.toObjectId(update.id), update, options).exec();
   }
 
   /**
