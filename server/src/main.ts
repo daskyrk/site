@@ -30,12 +30,6 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  // 请求按照注册顺序执行guard
-  app.useGlobalGuards(
-    new AuthGuard(),
-    // new RolesGuard(new Reflector()),
-  );
-
   // 支持 CORS
   app.enableCors({
     credentials: true,
