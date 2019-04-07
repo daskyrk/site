@@ -78,7 +78,7 @@ export default {
     },
 
     async updateConfig({ dispatch }, data) {
-      const res = await this.$axios.$put('/admin/user/updateConfig', data)
+      const res = await this.$axios.$put('/user', data)
       await dispatch('getUserInfo')
       return res
     },

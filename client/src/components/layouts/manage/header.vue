@@ -3,8 +3,8 @@
     <div class="header-left">
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <template v-for="item in breadcrumb">
-          <el-breadcrumb-item 
-            :key="item.path" 
+          <el-breadcrumb-item
+            :key="item.path"
             :to="item.url"
           >
             {{ item.title }}
@@ -14,20 +14,20 @@
     </div>
     <div class="header-right">
       <span class="header-operation">
-        <img 
-          :src="user.avatar" 
-          class="avatar" 
+        <img
+          :src="user.avatar"
+          class="avatar"
           alt="avatar"
         >
       </span>
-      <nuxt-link 
-        class="header-operation op" 
+      <nuxt-link
+        class="header-operation op"
         to="/"
       >
         <i class="iconfont icon-switch" />
       </nuxt-link>
-      <span 
-        class="header-operation op" 
+      <span
+        class="header-operation op"
         @click="logout"
       >
         <i class="iconfont icon-logout" />

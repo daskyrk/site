@@ -16,11 +16,6 @@ export default function({ $axios, store }) {
     if (process.browser && message && config.method !== 'get') {
       Message[success ? 'success' : 'warning']({ message })
     }
-    const keys = Object.keys(body)
-    // 包含success和data字段的认为是blog后台的接口返回，取出data
-    if (keys.includes('success' && (keys.includes('data') || keys.includes('message')))) {
-      return body
-    }
     return response
   })
 

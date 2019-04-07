@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   Query,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
@@ -41,9 +42,9 @@ export class UserController {
 
   @Get('info')
   @UseGuards(AuthGuard)
-  public getInfo(@Res() res: any) {
-    if (res.user) {
-      const { email } = res.user;
+  public getInfo(@Req() req: any) {
+    if (req.user) {
+      const { email } = req.user;
       return this.userService.findOne({ email });
     }
     throw new ForbiddenError('not login');
