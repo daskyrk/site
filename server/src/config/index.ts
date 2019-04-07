@@ -41,6 +41,8 @@ export class ConfigService {
       EMAIL_PORT: Joi.number(),
       EMAIL_ACCOUNT: Joi.string(),
       EMAIL_PASSWORD: Joi.string(),
+      TOKEN_KEY: Joi.string(),
+      TOKEN_TIME: Joi.string(),
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(
@@ -101,6 +103,14 @@ export class ConfigService {
     return this.envConfig.EMAIL_PASSWORD;
   }
 
+  public get TOKEN_KEY() {
+    return this.envConfig.TOKEN_KEY;
+  }
+
+  public get TOKEN_TIME() {
+    return this.envConfig.TOKEN_TIME;
+  }
+
   public get APP_INFO() {
     return {
       name: this.envConfig.APP_NAME,
@@ -124,7 +134,13 @@ export class ConfigService {
     };
   }
 
+  public get isDev(): boolean {
+    return this.envConfig.NODE_ENV === 'development';
+  }
+
+  public get isProd(): boolean {
+    return this.envConfig.NODE_ENV === 'production';
+  }
 }
 
 export default new ConfigService('src/config/.env');
-
