@@ -5,6 +5,7 @@ import { IUser } from './interface/user.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
+import { generateToken } from '@/utils/auth';
 import utility from 'utility';
 
 @Injectable()
@@ -43,15 +44,21 @@ export class UserService extends BaseService<IUser> {
 
   public async login(data: LoginDto) {
     const { email, password } = data;
-    const exist = await super.findOne({ email });
-    if (!exist) {
+    const user = await super.findOne({ email });
+    if (!user) {
       throw new Error('该email未注册');
     }
-    if (exist.password !== utility.sha256(password)) {
+    if (user.password !== utility.sha256(password)) {
       throw new Error('密码错误');
     }
-    // TODO: set cookie
+    const token = generateToken({
+      email,
+      password,
+    });
 
-    return exist;
+    return {
+      user,
+      token,
+    };
   }
 }

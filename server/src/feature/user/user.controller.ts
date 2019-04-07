@@ -3,10 +3,12 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Post,
   Put,
   Query,
+  Res,
 } from '@nestjs/common';
 import { LoginDto, UserInfoDto } from './dto/user.dto';
 
@@ -22,8 +24,14 @@ export class UserController {
   }
 
   @Post('login')
-  public login(@Body() loginDto: LoginDto) {
-    return this.userService.login(loginDto);
+  public async login(@Body() loginDto: LoginDto, @Res() res: any) {
+    const { user, token } = await this.userService.login(loginDto);
+    // res.set('Authorization', 'Bearer ' + token);
+    res.cookie('token', token);
+    res.status(HttpStatus.OK).json({
+      data: user,
+      success: true,
+    });
   }
 
   @Get()
