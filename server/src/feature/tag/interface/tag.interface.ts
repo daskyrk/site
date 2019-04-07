@@ -1,6 +1,6 @@
-import { Document } from 'mongoose';
+import { BaseInterface } from '@/shared/base/base.interface';
 import { TagDto } from '../dto/tag.dto';
 
-export interface ITag extends TagDto, Document {
+export interface ITag extends TagDto, BaseInterface {
   _id: string;
 }

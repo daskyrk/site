@@ -1,15 +1,18 @@
 import { QueryTagDto, TagDto } from './dto/tag.dto';
 
+import { BaseService } from '@/shared/base';
 import { ITag } from './interface/tag.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { PaginateModel } from 'mongoose';
 
 @Injectable()
-export class TagService {
-  constructor(@InjectModel('Tag') private readonly model: PaginateModel<ITag>) {}
+export class TagService extends BaseService<ITag> {
+  constructor(@InjectModel('Tag') private readonly model: PaginateModel<ITag>) {
+    super(model);
+  }
 
-  public async search({ pageNo = 1, pageSize = 10, keyword }: QueryTagDto) {
+  public async search({ pageNo = 1, pageSize = 10, q }: QueryTagDto) {
     const query = {} as any;
     const options: {
       sort: any;
@@ -25,8 +28,8 @@ export class TagService {
       // populate: ['tag'],
     };
 
-    if (keyword) {
-      const keywordReg = new RegExp(keyword);
+    if (q) {
+      const keywordReg = new RegExp(q, 'i');
       query.$or = [{ name: keywordReg }, { descript: keywordReg }];
     }
 
@@ -36,18 +39,6 @@ export class TagService {
   public async create(data: TagDto): Promise<ITag> {
     const newModel = new this.model(data);
     return await newModel.save();
-  }
-
-  public async update(data: TagDto) {
-    const res = await this.model.findByIdAndUpdate(data._id, data, {
-      new: true,
-    });
-    return res;
-  }
-
-  public async delete(id: string) {
-    const res = await this.model.findByIdAndRemove(id);
-    return res;
   }
 
 }

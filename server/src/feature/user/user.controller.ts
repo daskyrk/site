@@ -40,8 +40,8 @@ export class UserController {
 
   @Get()
   @UseGuards(AuthGuard)
-  public search(@Query('key') key: string) {
-    return this.userService.search(key);
+  public search(@Query('q') q: string) {
+    return this.userService.search(q);
   }
 
   @Get(':id')

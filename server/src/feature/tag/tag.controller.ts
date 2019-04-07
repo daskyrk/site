@@ -1,5 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { QueryTagDto, TagDto } from './dto/tag.dto';
+
+import { AuthGuard } from '@/core/guards';
 import { TagService } from './tag.service';
 
 @Controller('tag')
@@ -7,6 +19,7 @@ export class TagController {
   constructor(private readonly service: TagService) {}
 
   @Post()
+  @UseGuards(AuthGuard)
   public create(@Body() tagDto: TagDto) {
     return this.service.create(tagDto);
   }
@@ -17,13 +30,14 @@ export class TagController {
   }
 
   @Put()
+  @UseGuards(AuthGuard)
   public update(@Body() tagDto: TagDto) {
     return this.service.update(tagDto);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   public remove(@Param('id') id: string) {
     return this.service.delete(id);
   }
-
 }

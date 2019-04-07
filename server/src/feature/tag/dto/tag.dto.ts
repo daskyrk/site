@@ -1,18 +1,19 @@
-import { IsEmail, IsNotEmpty, Length } from 'class-validator';
-import { string } from 'joi';
+import { IsNotEmpty, Length } from 'class-validator';
 
 export class TagDto {
-  public _id: string;
+  public id: string;
 
   @IsNotEmpty()
   @Length(1, 20)
   public name: string;
 
+  @IsNotEmpty()
+  @Length(1, 200)
   public descript: string;
 }
 
 export class QueryTagDto {
   public pageNo: number;
   public pageSize: number;
-  public keyword?: string;
+  public q?: string;
 }
