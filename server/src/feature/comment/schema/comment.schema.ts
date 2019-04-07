@@ -6,7 +6,7 @@ import mongoosePaginate = require('mongoose-paginate');
 export const CommentSchema = new Mongoose.Schema(
   {
     // 文章id
-    postId: { type: Mongoose.Schema.Types.ObjectId, ref: 'Article' },
+    postId: { type: Mongoose.Schema.Types.ObjectId, ref: 'Post' },
 
     // 回复id
     pid: { type: String },

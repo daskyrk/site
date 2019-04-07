@@ -1,20 +1,20 @@
-import { ArticleInfoDto, QueryArticleDto } from './dto/article.dto';
+import { PostInfoDto, QueryPostDto } from './dto/post.dto';
 
 import { BaseService } from '@/shared/base';
-import { IArticle } from './interface/article.interface';
+import { IPost } from './interface/post.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { PaginateModel } from 'mongoose';
 
 @Injectable()
-export class ArticleService extends BaseService<IArticle> {
+export class PostService extends BaseService<IPost> {
   constructor(
-    @InjectModel('Article') private readonly model: PaginateModel<IArticle>,
+    @InjectModel('Post') private readonly model: PaginateModel<IPost>,
   ) {
     super(model);
   }
 
-  public async getArticleById(id: string) {
+  public async getPostById(id: string) {
     const res = await this.model.findById(id);
     if (res) {
       res.meta.views += 1;
@@ -24,12 +24,12 @@ export class ArticleService extends BaseService<IArticle> {
     return res;
   }
 
-  public async create(data: ArticleInfoDto): Promise<IArticle> {
-    const article = new this.model(data);
-    return await article.save();
+  public async create(data: PostInfoDto): Promise<IPost> {
+    const post = new this.model(data);
+    return await post.save();
   }
 
-  public async search(query: QueryArticleDto) {
+  public async search(query: QueryPostDto) {
     const {
       pageNo = 1,
       pageSize = 10,

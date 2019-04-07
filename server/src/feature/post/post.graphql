@@ -1,73 +1,73 @@
 type Query {
-  getArticles(
+  getPosts(
     offset: Float
     limit: Float
     keyword: String
-    state: ArticleState
+    state: PostState
     publish: Publish
-    type: ArticleType
+    type: PostType
     data: Date
     hot: Float
     tag: String
-  ): Articles
-  getArticleById(_id: ObjectID): ArticlesItem
+  ): Posts
+  getPostById(_id: ObjectID): PostsItem
 }
 
 type Mutation {
-  createArticle(articleInfo: CreateArticleInput!): ArticlesItem
-  updateArticle(articleInfo: UpdateArticleInput!): ArticlesItem
-  deleteArticle(_id: ObjectID!): Message
+  createPost(postInfo: CreatePostInput!): PostsItem
+  updatePost(postInfo: UpdatePostInput!): PostsItem
+  deletePost(_id: ObjectID!): Message
 }
 
-input CreateArticleInput {
+input CreatePostInput {
   title: String!
   keyword: String!
   content: String
   descript: String
-  state: ArticleState
+  state: PostState
   publish: Publish
   thumb: String
-  type: ArticleType
+  type: PostType
   tag: [String]!
 }
 
-input UpdateArticleInput {
+input UpdatePostInput {
   _id: ObjectID!
   title: String!
   keyword: String!
   content: String
   descript: String
-  state: ArticleState
+  state: PostState
   publish: Publish
   thumb: String
-  type: ArticleType
+  type: PostType
   tag: [String!]
 }
 
-type Articles {
+type Posts {
   total: Float
   offset: Float!
   limit: Float!
-  docs: [ArticlesItem]
+  docs: [PostsItem]
 }
 
-type ArticlesItem {
+type PostsItem {
   id: Float
   _id: ObjectID!
   title: String
   keyword: String
   content: String
-  state: ArticleState
+  state: PostState
   publish: Publish
   thumb: String
-  type: ArticleType
-  meta: ArticleMeta
+  type: PostType
+  meta: PostMeta
   tag: [TagsItem]
   update_at: Date
   create_at: Date
 }
 
-type ArticleMeta {
+type PostMeta {
   views: Float
   likes: Float
   comments: Float
@@ -78,13 +78,13 @@ enum Publish {
   PRIVATE
 }
 
-enum ArticleType {
+enum PostType {
   CODE
   THINK
   FOLK
 }
 
-enum ArticleState {
+enum PostState {
   RELEASE
   DRAFT
 }

@@ -1,17 +1,17 @@
-import { ArticleState, ArticleType } from '../interface/article.interface';
 import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { PostState, PostType } from '../interface/post.interface';
 
 import { Transform } from 'class-transformer';
 
-export class ArticleTransformDto {
-  @Transform(v => ArticleState[v])
+export class PostTransformDto {
+  @Transform(v => PostState[v])
   public state: number;
 
-  // @Transform(v => ArticleType[v])
+  // @Transform(v => PostType[v])
   // public type: number;
 }
 
-export class ArticleInfoDto extends ArticleTransformDto {
+export class PostInfoDto extends PostTransformDto {
   public id: string;
 
   @IsNotEmpty()
@@ -25,8 +25,8 @@ export class ArticleInfoDto extends ArticleTransformDto {
   public content: string;
 
   @IsNotEmpty()
-  @IsEnum(ArticleType)
-  public type: ArticleType;
+  @IsEnum(PostType)
+  public type: PostType;
 
   public description: string;
 
@@ -37,17 +37,17 @@ export class ArticleInfoDto extends ArticleTransformDto {
   @IsBoolean()
   public public: boolean;
 
-  public meta: ArticleMetaDto;
+  public meta: PostMetaDto;
 }
 
 
-export class ArticleMetaDto {
+export class PostMetaDto {
   public views: number;
   public likes: number;
   public comments: number;
 }
 
-export class QueryArticleDto extends ArticleTransformDto {
+export class QueryPostDto extends PostTransformDto {
   public pageNo = 1;
   public pageSize = 10;
   public q?: string;
@@ -56,5 +56,5 @@ export class QueryArticleDto extends ArticleTransformDto {
   public startAt?: string;
   public endAt?: string;
   public hot?: boolean;
-  public type?: ArticleType;
+  public type?: PostType;
 }

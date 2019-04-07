@@ -3,7 +3,7 @@ import { autoIncrement } from 'mongoose-plugin-autoinc';
 import mongoosePaginate from 'mongoose-paginate';
 import { schemaOptions } from '@/shared/base';
 
-export const ArticleSchema = new Mongoose.Schema(
+export const PostSchema = new Mongoose.Schema(
   {
     // 文章标题
     title: { type: String, required: true },
@@ -42,9 +42,9 @@ export const ArticleSchema = new Mongoose.Schema(
   schemaOptions,
 );
 
-ArticleSchema.plugin(mongoosePaginate);
-ArticleSchema.plugin(autoIncrement, {
-  model: 'Article',
+PostSchema.plugin(mongoosePaginate);
+PostSchema.plugin(autoIncrement, {
+  model: 'Post',
   field: 'index',
   startAt: 1,
   incrementBy: 1,
