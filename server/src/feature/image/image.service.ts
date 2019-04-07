@@ -14,20 +14,16 @@ export class ImageService extends BaseService<IImage> {
     super(model);
   }
 
-  public async search({ pageNo = 1, pageSize = 10, q }: QueryImageDto) {
+  public async search({ pageNo = 1, pageSize = 10, q, postId }: QueryImageDto) {
     const query = {} as any;
     const options: {
       sort: any;
       page: number;
       limit: number;
-      select?: string;
-      // populate: string[];
     } = {
       sort: { createdAt: -1 },
       page: Number(pageNo),
       limit: Number(pageSize),
-      // select: '',
-      // populate: ['tag'],
     };
 
     if (q) {
@@ -35,12 +31,15 @@ export class ImageService extends BaseService<IImage> {
       query.$or = [{ filename: keywordReg }];
     }
 
+    if (postId) {
+      query.$and = [{ postId }];
+    }
+
     return await this.model.paginate(query, options);
   }
 
   public async create(data: ImageDto): Promise<IImage> {
-    const newModel = new this.model(data);
-    return await newModel.save();
+    const image = new this.model(data);
+    return await image.save();
   }
-
 }

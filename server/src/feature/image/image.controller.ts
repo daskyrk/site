@@ -16,6 +16,6 @@ export class ImageController {
 
   @Get()
   public search(@Query() query: QueryImageDto) {
-    return this.service.findAll(query);
+    return this.service.search(query);
   }
 }

@@ -9,8 +9,6 @@ export class ImageDto {
   @IsNotEmpty()
   public url: string;
 
-  public timestamp: number;
-
   @IsString()
   public postId: string;
 
@@ -21,4 +19,5 @@ export class QueryImageDto {
   public pageNo: number;
   public pageSize: number;
   public q?: string;
+  public postId?: string;
 }
