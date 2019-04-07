@@ -1,16 +1,16 @@
 import { ArticleInfoDto, QueryArticleDto } from './dto/article.dto';
 import { AuthGuard, RolesGuard } from '@/core/guards';
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
-import { Roles, RolesEnum } from '@/core/decorators';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
 
 import { ArticleService } from './article.service';
+import { ArticleState } from './interface/article.interface';
+import { Request } from "express";
 
 @Controller('article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @Post()
-  // @Roles(RolesEnum.Admin)
   @UseGuards(AuthGuard)
   public create(@Body() articleInfoDto: ArticleInfoDto) {
     return this.articleService.create(articleInfoDto);
@@ -22,17 +22,23 @@ export class ArticleController {
   }
 
   @Get()
-  @UseGuards(AuthGuard)
-  public searchArticles(@Query() query: QueryArticleDto) {
+  public searchArticles(@Query() query: QueryArticleDto, @Req() req: Request) {
+    if (!req.user) {
+      console.log('not login:');
+      query.state = ArticleState.RELEASE;
+      query.public = true;
+    }
     return this.articleService.search(query);
   }
 
   @Put()
+  @UseGuards(AuthGuard)
   public updateArticle(@Body() articleInfoDto: ArticleInfoDto) {
     return this.articleService.update(articleInfoDto);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   public deleteArticle(@Param('id') id: string) {
     return this.articleService.delete(id);
   }

@@ -1,6 +1,7 @@
 import Mongoose from 'mongoose';
-import mongoosePaginate from 'mongoose-paginate';
 import { autoIncrement } from 'mongoose-plugin-autoinc';
+import mongoosePaginate from 'mongoose-paginate';
+import { schemaOptions } from '@/shared/base';
 
 export const ArticleSchema = new Mongoose.Schema(
   {
@@ -11,7 +12,7 @@ export const ArticleSchema = new Mongoose.Schema(
     keyword: { type: String, required: true },
 
     // 描述
-    descript: { type: String, required: false },
+    description: { type: String, required: false },
 
     // 标签
     tag: [{ type: Mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
@@ -19,11 +20,11 @@ export const ArticleSchema = new Mongoose.Schema(
     // 内容
     content: { type: String, required: true },
 
-    // 状态 1 发布 2 草稿
+    // 状态 1 草稿 2 发布
     state: { type: Number, default: 1 },
 
     // 公开
-    publish: { type: Boolean, default: true },
+    ['public']: { type: Boolean, default: true },
 
     // 缩略图
     thumb: String,
@@ -38,15 +39,13 @@ export const ArticleSchema = new Mongoose.Schema(
       comments: { type: Number, default: 0 },
     },
   },
-  {
-    timestamps: true,
-  },
+  schemaOptions,
 );
 
 ArticleSchema.plugin(mongoosePaginate);
 ArticleSchema.plugin(autoIncrement, {
   model: 'Article',
-  field: 'id',
+  field: 'index',
   startAt: 1,
   incrementBy: 1,
 });

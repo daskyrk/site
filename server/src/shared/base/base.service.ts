@@ -257,8 +257,9 @@ export abstract class BaseService<T extends Document> {
     id: string,
     options: QueryFindOneAndRemoveOptions = {},
   ): Promise<T | null> {
+    const _id = await this.checkExistById(id, 'delete model');
     return this._model
-      .findOneAndRemove({ _id: this.toObjectId(id) }, options)
+      .findOneAndRemove({ _id }, options)
       .exec();
   }
 
@@ -272,10 +273,10 @@ export abstract class BaseService<T extends Document> {
     update: Partial<T>,
     options: QueryFindOneAndUpdateOptions = { new: true },
   ): Promise<T | null> {
-    if (!update.id) {
-      throw new Error('id not exist when update model');
-    }
-    return this._model.findByIdAndUpdate(this.toObjectId(update.id), update, options).exec();
+    const id = await this.checkExistById(update.id, 'update model');
+    return this._model
+      .findByIdAndUpdate(id, update, options)
+      .exec();
   }
 
   /**
@@ -288,6 +289,26 @@ export abstract class BaseService<T extends Document> {
     conditions = {},
   ): Promise<WriteOpResult['result']> {
     return this._model.deleteMany(conditions).exec();
+  }
+
+  /**
+   * 操作前检查目标是否存在
+   * @param {(string)} id
+   * @param {(action)} action
+   * @returns {(boolean)} ObjectId if exist
+   * @memberof BaseService
+   */
+  public async checkExistById(_id: string | undefined, action: string) {
+    if (!_id) {
+      throw new Error(`id not exist when ${action || 'operate'} model`);
+    }
+    const exist = await this.count({ _id });
+    if (!exist) {
+      throw new Error(
+        `target not exist when ${action || 'operate'} model with id: ${_id}`,
+      );
+    }
+    return this.toObjectId(_id);
   }
 }
 

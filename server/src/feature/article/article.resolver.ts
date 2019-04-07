@@ -1,7 +1,8 @@
-import { Request } from 'express';
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { ArticleService } from './article.service';
 import { ArticleInfoDto, QueryArticleDto } from './dto/article.dto';
+
+import { ArticleService } from './article.service';
+import { Request } from 'express';
 
 @Resolver('Article')
 export class ArticleResolver {
@@ -14,12 +15,10 @@ export class ArticleResolver {
 
   @Query()
   public getArticles(@Args() query: QueryArticleDto, @Context('request') request: Request) {
-    // TODO: use @Header
-    const token = request.headers.authorization;
-
-    if (!token) {
+    if (!request.user) {
+      console.log('not login:');
       query.state = 1;
-      query.publish = true;
+      query.public = true;
     }
     return this.articleService.search(query);
   }

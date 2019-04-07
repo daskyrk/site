@@ -1,6 +1,7 @@
-import { Transform } from 'class-transformer';
-import { IsNotEmpty, IsNumber } from 'class-validator';
 import { ArticleState, ArticleType } from '../interface/article.interface';
+import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+
+import { Transform } from 'class-transformer';
 
 export class ArticleTransformDto {
   @Transform(v => ArticleState[v])
@@ -11,9 +12,10 @@ export class ArticleTransformDto {
 }
 
 export class ArticleInfoDto extends ArticleTransformDto {
-  public _id: string;
+  public id: string;
 
   @IsNotEmpty()
+  @IsString()
   public title: string;
 
   @IsNotEmpty()
@@ -23,8 +25,17 @@ export class ArticleInfoDto extends ArticleTransformDto {
   public content: string;
 
   @IsNotEmpty()
-  // @IsNumber()
+  @IsEnum(ArticleType)
   public type: ArticleType;
+
+  public description: string;
+
+  public tag: string[];
+
+  public thumb: string;
+
+  @IsBoolean()
+  public public: boolean;
 
   public meta: ArticleMetaDto;
 }
@@ -39,9 +50,9 @@ export class ArticleMetaDto {
 export class QueryArticleDto extends ArticleTransformDto {
   public pageNo = 1;
   public pageSize = 10;
-  public keyword?: string;
+  public q?: string;
   public tag?: string;
-  public publish?: boolean;
+  public public?: boolean;
   public startAt?: string;
   public endAt?: string;
   public hot?: boolean;

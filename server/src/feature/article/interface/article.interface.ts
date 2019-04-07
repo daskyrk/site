@@ -1,13 +1,7 @@
-import { Document } from 'mongoose';
 import { ArticleInfoDto } from '../dto/article.dto';
+import { BaseInterface } from '@/shared/base/base.interface';
 
-export interface IArticle extends ArticleInfoDto, Document {
-  _id: string;
-}
-
-export enum Publish {
-  PUBLIC = 1,
-  PRIVATE,
+export interface IArticle extends ArticleInfoDto, BaseInterface {
 }
 
 export enum ArticleType {
@@ -17,6 +11,6 @@ export enum ArticleType {
 }
 
 export enum ArticleState {
-  RELEASE = 1,
-  DRAFT,
+  DRAFT = 1,
+  RELEASE,
 }

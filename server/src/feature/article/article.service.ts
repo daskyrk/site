@@ -1,15 +1,18 @@
 import { ArticleInfoDto, QueryArticleDto } from './dto/article.dto';
 
+import { BaseService } from '@/shared/base';
 import { IArticle } from './interface/article.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { PaginateModel } from 'mongoose';
 
 @Injectable()
-export class ArticleService {
+export class ArticleService extends BaseService<IArticle> {
   constructor(
     @InjectModel('Article') private readonly model: PaginateModel<IArticle>,
-  ) {}
+  ) {
+    super(model);
+  }
 
   public async getArticleById(id: string) {
     const res = await this.model.findById(id);
@@ -22,32 +25,22 @@ export class ArticleService {
   }
 
   public async create(data: ArticleInfoDto): Promise<IArticle> {
-    const newModel = new this.model(data);
-    return await newModel.save();
+    const article = new this.model(data);
+    return await article.save();
   }
 
-  public async update(data: ArticleInfoDto) {
-    const res = await this.model.findByIdAndUpdate(data._id, data, { new: true });
-    return res;
-  }
-
-  public async delete(id: string) {
-    const res = await this.model.findByIdAndRemove(id);
-    return res;
-  }
-
-  public async search({
-    pageNo = 1,
-    pageSize = 10,
-    keyword,
-    tag,
-    state,
-    publish,
-    type,
-    startAt,
-    endAt,
-    hot,
-  }: QueryArticleDto) {
+  public async search(query: QueryArticleDto) {
+    const {
+      pageNo = 1,
+      pageSize = 10,
+      q,
+      tag,
+      state,
+      type,
+      startAt,
+      endAt,
+      hot,
+    } = query;
     const querys = {} as any;
     const options: {
       sort: any;
@@ -64,8 +57,8 @@ export class ArticleService {
     };
 
     // 关键词查询
-    if (keyword) {
-      const keywordReg = new RegExp(keyword);
+    if (q) {
+      const keywordReg = new RegExp(q);
       querys.$or = [
         { title: keywordReg },
         { content: keywordReg },
@@ -85,8 +78,8 @@ export class ArticleService {
       querys.state = state;
     }
 
-    if (publish) {
-      querys.publish = publish;
+    if (query.public) {
+      querys.public = query.public;
     }
 
     if (startAt) {
