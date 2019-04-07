@@ -9,10 +9,10 @@ export const PostSchema = new Mongoose.Schema(
     title: { type: String, required: true },
 
     // 关键字
-    keyword: { type: String, required: true },
+    keyword: String,
 
     // 描述
-    description: { type: String, required: false },
+    description: String,
 
     // 标签
     tag: [{ type: Mongoose.Schema.Types.ObjectId, ref: 'Tag' }],

@@ -1,4 +1,4 @@
-import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsIn, IsNotEmpty, IsString } from 'class-validator';
 import { PostState, PostType } from '../interface/post.interface';
 
 import { Transform } from 'class-transformer';
@@ -18,14 +18,13 @@ export class PostInfoDto extends PostTransformDto {
   @IsString()
   public title: string;
 
-  @IsNotEmpty()
   public keyword: string;
 
   @IsNotEmpty()
   public content: string;
 
   @IsNotEmpty()
-  @IsEnum(PostType)
+  @IsIn(Object.keys(PostType))
   public type: PostType;
 
   public description: string;

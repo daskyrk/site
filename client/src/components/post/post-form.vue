@@ -54,14 +54,14 @@
             v-model="form.type"
             size="small"
           >
-            <el-radio-button :label="1">
+            <el-radio-button label="ARTICLE">
               文章
             </el-radio-button>
-            <el-radio-button :label="2">
+            <el-radio-button label="READ">
               读书
             </el-radio-button>
-            <el-radio-button :label="3">
-              音乐
+            <el-radio-button label="THINK">
+              感悟
             </el-radio-button>
           </el-radio-group>
         </el-form-item>
@@ -71,10 +71,10 @@
             size="small"
           >
             <el-radio-button :label="1">
-              发布
+              草稿
             </el-radio-button>
             <el-radio-button :label="2">
-              草稿
+              发布
             </el-radio-button>
           </el-radio-group>
         </el-form-item>
@@ -181,7 +181,7 @@ export default {
         tags: [],
         content: '',
         public: true,
-        type: 1,
+        type: 'ARTICLE',
         state: 1,
         thumb: '',
         ...this.detail,
