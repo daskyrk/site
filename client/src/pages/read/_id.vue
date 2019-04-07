@@ -29,32 +29,32 @@
         </p>
       </div>
     </div>
-    <div class="article-wrap">
-      <Article :detail="detail" />
+    <div class="post-wrap">
+      <Post :detail="detail" />
     </div>
   </div>
 </template>
 
 <script>
-import Article from '~/components/article/article-page'
+import Post from '~/components/post/post-page'
 import { mapState } from 'vuex'
 
 export default {
   components: {
-    Article,
+    Post,
   },
 
   layout: 'empty',
 
   computed: {
-    ...mapState('article', ['detail']),
+    ...mapState('post', ['detail']),
     bookInfo() {
       return this.detail.extra ? this.detail.extra.book : {}
     },
   },
 
   async fetch({ store, params }) {
-    await store.dispatch('article/getArt', params.id)
+    await store.dispatch('post/getPost', params.id)
     await store.dispatch('tag/getTags', { pageSize: 100 })
   },
 }
@@ -125,7 +125,7 @@ export default {
   }
 }
 
-.article-wrap {
+.post-wrap {
   flex: 3;
   display: flex;
   justify-content: center;

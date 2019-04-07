@@ -5,7 +5,7 @@
     :rules="rules"
     status-icon
     label-width="120px"
-    class="article-form"
+    class="post-form"
   >
     <el-row>
       <el-col :span="12">

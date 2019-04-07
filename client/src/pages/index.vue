@@ -86,25 +86,25 @@ export default {
   computed: {
     ...mapState(['story']),
     style() {
-      if (this.mode === 'random') {
-        return {
-          backgroundImage: `url(https://api.lylares.com/bing/image/random/?w=640&h=480)`,
-        }
-      }
-      if (this.story.image) {
-        return {
-          backgroundImage: `url(${this.story.image})`,
-        }
-      }
+      // if (this.mode === 'random') {
+      //   return {
+      //     backgroundImage: `url(https://api.lylares.com/bing/image/random/?w=640&h=480)`,
+      //   }
+      // }
+      // if (this.story.image) {
+      //   return {
+      //     backgroundImage: `url(${this.story.image})`,
+      //   }
+      // }
       return {}
     },
   },
 
-  async fetch({ app, store }) {
-    if (process.env.bg_mode === 'story') {
-      await store.dispatch('getBingStory')
-    }
-  },
+  // async fetch({ app, store }) {
+  //   if (process.env.bg_mode === 'story') {
+  //     await store.dispatch('getBingStory')
+  //   }
+  // },
 }
 </script>
 

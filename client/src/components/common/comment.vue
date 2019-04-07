@@ -37,7 +37,7 @@ export default {
   },
 
   props: {
-    articleId: {
+    postId: {
       type: [String, Number],
       required: true,
     },
@@ -69,7 +69,7 @@ export default {
     async getComments(params = {}) {
       const res = await this.$store.dispatch('comment/getComments', {
         ...params,
-        postId: this.articleId,
+        postId: this.postId,
       })
     },
     dealList() {
@@ -126,7 +126,7 @@ export default {
         .dispatch('comment/addComment', {
           ...data,
           pid: this.pid,
-          postId: this.articleId,
+          postId: this.postId,
           pageUrl: location.href,
         })
         .then(res => {

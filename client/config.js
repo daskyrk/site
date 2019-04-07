@@ -24,7 +24,7 @@ exports.envs = {
       text: '读书',
     },
     {
-      link: '/article',
+      link: '/post',
       text: '文章',
     },
     {
@@ -44,9 +44,9 @@ exports.envs = {
       icon: 'book',
     },
     {
-      link: '/admin/article',
+      link: '/admin/post',
       text: '文章管理',
-      icon: 'article',
+      icon: 'post',
     },
     {
       link: '/admin/comment',

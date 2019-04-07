@@ -1,6 +1,6 @@
 <template>
   <div class="form-wrap">
-    <article-form
+    <post-form
       :detail="detail"
       :on-submit="onSubmit"
     />
@@ -9,7 +9,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import ArticleForm from '~/components/article/article-form'
+import PostForm from '~/components/post/post-form'
 
 export default {
   meta: {
@@ -17,18 +17,18 @@ export default {
   },
 
   components: {
-    ArticleForm,
+    PostForm,
   },
 
-  computed: mapState('admin/article', ['detail']),
+  computed: mapState('admin/post', ['detail']),
 
   async fetch({ store, params }) {
-    await store.dispatch('admin/article/getArt', params.id)
+    await store.dispatch('admin/post/getPost', params.id)
   },
 
   methods: {
     onSubmit(data) {
-      this.$store.dispatch('admin/article/updateArt', data)
+      this.$store.dispatch('admin/post/updatePost', data)
     },
   },
 }

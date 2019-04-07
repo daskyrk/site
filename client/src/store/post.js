@@ -18,12 +18,12 @@ export default {
   },
 
   mutations: {
-    GET_ART_LIST(state, { list, total }) {
+    GET_POST_LIST(state, { list, total }) {
       state.list = state.list.concat(list)
       state.total = total
     },
 
-    SET_ART_DETAIL(state, data) {
+    SET_POST_DETAIL(state, data) {
       state.detail = data
     },
 
@@ -49,26 +49,26 @@ export default {
 
   actions: {
     // 获取文章列表
-    async getArtList({ commit, state }, data) {
+    async getPostList({ commit, state }, data) {
       const query = { ...state.query, ...data }
-      const res = await this.$axios.$get('/article', { params: query })
+      const res = await this.$axios.$get('/post', { params: query })
       commit('UPDATE_QUERY', query)
       if (res.success) {
-        commit('GET_ART_LIST', res.data)
+        commit('GET_POST_LIST', res.data)
       }
     },
 
     // 获取文章详情
-    async getArt({ commit }, id) {
-      const res = await this.$axios.$get(`/article/${id}`)
+    async getPost({ commit }, id) {
+      const res = await this.$axios.$get(`/post/${id}`)
       if (res && res.success) {
-        commit('SET_ART_DETAIL', res.data)
+        commit('SET_POST_DETAIL', res.data)
       }
     },
 
     // 喜欢文章
-    async likeArt({ commit, dispatch, state }, id) {
-      const res = await this.$axios.$put(`/likeArt/${id}`)
+    async likePost({ commit, dispatch, state }, id) {
+      const res = await this.$axios.$put(`/likePost/${id}`)
       if (res.success) {
         commit('LIKE_PLUS', id)
       }

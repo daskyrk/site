@@ -33,7 +33,7 @@ import { mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState('article', ['list', 'total', 'query']),
+    ...mapState('post', ['list', 'total', 'query']),
     hasMore() {
       return this.total > this.query.pageNo * this.query.pageSize
     },
@@ -43,11 +43,11 @@ export default {
   },
 
   async fetch({ store }) {
-    await store.dispatch('article/getArtList', { type: 'READ' })
+    await store.dispatch('post/getPostList', { type: 'READ' })
   },
 
   beforeDestroy() {
-    this.$store.commit('article/RESET_LIST')
+    this.$store.commit('post/RESET_LIST')
   },
 }
 </script>

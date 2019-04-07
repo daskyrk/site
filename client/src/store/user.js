@@ -1,28 +1,28 @@
 export default {
   state() {
     return {
-      userInfo: {},
-      logining: false,
+      user: {},
+      logined: false,
       token: null,
-      registerable: false,
+      registerable: true,
     }
   },
 
   mutations: {
     LOGIN_START(state, data) {
-      state.logining = true
+      state.logined = true
     },
 
-    SET_USER_INFO(state, data) {
-      state.userInfo = data
+    SET_USER(state, data) {
+      state.user = data
     },
 
-    SET_LOGGING(state, data) {
-      state.logining = data
+    SET_LOGIN_STATE(state, data) {
+      state.logined = data
     },
 
     LOGOUT(state) {
-      state.userInfo = {}
+      state.user = {}
       state.token = null
     },
 
@@ -41,17 +41,17 @@ export default {
 
   actions: {
     async login({ commit }, data) {
-      commit('SET_LOGGING', true)
+      commit('SET_LOGIN_STATE', true)
       const res = await this.$axios.$post('/login', data)
 
       if (res && res.success) {
-        const { userInfo, token } = res.data
-        commit('SET_USER_INFO', userInfo)
+        const { user, token } = res.data
+        commit('SET_USER', user)
         commit('SET_TOKEN', token)
       } else {
-        commit('SET_USER_INFO', {})
+        commit('SET_USER', {})
       }
-      commit('SET_LOGGING', false)
+      commit('SET_LOGIN_STATE', false)
       return res
     },
 
@@ -59,11 +59,11 @@ export default {
       const res = await this.$axios.$post('/user', data)
 
       if (res && res.success) {
-        const { userInfo, token } = res.data
-        commit('SET_USER_INFO', userInfo)
+        const { user, token } = res.data
+        commit('SET_USER', user)
         commit('SET_TOKEN', token)
       } else {
-        commit('SET_USER_INFO', {})
+        commit('SET_USER', {})
       }
       return res
     },
@@ -72,7 +72,7 @@ export default {
       const res = await this.$axios.$get('/user')
 
       if (res && res.success) {
-        commit('SET_USER_INFO', res.data)
+        commit('SET_USER', res.data)
       }
       return res
     },

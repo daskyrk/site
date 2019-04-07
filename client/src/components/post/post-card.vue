@@ -1,18 +1,18 @@
-<template>
+t<template>
   <transition-group
     tag="div"
     name="slide-down"
   >
     <nuxt-link
-      v-for="article in list"
-      :key="article._id"
-      :to="`/article/${article._id}`"
+      v-for="post in list"
+      :key="post._id"
+      :to="`/post/${post._id}`"
     >
-      <div class="article-item">
+      <div class="post-item">
         <img
-          v-if="article.thumb"
-          :src="article.thumb"
-          class="article-thumb"
+          v-if="post.thumb"
+          :src="post.thumb"
+          class="post-thumb"
           alt="thumb"
         >
         <svg
@@ -24,31 +24,31 @@
         </svg>
         <div class="content-wrap">
           <p class="title nowrap">
-            {{ article.title }}
+            {{ post.title }}
           </p>
           <div class="meta">
             <span class="time">
-              {{ format(article.createdAt) }}
+              {{ format(post.createdAt) }}
             </span>
             <span>
               <i class="iconfont icon-chakan" />
-              {{ article.meta.views }}
+              {{ post.meta.views }}
             </span>
             <span>
               <i class="iconfont icon-pinglun" />
-              {{ article.meta.comments }}
+              {{ post.meta.comments }}
             </span>
             <span>
               <i class="iconfont icon-xihuan" />
-              {{ article.meta.likes }}
+              {{ post.meta.likes }}
             </span>
           </div>
           <div class="descript">
-            {{ article.descript || '文章没有描述，进去看看？' | textClip(60) }}
+            {{ post.descript || '文章没有描述，进去看看？' | textClip(60) }}
           </div>
         </div>
         <span
-          v-if="topLikeId === article.id"
+          v-if="topLikeId === post.id"
           class="ribbon"
         >
           赞
@@ -96,15 +96,15 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-$article-card-height: 11rem;
+$post-card-height: 11rem;
 $half-ribbon-width: 1rem;
 
-.article-item {
+.post-item {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: $article-card-height;
+  height: $post-card-height;
   margin-bottom: 2rem;
   color: $color-text;
   border-radius: $radius;
@@ -132,15 +132,15 @@ $half-ribbon-width: 1rem;
     }
   }
 
-  .article-thumb {
+  .post-thumb {
     height: 100%;
-    min-width: $article-card-height;
+    min-width: $post-card-height;
     background: white;
   }
 
   .thumb-placeholder {
-    width: $article-card-height;
-    height: $article-card-height;
+    width: $post-card-height;
+    height: $post-card-height;
   }
 
   .content-wrap {
@@ -222,15 +222,15 @@ $half-ribbon-width: 1rem;
 }
 
 @media screen and (min-width: 1000px) {
-  .article-item {
-    height: $article-card-height + 1;
-    .article-thumb {
-      min-width: $article-card-height + 1;
+  .post-item {
+    height: $post-card-height + 1;
+    .post-thumb {
+      min-width: $post-card-height + 1;
     }
 
     .thumb-placeholder {
-      width: $article-card-height + 1;
-      height: $article-card-height + 1;
+      width: $post-card-height + 1;
+      height: $post-card-height + 1;
     }
   }
 }

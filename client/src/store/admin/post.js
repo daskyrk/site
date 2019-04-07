@@ -13,16 +13,16 @@ export default {
   },
 
   mutations: {
-    GET_ART_LIST(state, { list, total }) {
+    GET_POST_LIST(state, { list, total }) {
       state.list = list
       state.total = total
     },
 
-    SET_ART_DETAIL(state, data) {
+    SET_POST_DETAIL(state, data) {
       state.detail = data
     },
 
-    SET_ART(state, data) {
+    SET_POST(state, data) {
       state.list = state.list.map(art => (art._id === data._id ? data : art))
     },
 
@@ -39,67 +39,67 @@ export default {
       }
     },
 
-    SET_ART_SUMMARY(state, data) {
+    SET_POST_SUMMARY(state, data) {
       state.summary = data
     },
   },
 
   actions: {
     // 获取文章列表
-    async getArtList({ commit, state }, data) {
+    async getPostList({ commit, state }, data) {
       const query = { ...state.query, ...data }
-      const res = await this.$axios.$get('/admin/article', { params: query })
+      const res = await this.$axios.$get('/admin/post', { params: query })
       commit('UPDATE_QUERY', query)
       if (res.success) {
-        commit('GET_ART_LIST', res.data)
+        commit('GET_POST_LIST', res.data)
       }
     },
 
     // 获取文章详情
-    async getArt({ commit, ...rest }, id) {
-      const res = await this.$axios.$get(`/article/${id}`)
+    async getPost({ commit, ...rest }, id) {
+      const res = await this.$axios.$get(`/post/${id}`)
       if (res && res.success) {
-        commit('SET_ART_DETAIL', res.data)
+        commit('SET_POST_DETAIL', res.data)
       }
     },
 
     // 添加文章
-    async addArt({ commit, dispatch }, data) {
-      const res = await this.$axios.$post(`/admin/article`, data)
+    async addPost({ commit, dispatch }, data) {
+      const res = await this.$axios.$post(`/admin/post`, data)
       if (res.success) {
-        await dispatch('getArtList')
+        await dispatch('getPostList')
       }
       return res
     },
 
     // 编辑文章
-    async updateArt({ commit, dispatch }, { _id, ...data }) {
-      const res = await this.$axios.$put(`/admin/article/${_id}`, data)
+    async updatePost({ commit, dispatch }, { _id, ...data }) {
+      const res = await this.$axios.$put(`/admin/post/${_id}`, data)
       if (res.success) {
-        // await dispatch('getArtList');
-        commit('SET_ART', { _id, ...data })
+        // await dispatch('getPostList');
+        commit('SET_POST', { _id, ...data })
       }
       return res
     },
 
     // 删除文章
-    async delArt({ commit, dispatch, state }, id) {
-      const res = await this.$axios.$delete(`/admin/article/${id}`)
+    async delPost({ commit, dispatch, state }, id) {
+      const res = await this.$axios.$delete(`/admin/post/${id}`)
       if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {
           pageNo--
         }
-        await dispatch('getArtList', { pageNo })
+        await dispatch('getPostList', { pageNo })
       }
       return res
     },
 
     // 文章统计
     async summary({ commit }, id) {
-      const res = await this.$axios.$get(`/admin/article/summary`)
+      const res = await this.$axios.$get(`/admin/post/summary`)
       if (res.success) {
-        commit('SET_ART_SUMMARY', res.data)
+        commit('SET_POST_SUMMARY', res.data)
       }
       return res
     },

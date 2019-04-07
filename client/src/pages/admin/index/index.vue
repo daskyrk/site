@@ -5,13 +5,13 @@
       class="chart-wrap"
     >
       <chart
-        :data="articleChartData"
+        :data="postChartData"
         :options="chartOptions"
         type="bar"
         width="50%"
       />
       <chart
-        :data="articleChartData"
+        :data="postChartData"
         :options="chartOptions"
         type="bar"
         width="50%"
@@ -62,9 +62,9 @@ export default {
   },
 
   computed: {
-    ...mapState('admin/article', ['summary']),
+    ...mapState('admin/post', ['summary']),
 
-    articleChartData() {
+    postChartData() {
       const typeMap = {
         1: '文章',
         2: '读书',
@@ -94,7 +94,7 @@ export default {
   },
 
   async fetch({ store }) {
-    await store.dispatch('admin/article/summary')
+    await store.dispatch('admin/post/summary')
     // await store.dispatch('admin/tag/summary');
   },
 }

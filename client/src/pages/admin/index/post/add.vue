@@ -1,13 +1,13 @@
 <template>
   <div class="form-wrap">
-    <article-form :on-submit="onSubmit" />
+    <post-form :on-submit="onSubmit" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import ImageUploader from '~/components/common/image-uploader'
-import ArticleForm from '~/components/article/article-form'
+import PostForm from '~/components/post/post-form'
 
 export default {
   meta: {
@@ -15,14 +15,14 @@ export default {
   },
 
   components: {
-    ArticleForm,
+    PostForm,
   },
 
   methods: {
     onSubmit(data) {
-      this.$store.dispatch('admin/article/addArt', data).then(res => {
+      this.$store.dispatch('admin/post/addPost', data).then(res => {
         if (res.success) {
-          this.$router.push('/admin/article')
+          this.$router.push('/admin/post')
         }
       })
     },

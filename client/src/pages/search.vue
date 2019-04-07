@@ -18,7 +18,7 @@
       </span>
     </div>
     <div v-if="list.length">
-      <article-card :list="list" />
+      <post-card :list="list" />
       <LoadMore
         :has-more="hasMore"
         :load="loadMore"
@@ -42,12 +42,12 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import ArticleCard from '~/components/article/article-card'
+import PostCard from '~/components/post/post-card'
 import LoadMore from '~/components/common/load-more'
 
 export default {
   components: {
-    ArticleCard,
+    PostCard,
     LoadMore,
   },
 

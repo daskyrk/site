@@ -1,23 +1,23 @@
 <template>
-  <Article :detail="detail" />
+  <Post :detail="detail" />
 </template>
 
 
 <script>
-import Article from '~/components/article/article-page'
+import Post from '~/components/post/post-page'
 import { mapState } from 'vuex'
 
 export default {
   components: {
-    Article,
+    Post,
   },
 
   computed: {
-    ...mapState('article', ['detail']),
+    ...mapState('post', ['detail']),
   },
 
   async fetch({ store, params }) {
-    await store.dispatch('article/getArt', params.id)
+    await store.dispatch('post/getPost', params.id)
     await store.dispatch('tag/getTags', { pageSize: 100 })
   },
 }

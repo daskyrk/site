@@ -43,7 +43,7 @@ export default {
         await dispatch('tag/getTags', null, { root: true })
       }
       commit('UPDATE_QUERY', { pageNo: params.pageNo || 1 })
-      const res = await this.$axios.$get('/article', {
+      const res = await this.$axios.$get('/post', {
         params: { ...state.query, ...params },
       })
       if (res.success) {

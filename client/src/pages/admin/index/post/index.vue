@@ -1,5 +1,5 @@
 <template>
-  <div class="article-manage">
+  <div class="post-manage">
     <pg-filter>
       <el-form
         ref="filterForm"
@@ -163,7 +163,7 @@
             <el-tag
               v-for="tag in scope.row.tags"
               :key="tag"
-              class="article-tag"
+              class="post-tag"
             >
               {{ nameMap[tag] }}
             </el-tag>
@@ -214,7 +214,7 @@
             <el-button
               type="info"
               size="small"
-              @click="editArt(scope.row)"
+              @click="editPost(scope.row)"
             >
               修改
             </el-button>
@@ -222,7 +222,7 @@
               :loading="isDeleting(scope.row)"
               type="danger"
               size="small"
-              @click="deleteArt(scope.row)"
+              @click="deletePost(scope.row)"
             >
               {{ isDeleting(scope.row) ? '删除中' : '删 除' }}
             </el-button>
@@ -300,9 +300,9 @@ export default {
 
   computed: {
     ...mapState({
-      fetch: state => state.fetch['admin/article#get'],
+      fetch: state => state.fetch['admin/post#get'],
     }),
-    ...mapState('admin/article', ['list', 'total', 'query']),
+    ...mapState('admin/post', ['list', 'total', 'query']),
     ...mapGetters('tag', ['nameMap']),
     ...mapState('tag', {
       tagList: 'list',
@@ -310,12 +310,12 @@ export default {
   },
 
   async fetch({ store }) {
-    await store.dispatch('admin/article/getArtList')
+    await store.dispatch('admin/post/getPostList')
     await store.dispatch('tag/getTags', { pageSize: 100 })
   },
 
   // beforeDestroy() {
-  //   this.$store.commit('admin/article/RESET_LIST');
+  //   this.$store.commit('admin/post/RESET_LIST');
   // },
 
   methods: {
@@ -329,21 +329,21 @@ export default {
       return [start, end]
     },
     pageNoChange(pageNo) {
-      this.$store.dispatch('admin/article/getArtList', {
+      this.$store.dispatch('admin/post/getPostList', {
         pageNo,
       })
     },
     pageSizeChange(pageSize) {
-      this.$store.dispatch('admin/article/getArtList', {
+      this.$store.dispatch('admin/post/getPostList', {
         pageNo: 1,
         pageSize,
       })
     },
-    editArt(row) {
-      this.$router.push(`/admin/article/${row._id}`)
+    editPost(row) {
+      this.$router.push(`/admin/post/${row._id}`)
     },
-    deleteArt(row) {
-      this.$store.dispatch('admin/article/delArt', row._id)
+    deletePost(row) {
+      this.$store.dispatch('admin/post/delPost', row._id)
     },
     isDeleting(row) {
       return row._id === this.deletingId
@@ -354,7 +354,7 @@ export default {
           const { timeRange, ...rest } = this.filterForm
           const [startAt, endAt] = timeRange
           const data = { pageNo: 1, startAt, endAt, ...rest }
-          this.$store.dispatch('admin/article/getArtList', data)
+          this.$store.dispatch('admin/post/getPostList', data)
         } else {
           return false
         }
@@ -395,7 +395,7 @@ export default {
   margin-top: 1rem;
 }
 
-.article-tag {
+.post-tag {
   margin-right: 0.5rem;
 }
 </style>

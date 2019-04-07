@@ -1,43 +1,42 @@
 <template>
-  <div class="article-list">
-    <article-card :list="list" />
+  <div class="post-list">
+    <post-card :list="list" />
     <LoadMore
       :has-more="hasMore"
       :load="loadMore"
-      dom-selector=".article-list"
+      dom-selector=".post-list"
     />
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import ArticleCard from '~/components/article/article-card'
+import PostCard from '~/components/post/post-card'
 import LoadMore from '~/components/common/load-more'
 
 export default {
   components: {
-    ArticleCard,
+    PostCard,
     LoadMore,
   },
 
   computed: {
-    ...mapState('article', ['list', 'total', 'query']),
-    ...mapGetters('article', ['hasMore']),
+    ...mapState('post', ['list', 'total', 'query']),
+    ...mapGetters('post', ['hasMore']),
   },
 
   async fetch({ store }) {
-    await store.dispatch('article/getArtList', { type: 'READ' })
+    await store.dispatch('post/getPostList')
   },
 
   beforeDestroy() {
-    this.$store.commit('article/RESET_LIST')
+    this.$store.commit('post/RESET_LIST')
   },
 
   methods: {
     loadMore() {
-      return this.$store.dispatch('article/getArtList', {
+      return this.$store.dispatch('post/getPostList', {
         pageNo: this.query.pageNo + 1,
-        type: 'READ',
       })
     },
   },
@@ -45,7 +44,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.article-list {
+.post-list {
   min-width: 40rem;
   width: 56%;
   margin-top: 1rem;

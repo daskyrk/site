@@ -38,7 +38,7 @@
         </el-button>
         <el-button
           type="primary"
-          @click="updateArt"
+          @click="updatePost"
         >
           确 定
         </el-button>
@@ -172,14 +172,14 @@ export default {
 
   computed: {
     ...mapState({
-      fetch: state => state.fetch['admin/article#get'],
+      fetch: state => state.fetch['admin/post#get'],
     }),
-    ...mapState('admin/article', ['list', 'total', 'query']),
+    ...mapState('admin/post', ['list', 'total', 'query']),
     ...mapState('read', ['searchList']),
   },
 
   async fetch({ store }) {
-    await store.dispatch('admin/article/getArtList', { type: 'READ' })
+    await store.dispatch('admin/post/getPostList', { type: 'READ' })
   },
 
   methods: {
@@ -202,7 +202,7 @@ export default {
       this.toggleSearch()
       this.currentRow = row
     },
-    updateArt() {
+    updatePost() {
       this.toggleSearch()
       this.dialogVisible = false
       const book = this.selectedBook
@@ -220,18 +220,18 @@ export default {
           },
         },
       }
-      this.$store.dispatch('admin/article/updateArt', data)
+      this.$store.dispatch('admin/post/updatePost', data)
       this.currentRow = {}
       this.selectedBook = {}
     },
     pageNoChange(pageNo) {
-      this.$store.dispatch('admin/article/getArtList', {
+      this.$store.dispatch('admin/post/getPostList', {
         pageNo,
         type: this.type,
       })
     },
     pageSizeChange(pageSize) {
-      this.$store.dispatch('admin/article/getArtList', {
+      this.$store.dispatch('admin/post/getPostList', {
         pageNo: 1,
         pageSize,
         type: this.type,

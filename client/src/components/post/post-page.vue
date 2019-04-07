@@ -1,7 +1,7 @@
 <template>
   <div
-    ref="article"
-    class="article"
+    ref="post"
+    class="post"
   >
     <h3 class="title">
       {{ detail.title }}
@@ -21,7 +21,7 @@
       v-html="marked(detail.content)"
     />
     <!-- eslint-enable -->
-    <div class="article-info">
+    <div class="post-info">
       <span>
         <a
           href="https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh"
@@ -76,7 +76,7 @@
     <lazy-component @show="markMounted('comment')">
       <comment
         ref="comment"
-        :article-id="detail._id"
+        :post-id="detail._id"
       />
     </lazy-component>
   </div>
@@ -115,7 +115,7 @@ export default {
   },
 
   computed: {
-    // ...mapState('article', ['detail']),
+    // ...mapState('post', ['detail']),
     ...mapGetters('tag', ['nameMap']),
     isLiked: function() {
       return this.likes.includes(this.detail._id)
@@ -123,7 +123,7 @@ export default {
   },
 
   beforeMount() {
-    this.likes = getLS('article-like') || []
+    this.likes = getLS('post-like') || []
   },
 
   methods: {
@@ -134,10 +134,10 @@ export default {
       if (this.isLiked) {
         return
       }
-      this.$store.dispatch('article/likeArt', id).then(res => {
+      this.$store.dispatch('post/likePost', id).then(res => {
         if (res.success) {
           this.likes.push(id)
-          setLS('article-like', this.likes)
+          setLS('post-like', this.likes)
         }
       })
     },
@@ -158,7 +158,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.article {
+.post {
   width: 40%;
   min-width: 41.25rem;
 }
@@ -177,7 +177,7 @@ export default {
   margin-top: 1rem;
 }
 
-.article-info {
+.post-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
