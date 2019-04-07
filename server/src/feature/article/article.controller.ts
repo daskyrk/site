@@ -1,6 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { ArticleService } from './article.service';
 import { ArticleInfoDto, QueryArticleDto } from './dto/article.dto';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+
+import { ArticleService } from './article.service';
+import { AuthGuard } from '@/core/guards/auth.guard';
 
 @Controller('article')
 export class ArticleController {
@@ -17,6 +19,7 @@ export class ArticleController {
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   public searchArticles(@Query() query: QueryArticleDto) {
     return this.articleService.search(query);
   }

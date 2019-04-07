@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { checkToken } from '../../utils/auth';
+import { checkToken } from '@/utils/auth';
 
 export function tokenMiddleware(req: Request, res: Response, next: () => any) {
   console.log(`Request...`, req.headers.authorization);

@@ -1,5 +1,6 @@
 import { AnyExceptionFilter } from '@/core/filters/any-exception.filter';
 import { AppModule } from '@/app.module';
+import { AuthGuard } from '@/core/guards/auth.guard';
 import { BlogLogger } from '@/shared/logger/logger';
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
@@ -30,9 +31,9 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  // app.useGlobalGuards(new AuthIsVerifiedGuard());
+  app.useGlobalGuards(new AuthGuard());
 
-  app.use(tokenMiddleware);
+  // app.use(tokenMiddleware);
 
   // 支持 CORS
   app.enableCors({

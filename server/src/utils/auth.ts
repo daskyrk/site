@@ -15,16 +15,18 @@ export function verifyToken(token: string) {
 }
 
 export function checkToken(token: string) {
+  let decoded = null;
   try {
     // const decoded = verifyToken(token) as TokenPayload;
     // // console.log('过期时间:', getTime(decoded.expireTime));
     // const now = Math.floor(Date.now() / 1000);
     // // console.log('当前时间:', getTime(Date.now()));
     // return Number(decoded.expireTime) > now;
-    return verifyToken(token);
+    decoded = verifyToken(token);
   } catch (err) {
     console.log('token error:', err);
   }
+  return decoded;
 }
 
 // function getToken(ctx) {
