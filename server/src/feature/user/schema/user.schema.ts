@@ -13,7 +13,6 @@ export const UserSchema = new Mongoose.Schema(
     password: {
       type: String,
       required: true,
-      select: false,
     },
     nick: String,
     slogan: String,

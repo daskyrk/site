@@ -14,6 +14,7 @@ import {
 import { LoginDto, UserInfoDto } from './dto/user.dto';
 
 import { AuthGuard } from '@/core/guards';
+import { ForbiddenError } from 'apollo-server-core';
 import { UserService } from './user.service';
 import config from '@/config';
 
@@ -36,6 +37,16 @@ export class UserController {
         data: { user, token },
         success: true,
       });
+  }
+
+  @Get('info')
+  @UseGuards(AuthGuard)
+  public getInfo(@Res() res: any) {
+    if (res.user) {
+      const { email } = res.user;
+      return this.userService.findOne({ email });
+    }
+    throw new ForbiddenError('not login');
   }
 
   @Get()

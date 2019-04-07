@@ -10,8 +10,13 @@ import utility from 'utility';
 
 @Injectable()
 export class UserService extends BaseService<IUser> {
+  private projection: { password: boolean };
+
   constructor(@InjectModel('User') private readonly model: Model<IUser>) {
     super(model);
+    this.projection = {
+      password: false,
+    };
   }
 
   public async search(keyword: string) {
@@ -25,12 +30,12 @@ export class UserService extends BaseService<IUser> {
       ];
     }
 
-    return await super.findAll(query);
+    return await super.findAll(query, this.projection);
   }
 
   public async createUser(data: UserInfoDto) {
     const { email, password } = data;
-    const exist = await super.findOne({ email });
+    const exist = await super.findOne({ email }, this.projection);
     if (exist) {
       throw new Error('该email已注册');
     }
@@ -49,7 +54,7 @@ export class UserService extends BaseService<IUser> {
 
   public async login(data: LoginDto) {
     const { email, password } = data;
-    const user = await super.findOne({ email }, { email: true, password: true });
+    const user = await super.findOne({ email });
     if (!user) {
       throw new Error('该用户不存在');
     }
