@@ -40,8 +40,16 @@ module.exports = {
       },
       {
         rel: 'stylesheet',
+        href: '//cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        href: '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-reboot.min.css',
+      },
+      {
+        rel: 'stylesheet',
         href:
-          'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/monokai-sublime.min.css',
+          '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/monokai-sublime.min.css',
       },
     ],
     script: [
@@ -65,8 +73,6 @@ module.exports = {
   ],
   styleResources: {
     scss: [
-      '~/assets/style/reset/typography.scss',
-      '~/assets/style/reset/sanitize.scss',
       '~/assets/style/variable.scss',
       '~/assets/style/mixin.scss',
       '~/assets/style/transition.scss',
