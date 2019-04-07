@@ -94,7 +94,7 @@ export default {
   },
 
   async fetch({ store }) {
-    await store.dispatch('admin/post/summary')
+    // await store.dispatch('admin/post/summary')
     // await store.dispatch('admin/tag/summary');
   },
 }

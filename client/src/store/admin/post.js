@@ -48,7 +48,7 @@ export default {
     // 获取文章列表
     async getPostList({ commit, state }, data) {
       const query = { ...state.query, ...data }
-      const res = await this.$axios.$get('/admin/post', { params: query })
+      const res = await this.$axios.$get('/post', { params: query })
       commit('UPDATE_QUERY', query)
       if (res.success) {
         commit('GET_POST_LIST', res.data)
@@ -65,7 +65,7 @@ export default {
 
     // 添加文章
     async addPost({ commit, dispatch }, data) {
-      const res = await this.$axios.$post(`/admin/post`, data)
+      const res = await this.$axios.$post(`/post`, data)
       if (res.success) {
         await dispatch('getPostList')
       }
@@ -74,7 +74,7 @@ export default {
 
     // 编辑文章
     async updatePost({ commit, dispatch }, { _id, ...data }) {
-      const res = await this.$axios.$put(`/admin/post/${_id}`, data)
+      const res = await this.$axios.$put(`/post/${_id}`, data)
       if (res.success) {
         // await dispatch('getPostList');
         commit('SET_POST', { _id, ...data })
@@ -84,7 +84,7 @@ export default {
 
     // 删除文章
     async delPost({ commit, dispatch, state }, id) {
-      const res = await this.$axios.$delete(`/admin/post/${id}`)
+      const res = await this.$axios.$delete(`/post/${id}`)
       if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {

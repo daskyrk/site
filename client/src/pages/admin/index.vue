@@ -10,7 +10,9 @@ export default {
     breadcrumb: '管理后台',
   },
   async fetch({ store }) {
-    await store.dispatch('user/getUserInfo')
+    if (!store.state.user.userInfo) {
+      await store.dispatch('user/getUserInfo')
+    }
   },
 }
 </script>

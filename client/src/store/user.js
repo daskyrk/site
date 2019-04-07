@@ -1,7 +1,7 @@
 export default {
   state() {
     return {
-      user: {},
+      userInfo: {},
       logined: false,
       token: null,
       registerable: true,
@@ -14,7 +14,7 @@ export default {
     },
 
     SET_USER(state, data) {
-      state.user = data
+      state.userInfo = data
     },
 
     SET_LOGIN_STATE(state, data) {
@@ -22,7 +22,7 @@ export default {
     },
 
     LOGOUT(state) {
-      state.user = {}
+      state.userInfo = {}
       state.token = null
     },
 
@@ -42,7 +42,7 @@ export default {
   actions: {
     async login({ commit }, data) {
       commit('SET_LOGIN_STATE', true)
-      const res = await this.$axios.$post('/login', data)
+      const res = await this.$axios.$post('/user/login', data)
 
       if (res && res.success) {
         const { user, token } = res.data
@@ -69,7 +69,7 @@ export default {
     },
 
     async getUserInfo({ commit }) {
-      const res = await this.$axios.$get('/user')
+      const res = await this.$axios.$get('/user/info')
 
       if (res && res.success) {
         commit('SET_USER', res.data)
