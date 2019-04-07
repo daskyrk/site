@@ -160,12 +160,12 @@ $half-ribbon-width: 1rem;
     .meta {
       display: flex;
       align-items: center;
-      color: $color-text-sub;
+      color: $color-text-desc;
       margin-bottom: 0.5rem;
       font-size: 0.875rem;
 
       i {
-        color: $color-text-sub-assist;
+        color: $color-text-holder;
         vertical-align: middle;
       }
 
@@ -180,7 +180,7 @@ $half-ribbon-width: 1rem;
     }
 
     .descript {
-      color: $color-text-assist;
+      color: $color-text-sub;
     }
   }
 

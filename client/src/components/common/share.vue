@@ -220,7 +220,7 @@ export default {
   opacity: 0.8;
   &:hover {
     opacity: 1;
-    color: $color-text-sub;
+    color: $color-text-desc;
   }
 
   .share-item {

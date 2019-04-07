@@ -85,7 +85,7 @@ export default {
     top: 0;
     line-height: 1.8rem;
     font-size: 1.8rem;
-    color: $color-text-sub;
+    color: $color-text-desc;
   }
 
   .title {
@@ -99,7 +99,7 @@ export default {
 
   .author {
     font-size: 0.875rem;
-    color: $color-text-sub;
+    color: $color-text-desc;
     margin-bottom: 2rem;
   }
 
@@ -113,14 +113,14 @@ export default {
 
     i {
       font-size: 1.5rem;
-      color: $color-text-assist;
+      color: $color-text-sub;
     }
 
     p {
       text-indent: 1rem;
       padding: 1rem;
-      border-top: 1px solid $color-text-assist;
-      border-bottom: 1px solid $color-text-assist;
+      border-top: 1px solid $color-text-sub;
+      border-bottom: 1px solid $color-text-sub;
     }
   }
 }

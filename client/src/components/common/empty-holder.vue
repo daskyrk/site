@@ -1,7 +1,7 @@
 <template>
-  <div 
-    :class="{ large }" 
-    :style="{ minHeight }" 
+  <div
+    :class="{ large }"
+    :style="{ minHeight }"
     class="empty-holder"
   >
     <i class="iconfont icon-empty" />
@@ -40,7 +40,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: $color-text-sub-assist;
+  color: $color-text-holder;
 
   .icon-empty {
     font-size: 4rem;
@@ -51,7 +51,7 @@ export default {
   }
 
   &.large {
-    color: $color-text-assist;
+    color: $color-text-sub;
     .icon-empty {
       font-size: 10rem;
     }

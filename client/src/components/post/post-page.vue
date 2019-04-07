@@ -166,7 +166,7 @@ export default {
 .meta {
   margin-top: 1rem;
   font-size: 0.75rem;
-  color: $color-text-sub;
+  color: $color-text-desc;
   span {
     margin-right: 0.5rem;
   }
@@ -184,7 +184,7 @@ export default {
   flex-direction: row-reverse;
   font-size: 0.75rem;
   margin-top: 2rem;
-  color: $color-text-assist;
+  color: $color-text-sub;
 
   .tags {
     a {
