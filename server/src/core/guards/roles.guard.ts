@@ -8,6 +8,7 @@ export class RolesGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
 
   public canActivate(context: ExecutionContext): boolean {
+    // 通过Reflect从目标上取出@Roles装饰器添加的数据
     const roles = this.reflector.get<string[]>('roles', context.getHandler());
     if (!roles) {
       return true;

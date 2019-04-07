@@ -1,14 +1,12 @@
+import { AuthGuard, RolesGuard } from '@/core/guards';
 import { NestFactory, Reflector } from '@nestjs/core';
+import { TimeoutInterceptor, TransformInterceptor } from '@/core/interceptors';
 
-import { AnyExceptionFilter } from '@/core/filters/any-exception.filter';
+import { AnyExceptionFilter } from '@/core/filters';
 import { AppModule } from '@/app.module';
-import { AuthGuard } from '@/core/guards/auth.guard';
 import { BlogLogger } from '@/shared/logger/logger';
 import { Logger } from '@nestjs/common';
-import { RolesGuard } from '@/core/guards/roles.guard';
-import { TimeoutInterceptor } from '@/core/interceptors/timeout.interceptor';
-import { TransformInterceptor } from '@/core/interceptors/transform.interceptor';
-import { ValidationPipe } from '@/core/pipe/validation.pipe';
+import { ValidationPipe } from '@/core/pipe';
 import bodyParser from 'body-parser';
 // import compression from 'compression';
 import config from '@/config';
@@ -32,6 +30,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
+  // 请求按照注册顺序执行guard
   app.useGlobalGuards(
     new AuthGuard(),
     // new RolesGuard(new Reflector()),
