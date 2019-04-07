@@ -1,9 +1,11 @@
+import { NestFactory, Reflector } from '@nestjs/core';
+
 import { AnyExceptionFilter } from '@/core/filters/any-exception.filter';
 import { AppModule } from '@/app.module';
 import { AuthGuard } from '@/core/guards/auth.guard';
 import { BlogLogger } from '@/shared/logger/logger';
 import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { RolesGuard } from '@/core/guards/roles.guard';
 import { TimeoutInterceptor } from '@/core/interceptors/timeout.interceptor';
 import { TransformInterceptor } from '@/core/interceptors/transform.interceptor';
 import { ValidationPipe } from '@/core/pipe/validation.pipe';
@@ -13,7 +15,6 @@ import config from '@/config';
 import csurf from 'csurf';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import { tokenMiddleware } from '@/core/middleware/token.middleware';
 
 declare const module: any;
 async function bootstrap() {
@@ -31,9 +32,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  app.useGlobalGuards(new AuthGuard());
-
-  // app.use(tokenMiddleware);
+  app.useGlobalGuards(new AuthGuard(), new RolesGuard(new Reflector()));
 
   // 支持 CORS
   app.enableCors({
