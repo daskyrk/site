@@ -42,7 +42,7 @@ export class ConfigService {
       EMAIL_ACCOUNT: Joi.string(),
       EMAIL_PASSWORD: Joi.string(),
       TOKEN_KEY: Joi.string(),
-      TOKEN_TIME: Joi.string(),
+      TOKEN_TIME: Joi.number(),
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(

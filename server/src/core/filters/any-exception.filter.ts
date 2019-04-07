@@ -34,7 +34,7 @@ export class AnyExceptionFilter implements ExceptionFilter {
       }
     }
 
-    // 普通抛错封装到200返回中
+    // 普通抛错封装到200返回中 TODO: 自定义自己的error类型，避免混淆
     return response.status(HttpStatus.OK).json({
       message: exception.message,
       success: false,

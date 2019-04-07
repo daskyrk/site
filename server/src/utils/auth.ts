@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 interface TokenPayload {
   email: string;
-  password: string;
+  password?: string;
 }
 
 export function generateToken(payload: TokenPayload) {

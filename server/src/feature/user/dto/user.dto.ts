@@ -6,9 +6,7 @@ import {
   Length,
 } from 'class-validator';
 
-export class UserInfoDto {
-  public _id: string;
-
+export class LoginDto {
   @IsEmail() // gmail时validator验证要求用户名大于6个字符....
   @IsDefined({ message: "email can't not be empty" })
   public email: string;
@@ -16,6 +14,10 @@ export class UserInfoDto {
   @IsDefined({ message: "password can't not be empty" })
   @Length(6, 30)
   public password: string;
+}
+
+export class UserInfoDto extends LoginDto {
+  public _id: string;
 
   @Length(1, 30)
   public nick: string;
@@ -32,14 +34,4 @@ export class UserInfoDto {
 
   @IsFQDN()
   public site: string;
-}
-
-export class LoginDto {
-  @IsEmail() // gmail时validator验证要求用户名大于6个字符....
-  @IsDefined({ message: "email can't not be empty" })
-  public email: string;
-
-  @IsDefined({ message: "password can't not be empty" })
-  @Length(6, 30)
-  public password: string;
 }

@@ -13,6 +13,7 @@ import {
 import { LoginDto, UserInfoDto } from './dto/user.dto';
 
 import { UserService } from './user.service';
+import config from '@/config';
 
 @Controller('user')
 export class UserController {
@@ -26,12 +27,13 @@ export class UserController {
   @Post('login')
   public async login(@Body() loginDto: LoginDto, @Res() res: any) {
     const { user, token } = await this.userService.login(loginDto);
-    // res.set('Authorization', 'Bearer ' + token);
-    res.cookie('token', token);
-    res.status(HttpStatus.OK).json({
-      data: user,
-      success: true,
-    });
+    return res
+      .cookie('token', token, { httpOnly: true, maxAge: config.TOKEN_TIME })
+      .status(HttpStatus.OK)
+      .json({
+        data: user,
+        success: true,
+      });
   }
 
   @Get()

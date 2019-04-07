@@ -44,17 +44,14 @@ export class UserService extends BaseService<IUser> {
 
   public async login(data: LoginDto) {
     const { email, password } = data;
-    const user = await super.findOne({ email });
+    const user = await super.findOne({ email }, { email: true, password: true });
     if (!user) {
-      throw new Error('该email未注册');
+      throw new Error('该用户不存在');
     }
     if (user.password !== utility.sha256(password)) {
       throw new Error('密码错误');
     }
-    const token = generateToken({
-      email,
-      password,
-    });
+    const token = generateToken({ email });
 
     return {
       user,
