@@ -10,10 +10,10 @@
         <nuxt-link to="/">
           首页
         </nuxt-link>
-        <nuxt-link 
-          v-for="(nav, index) in navs" 
-          :key="index" 
-          :to="nav.link" 
+        <nuxt-link
+          v-for="(nav, index) in navs"
+          :key="index"
+          :to="nav.link"
           exact
         >
           {{ nav.text }}
@@ -21,19 +21,19 @@
       </nav>
     </div>
     <div class="header-right">
-      <input 
-        ref="searchInput" 
-        v-model="keyword" 
-        :class="{hide: !searchVisible}" 
-        type="text" 
-        class="header-search-input" 
-        maxlength="10" 
-        @keyup.enter="search" 
+      <input
+        ref="searchInput"
+        v-model="keyword"
+        :class="{hide: !searchVisible}"
+        type="text"
+        class="header-search-input"
+        maxlength="10"
+        @keyup.enter="search"
         @blur="hideSearch"
       >
-      <i 
-        :class="{hide: searchVisible}" 
-        class="iconfont icon-search header-search-icon" 
+      <i
+        :class="{hide: searchVisible}"
+        class="iconfont icon-search header-search-icon"
         @click="showSearch"
       />
       <music-player v-bind="musicConf" />
@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       keyword: '',
-      navs: process.env.navs,
+      navs: this.$getConfig('navs'),
       hide: false,
       searchVisible: false,
       musicConf: {

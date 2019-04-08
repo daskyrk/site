@@ -1,9 +1,9 @@
-const IS_DEV = process.env.NODE_ENV !== 'production'
-
-exports.envs = {
+export const appConfig = {
   owner: 'lijun',
   mail: 'daskyrk@gmail.com',
   site: 'https://lijun.space',
+  title: "lijun's blog",
+  description: "lijun's personal blog powered by nuxt, koa & mongodb",
   bg_mode: 'story', // static | story | random
   gtmId: 'UA-121869307-1', // google tag manager id
   footer: {

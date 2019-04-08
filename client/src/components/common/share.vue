@@ -154,10 +154,10 @@ export default {
 
   computed: {
     url() {
-      return `${process.env.site}${this.$route.fullPath}`
+      return `${this.$getConfig('site')}${this.$route.fullPath}`
     },
     title() {
-      return document ? document.title : `${process.env.owner}'s blog`
+      return document ? document.title : `${this.$getConfig('owner')}'s blog`
     },
     content() {
       return this.detail || ''

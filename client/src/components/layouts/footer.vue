@@ -3,15 +3,15 @@
     <div class="footer-link">
       <template v-for="(item, i) in footer.data">
         {{ i === 0 ? '' : footer.split }}
-        <nuxt-link 
-          v-if="item.link" 
-          :key="i" 
+        <nuxt-link
+          v-if="item.link"
+          :key="i"
           :to="item.link"
         >
           {{ item.text }}
         </nuxt-link>
-        <span 
-          v-else 
+        <span
+          v-else
           :key="i"
         >
           {{ item.text }}
@@ -25,7 +25,7 @@
 export default {
   data() {
     return {
-      footer: process.env.footer,
+      footer: this.$getConfig('footer'),
     }
   },
 }

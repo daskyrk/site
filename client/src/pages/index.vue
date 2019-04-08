@@ -78,8 +78,8 @@ export default {
 
   data() {
     return {
-      navs: process.env.navs,
-      mode: process.env.bg_mode,
+      navs: this.$getConfig('navs'),
+      mode: this.$getConfig('bg_mode'),
     }
   },
 

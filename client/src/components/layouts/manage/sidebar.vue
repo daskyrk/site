@@ -41,13 +41,13 @@ export default {
   data() {
     return {
       foldSidebar: false,
-      // owner: process.env.owner,
+      owner: this.$getConfig('owner'),
     }
   },
 
   computed: {
     menus() {
-      const menus = process.env.adminMenus
+      const menus = this.$getConfig('adminMenus');
       const path = this.$route.path
       let longestMatch = menus[0]
       menus.map(m => {

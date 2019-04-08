@@ -1,21 +1,21 @@
-const webpack = require('webpack')
-const pkg = require('./package')
-const config = require('./config')
+import * as webpack from 'webpack'
+
+import NuxtConfiguration from '@nuxt/config'
+import { appConfig } from './config'
+
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
-module.exports = {
+const config = {
   mode: 'universal',
   dev: IS_DEV,
-  env: config.envs,
+  // env: {},
   srcDir: 'src/',
 
   head: {
-    title: pkg.name,
-    titleTemplate: '%s | ' + config.envs.owner,
+    title: appConfig.title,
+    titleTemplate: '%s | ' + appConfig.owner,
     meta: [
       { charset: 'utf-8' },
-      { 'http-equiv': 'cleartype', content: 'on' },
-      { 'http-equiv': 'Cache-Control' },
       {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1, user-scalable=no',
@@ -23,14 +23,14 @@ module.exports = {
       {
         hid: 'description',
         name: 'description',
-        content: pkg.description,
+        content: appConfig.description,
       },
       {
         hid: 'keywords',
         name: 'keywords',
         content: '前端开发，JavaScript, Node, Vue, Nuxt, MongoDb, Blog',
       },
-      { name: 'author', content: config.envs.mail },
+      { name: 'author', content: appConfig.mail },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -44,7 +44,8 @@ module.exports = {
       },
       {
         rel: 'stylesheet',
-        href: '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-reboot.min.css',
+        href:
+          '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-reboot.min.css',
       },
       {
         rel: 'stylesheet',
@@ -63,6 +64,7 @@ module.exports = {
   },
 
   // loading: '~/components/loading.vue',
+  // loadingIndicator: 'chasing-dots',
 
   /*
    ** Global CSS
@@ -82,9 +84,10 @@ module.exports = {
   },
 
   plugins: [
-    { src: '~/plugins/markdown.js', ssr: false },
-    { src: '~/plugins/copy.js', ssr: false },
-    { src: '~/plugins/gtm.js', ssr: false },
+    '~/plugins/combined-inject.js',
+    '~/plugins/markdown.client.js',
+    '~/plugins/copy.client.js',
+    '~/plugins/gtm.client.js',
     '~/plugins/moment.js',
     '~/plugins/element-ui.js',
     '~/plugins/axios.js',
@@ -93,10 +96,7 @@ module.exports = {
     '~/plugins/custom-components.js',
   ],
 
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/style-resources',
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/style-resources'],
 
   axios: {
     proxy: true,
@@ -115,10 +115,7 @@ module.exports = {
       pathRewrite: { '^/api/proxy/douban': '' },
     },
     '/api': {
-      target:
-        IS_DEV || process.server
-          ? 'http://localhost:8000'
-          : 'https://lijun.space',
+      target: IS_DEV || process.server ? 'http://localhost:8000' : 'https://lijun.space',
       changeOrigin: true,
     },
   },
@@ -127,15 +124,22 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {
+    // analyze: true,
+    extend(config, { isDev, isClient }) {
       // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/,
-        })
+      // if (isDev && isClient) {
+      //   if (!config.module) {
+      //     config.module = { rules: [] }
+      //   }
+      //   config.module.rules.push({
+      //     enforce: 'pre',
+      //     test: /\.(js|vue)$/,
+      //     loader: 'eslint-loader',
+      //     exclude: /(node_modules)/,
+      //   })
+      // }
+      if (!config.plugins) {
+        config.plugins = []
       }
       config.plugins.push(
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
@@ -143,3 +147,5 @@ module.exports = {
     },
   },
 }
+
+export default config
