@@ -77,11 +77,10 @@ export default {
         return []
       }
       const list = this.addPName(this.list)
-      const { true: pList, false: childList } = _.groupBy(
+      const { true: pList = [], false: childList = [] } = _.groupBy(
         list,
         item => !item.pid,
       )
-      console.log('pList:', pList, childList)
       const data = pList.map(item => {
         item.children = this.findChildren(item, childList)
         item.depth = 1
@@ -118,7 +117,7 @@ export default {
         }
       })
     },
-    findChildren(item, list) {
+    findChildren(item, list = []) {
       return list.filter(i => i.pid === item.id)
     },
     addComment(data) {
