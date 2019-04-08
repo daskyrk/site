@@ -65,10 +65,10 @@
                   全部
                 </el-radio-button>
                 <el-radio-button label="1">
-                  发布
+                  草稿
                 </el-radio-button>
                 <el-radio-button label="2">
-                  草稿
+                  发布
                 </el-radio-button>
               </el-radio-group>
             </el-form-item>
@@ -202,7 +202,7 @@
               v-if="scope.row.state !== 1"
               class="iconfont icon-caogao"
             />
-            {{ scope.row.state === 1 ? '发布' : '草稿' }}
+            {{ scope.row.state === 1 ? '草稿' : '发布' }}
           </template>
         </el-table-column>
         <el-table-column

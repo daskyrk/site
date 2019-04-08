@@ -30,7 +30,7 @@ export default {
 
     // 添加图片上传记录
     async addImage({ commit, state }, data) {
-      const res = await this.$axios.$post(`/admin/image`, data)
+      const res = await this.$axios.$post(`/image`, data)
       return res
     },
   },

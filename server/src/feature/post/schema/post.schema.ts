@@ -15,7 +15,7 @@ export const PostSchema = new Mongoose.Schema(
     description: String,
 
     // 标签
-    tag: [{ type: Mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
+    tags: [{ type: Mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
 
     // 内容
     content: { type: String, required: true },

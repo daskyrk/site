@@ -27,7 +27,7 @@ export default {
   actions: {
     // 获取评论列表
     async getComments({ commit, state }, params) {
-      const res = await this.$axios.$get(`/admin/comment`, {
+      const res = await this.$axios.$get(`/comment`, {
         params: { ...state.query, ...params },
       })
       if (res.success) {
@@ -37,13 +37,13 @@ export default {
 
     // 添加评论
     async delComment({ state }, data) {
-      const res = await this.$axios.$delete(`/admin/comment`, data)
+      const res = await this.$axios.$delete(`/comment`, data)
       return res
     },
 
     // 更新评论
     async updateComment({ commit }, data) {
-      const res = await this.$axios.$put(`/admin/comment`, data)
+      const res = await this.$axios.$put(`/comment`, data)
       commit('SET_COMMENT_STATE', data)
       return res
     },

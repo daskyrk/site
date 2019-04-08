@@ -97,7 +97,7 @@ export default {
 
     // 文章统计
     async summary({ commit }, id) {
-      const res = await this.$axios.$get(`/admin/post/summary`)
+      const res = await this.$axios.$get(`/post/summary`)
       if (res.success) {
         commit('SET_POST_SUMMARY', res.data)
       }

@@ -29,7 +29,7 @@ export class PostInfoDto extends PostTransformDto {
 
   public description: string;
 
-  public tag: string[];
+  public tags: string[];
 
   public thumb: string;
 

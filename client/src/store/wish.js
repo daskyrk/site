@@ -42,7 +42,7 @@ export default {
     },
 
     async delWish({ dispatch, state }, id) {
-      const res = await this.$axios.$delete(`/admin/wish/${id}`)
+      const res = await this.$axios.$delete(`/wish/${id}`)
       if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {
