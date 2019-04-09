@@ -46,21 +46,6 @@ code {
   }
 }
 
-*,
-*:hover {
-  @include transition(
-    background-color 0.25s linear,
-    color 0.1s linear,
-    margin 0.25s linear,
-    opacity 0.25s linear,
-    filter 0.25s linear,
-    visibility 0.25s linear,
-    transform 0.25s linear,
-    border-color 0.25s linear,
-    box-shadow 0.25s linear
-  );
-}
-
 // .container {
 //   width: $container-width;
 //   margin: 0 auto;
