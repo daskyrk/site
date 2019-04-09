@@ -14,6 +14,7 @@ import cookieParser from 'cookie-parser';
 import csurf from 'csurf';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import { tokenMiddleware } from '@/core/middleware';
 
 declare const module: any;
 async function bootstrap() {
@@ -21,6 +22,9 @@ async function bootstrap() {
   app.setGlobalPrefix(config.API_PREFIX);
   // 开启自定义logger需要在app.module中引入LoggerModule
   // app.useLogger(app.get(BlogLogger));
+  // 先解析 cookie 再调用 tokenMiddleware
+  app.use(cookieParser());
+  app.use(tokenMiddleware);
 
   app.useGlobalFilters(new AnyExceptionFilter());
 
@@ -37,7 +41,6 @@ async function bootstrap() {
   });
   // 设置与安全相关的 HTTP 头
   app.use(helmet());
-  app.use(cookieParser());
   // app.use(csurf({ cookie: true }));
   app.use(
     new rateLimit({

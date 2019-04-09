@@ -14,8 +14,11 @@ export function verifyToken(token: string) {
   return jwt.verify(token, config.TOKEN_KEY, { maxAge: config.TOKEN_TIME });
 }
 
-export function checkToken(token: string) {
+export function checkToken(token: string | null) {
   let decoded = null;
+  if (!token) {
+    return null;
+  }
   try {
     // const decoded = verifyToken(token) as TokenPayload;
     // // console.log('过期时间:', getTime(decoded.expireTime));

@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 
 import { Observable } from 'rxjs';
-import { checkToken } from '@/utils/auth';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -14,27 +13,12 @@ export class AuthGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
-    if (request.cookies.token) {
-      const encoded = checkToken(request.cookies.token);
-      if (encoded) {
-        request.user = encoded;
-        return true;
-      }
-    }
-    if (request.headers.authorization) {
-      const [type, token] = request.headers.authorization.split(' ');
-      if (type === 'Bearer') {
-        const encoded = checkToken(token);
-        if (encoded) {
-          request.user = encoded;
-          return true;
-        }
-        throw new UnauthorizedException('token is invalid');
-      }
-      throw new UnauthorizedException('Authorization type invalid');
+    // 在token middleware中设置的
+    if (request.user) {
+      return true;
     }
     throw new UnauthorizedException(
-      `missing Authorization header when request to ${request.path}`,
+      `Forbidden to request path: ${request.path}`,
     );
   }
 }
