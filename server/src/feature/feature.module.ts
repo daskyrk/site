@@ -6,12 +6,13 @@ import { SharedModule } from '@/shared/shared.module';
 // import { LoggerModule } from './common/logger/logger.module';
 import { TagModule } from '@/feature/tag/tag.module';
 import { UserModule } from '@/feature/user/user.module';
+import { WishModule } from '@/feature/wish/wish.module';
 
 /**
  * 包含所有的业务模块
  */
 @Module({
-  imports: [SharedModule, UserModule, PostModule, CommentModule, TagModule, ImageModule],
-  exports: [UserModule, PostModule, CommentModule, TagModule, ImageModule],
+  imports: [SharedModule, UserModule, PostModule, CommentModule, TagModule, ImageModule, WishModule],
+  exports: [UserModule, PostModule, CommentModule, TagModule, ImageModule, WishModule],
 })
-export class FeatureModule {}
+export class FeatureModule { }
