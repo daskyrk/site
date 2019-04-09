@@ -131,7 +131,12 @@ const config = {
     /*
      ** You can extend webpack config here
      */
-    // analyze: true,
+    loaders: {
+      cssModules: {
+        localIdentName: '[local]_[hash:base64:5]',
+        camelCase: true,
+      },
+    },
     extend(config, { isDev, isClient }) {
       // Run ESLint on save
       // if (isDev && isClient) {
