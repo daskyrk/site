@@ -2,8 +2,8 @@
   <div class="load-more">
     <!-- <div class="has-more" v-if="hasMore"></div>
     <div class="load-more-btn" v-else>加载更多</div> -->
-    <div 
-      v-if="isLoading" 
+    <div
+      v-if="isLoading"
       class="loading"
     >
       加载更多...
@@ -123,7 +123,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .load-more {
   font-size: 2rem;
 }

@@ -1,6 +1,6 @@
 <template>
-  <div 
-    class="admin-entry" 
+  <div
+    class="admin-entry"
     @dblclick="toLogin"
   />
 </template>
@@ -16,7 +16,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 $trigger-size: 10px;
 
 .admin-entry {

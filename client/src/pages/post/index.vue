@@ -43,7 +43,7 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 .post-list {
   min-width: 40rem;
   width: 56%;

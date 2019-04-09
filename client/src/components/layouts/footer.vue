@@ -32,7 +32,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 footer {
   display: flex;
   align-items: center;

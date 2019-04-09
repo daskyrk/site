@@ -1,7 +1,7 @@
 <template>
   <div class="uplayer-lyric-area">
-    <p 
-      v-for="(lyric, i) in lyrics" 
+    <p
+      v-for="(lyric, i) in lyrics"
       :key="i"
     >
       ${lyric.text}
@@ -85,7 +85,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 p {
 }
 </style>

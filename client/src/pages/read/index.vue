@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 .stage {
   position: relative;
   margin: 100px;

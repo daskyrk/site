@@ -258,7 +258,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .markdown-editor {
   height: 500px;
 }

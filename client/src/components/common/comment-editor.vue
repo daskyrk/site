@@ -1,12 +1,12 @@
 <template>
   <div class="comment-editor">
-    <textarea 
-      v-model="value" 
-      :placeholder="holder" 
-      rows="4" 
-      cols="20" 
-      name="content" 
-      maxlength="400" 
+    <textarea
+      v-model="value"
+      :placeholder="holder"
+      rows="4"
+      cols="20"
+      name="content"
+      maxlength="400"
       @focus="focus"
     />
     <div class="editor-tools">
@@ -16,20 +16,20 @@
           <emoji-box :on-click="insertEmoji" />
         </transition>
       </span>
-      <span 
-        class="tool-btn" 
+      <span
+        class="tool-btn"
         @click="insert('img')"
       >
         <i class="iconfont icon-image" />
       </span>
-      <span 
-        class="tool-btn" 
+      <span
+        class="tool-btn"
         @click="insert('link')"
       >
         <i class="iconfont icon-lianjie" />
       </span>
-      <span 
-        class="tool-btn" 
+      <span
+        class="tool-btn"
         @click="insert('code')"
       >
         <i class="iconfont icon-daimakuai" />
@@ -93,7 +93,7 @@ export default {
 }
 </script>
 
-.<style lang="scss" scoped>
+.<style lang="scss">
 .comment-editor {
   flex: 1;
   textarea {

@@ -30,7 +30,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .form-wrap {
   background-color: $white;
   padding: 2rem 0;

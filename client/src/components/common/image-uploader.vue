@@ -1,17 +1,17 @@
 <template>
-  <div 
-    class="uploader" 
+  <div
+    class="uploader"
     @click="selectFile"
   >
     <i class="el-icon-plus avatar-uploader-icon" />
-    <input 
-      ref="input" 
-      type="file" 
-      accept="image/*" 
+    <input
+      ref="input"
+      type="file"
+      accept="image/*"
       @change="handleUpload($event)"
     >
-    <img 
-      v-if="imageSrc" 
+    <img
+      v-if="imageSrc"
       :src="imageSrc"
     >
   </div>
@@ -123,7 +123,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .uploader {
   display: inline-block;
   height: 164px;

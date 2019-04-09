@@ -422,7 +422,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 .player-container {
   width: 360px;
   position: fixed;

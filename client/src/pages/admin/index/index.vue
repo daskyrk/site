@@ -100,7 +100,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .chart-wrap {
   display: flex;
 }

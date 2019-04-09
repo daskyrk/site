@@ -1,6 +1,6 @@
 <template>
-  <div 
-    v-if="loading" 
+  <div
+    v-if="loading"
     class="loading-page"
   >
     <p>Loading...</p>
@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .loading-page {
   position: fixed;
   top: 0;

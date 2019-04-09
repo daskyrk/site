@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 .empty-holder {
   display: flex;
   flex-direction: column;

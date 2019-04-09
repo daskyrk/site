@@ -157,7 +157,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .post {
   width: 40%;
   min-width: 41.25rem;

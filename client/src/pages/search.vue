@@ -88,7 +88,7 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 .search-result {
   width: 60%;
   margin-top: 1rem;

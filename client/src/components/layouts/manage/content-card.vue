@@ -9,8 +9,8 @@
 
     <slot />
 
-    <div 
-      v-if="!hideFooter" 
+    <div
+      v-if="!hideFooter"
       class="footer"
     >
       <slot name="footer" />
@@ -31,7 +31,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 .manage-content-card {
   margin: $content-padding;
   overflow: hidden;

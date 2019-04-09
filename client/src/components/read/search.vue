@@ -1,12 +1,12 @@
 <template>
   <div class="search-wrap">
     <div class="search-input el-input el-input--prefix">
-      <input 
-        v-model="q" 
-        type="text" 
-        autocomplete="off" 
-        placeholder="请输入关键字" 
-        class="el-input__inner" 
+      <input
+        v-model="q"
+        type="text"
+        autocomplete="off"
+        placeholder="请输入关键字"
+        class="el-input__inner"
         @keyup.enter="search"
       >
       <span class="el-input__prefix">
@@ -15,41 +15,41 @@
     </div>
 
     <div class="search-result">
-      <div 
-        v-for="book in searchList" 
-        :key="book.isbn13" 
-        :class="isSelected(book.isbn13)" 
-        class="book-info-wrap" 
+      <div
+        v-for="book in searchList"
+        :key="book.isbn13"
+        :class="isSelected(book.isbn13)"
+        class="book-info-wrap"
         @click="onSelect(book)"
       >
         <div class="img-wrap">
-          <img 
-            :src="book.images.small | dealImg({w:80})" 
+          <img
+            :src="book.images.small | dealImg({w:80})"
             alt="book-image"
           >
         </div>
         <div class="book-info">
-          <p 
-            v-if="book.ebook_url" 
+          <p
+            v-if="book.ebook_url"
             class="title"
           >
             <a :href="book.ebook_url">
               {{ book.title }}
-              <span 
-                v-if="book.subtitle" 
+              <span
+                v-if="book.subtitle"
                 class="subtitle"
               >
                 ({{ book.subtitle }})
               </span>
             </a>
           </p>
-          <p 
-            v-else 
+          <p
+            v-else
             class="title"
           >
             {{ book.title }}
-            <span 
-              v-if="book.subtitle" 
+            <span
+              v-if="book.subtitle"
               class="subtitle"
             >
               ({{ book.subtitle }})
@@ -117,7 +117,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .search-wrap {
   display: flex;
   flex-direction: column;

@@ -1,18 +1,18 @@
 <template>
-  <div 
-    class="page-404" 
-    @click="toHome" 
-    @mousemove="moveLight($event)" 
+  <div
+    class="page-404"
+    @click="toHome"
+    @mousemove="moveLight($event)"
     @mouseout="mouseOut"
   >
-    <div 
-      ref="tip" 
+    <div
+      ref="tip"
       class="tip"
     >
       emmm 这里什么都没有.... <br>点击一下，立马回家
     </div>
-    <span 
-      ref="light" 
+    <span
+      ref="light"
       class="light"
     />
   </div>
@@ -72,7 +72,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 .page-404 {
   display: flex;
   height: 100vh;

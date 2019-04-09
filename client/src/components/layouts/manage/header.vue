@@ -56,7 +56,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 $header-bg: #3c4049;
 $header-bg-hover: #222630;
 $header-color: #aab1c3;

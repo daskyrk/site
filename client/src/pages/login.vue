@@ -225,7 +225,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $line-color: rgba(255, 255, 255, 0.1);
 $bg-color: rgba(255, 255, 255, 0.3);
 $text-color: rgba(255, 255, 255, 0.5);

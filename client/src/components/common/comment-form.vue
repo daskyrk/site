@@ -2,65 +2,65 @@
   <div>
     <div class="comment-editor-box">
       <div class="avatar">
-        <img 
-          v-if="author.gravatar" 
-          :alt="author.name || '匿名用户'" 
+        <img
+          v-if="author.gravatar"
+          :alt="author.name || '匿名用户'"
           :src="author.gravatar"
         >
-        <i 
-          v-else 
+        <i
+          v-else
           class="iconfont icon-niming"
         />
       </div>
-      <comment-editor 
-        :on-submit="submit" 
-        :on-focus="onFocus" 
+      <comment-editor
+        :on-submit="submit"
+        :on-focus="onFocus"
         :placeholder="placeholder"
       />
     </div>
     <div class="author-info">
-      <el-tooltip 
-        :value="nameHasError" 
-        manual 
-        effect="dark" 
-        content="名字忘了写吧~" 
+      <el-tooltip
+        :value="nameHasError"
+        manual
+        effect="dark"
+        content="名字忘了写吧~"
         placement="bottom"
       >
-        <input 
-          v-model="author.name" 
-          :class="{error: nameHasError}" 
-          type="input" 
-          name="name" 
-          required 
-          maxlength="20" 
-          placeholder="您的名称" 
+        <input
+          v-model="author.name"
+          :class="{error: nameHasError}"
+          type="input"
+          name="name"
+          required
+          maxlength="20"
+          placeholder="您的名称"
           @blur="checkName"
         >
       </el-tooltip>
 
-      <el-tooltip 
-        :value="emailHasError" 
-        manual 
-        effect="dark" 
-        content="格式不对哦~" 
+      <el-tooltip
+        :value="emailHasError"
+        manual
+        effect="dark"
+        content="格式不对哦~"
         placement="bottom"
       >
-        <input 
-          v-model="author.email" 
-          :class="{error: emailHasError}" 
-          type="email" 
-          name="email" 
-          required 
-          maxlength="40" 
-          placeholder="接收回复的邮箱" 
+        <input
+          v-model="author.email"
+          :class="{error: emailHasError}"
+          type="email"
+          name="email"
+          required
+          maxlength="40"
+          placeholder="接收回复的邮箱"
           @blur="checkEmail"
         >
       </el-tooltip>
-      <input 
-        v-model="author.site" 
-        type="input" 
-        name="site" 
-        maxlength="20" 
+      <input
+        v-model="author.site"
+        type="input"
+        name="site"
+        maxlength="20"
         placeholder="您的网站？"
       >
     </div>
@@ -133,7 +133,7 @@ export default {
 }
 </script>
 
-.<style lang="scss" scoped>
+.<style lang="scss">
 .comment-editor-box {
   width: 100%;
   display: flex;

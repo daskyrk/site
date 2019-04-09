@@ -95,7 +95,7 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 $post-card-height: 11rem;
 $half-ribbon-width: 1rem;
 

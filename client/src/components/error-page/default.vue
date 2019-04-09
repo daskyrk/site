@@ -18,7 +18,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style>
 .error-page {
   padding-top: 10%;
   text-align: center;
