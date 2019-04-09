@@ -7,8 +7,8 @@ import {
   Post,
   Put,
   Query,
-  UseGuards,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { QueryWishDto, WishDto } from './dto/wish.dto';
 
@@ -26,7 +26,6 @@ export class WishController {
   }
 
   @Get()
-  @UseGuards(AuthGuard)
   public search(@Query() query: QueryWishDto, @Req() req: any) {
     // 未登录只查询公开的和审核过的
     if (!req.user) {

@@ -22,7 +22,6 @@ export class PostController {
   }
 
   @Get()
-  @UseGuards(AuthGuard)
   public searchPosts(@Query() query: QueryPostDto, @Req() req: Request) {
     if (!req.user) {
       query.state = PostState.RELEASE;

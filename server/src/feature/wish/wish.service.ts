@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { PaginateModel } from 'mongoose';
-import { IWish } from './interface/wish.interface';
+import { QueryWishDto, WishDto } from './dto/wish.dto';
+
 import { BaseService } from '@/shared/base';
-import { WishDto, QueryWishDto } from './dto/wish.dto';
+import { IWish } from './interface/wish.interface';
+import { InjectModel } from '@nestjs/mongoose';
+import { Injectable } from '@nestjs/common';
+import { PaginateModel } from 'mongoose';
 
 @Injectable()
 export class WishService extends BaseService<IWish> {
@@ -16,8 +17,8 @@ export class WishService extends BaseService<IWish> {
     return await newModel.save();
   }
 
-  public async search({ pageNo = 1, pageSize = 10, q }: QueryWishDto) {
-    const query = {} as any;
+  public async search({ pageNo = 1, pageSize = 10, q, ...rest }: QueryWishDto) {
+    const query = { ...rest } as any;
     const options: {
       sort: any;
       page: number;
