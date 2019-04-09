@@ -70,17 +70,24 @@ const config = {
    ** Global CSS
    */
   css: [
+    '~/assets/style/common.scss',
+    '~/assets/style/syntax.scss',
+    '~/assets/style/transition.scss',
     'element-ui/lib/theme-chalk/index.css',
     'mavon-editor/dist/css/index.css',
   ],
   styleResources: {
-    scss: [
+    scss: [// 这里只能包含 variable、mixin, 禁止包容任何真实样式，否则每个style里都会重复一遍
       '~/assets/style/variable.scss',
       '~/assets/style/mixin.scss',
-      '~/assets/style/transition.scss',
-      '~/assets/style/common.scss',
-      '~/assets/style/syntax.scss',
     ],
+  },
+  render: {
+    bundleRenderer: {
+      shouldPreload: (file, type) => {
+        return ['script', 'style', 'font'].includes(type)
+      }
+    }
   },
 
   plugins: [
