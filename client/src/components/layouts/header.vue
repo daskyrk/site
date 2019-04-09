@@ -1,5 +1,8 @@
 <template>
-  <header :class="{ hide }">
+  <header
+    class="default-header"
+    :class="{ hide }"
+  >
     <div class="header-left">
       <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
         <filter id="f1" x="0" y="0" width="100%" height="100%">
@@ -115,7 +118,7 @@ export default {
 
 
 <style lang="scss">
-header {
+.default-header {
   position: fixed;
   top: 0;
   width: 100%;

@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="default-footer">
     <div class="footer-link">
       <template v-for="(item, i) in footer.data">
         {{ i === 0 ? '' : footer.split }}
@@ -33,7 +33,7 @@ export default {
 
 
 <style lang="scss">
-footer {
+.default-footer {
   display: flex;
   align-items: center;
   justify-content: center;
