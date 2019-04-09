@@ -12,6 +12,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+a {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 code,
 pre {
   font-family: 'Roboto Mono', Monaco, courier, monospace;
