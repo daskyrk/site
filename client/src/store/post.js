@@ -68,7 +68,7 @@ export default {
 
     // 喜欢文章
     async likePost({ commit, dispatch, state }, id) {
-      const res = await this.$axios.$put(`/likePost/${id}`)
+      const res = await this.$axios.$put(`/post/${id}/like`)
       if (res.success) {
         commit('LIKE_PLUS', id)
       }

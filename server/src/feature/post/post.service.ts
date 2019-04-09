@@ -110,4 +110,15 @@ export class PostService extends BaseService<IPost> {
 
     return await this.model.paginate(querys, options);
   }
+
+  public async likePost(id: string) {
+    const res = await this.model.findById(id);
+    if (res) {
+      res.meta.likes += 1;
+      res.save();
+    }
+
+    return res;
+  }
+
 }
