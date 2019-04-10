@@ -48,7 +48,7 @@ export default {
   right: 0;
   width: 100%;
   height: 100%;
-  background: url(http://p9uqlanms.bkt.clouddn.com/desk.webp) no-repeat;
+  background: url(~assets/images/desk.jpg) no-repeat;
   background-size: cover;
 
   .card {
