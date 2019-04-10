@@ -1,8 +1,8 @@
 <template>
-  <div class="app">
+  <div :class="$style.app">
     <my-header />
 
-    <div class="container">
+    <div :class="$style.container">
       <nuxt />
     </div>
 
@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 .app {
   display: flex;
   flex-direction: column;
