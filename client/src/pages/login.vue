@@ -226,154 +226,160 @@ export default {
 </script>
 
 <style lang="scss">
-$line-color: rgba(255, 255, 255, 0.1);
-$bg-color: rgba(255, 255, 255, 0.3);
-$text-color: rgba(255, 255, 255, 0.5);
-$text-color-active: rgba(255, 255, 255, 0.8);
+$line-color: rgba(255, 255, 255, .1);
+$bg-color: rgba(255, 255, 255, .3);
+$text-color: rgba(255, 255, 255, .5);
+$text-color-active: rgba(255, 255, 255, .8);
 $input-height: 3rem;
 
 .login-page {
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	display: flex;
-	flex-direction: column;
-	background-color: $black;
-	// background-image: url(https://api.lylares.com/bing/image/random/?w=640&h=480);
-	// background-size: cover;
-	overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  // background-image: url(https://api.lylares.com/bing/image/random/?w=640&h=480);
+  // background-size: cover;
+  overflow: hidden;
+  background-color: $black;
 
-	canvas {
-		height: 100%;
-		width: 100%;
-		// z-index: 1;
-	}
+  canvas {
+    width: 100%;
+    height: 100%;
+    // z-index: 1;
+  }
 
-	// &::before {
-	//   content: '';
-	//   position: absolute;
-	//   top: 0;
-	//   left: 0;
-	//   right: 0;
-	//   bottom: 0;
-	//   background: inherit;
-	//   filter: blur(5px);
-	//   margin: -20px;
-	// }
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   background: inherit;
+  //   filter: blur(5px);
+  //   margin: -20px;
+  // }
 }
 
 .title {
-	font-size: 3rem;
-	z-index: 0;
-	text-align: center;
+  z-index: 0;
+  font-size: 3rem;
+  text-align: center;
 }
 
 .login-form {
-	position: absolute;
-	left: 50%;
-	top: 60%;
-	width: 400px;
-	transform: translate(-50%, -50%);
-	display: flex;
-	flex-direction: column;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  transform: translate(-50%, -50%);
 
-	.input-wrap {
-		position: relative;
-		margin-bottom: 2rem;
+  .input-wrap {
+    position: relative;
+    margin-bottom: 2rem;
 
-		i {
-			position: absolute;
-			left: 0.7rem;
-			font-size: 2rem;
-			line-height: $input-height;
-			color: $text-color;
-			transition: color 0.25s;
-		}
+    i {
+      position: absolute;
+      left: .7rem;
+      color: $text-color;
+      font-size: 2rem;
+      line-height: $input-height;
+      transition: color .25s;
+    }
 
-		&.focus {
-			i {
-				color: $white;
-			}
+    &.focus {
+      i {
+        color: $white;
+      }
 
-			input {
-				&::-webkit-input-placeholder {
-					color: $white;
-				}
-				&::-moz-placeholder {
-					color: $white;
-				}
-				&:-moz-placeholder {
-					color: $white;
-				}
-				&:-ms-input-placeholder {
-					color: $white;
-				}
-			}
-		}
-	}
+      input {
+        &::-webkit-input-placeholder {
+          color: $white;
+        }
 
-	input,
-	button {
-		height: $input-height;
-		width: 100%;
-		border-radius: $input-height;
-		font-size: 18px;
+        &::-moz-placeholder {
+          color: $white;
+        }
 
-		&:active,
-		&:focus {
-			outline: none;
-			color: $text-color-active;
-			border: 1px solid $orange;
-		}
-	}
+        &:-moz-placeholder {
+          color: $white;
+        }
 
-	input {
-		background: $bg-color;
-		border: 1px solid $line-color;
-		padding: 0 $input-height + 0.5rem;
-		color: $text-color;
+        &:-ms-input-placeholder {
+          color: $white;
+        }
+      }
+    }
+  }
 
-		&::-webkit-input-placeholder {
-			text-align: center;
-			font-size: 18px;
-			color: $text-color;
-		}
-		&::-moz-placeholder {
-			text-align: center;
-			font-size: 18px;
-			color: $text-color;
-		}
-		&:-moz-placeholder {
-			text-align: center;
-			font-size: 18px;
-			color: $text-color;
-		}
-		&:-ms-input-placeholder {
-			text-align: center;
-			font-size: 18px;
-			color: $text-color;
-		}
-	}
+  input,
+  button {
+    width: 100%;
+    height: $input-height;
+    font-size: 18px;
+    border-radius: $input-height;
 
-	button {
-		cursor: pointer;
-		border: none;
-		color: $text-color-active;
+    &:active,
+    &:focus {
+      color: $text-color-active;
+      border: 1px solid $orange;
+      outline: none;
+    }
+  }
 
-		&[type='submit'] {
-			background-color: #3ca271;
+  input {
+    padding: 0 $input-height + .5rem;
+    color: $text-color;
+    background: $bg-color;
+    border: 1px solid $line-color;
 
-			&:hover {
-				background-color: $green;
-			}
-		}
-	}
+    &::-webkit-input-placeholder {
+      color: $text-color;
+      font-size: 18px;
+      text-align: center;
+    }
 
-	.regist-btn {
-		margin-top: 12px;
-		background-color: $darkgray;
-	}
+    &::-moz-placeholder {
+      color: $text-color;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    &:-moz-placeholder {
+      color: $text-color;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    &:-ms-input-placeholder {
+      color: $text-color;
+      font-size: 18px;
+      text-align: center;
+    }
+  }
+
+  button {
+    color: $text-color-active;
+    border: none;
+    cursor: pointer;
+
+    &[type="submit"] {
+      background-color: #3ca271;
+
+      &:hover {
+        background-color: $green;
+      }
+    }
+  }
+
+  .regist-btn {
+    margin-top: 12px;
+    background-color: $darkgray;
+  }
 }
 </style>

@@ -38,8 +38,8 @@ export default {
 .empty-holder {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   color: $color-text-holder;
 
   .icon-empty {
@@ -52,9 +52,11 @@ export default {
 
   &.large {
     color: $color-text-sub;
+
     .icon-empty {
       font-size: 10rem;
     }
+
     .tip {
       font-size: 1.6rem;
     }

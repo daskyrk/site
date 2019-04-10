@@ -135,33 +135,35 @@ export default {
 <style lang="scss">
 .comment-item {
   position: relative;
+
   .comment-avatar {
     position: relative;
-    float: left;
     z-index: 1;
+    float: left;
     width: 3.2rem;
-    padding: 0.5rem 0;
+    padding: .5rem 0;
     background-color: $white;
+
     img {
-      border-radius: $radius;
       width: 100%;
+      border-radius: $radius;
     }
   }
 
   &::before {
-    content: '';
+    position: absolute;
+    top: -500%;
+    left: 1.5rem;
     width: 1px;
     height: 500%;
     background: $lightgray;
-    left: 1.5rem;
-    top: -500%;
-    position: absolute;
+    content: "";
   }
 
   &.depth-1 {
+    margin-bottom: .75rem;
     overflow: hidden;
     border-bottom: 1px solid $color-border;
-    margin-bottom: 0.75rem;
 
     &:last-child {
       border-bottom: none;
@@ -172,25 +174,25 @@ export default {
 .comment-body {
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
   margin-left: 4rem;
+  padding: .5rem;
 
   &:hover {
     .comment-footer .reply {
-      opacity: 0.9;
+      opacity: .9;
     }
   }
 
   .comment-header {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
     color: $color-text-desc;
+    font-size: .8rem;
   }
 
   .comment-content {
+    margin: .7rem 0 .5rem;
     line-height: 2rem;
-    margin: 0.7rem 0 0.5rem;
     word-wrap: break-word;
   }
 
@@ -200,12 +202,12 @@ export default {
   }
 
   .comment-footer {
-    font-size: 12px;
     color: $color-text-desc;
-    opacity: 0.9;
+    font-size: 12px;
+    opacity: .9;
 
     i {
-      margin-right: 0.1875rem;
+      margin-right: .1875rem;
     }
 
     span {
@@ -213,6 +215,7 @@ export default {
       align-items: center;
       margin-right: 1rem;
       cursor: pointer;
+
       &.active,
       &:hover {
         &.like {
@@ -232,7 +235,7 @@ export default {
 }
 
 .comment-reply {
-  padding-top: 0.5rem;
   margin-bottom: 100px;
+  padding-top: .5rem;
 }
 </style>

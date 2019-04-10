@@ -63,21 +63,22 @@ $header-color: #aab1c3;
 $header-color-hover: $white;
 
 .manage-header {
-  padding-left: $layout-padding;
-  height: $header-height;
+  z-index: 9;
   display: flex;
   flex-shrink: 0;
-  align-items: center;
   justify-content: space-between;
-  z-index: 9;
-  background: $header-bg;
+  align-items: center;
+  height: $header-height;
+  padding-left: $layout-padding;
   color: $header-color;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  background: $header-bg;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
 
   /deep/ .el-breadcrumb__inner {
     a,
     &.is-link {
       color: $header-color;
+
       &:hover {
         color: $header-color-hover;
       }
@@ -88,6 +89,7 @@ $header-color-hover: $white;
 .header-right {
   display: flex;
   height: 100%;
+
   .avatar {
     width: 2.5rem;
     height: 2.5rem;
@@ -97,18 +99,18 @@ $header-color-hover: $white;
 
 .header-operation {
   display: flex;
-  width: 4.5rem;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  width: 4.5rem;
 
   i {
     font-size: 1.25rem;
   }
 
   &.op:hover {
-    cursor: pointer;
     color: $header-color-hover;
     background-color: $header-bg-hover;
+    cursor: pointer;
   }
 }
 </style>

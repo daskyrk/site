@@ -32,7 +32,7 @@ export default {
 
 <style lang="scss">
 .form-wrap {
-  background-color: $white;
   padding: 2rem 0;
+  background-color: $white;
 }
 </style>

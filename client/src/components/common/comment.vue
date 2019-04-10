@@ -160,37 +160,41 @@ export default {
   .summary {
     position: relative;
     display: flex;
-    margin-bottom: 1rem;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
     .line {
-      height: 1px;
       flex-grow: 1;
-      background-color: $color-split;
+      height: 1px;
       margin-left: 1.25rem;
+      background-color: $color-split;
     }
   }
 
   .author-info {
-    margin-left: 4rem;
-    margin-top: 0.4rem;
     display: flex;
+    margin-top: .4rem;
+    margin-left: 4rem;
 
     input {
       width: 100%;
       height: 2em;
-      padding: 0.5rem;
+      margin-right: 1rem;
+      padding: .5rem;
       background: transparent;
       border: 1px solid $platinum;
       border-radius: 4px;
-      margin-right: 1rem;
       outline: none;
+
       &:hover {
         border-color: $lightblack;
       }
+
       &:focus {
         border-color: $color-primary;
       }
+
       &:last-child {
         margin-right: 0;
       }

@@ -11,6 +11,7 @@
 
   .filter-content {
     padding: $content-padding;
+
     .el-form-item:last-child {
       margin-bottom: 0;
     }
@@ -21,12 +22,13 @@
   }
 
   .filter-footer {
-    height: 3rem;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    background-color: $ghostwhite;
+    align-items: center;
+    height: 3rem;
     padding: 0 $content-padding;
+    background-color: $ghostwhite;
+
     .el-form-item {
       margin-bottom: 0;
     }

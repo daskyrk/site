@@ -135,16 +135,19 @@ export default {
 
 .<style lang="scss">
 .comment-editor-box {
-  width: 100%;
   display: flex;
+  width: 100%;
+
   .avatar {
     position: relative;
     width: 3rem;
     margin-right: 1rem;
+
     img {
       width: 100%;
       border-radius: $radius;
     }
+
     i {
       font-size: 3rem;
     }

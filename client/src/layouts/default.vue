@@ -33,8 +33,8 @@ export default {
 .container {
   display: flex;
   flex: 1;
-  width: 100%;
   justify-content: center;
+  width: 100%;
   margin: 6rem auto 1rem;
 }
 </style>

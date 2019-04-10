@@ -23,7 +23,7 @@
       v-if="list.length"
       v-loading="fetch"
       :data="list"
-      style="width: 100%"
+      style="width: 100%;"
     >
       <el-table-column
         label="名称"

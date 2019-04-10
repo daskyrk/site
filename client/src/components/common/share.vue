@@ -217,10 +217,11 @@ export default {
   display: flex;
   justify-content: space-between;
   color: $darkgray;
-  opacity: 0.8;
+  opacity: .8;
+
   &:hover {
-    opacity: 1;
     color: $color-text-desc;
+    opacity: 1;
   }
 
   .share-item {

@@ -81,7 +81,7 @@
         v-if="list.length"
         v-loading="fetch"
         :data="list"
-        style="width: 100%"
+        style="width: 100%;"
       >
         <el-table-column label="内容">
           <template slot-scope="scope">
@@ -337,15 +337,17 @@ export default {
 .filter-form {
   .flow-item {
     overflow: hidden;
+
     .el-form-item {
-      float: left;
       display: inline-flex;
+      float: left;
     }
   }
 }
 
 .kword {
   width: 380px;
+
   /deep/ .el-form-item__content {
     flex: 1;
   }

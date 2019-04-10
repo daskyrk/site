@@ -50,7 +50,7 @@
         v-if="list.length"
         v-loading="fetch"
         :data="list"
-        style="width: 100%"
+        style="width: 100%;"
       >
         <el-table-column
           label="封面"
@@ -254,12 +254,12 @@ export default {
 
 .search-panel {
   position: absolute;
+  bottom: 0;
   width: 100%;
   height: 60%;
-  bottom: 0;
   background-color: $white;
-  transition: transform 0.3s;
   transform: translateY(100%);
+  transition: transform .3s;
 
   &.visible {
     transform: translateY(0);
@@ -267,8 +267,8 @@ export default {
 
   button {
     position: absolute;
-    right: 20px;
     top: 20px;
+    right: 20px;
   }
 }
 </style>

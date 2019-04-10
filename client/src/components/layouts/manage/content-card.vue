@@ -36,16 +36,16 @@ export default {
   margin: $content-padding;
   overflow: hidden;
   background-color: $white;
-  box-shadow: 0 0 6px $lightgray;
   border-radius: $radius;
+  box-shadow: 0 0 6px $lightgray;
 }
 
 .header,
 .footer {
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   height: 3rem;
   padding: 0 1rem;
 }
@@ -55,13 +55,13 @@ export default {
   border-bottom: 1px solid $platinum;
 
   &::before {
-    content: '';
     position: absolute;
-    left: 0;
     top: 0;
-    height: 100%;
+    left: 0;
     width: 4px;
+    height: 100%;
     background-color: $green;
+    content: "";
   }
 }
 </style>

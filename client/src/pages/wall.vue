@@ -87,14 +87,14 @@ export default {
 
 .ding-area {
   position: absolute;
-  left: 0;
   top: 0;
   right: 400px;
   bottom: 0;
-  padding: 1rem;
-  padding-top: 2rem;
+  left: 0;
   display: flex;
   flex-wrap: wrap;
+  padding: 1rem;
+  padding-top: 2rem;
   overflow: auto;
 }
 
@@ -105,46 +105,43 @@ export default {
   justify-content: space-between;
   width: 300px;
   height: 220px;
-  margin: 0 0.3rem 1rem 0.3rem;
-  padding: 2.4rem 1rem 0rem;
+  margin: 0 .3rem 1rem .3rem;
+  padding: 2.4rem 1rem 0;
   background: repeating-linear-gradient(
-      180deg,
-      rgba(224, 224, 224, 0.5) 0,
-      rgba(202, 202, 202, 0.5) 0.44%,
-      rgba(0, 0, 0, 0) 0.44%,
-      rgba(0, 0, 0, 0) 17%
-    ),
+    180deg, rgba(224, 224, 224, .5) 0, rgba(202, 202, 202, .5) .44%, rgba(0, 0, 0, 0) .44%, rgba(0, 0, 0, 0) 17%
+  ),
     #fcf59b;
   background-color: rgb(220, 179, 113);
-  box-shadow: 0 1px 11px rgba(0, 0, 0, 0.62), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 1px 11px rgba(0, 0, 0, .62), 0 0 40px rgba(0, 0, 0, .1) inset;
 
   &::before,
   &::after {
-    content: '';
     position: absolute;
     top: 30px;
     bottom: 16px;
-    background: transparent;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
     z-index: -1;
-    background: #fff;
+    background: transparent;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .7);
+    content: "";
   }
+
   &::before {
-    left: 25px;
     right: 25px;
+    left: 25px;
     transform: skew(-15deg) rotate(-6deg);
   }
+
   &::after {
-    left: 25px;
     right: 25px;
+    left: 25px;
     transform: skew(15deg) rotate(6deg);
   }
 
   .content,
   .by {
+    overflow: hidden;
     line-height: 36px;
     word-break: break-word;
-    overflow: hidden;
   }
 
   .by {
@@ -153,89 +150,81 @@ export default {
 }
 
 .ding {
+  position: absolute;
+  top: 9px;
+  left: 45%;
   display: block;
   box-sizing: content-box;
   width: 30px;
   height: 30px;
-  position: absolute;
-  top: 9px;
-  left: 45%;
   overflow: visible;
-  outline: none;
-  border: 0 solid rgba(0, 0, 0, 1);
-  border-radius: 30px;
   background: radial-gradient(
-      circle closest-side at 50% 50%,
-      rgba(25, 119, 196, 1) 0,
-      rgba(25, 119, 196, 1) 4%,
-      rgba(12, 113, 201, 1) 77%,
-      rgba(255, 255, 255, 0) 89%,
-      rgba(255, 255, 255, 0) 100%
-    ),
+    circle closest-side at 50% 50%, rgba(25, 119, 196, 1) 0, rgba(25, 119, 196, 1) 4%, rgba(12, 113, 201, 1) 77%, rgba(255, 255, 255, 0) 89%, rgba(255, 255, 255, 0) 100%
+  ),
     radial-gradient(
-      circle closest-side at 50% 50%,
-      rgba(0, 0, 0, 0.4) 0,
-      rgba(0, 0, 0, 0.2) 81%,
-      rgba(255, 255, 255, 0) 92%,
-      rgba(255, 255, 255, 0) 100%
-    ),
+    circle closest-side at 50% 50%, rgba(0, 0, 0, .4) 0, rgba(0, 0, 0, .2) 81%, rgba(255, 255, 255, 0) 92%, rgba(255, 255, 255, 0) 100%
+  ),
     radial-gradient(
-      circle closest-side at 50% 50%,
-      rgba(64, 150, 238, 1) 0,
-      rgba(64, 150, 238, 1) 100%
-    ),
-    rgba(255, 255, 255, 0.9);
+    circle closest-side at 50% 50%, rgba(64, 150, 238, 1) 0, rgba(64, 150, 238, 1) 100%
+  ),
+    rgba(255, 255, 255, .9);
   background-repeat: no-repeat, no-repeat, no-repeat;
   background-position: 96% -4%, 71% 43%, 50% 50%;
-  // -webkit-background-origin: padding-box, padding-box, padding-box;
-  background-origin: padding-box, padding-box, padding-box;
-  // -webkit-background-clip: border-box, border-box, border-box;
-  background-clip: border-box, border-box, border-box;
   // -webkit-background-size: 20px 20px, 20px 20px, auto auto;
   background-size: 20px 20px, 20px 20px, auto auto;
+  // -webkit-background-clip: border-box, border-box, border-box;
+  background-clip: border-box, border-box, border-box;
+  // -webkit-background-origin: padding-box, padding-box, padding-box;
+  background-origin: padding-box, padding-box, padding-box;
+  border: 0 solid rgba(0, 0, 0, 1);
+  border-radius: 30px;
+  outline: none;
   // -webkit-box-shadow: -4px 8px 5px 1px rgba(0, 0, 0, 0.2);
-  box-shadow: -4px 8px 5px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: -4px 8px 5px 1px rgba(0, 0, 0, .2);
 }
 
 .panel {
   position: absolute;
-  right: 0;
   top: 0;
+  right: 0;
   bottom: 0;
-  width: 400px;
   display: flex;
-  align-items: center;
-  padding-top: 230px;
   // justify-content: center;
   flex-direction: column;
-  background: hsla(0, 0%, 100%, 0.3);
+  align-items: center;
+  width: 400px;
+  padding-top: 230px;
   overflow: hidden;
+  background: hsla(0, 0%, 100%, .3);
 
   textarea,
   input {
     width: 90%;
     margin-bottom: 2rem;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, .5);
     border: 1px solid white;
-    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
 
     &:active,
     &:focus {
-      outline: none;
       border-color: #1ecd97;
+      outline: none;
     }
 
     &::-webkit-input-placeholder {
       color: white;
     }
+
     &::-moz-placeholder {
       /* Mozilla Firefox 19+ */
       color: white;
     }
+
     &:-moz-placeholder {
       /* Mozilla Firefox 4 to 18 */
       color: white;
     }
+
     &:-ms-input-placeholder {
       /* Internet Explorer 10-11 */
       color: white;
@@ -244,37 +233,37 @@ export default {
 
   textarea {
     height: 200px;
-    resize: none;
     padding: 1rem;
+    resize: none;
   }
 
   input {
-    padding: 0.5rem;
+    padding: .5rem;
   }
 
   button {
     display: block;
-    margin: 0 auto;
-    padding: 0;
     width: 200px;
     height: 50px;
+    margin: 0 auto;
+    padding: 0;
+    color: #1ecd97;
+    font-size: 18px;
+    font-family: Montserrat, sans-serif;
+    letter-spacing: 1px;
+    background: transparent;
     border: 2px solid #1ecd97;
     border-radius: 40px;
-    background: transparent;
-    color: #1ecd97;
-    letter-spacing: 1px;
-    font-size: 18px;
-    font-family: 'Montserrat', sans-serif;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-transition: background-color 0.3s, color 0.3s, width 0.3s,
-      border-width 0.3s, border-color 0.3s;
-    transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s,
-      border-color 0.3s;
     cursor: pointer;
+    -webkit-transition: background-color .3s, color .3s, width .3s,
+      border-width .3s, border-color .3s;
+    transition: background-color .3s, color .3s, width .3s, border-width .3s,
+      border-color .3s;
+    -webkit-tap-highlight-color: transparent;
 
     &:hover {
+      color: #ffffff;
       background-color: #1ecd97;
-      color: #fff;
     }
 
     &:focus {

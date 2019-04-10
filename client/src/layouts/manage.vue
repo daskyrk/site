@@ -25,8 +25,8 @@ export default {
 
 <style lang="scss" module>
 .manage-layout {
-  height: 100vh;
   display: flex;
+  height: 100vh;
 }
 
 .manage-main {
@@ -38,8 +38,8 @@ export default {
 }
 
 .manage-content {
-  flex: 1;
   position: relative;
+  flex: 1;
   overflow: auto;
 }
 </style>

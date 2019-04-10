@@ -54,51 +54,43 @@ export default {
   .card {
     position: absolute;
     top: 54%;
-    width: 60%;
     bottom: 3rem;
     left: 20%;
-    border-radius: $radius;
+    width: 60%;
     background-color: $whitesmoke;
+    border-radius: $radius;
 
-    $card-border: 0.6rem;
-    $line-width: 0.6rem;
+    $card-border: .6rem;
+    $line-width: .6rem;
 
     &::after {
-      content: '';
-      background: repeating-linear-gradient(
-        45deg,
-        #114abc,
-        #114abc $line-width,
-        #fff $line-width,
-        #fff 2 * $line-width,
-        #bf2010 2 * $line-width,
-        #bf2010 3 * $line-width,
-        #fff 3 * $line-width,
-        #fff 4 * $line-width
-      );
-      padding: 20px;
-      border-radius: 6px;
-      box-shadow: 1px 2px 6px 1px rgba(76, 66, 47, 0.75);
       position: absolute;
       top: -$card-border;
-      left: -$card-border;
       right: -$card-border;
       bottom: -$card-border;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      left: -$card-border;
       z-index: -1;
+      padding: 20px;
+      background: repeating-linear-gradient(
+        45deg, #114abc, #114abc $line-width, #ffffff $line-width, #ffffff 2 * $line-width, #bf2010 2 * $line-width, #bf2010 3 * $line-width, #ffffff 3 * $line-width, #ffffff 4 * $line-width
+      );
+      border-radius: 6px;
+      box-shadow: 1px 2px 6px 1px rgba(76, 66, 47, .75);
+      content: "";
     }
   }
 
   .info {
     height: 100%;
+    padding: 3rem 2rem;
     overflow: hidden;
     text-align: center;
-    padding: 3rem 2rem;
 
     > div {
-      margin-top: 0.5rem;
+      margin-top: .5rem;
     }
   }
+
   .avatar {
     width: 80px;
     height: 80px;

@@ -66,12 +66,12 @@ export default {
 }
 
 .side {
-  flex: 1;
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
-  background: antiquewhite;
   padding: 2rem;
+  background: antiquewhite;
 
   &:hover {
     .back {
@@ -81,26 +81,26 @@ export default {
 
   .back {
     position: absolute;
-    left: 0;
     top: 0;
-    line-height: 1.8rem;
-    font-size: 1.8rem;
+    left: 0;
     color: $color-text-desc;
+    font-size: 1.8rem;
+    line-height: 1.8rem;
   }
 
   .title {
     position: relative;
     width: 100%;
-    text-align: center;
-    font-size: 1.25rem;
+    margin-bottom: .5rem;
     font-weight: 500;
-    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    text-align: center;
   }
 
   .author {
-    font-size: 0.875rem;
-    color: $color-text-desc;
     margin-bottom: 2rem;
+    color: $color-text-desc;
+    font-size: .875rem;
   }
 
   .img-wrap {
@@ -108,17 +108,17 @@ export default {
   }
 
   .saying {
-    margin-top: 3rem;
     position: relative;
+    margin-top: 3rem;
 
     i {
-      font-size: 1.5rem;
       color: $color-text-sub;
+      font-size: 1.5rem;
     }
 
     p {
-      text-indent: 1rem;
       padding: 1rem;
+      text-indent: 1rem;
       border-top: 1px solid $color-text-sub;
       border-bottom: 1px solid $color-text-sub;
     }
@@ -126,11 +126,11 @@ export default {
 }
 
 .post-wrap {
-  flex: 3;
   display: flex;
+  flex: 3;
   justify-content: center;
-  padding: 2rem;
   height: 100vh;
+  padding: 2rem;
   overflow: auto;
 }
 </style>

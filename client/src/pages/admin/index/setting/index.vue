@@ -180,10 +180,11 @@ export default {
 
 <style lang="scss">
 .user-setting-form {
-  padding: 2rem;
   width: 80%;
   margin: 0 auto;
+  padding: 2rem;
 }
+
 .img-item {
   margin-bottom: 0;
 }

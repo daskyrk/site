@@ -125,36 +125,36 @@ export default {
 
 <style lang="scss">
 .image-uploader {
-  display: inline-block;
-  height: 164px;
-  width: 164px;
   position: relative;
+  display: inline-block;
+  width: 164px;
+  height: 164px;
+  overflow: hidden;
   text-align: center;
-  cursor: pointer;
-  outline: none;
   border: 1px dashed $lightgray;
   border-radius: 6px;
-  overflow: hidden;
+  outline: none;
+  cursor: pointer;
 
   i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.75rem;
     color: $dimgray;
-    transition: color 0.3s;
+    font-size: 1.75rem;
+    transition: color .3s;
   }
 
-  input[type='file'] {
+  input[type="file"] {
     display: none;
   }
 
   img {
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
   }
@@ -180,6 +180,7 @@ export default {
   // }
   &:hover {
     border-color: $color-primary;
+
     i {
       color: $color-primary;
     }

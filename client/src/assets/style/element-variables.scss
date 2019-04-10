@@ -2,7 +2,7 @@
 $--color-primary: #46c085;
 
 /* 改变 icon 字体路径变量，必需 */
-$--font-path: '~element-ui/lib/theme-chalk/fonts';
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
 
 // 圆形边框
 $--border-radius-base: 30px;
@@ -11,9 +11,11 @@ $--border-radius-small: 8px;
 @import "~element-ui/packages/theme-chalk/src/index";
 
 // 覆写样式
-.el-picker-panel,.el-select-dropdown {
+.el-picker-panel,
+.el-select-dropdown {
   border-radius: $--border-radius-small;
 }
+
 .el-date-editor .el-range-separator {
   width: 7%;
 }

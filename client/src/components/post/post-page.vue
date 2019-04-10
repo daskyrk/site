@@ -158,30 +158,34 @@ export default {
 .post {
   width: 40%;
   min-width: 41.25rem;
+
   .meta {
     margin-top: 1rem;
-    font-size: 0.75rem;
     color: $color-text-desc;
+    font-size: .75rem;
+
     span {
-      margin-right: 0.5rem;
+      margin-right: .5rem;
     }
   }
+
   .content {
-    overflow: auto;
     margin-top: 1rem;
+    overflow: auto;
   }
+
   .post-info {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
     flex-direction: row-reverse;
-    font-size: 0.75rem;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 2rem;
     color: $color-text-sub;
+    font-size: .75rem;
 
     .tags {
       a {
-        margin-left: 0.5rem;
+        margin-left: .5rem;
       }
     }
 
@@ -204,28 +208,30 @@ export default {
     > div {
       width: 3rem;
       height: 3rem;
+      margin-top: .5rem;
       line-height: 3rem;
       text-align: center;
-      margin-top: 0.5rem;
+      background: rgba(255, 255, 255, .8);
       border: 1px solid $platinum;
-      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-      cursor: pointer;
       border-radius: 100%;
-      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .14);
+      cursor: pointer;
 
       &.active,
       &:hover {
         &.red {
-          border-color: $red;
           color: $red;
+          border-color: $red;
         }
+
         &.blue {
-          border-color: $blue;
           color: $blue;
+          border-color: $blue;
         }
+
         &.green {
-          border-color: $green;
           color: $green;
+          border-color: $green;
         }
       }
 

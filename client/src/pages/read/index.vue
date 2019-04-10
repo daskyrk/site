@@ -59,23 +59,23 @@ export default {
 }
 
 .desk {
-  background: #eae1dc;
-  width: 100%;
-  height: 20px;
   position: absolute;
   bottom: -35px;
-  border-bottom: 1px solid #f5ebe9;
   z-index: -1;
+  width: 100%;
+  height: 20px;
+  background: #eae1dc;
+  border-bottom: 1px solid #f5ebe9;
   transform-style: preserve-3d;
 
   &::after {
-    content: '';
-    background: #f2edea;
-    width: calc(100% + 13%);
     position: absolute;
+    width: calc(100% + 13%);
     height: 65px;
+    background: #f2edea;
     transform: perspective(340px) rotateX(50deg) translateX(-6.6%)
       translateY(-90px);
+    content: "";
   }
 }
 
@@ -83,74 +83,72 @@ export default {
   position: absolute;
   bottom: -100px;
   z-index: -2;
-  background: none;
   width: 100%;
   height: 65px;
-  box-shadow: 0 36px 63px rgba(0, 0, 0, 0.3);
+  background: none;
+  box-shadow: 0 36px 63px rgba(0, 0, 0, .3);
   transform: perspective(300px) rotateX(33deg) translateX(3px) translateY(-90px);
 }
 
 .books-list {
-  padding: 0 80px;
   min-width: 1000px;
+  padding: 0 80px;
 
   $book-width: 100px;
   $book-height: $book-width * 1.45;
 
   li {
     position: relative;
+    z-index: 2;
     display: inline-block;
-    margin-left: 12px;
     width: $book-width + 30;
     height: $book-height;
-    z-index: 2;
+    margin-left: 12px;
     overflow: hidden;
 
     &::after {
-      content: '';
       position: absolute;
-      overflow: hidden;
       right: 28px;
-      bottom: 0px;
+      bottom: 0;
+      z-index: -1;
       width: 25px;
       height: 129px;
-      background: rgba(0, 0, 0, 0.4);
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      background: rgba(0, 0, 0, .4);
+      box-shadow: 0 0 5px rgba(0, 0, 0, .4);
       transform: perspective(300px) rotateX(29deg) rotateY(-61deg)
         rotateZ(-11deg) translateX(8px) translateY(8px);
-      z-index: -1;
+      content: "";
     }
 
     .img-wrap {
       width: $book-width;
+
       &::before {
-        content: '';
-        cursor: pointer;
         position: absolute;
-        left: -211px;
         top: 0;
+        left: -211px;
         width: 180px;
         height: 100%;
         background-image: linear-gradient(
-          0deg,
-          rgba(255, 255, 255, 0),
-          rgba(255, 255, 255, 0.5),
-          rgba(255, 255, 255, 0)
+          0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .5), rgba(255, 255, 255, 0)
         );
         transform: skewx(-25deg);
+        cursor: pointer;
+        content: "";
       }
 
       &:hover::before {
-        transition: 0.5s;
         left: 140px;
+        transition: .5s;
       }
     }
 
     img {
       width: $book-width;
       height: $book-height;
-      cursor: pointer;
       background-color: $white;
+      cursor: pointer;
     }
   }
 }

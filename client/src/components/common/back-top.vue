@@ -128,9 +128,9 @@ export default {
   height: 3rem;
   line-height: 3rem;
   text-align: center;
-  border-radius: 100%;
   border: 1px solid $platinum;
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 100%;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .14);
   cursor: pointer;
 }
 </style>

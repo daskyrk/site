@@ -130,27 +130,27 @@ export default {
 }
 
 .search-result {
-  margin-top: 3rem;
-  width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  width: 90%;
+  margin-top: 3rem;
 }
 
 .book-info-wrap {
   display: flex;
-  height: 150px;
   width: 32%;
-  padding: 1rem;
+  height: 150px;
   margin-bottom: 1.5rem;
+  padding: 1rem;
   background-color: $white;
-  border-radius: $radius;
   border: 2px solid transparent;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  border-radius: $radius;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
 
   &:hover {
+    box-shadow: 0 2px 16px rgba(0, 0, 0, .3);
     transform: translateY(-2px);
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
   }
 
   &.selected {
@@ -163,25 +163,27 @@ export default {
 }
 
 .book-info {
-  margin-left: 1rem;
-  font-size: 0.8rem;
-  line-height: 1.5rem;
-  overflow: hidden;
   flex: 1;
+  margin-left: 1rem;
+  overflow: hidden;
+  font-size: .8rem;
+  line-height: 1.5rem;
 
   p {
-    @include text-overflow;
+    @include nowrap ();
   }
 
   .title {
-    font-size: 1rem;
+    margin-bottom: .5rem;
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
+
     a {
       color: $green;
     }
+
     .subtitle {
-      font-size: 0.8rem;
+      font-size: .8rem;
     }
   }
 }

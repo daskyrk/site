@@ -119,18 +119,18 @@ export default {
   background-size: cover;
 
   &.static {
+    background-repeat: no-repeat;
     background-position-x: 20%;
     background-position-y: 20%;
-    background-repeat: no-repeat;
   }
 
   .slogan-wrap {
     position: absolute;
-    right: 10%;
     top: 0;
+    right: 10%;
     height: 170px;
+    padding: 1rem .5rem;
     overflow: hidden;
-    padding: 1rem 0.5rem;
 
     img {
       height: 100%;
@@ -139,50 +139,51 @@ export default {
 
   .nav {
     position: absolute;
-    right: 10%;
     top: 30%;
-    color: $white;
+    right: 10%;
     padding: 2rem;
     overflow: hidden;
+    color: $white;
+    background-color: rgba(181, 181, 181, .3);
     border-radius: $radius;
-    background-color: rgba(181, 181, 181, 0.3);
 
     &:hover {
-      background-color: rgba(181, 181, 181, 0.5);
+      background-color: rgba(181, 181, 181, .5);
     }
 
     a:hover {
-      transition: color 0.3s;
       color: $color-primary;
+      transition: color .3s;
     }
+
     span {
-      padding: 0.35rem;
+      padding: .35rem;
     }
   }
 
   .blur {
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
     bottom: 0;
+    left: 0;
     z-index: -1;
-    filter: blur(3px);
     margin: -20px;
-    background-attachment: fixed;
     background-size: cover;
+    background-attachment: fixed;
+    filter: blur(3px);
   }
 
   .story-desc {
     position: absolute;
-    bottom: 4rem;
     right: 0;
-    font-size: 1rem;
+    bottom: 4rem;
     padding: 1rem 4rem;
-    color: $white;
-    background: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 0 6px #000;
     overflow: hidden;
+    color: $white;
+    font-size: 1rem;
+    background: rgba(0, 0, 0, .4);
+    box-shadow: 0 0 6px #000000;
 
     > p {
       margin-bottom: 10px;
@@ -196,22 +197,22 @@ export default {
 
 .link {
   position: relative;
-  color: $white;
-  text-transform: uppercase;
-  font-weight: 400;
-  overflow: hidden;
   display: inline-flex;
-  overflow: hidden;
   padding: 2px;
+  overflow: hidden;
+  color: $white;
+  font-weight: 400;
+  text-transform: uppercase;
+
   &::before {
-    content: '';
     position: absolute;
-    width: 100%;
-    left: 0;
     bottom: 0;
+    left: 0;
+    width: 100%;
     border-bottom: 2px solid $black;
     transform: translate3d(-101%, 0, 0);
-    transition: transform 0.5s;
+    transition: transform .5s;
+    content: "";
   }
 
   &:hover::before {
@@ -219,10 +220,10 @@ export default {
   }
 
   span {
-    display: inline-block;
     position: relative;
+    display: inline-block;
     transform: perspective(1000px) rotate3d(0, 1, 0, 0deg);
-    transition: transform 0.5s, color 0.5s;
+    transition: transform .5s, color .5s;
   }
 
   &:hover span {
@@ -237,17 +238,17 @@ export default {
 
   span:nth-child(3),
   &:hover span:nth-child(2) {
-    transition-delay: 0.1s;
+    transition-delay: .1s;
   }
 
   span:nth-child(2),
   &:hover span:nth-child(3) {
-    transition-delay: 0.2s;
+    transition-delay: .2s;
   }
 
   span:first-child,
   &:hover span:nth-child(4) {
-    transition-delay: 0.3s;
+    transition-delay: .3s;
   }
 }
 </style>

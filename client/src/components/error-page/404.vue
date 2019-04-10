@@ -82,18 +82,18 @@ export default {
   .tip {
     margin: 30vh auto;
     padding: 50px;
-    font-size: 2rem;
     color: white;
-    opacity: 0.01;
+    font-size: 2rem;
+    opacity: .01;
   }
 
   .light {
     position: absolute;
-    left: 10px;
     top: 10px;
-    opacity: 0.8;
+    left: 10px;
     z-index: 2;
     box-shadow: 0 0 40px 15px white;
+    opacity: .8;
   }
 }
 </style>

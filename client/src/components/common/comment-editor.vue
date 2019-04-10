@@ -96,21 +96,24 @@ export default {
 .<style lang="scss">
 .comment-editor {
   flex: 1;
+
   textarea {
     width: 100%;
     min-height: 6em;
     max-height: 30em;
+    padding: .5em;
     overflow: auto;
-    outline: none;
-    padding: 0.5em;
-    cursor: auto;
-    font-size: 0.95em;
+    font-size: .95em;
     line-height: 1.8em;
     border: 1px solid $platinum;
     border-radius: 4px;
+    outline: none;
+    cursor: auto;
+
     &:hover {
       border-color: $lightblack;
     }
+
     &:focus {
       border-color: $color-primary;
     }
@@ -121,12 +124,13 @@ export default {
     line-height: 2rem;
 
     .tool-btn {
+      display: inline-block;
       width: 2em;
       height: 2em;
-      border-radius: $radius;
       text-align: center;
-      display: inline-block;
+      border-radius: $radius;
       cursor: pointer;
+
       &:hover {
         background: $color-hover-bg;
       }
@@ -134,11 +138,12 @@ export default {
 
     .emoji {
       position: relative;
+
       .emoji-box {
-        display: none;
         position: absolute;
         top: 2rem;
         left: 0;
+        display: none;
       }
 
       &:hover {
@@ -150,15 +155,16 @@ export default {
 
     button {
       float: right;
-      border: none;
-      border-radius: 4px;
+      padding: 0 .5rem;
+      white-space: nowrap;
       text-align: center;
       vertical-align: middle;
       background: transparent;
-      white-space: nowrap;
-      cursor: pointer;
-      padding: 0 0.5rem;
+      border: none;
+      border-radius: 4px;
       outline: none;
+      cursor: pointer;
+
       &:hover {
         background: $color-hover-bg;
       }

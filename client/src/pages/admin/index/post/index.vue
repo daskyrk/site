@@ -145,7 +145,7 @@
         v-if="list.length"
         v-loading="fetch"
         :data="list"
-        style="width: 100%"
+        style="width: 100%;"
       >
         <el-table-column type="expand">
           <template slot-scope="props">
@@ -372,15 +372,17 @@ export default {
 .filter-form {
   .flow-item {
     overflow: hidden;
+
     .el-form-item {
-      float: left;
       display: inline-flex;
+      float: left;
     }
   }
 }
 
 .kword {
   width: 380px;
+
   /deep/ .el-form-item__content {
     flex: 1;
   }
@@ -396,6 +398,6 @@ export default {
 }
 
 .post-tag {
-  margin-right: 0.5rem;
+  margin-right: .5rem;
 }
 </style>

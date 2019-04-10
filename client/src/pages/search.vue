@@ -97,6 +97,7 @@ export default {
 .search-by {
   margin-bottom: 2rem;
   font-size: 1.4rem;
+
   > span {
     margin-left: 1rem;
   }
@@ -107,8 +108,8 @@ export default {
 }
 
 .btn {
-  text-decoration: underline;
   color: $color-primary;
+  text-decoration: underline;
   cursor: pointer;
 }
 </style>

@@ -64,25 +64,26 @@ export default {
 
 
 <style lang="scss">
-$transition: all 0.25s;
+$transition: all .25s;
 $sidebar-bg: #303642;
 $sidebar-bg-hover: #222630;
-$sidebar-text: rgba(255, 255, 255, 0.65);
+$sidebar-text: rgba(255, 255, 255, .65);
 $sidebar-text-hover: $white;
 $manage-sidebar-open-width: 12.5rem;
 $manage-sidebar-close-width: 4.5rem;
-$sidebar-tip-width: 0.25rem;
+$sidebar-tip-width: .25rem;
 
 .manage-sidebar {
-  width: $manage-sidebar-open-width;
-  background-color: $sidebar-bg;
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
-  transition: width 0.25s;
+  align-items: center;
+  width: $manage-sidebar-open-width;
+  background-color: $sidebar-bg;
+  transition: width .25s;
   user-select: none;
+
   i {
     font-size: 1.125rem;
   }
@@ -96,10 +97,12 @@ $sidebar-tip-width: 0.25rem;
     // }
     .menu-item {
       padding-left: 1.75rem;
+
       span {
         opacity: 0;
       }
     }
+
     .toggle-side {
       i {
         transform: rotate(90deg);
@@ -113,14 +116,13 @@ $sidebar-tip-width: 0.25rem;
 //   width: 100%;
 //   height: $header-height;
 // }
-
 .logo {
   width: 100%;
   height: $header-height;
   background-image: url(~assets/images/logo.svg);
-  background-size: contain;
-  background-position: 50%;
   background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: contain;
   transition: $transition;
 }
 
@@ -134,71 +136,80 @@ $sidebar-tip-width: 0.25rem;
 //   letter-spacing: 0.25rem;
 //   transition: $transition;
 // }
-
 .menus {
   display: flex;
-  flex-direction: column;
   flex: 1;
+  flex-direction: column;
   width: 100%;
   text-align: center;
+
   > li {
     position: relative;
     margin-top: 10px;
+
     &.active {
       &::before {
-        content: '';
+        position: absolute;
         left: 0;
         height: 100%;
-        position: absolute;
         border-left: $sidebar-tip-width solid $green;
+        content: "";
       }
+
       .menu-item {
         color: $sidebar-text-hover;
         background-color: $sidebar-bg-hover;
+
         i {
           color: $green;
         }
       }
     }
   }
+
   .menu-item {
     height: 3rem;
-    line-height: 3rem;
-    overflow: hidden;
     padding-left: 3rem;
-    text-align: left;
+    overflow: hidden;
     color: $sidebar-text;
+    line-height: 3rem;
+    text-align: left;
     outline: none;
-    transition: padding-left 0.3s;
+    transition: padding-left .3s;
+
     &:hover {
       color: $sidebar-text-hover;
       background-color: $sidebar-bg-hover;
     }
+
     i {
       transition: $transition;
     }
+
     span {
+      margin-left: .625rem;
       transition: $transition;
-      margin-left: 0.625rem;
     }
   }
 }
 
 .toggle-side {
-  height: 2.5rem;
-  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 2.5rem;
   color: $sidebar-text;
-  border-top: 1px solid hsla(0, 0%, 100%, 0.25);
   background-color: $sidebar-bg;
-  transition: $transition;
+  border-top: 1px solid hsla(0, 0%, 100%, .25);
   cursor: pointer;
+  transition: $transition;
+
   i {
     font-size: 1.125rem;
     transition: $transition;
   }
+
   &:hover {
     i {
       color: $sidebar-text-hover;

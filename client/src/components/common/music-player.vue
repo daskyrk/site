@@ -424,26 +424,26 @@ export default {
 
 <style lang="css">
 .player-container {
-  width: 360px;
   position: fixed;
   right: 30px;
+  width: 360px;
 }
 
 .uplayer-container {
-  font-family: Helvetica, Tahoma, Arial, STXihei, '华文细黑', 'Microsoft YaHei',
-    '微软雅黑', SimSun, '宋体', Heiti, '黑体', sans-serif;
   position: relative;
   box-sizing: border-box;
   width: 100%;
   height: 90px;
-  background: #fff;
-  box-shadow: 0 0 20px rgba(59, 59, 177, 0.18);
+  font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei",
+    "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+  background: #ffffff;
+  box-shadow: 0 0 20px rgba(59, 59, 177, .18);
 }
 
 .uplayer-info {
-  font-weight: 300;
   position: relative;
   left: 0;
+  font-weight: 300;
   opacity: 1;
 }
 
@@ -451,11 +451,11 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  overflow: hidden;
   height: 90px;
   padding-right: 20px;
-  -webkit-transition: all 0.6s cubic-bezier(0, 0.36, 0.51, 1.39);
-  transition: all 0.6s cubic-bezier(0, 0.36, 0.51, 1.39);
+  overflow: hidden;
+  -webkit-transition: all .6s cubic-bezier(0, .36, .51, 1.39);
+  transition: all .6s cubic-bezier(0, .36, .51, 1.39);
 }
 
 .uplayer-container.uplayer-isplaying .uplayer-info-cover {
@@ -466,21 +466,21 @@ export default {
 .uplayer-info-cover img {
   width: 90px;
   height: 100%;
-  border: 6px solid #fff;
-  box-shadow: 0 0 20px rgba(59, 59, 177, 0.35);
+  border: 6px solid #ffffff;
+  box-shadow: 0 0 20px rgba(59, 59, 177, .35);
 }
 
 .uplayer-meta {
   float: left;
   margin-left: 110px;
-  -webkit-transition: all 0.6s cubic-bezier(0, 0.36, 0.51, 1.39);
-  transition: all 0.6s cubic-bezier(0, 0.36, 0.51, 1.39);
+  -webkit-transition: all .6s cubic-bezier(0, .36, .51, 1.39);
+  transition: all .6s cubic-bezier(0, .36, .51, 1.39);
 }
 
 .uplayer-container.uplayer-isplaying .uplayer-meta {
   margin-left: 10px;
-  -webkit-transform: scale(0.85, 0.85);
-  transform: scale(0.85, 0.85);
+  -webkit-transform: scale(.85, .85);
+  transform: scale(.85, .85);
 }
 
 .uplayer-container.uplayer-isplaying .uplayer-meta .uplayer-meta-title {
@@ -488,36 +488,36 @@ export default {
 }
 
 .uplayer-container.uplayer-isplaying .uplayer-meta .uplayer-meta-time-tick {
-  -webkit-transition: all 0.6s cubic-bezier(0, 0.36, 0.51, 1.39) 0.65s;
-  transition: all 0.6s cubic-bezier(0, 0.36, 0.51, 1.39) 0.65s;
   -webkit-transform: translateY(0);
   transform: translateY(0);
   opacity: 1;
+  -webkit-transition: all .6s cubic-bezier(0, .36, .51, 1.39) .65s;
+  transition: all .6s cubic-bezier(0, .36, .51, 1.39) .65s;
 }
 
 .uplayer-meta .uplayer-meta-time-tick {
-  font-size: 13px;
   margin-top: 30px;
+  color: rgba(0, 0, 0, .6);
+  font-size: 13px;
+  letter-spacing: 1px;
   -webkit-transform: translateY(10px);
   transform: translateY(10px);
-  letter-spacing: 1px;
   opacity: 0;
-  color: rgba(0, 0, 0, 0.6);
 }
 
 .uplayer-meta-title {
-  font-size: 14px;
   margin-top: 27px;
   margin-bottom: 2px;
-  -webkit-transition: all 0.6s cubic-bezier(0, 0.36, 0.51, 1.39);
-  transition: all 0.6s cubic-bezier(0, 0.36, 0.51, 1.39);
-  letter-spacing: 1px;
   color: #6a6b6f;
+  font-size: 14px;
+  letter-spacing: 1px;
+  -webkit-transition: all .6s cubic-bezier(0, .36, .51, 1.39);
+  transition: all .6s cubic-bezier(0, .36, .51, 1.39);
 }
 
 .uplayer-meta-author {
-  font-size: 12px;
   color: #ceced6;
+  font-size: 12px;
 }
 
 .uplayer-spectrum {
@@ -529,11 +529,11 @@ export default {
   height: 30px;
   margin-top: -15px;
   margin-left: -120px;
-  -webkit-transition: all 0.7s cubic-bezier(0.17, 0.67, 0.45, 1.26) 0.1s;
-  transition: all 0.7s cubic-bezier(0.17, 0.67, 0.45, 1.26) 0.1s;
   -webkit-transform: translateX(110px);
   transform: translateX(110px);
   opacity: 0;
+  -webkit-transition: all .7s cubic-bezier(.17, .67, .45, 1.26) .1s;
+  transition: all .7s cubic-bezier(.17, .67, .45, 1.26) .1s;
 }
 
 .uplayer-container.uplayer-isplaying .uplayer-spectrum {
@@ -549,19 +549,19 @@ export default {
 
 .uplayer-lyric {
   position: absolute;
-  z-index: -2;
   top: 50%;
   left: 50%;
-  overflow: hidden;
+  z-index: -2;
   width: 220px;
   height: 100%;
   margin-top: -45px;
   margin-left: -120px;
-  -webkit-transition: all 1s;
-  transition: all 1s;
+  overflow: hidden;
   -webkit-transform: translateY(15px);
   transform: translateY(15px);
   opacity: 0;
+  -webkit-transition: all 1s;
+  transition: all 1s;
 }
 
 .uplayer-container.uplayer-isplaying .uplayer-lyric {
@@ -572,24 +572,23 @@ export default {
 }
 
 .uplayer-lyric-area {
-  font-size: 12px;
   margin-top: 35px;
-  -webkit-transition: -webkit-transform 0.7s;
-  transition: -webkit-transform 0.7s;
-  transition: transform 0.7s;
+  color: rgba(0, 0, 0, .7);
+  font-size: 12px;
   text-align: center;
   opacity: 0;
-  color: rgba(0, 0, 0, 0.7);
+  -webkit-transition: -webkit-transform .7s;
+  transition: transform .7s;
 }
 
 .uplayer-lyric-area p {
-  line-height: 0;
   width: 100%;
   margin: 0;
   padding: 0;
-  -webkit-transition: all 0.6s;
-  transition: all 0.6s;
+  line-height: 0;
   opacity: 0;
+  -webkit-transition: all .6s;
+  transition: all .6s;
 }
 
 .uplayer-container.uplayer-isplaying .uplayer-lyric-area p {
@@ -611,7 +610,7 @@ export default {
 
 .uplayer-lyric-area .uplayer-lyric-pre,
 .uplayer-lyric-area .uplayer-lyric-next {
-  opacity: 0.35;
+  opacity: .35;
 }
 
 .uplayer-control {
@@ -625,10 +624,10 @@ export default {
   z-index: -1;
   width: 100%;
   height: 100%;
-  -webkit-transition: all 0.8s;
-  transition: all 0.8s;
+  background: rgba(255, 255, 255, .8);
   opacity: 0;
-  background: rgba(255, 255, 255, 0.8);
+  -webkit-transition: all .8s;
+  transition: all .8s;
 }
 
 .uplayer-container.uplayer-adjusting-volume .uplayer-volume-bg {
@@ -636,13 +635,13 @@ export default {
 }
 
 .uplayer-volume {
-  font-size: 50px;
   width: 60px;
   margin: 13px auto 0;
-  -webkit-transition: all 0.9s;
-  transition: all 0.9s;
+  color: rgba(150, 150, 150, .75);
+  font-size: 50px;
   text-align: center;
-  color: rgba(150, 150, 150, 0.75);
+  -webkit-transition: all .9s;
+  transition: all .9s;
 }
 
 .uplayer-container.uplayer-adjusting-volume .uplayer-volume-bg {
@@ -651,12 +650,12 @@ export default {
 
 .uplayer-volume-progress {
   height: 4px;
+  background: rgba(150, 150, 150, .75);
+  border-radius: 1px;
   /*margin-top: -1px;*/
 
-  -webkit-transition: width 0.2s;
-  transition: width 0.2s;
-  border-radius: 1px;
-  background: rgba(150, 150, 150, 0.75);
+  -webkit-transition: width .2s;
+  transition: width .2s;
 }
 
 .uplayer-control-play {
@@ -665,14 +664,14 @@ export default {
   right: 0;
   width: 50px;
   height: 50px;
-  cursor: pointer;
-  -webkit-transition: top 0.6s cubic-bezier(0, 0.74, 0.61, 1.35);
-  transition: top 0.6s cubic-bezier(0, 0.74, 0.61, 1.35);
-  text-align: center;
   color: #d94240;
+  text-align: center;
+  background: #ffffff;
   border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(59, 59, 177, 0.22);
+  box-shadow: 0 0 10px rgba(59, 59, 177, .22);
+  cursor: pointer;
+  -webkit-transition: top .6s cubic-bezier(0, .74, .61, 1.35);
+  transition: top .6s cubic-bezier(0, .74, .61, 1.35);
 }
 
 .uplayer-control-play:hover {
@@ -687,12 +686,12 @@ export default {
 }
 
 .uplayer-control-play i {
-  line-height: 50px;
   position: absolute;
   left: 50%;
   margin-left: -7px;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
+  line-height: 50px;
+  -webkit-transition: all .5s;
+  transition: all .5s;
 }
 
 .uplayer-control-play .icon-music-play {
@@ -721,22 +720,22 @@ export default {
 
 .uplayer-duration,
 .uplayer-loadingsign {
-  font-size: 12px;
   position: absolute;
   right: 40px;
   bottom: 24px;
-  -webkit-transition: all 0.6s cubic-bezier(0, 0.74, 0.61, 1.35);
-  transition: all 0.6s cubic-bezier(0, 0.74, 0.61, 1.35);
+  color: rgba(0, 0, 0, .6);
+  font-size: 12px;
   letter-spacing: 1px;
-  color: rgba(0, 0, 0, 0.6);
+  -webkit-transition: all .6s cubic-bezier(0, .74, .61, 1.35);
+  transition: all .6s cubic-bezier(0, .74, .61, 1.35);
 }
 
 .uplayer-container.uplayer-isplaying .uplayer-duration,
 .uplayer-container.uplayer-isplaying .uplayer-loadingsign {
-  z-index: -1;
   bottom: 5px;
-  -webkit-transform: scale(0.5, 0.5);
-  transform: scale(0.5, 0.5);
+  z-index: -1;
+  -webkit-transform: scale(.5, .5);
+  transform: scale(.5, .5);
   opacity: 0;
 }
 
@@ -755,11 +754,11 @@ export default {
 .uplayer-duration i,
 .uplayer-loadingsign i {
   margin-right: 3px;
-  -webkit-transition: all 0.7s;
-  transition: all 0.7s;
-  -webkit-transform: scale(0.9, 0.9);
-  transform: scale(0.9, 0.9);
-  color: rgba(217, 66, 64, 0.5);
+  color: rgba(217, 66, 64, .5);
+  -webkit-transform: scale(.9, .9);
+  transform: scale(.9, .9);
+  -webkit-transition: all .7s;
+  transition: all .7s;
 }
 
 .uplayer-container.uplayer-isplaying .uplayer-duration i {
@@ -777,27 +776,27 @@ export default {
 .uplayer-timeline {
   position: absolute;
   bottom: 0;
-  overflow: hidden;
   width: 100%;
   height: 2px;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
+  overflow: hidden;
+  background: rgba(231, 231, 239, .8);
   -webkit-transform: translateY(2px);
   transform: translateY(2px);
   opacity: 0;
-  background: rgba(231, 231, 239, 0.8);
+  -webkit-transition: all .5s;
+  transition: all .5s;
 }
 
 .uplayer-container.uplayer-isplaying .uplayer-timeline {
-  cursor: pointer;
   -webkit-transform: translateY(0);
   transform: translateY(0);
+  cursor: pointer;
   opacity: 1;
 }
 
 .uplayer-container.uplayer-isplaying
-  .uplayer-timeline-bg:hover
-  .uplayer-timeline {
+.uplayer-timeline-bg:hover
+.uplayer-timeline {
   height: 8px;
 }
 
@@ -815,64 +814,68 @@ export default {
 
 @-webkit-keyframes breath {
   0% {
-    box-shadow: 0 0 35px rgba(59, 59, 177, 0.22);
+    box-shadow: 0 0 35px rgba(59, 59, 177, .22);
   }
 
   100% {
-    box-shadow: 0 0 10px rgba(59, 59, 177, 0.33);
+    box-shadow: 0 0 10px rgba(59, 59, 177, .33);
   }
 }
 
 @keyframes breath {
   0% {
-    box-shadow: 0 0 35px rgba(59, 59, 177, 0.22);
+    box-shadow: 0 0 35px rgba(59, 59, 177, .22);
   }
 
   100% {
-    box-shadow: 0 0 10px rgba(59, 59, 177, 0.33);
+    box-shadow: 0 0 10px rgba(59, 59, 177, .33);
   }
 }
 
 @font-face {
-  font-family: 'fontello';
-  src: url('~assets/fonts/fontello.eot');
-  src: url('~assets/fonts/fontello.eot#iefix') format('embedded-opentype'),
-    url('~assets/fonts/fontello.woff') format('woff'),
-    url('~assets/fonts/fontello.ttf') format('truetype'),
-    url('~assets/fonts/fontello.svg#fontello') format('svg');
   font-weight: normal;
+  font-family: fontello;
   font-style: normal;
+  src: url(~assets/fonts/fontello.eot);
+  src: url(~assets/fonts/fontello.eot#iefix) format("embedded-opentype"),
+    url(~assets/fonts/fontello.woff) format("woff"),
+    url(~assets/fonts/fontello.ttf) format("truetype"),
+    url(~assets/fonts/fontello.svg#fontello) format("svg");
 }
 
-[class^='icon-music-']:before,
-[class*=' icon-music']:before {
-  font-family: 'fontello';
-  font-style: normal;
-  font-weight: normal;
-  speak: none;
+[class^="icon-music-"]:before,
+[class*=" icon-music"]:before {
 
   display: inline-block;
-  text-decoration: inherit;
-  text-align: center;
+  font-weight: normal;
+  font-family: "fontello";
+  font-style: normal;
   font-variant: normal;
+  text-align: center;
   text-transform: none;
+  text-decoration: inherit;
+  speak: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .icon-music-play:before {
-  content: '\e801';
+  content: "\e801";
 } /* '' */
+
 .icon-music-pause:before {
-  content: '\e802';
+  content: "\e802";
 } /* '' */
+
 .icon-music-clock:before {
-  content: '\e803';
+  content: "\e803";
 } /* '' */
+
 .icon-music-volume:before {
-  content: '\e804';
+  content: "\e804";
 } /* '' */
+
 .icon-music-spin:before {
-  content: '\e800';
+  content: "\e800";
 } /* '' */
 </style>

@@ -107,34 +107,35 @@ $half-ribbon-width: 1rem;
   height: $post-card-height;
   margin-bottom: 2rem;
   color: $color-text;
-  border-radius: $radius;
   background-color: $white;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  border-radius: $radius;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
 
   &::after {
-    content: '';
     position: absolute;
-    height: 30px;
+    bottom: 0;
     left: 2%;
-    bottom: 0px;
-    width: 96%;
     z-index: -1;
-    transition: box-shadow 0.25s;
-    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.5);
-    border-radius: 50%/50%;
+    width: 96%;
+    height: 30px;
+    border-radius: 50% / 50%;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, .5);
+    transition: box-shadow .25s;
+    content: "";
   }
 
   &:hover {
+    box-shadow: 0 1px 20px rgba(0, 0, 0, .3);
     transform: scale(1.01);
-    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.3);
+
     &::after {
-      box-shadow: 0 0 30px 3px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 30px 3px rgba(0, 0, 0, .5);
     }
   }
 
   .post-thumb {
-    height: 100%;
     min-width: $post-card-height;
+    height: 100%;
     background: white;
   }
 
@@ -146,23 +147,23 @@ $half-ribbon-width: 1rem;
   .content-wrap {
     flex: 1;
     height: 100%;
-    padding: 0.625rem;
+    padding: .625rem;
     padding-right: 2.2rem;
-    background: $white;
     overflow: hidden;
+    background: $white;
 
     .title {
-      margin-bottom: 0.5rem;
-      font-size: 1.2rem;
+      margin-bottom: .5rem;
       font-weight: 700;
+      font-size: 1.2rem;
     }
 
     .meta {
       display: flex;
       align-items: center;
+      margin-bottom: .5rem;
       color: $color-text-desc;
-      margin-bottom: 0.5rem;
-      font-size: 0.875rem;
+      font-size: .875rem;
 
       i {
         color: $color-text-holder;
@@ -170,7 +171,7 @@ $half-ribbon-width: 1rem;
       }
 
       span {
-        margin-right: 0.75rem;
+        margin-right: .75rem;
         line-height: 1.375rem;
       }
 
@@ -185,38 +186,38 @@ $half-ribbon-width: 1rem;
   }
 
   .ribbon {
-    display: inline-block;
+    position: absolute;
     top: -6px;
     right: 1rem;
-    position: absolute;
+    display: inline-block;
     width: 2 * $half-ribbon-width;
-    text-align: center;
     padding: 10px 0 4px;
+    color: $white;
+    text-align: center;
     background: $orange;
     border-top-left-radius: $radius;
-    color: $white;
 
     &:before {
-      content: '';
       position: absolute;
-      height: 0;
-      width: 0;
-      border-bottom: 6px solid #8d5a20;
-      border-right: 4px solid transparent;
-      right: -4px;
       top: 0;
+      right: -4px;
+      width: 0;
+      height: 0;
+      border-right: 4px solid transparent;
+      border-bottom: 6px solid #8d5a20;
+      content: "";
     }
 
     &:after {
-      content: '';
       position: absolute;
-      left: 0;
       bottom: -$half-ribbon-width;
+      left: 0;
       width: 0;
       height: 0;
-      border-left: $half-ribbon-width solid $orange;
       border-right: $half-ribbon-width solid $orange;
       border-bottom: $half-ribbon-width solid transparent;
+      border-left: $half-ribbon-width solid $orange;
+      content: "";
     }
   }
 }
@@ -224,6 +225,7 @@ $half-ribbon-width: 1rem;
 @media screen and (min-width: 1000px) {
   .post-item {
     height: $post-card-height + 1;
+
     .post-thumb {
       min-width: $post-card-height + 1;
     }

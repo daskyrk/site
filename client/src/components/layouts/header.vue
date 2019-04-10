@@ -121,16 +121,16 @@ export default {
 .default-header {
   position: fixed;
   top: 0;
-  width: 100%;
   z-index: 999;
-  height: $header-height;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: $header-height;
   padding: 0 2rem;
-  background-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  background-color: rgba(255, 255, 255, .4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+  transition: transform .3s;
   // &:before {
   //   position: absolute;
   //   left: 0;
@@ -140,7 +140,6 @@ export default {
   //   height: 100%;
   //   filter: url(#f1);
   // }
-
   &.hide {
     transform: translateY(-105%);
   }
@@ -149,7 +148,7 @@ export default {
     a {
       margin-right: 2rem;
       color: $dimgray;
-      transition: color 0.3s;
+      transition: color .3s;
     }
   }
 
@@ -161,6 +160,7 @@ export default {
     position: absolute;
     right: 0;
     cursor: pointer;
+
     &:hover {
       transform: scale(1.1);
     }
@@ -172,16 +172,16 @@ export default {
 
   .header-search-input {
     width: 160px;
-    padding-left: 0.5rem;
+    padding-left: .5rem;
+    color: $dimgray;
     border: none;
     border-bottom: 1px solid $dimgray;
-    transition: all 0.25s;
-    color: $dimgray;
     outline: none;
+    transition: all .25s;
 
     &.hide {
-      opacity: 0;
       width: 0;
+      opacity: 0;
     }
   }
 }

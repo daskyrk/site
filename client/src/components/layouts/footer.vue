@@ -35,8 +35,8 @@ export default {
 <style lang="scss">
 .default-footer {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: $footer-height;
   background: $white;
   border-top: 1px solid $color-border;

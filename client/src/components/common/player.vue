@@ -1,19 +1,19 @@
 <template>
-  <div 
-    id="listen" 
+  <div
+    id="listen"
     style="display: block;"
   >
     <div class="player">
       <div class="box">
-        <img 
-          src="https://p3.music.126.net/Jkr2d7T0r51pVA9utSRiig==/109951163096071991.jpg?param=300y300" 
-          width="80" 
-          height="80" 
+        <img
+          src="https://p3.music.126.net/Jkr2d7T0r51pVA9utSRiig==/109951163096071991.jpg?param=300y300"
+          width="80"
+          height="80"
           class="cover pull-left"
         >
         <div class="info pull-left">
-          <h4 
-            class="title nowrap" 
+          <h4
+            class="title nowrap"
             title="Wild - Monogem"
           >
             Wild - Monogem
@@ -43,30 +43,30 @@
         </div>
       </div>
       <div class="list">
-        <form 
-          method="get" 
-          class="music-search" 
-          action="" 
+        <form
+          method="get"
+          class="music-search"
+          action=""
           role="search"
         >
           <span class="icon search-icon">
             
-          </span> <input 
-            id="song-msg" 
-            type="text" 
-            name="song" 
-            class="textinput" 
-            placeholder="回车搜索..." 
+          </span> <input
+            id="song-msg"
+            type="text"
+            name="song"
+            class="textinput"
+            placeholder="回车搜索..."
             required="required"
-          > <input 
-            id="list-page" 
-            type="hidden" 
-            name="page" 
+          > <input
+            id="list-page"
+            type="hidden"
+            name="page"
             value="1"
           >
           <div class="search-source">
-            <span 
-              id="onsource" 
+            <span
+              id="onsource"
               class="icon"
             >
               
@@ -74,55 +74,55 @@
           </div>
           <div class="source-items">
             <label>
-              <input 
-                type="radio" 
-                name="source" 
-                class="source checkbox-radio" 
-                value="netease" 
+              <input
+                type="radio"
+                name="source"
+                class="source checkbox-radio"
+                value="netease"
                 checked="checked"
               >
               <span class="radioinput" />网易
             </label>
             <label>
-              <input 
-                type="radio" 
-                name="source" 
-                class="source checkbox-radio" 
+              <input
+                type="radio"
+                name="source"
+                class="source checkbox-radio"
                 value="tencent"
               >
               <span class="radioinput" />QQ
             </label>
             <label>
-              <input 
-                type="radio" 
-                name="source" 
-                class="source checkbox-radio" 
+              <input
+                type="radio"
+                name="source"
+                class="source checkbox-radio"
                 value="xiami"
               >
               <span class="radioinput" />虾米
             </label>
             <label>
-              <input 
-                type="radio" 
-                name="source" 
-                class="source checkbox-radio" 
+              <input
+                type="radio"
+                name="source"
+                class="source checkbox-radio"
                 value="kugou"
               >
               <span class="radioinput" />酷狗
             </label>
             <label>
-              <input 
-                type="radio" 
-                name="source" 
-                class="source checkbox-radio" 
+              <input
+                type="radio"
+                name="source"
+                class="source checkbox-radio"
                 value="baidu"
               >
               <span class="radioinput" />百度
             </label>
           </div>
         </form>
-        <ul 
-          id="playlist" 
+        <ul
+          id="playlist"
           class="items"
         >
           <li class="nowrap playing">
@@ -217,24 +217,24 @@
           </li>
         </ul>
         <div class="list-page-btn">
-          <a 
-            id="list-previous" 
+          <a
+            id="list-previous"
             href="javascript:;"
           >
             上一页
           </a>
-          <a 
-            id="list-next" 
+          <a
+            id="list-next"
             href="javascript:;"
           >
             下一页
           </a>
         </div>
       </div>
-      <audio 
-        id="audio" 
-        class="bgm" 
-        type="audio/ogg" 
+      <audio
+        id="audio"
+        class="bgm"
+        type="audio/ogg"
         src="https://m10.music.126.net/20180806223625/9ce043c3fd42b2ed0f70ecd21cb152d2/ymusic/2b2e/a4ce/fb9f/0a8326bac44c452fd8dc3731cf4680f1.mp3"
       />
     </div>
@@ -257,301 +257,301 @@ export default {
 <style lang="css">
 
 #listen {
-    display: none;
-    position: absolute;
-    right: 0;
-    margin-top: 12px;
-    z-index: 999;
-    animation: top20 400ms
+  position: absolute;
+  right: 0;
+  z-index: 999;
+  display: none;
+  margin-top: 12px;
+  animation: top20 400ms;
 }
 
 #listen:before {
-    content: '';
-    position: absolute;
-    background: transparent;
-    border: 6px solid transparent;
-    border-bottom-color: rgba(255, 255, 255, 0.7);
-    z-index: 1000;
-    right: 13px;
-    top: -12px;
+  position: absolute;
+  top: -12px;
+  right: 13px;
+  z-index: 1000;
+  background: transparent;
+  border: 6px solid transparent;
+  border-bottom-color: rgba(255, 255, 255, .7);
+  content: "";
 }
 
 .player {
-    width: 280px;
+  width: 280px;
 }
 
 .player .box {
-    overflow: hidden;
-    height: 80px;
-    border-radius: 6px;
-    box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.5);
-    background-color: rgba(255, 255, 255, 0.7)
+  height: 80px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, .7);
+  border-radius: 6px;
+  box-shadow: 3px 6px 12px rgba(0, 0, 0, .5);
 }
 
 .player .cover {
-    width: 80px;
-    height: 80px;
-    margin-right: .8em;
-    box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.3)
+  width: 80px;
+  height: 80px;
+  margin-right: .8em;
+  box-shadow: 1px 3px 10px rgba(0, 0, 0, .3);
 }
 
 .player .info {
-    width: 62%;
-    line-height: 2.5em
+  width: 62%;
+  line-height: 2.5em;
 }
 
 .player .title {
-    font-size: 13px;
-    font-weight: 600
+  font-weight: 600;
+  font-size: 13px;
 }
 
 .player .control.icon {
-    margin: 0
+  margin: 0;
 }
 
 .player .control .item {
-    cursor: pointer;
-    font-size: 24px;
-    line-height: 1;
-    display: inline-block;
-    transition: all .3s ease-in-out
+  display: inline-block;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
 }
 
 .player .control .item:hover {
-    color: #5b5d4f
+  color: #5b5d4f;
 }
 
 .player .control .item + .item {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .player .list {
-    overflow: hidden;
-    height: 0;
-    font-size: 12px;
-    width: 280px;
-    margin-top: 2px;
-    border-radius: 6px;
-    box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.5);
-    background-color: rgba(255, 255, 255, 0.7);
-    transition: all .2s cubic-bezier(0.39, 0.58, 0.57, 1)
+  width: 280px;
+  height: 0;
+  margin-top: 2px;
+  overflow: hidden;
+  font-size: 12px;
+  background-color: rgba(255, 255, 255, .7);
+  border-radius: 6px;
+  box-shadow: 3px 6px 12px rgba(0, 0, 0, .5);
+  transition: all .2s cubic-bezier(.39, .58, .57, 1);
 }
 
 .player .list.show {
-    padding: .5em 0
+  padding: .5em 0;
 }
 
 .player .list .items {
-    max-height: 210px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    transition: all .2s ease-in-out
+  max-height: 210px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all .2s ease-in-out;
 }
 
 .player .list li {
-    line-height: 2.2em;
-    padding: 0 1em;
-    cursor: pointer;
-    transition: all .15s ease-out
+  padding: 0 1em;
+  line-height: 2.2em;
+  cursor: pointer;
+  transition: all .15s ease-out;
 }
 
 .player .list li:hover {
-    color: #5a5f41
+  color: #5a5f41;
 }
 
 .player .list p {
-    margin: 6px 0;
-    text-align: center;
+  margin: 6px 0;
+  text-align: center;
 }
 
 .playing {
-    font-size: 13px;
-    color: #E91E63
+  color: #e91e63;
+  font-size: 13px;
 }
 
 .player .items::-webkit-scrollbar,
-.player .items::-webkit-scrollbar-track  {
-    background: transparent
+.player .items::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .music-search {
-    position: relative;
-    width: 100%;
-    top: -6px
+  position: relative;
+  top: -6px;
+  width: 100%;
 }
 
 .music-search .textinput {
-    width: 100%;
-    padding: 10px 34px;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid;
-    border-color: #bebebe;
-    border-radius: 0;
-    color: #555;
-    font-size: 13px;
-    vertical-align: top
+  width: 100%;
+  padding: 10px 34px;
+  color: #555555;
+  font-size: 13px;
+  vertical-align: top;
+  background: transparent;
+  border: none;
+  border-color: #bebebe;
+  border-bottom: 1px solid;
+  border-radius: 0;
 }
 
 .music-search .search-icon {
-    top: -6px;
-    left: 10px;
-    width: 20px;
-    color: #777
+  top: -6px;
+  left: 10px;
+  width: 20px;
+  color: #777777;
 }
 
 .music-search input::-webkit-input-placeholder {
-    color: #777
+  color: #777777;
 }
 
 .list-page-btn {
-    text-align: center;
-    line-height: 1;
-    position: relative;
-    bottom: -6px;
-    display: none
+  position: relative;
+  bottom: -6px;
+  display: none;
+  line-height: 1;
+  text-align: center;
 }
 
 .list-page-btn a {
-    float: left;
-    width: 50%;
-    padding: 8px 18px;
-    font-size: 13px;
-    border-radius: 0;
+  float: left;
+  width: 50%;
+  padding: 8px 18px;
+  font-size: 13px;
+  border-radius: 0;
 }
 
 .list-page-btn #list-previous {
-    border-radius: 0 0 0 6px
+  border-radius: 0 0 0 6px;
 }
 
 .list-page-btn #list-next {
-    border-radius: 0 0 6px 0
+  border-radius: 0 0 6px 0;
 }
 
 .list-page-btn a + a {
-    border-left: 1px solid #dde5e3;
+  border-left: 1px solid #dde5e3;
 }
 
 .source-items {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.4);
-    margin-top: -10px;
-    padding: 0 12px;
-    line-height: 39px;
-    overflow: hidden;
-    height: 0;
-    box-sizing: border-box;
-    transition: all .2s ease-in-out
+  box-sizing: border-box;
+  width: 100%;
+  height: 0;
+  margin-top: -10px;
+  padding: 0 12px;
+  overflow: hidden;
+  line-height: 39px;
+  background: rgba(255, 255, 255, .4);
+  transition: all .2s ease-in-out;
 }
 
 .source-items label {
-    padding: 0 4px;
-    cursor: pointer;
+  padding: 0 4px;
+  cursor: pointer;
 }
 
 .search-source {
-    position: absolute;
-    top: -4px;
-    right: 0;
-    padding: 0 8px;
+  position: absolute;
+  top: -4px;
+  right: 0;
+  padding: 0 8px;
 }
 
 .search-source span {
-    cursor: pointer;
-    color: #777;
-    margin: 0;
-    -webkit-transition: -webkit-transform 0.15s ease-out;
-    -moz-transition: -moz-transform 0.15s ease-out;
-    -o-transition: -o-transform 0.15s ease-out;
-    -ms-transition: -ms-transform 0.15s ease-out;
+  margin: 0;
+  color: #777777;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform .15s ease-out;
+  -moz-transition: -moz-transform .15s ease-out;
+  -o-transition: -o-transform .15s ease-out;
+  -ms-transition: -ms-transform .15s ease-out;
 }
 
 .search-source span.deg {
-    position: absolute;
-    right: 8px;
-    transform:rotateZ(180deg);
-    -ms-transform:rotateZ(180deg);     /* IE 9 */
-    -moz-transform:rotateZ(180deg);    /* Firefox */
-    -webkit-transform:rotate(Z180deg); /* Safari å’Œ Chrome */
-    -o-transform:rotateZ(180deg);  /* Opera */
+  position: absolute;
+  right: 8px;
+  -ms-transform: rotateZ(180deg);     /* IE 9 */
+  -moz-transform: rotateZ(180deg);
+  -webkit-transform: rotate(Z180deg);
+  -o-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);    /* Firefox */ /* Safari å’Œ Chrome */  /* Opera */
 }
 
 #playlist .loader {
-    position: relative;
-    margin: 1em auto;
+  position: relative;
+  margin: 1em auto;
 }
 
 .music-list-content {
-    position: relative;
-    height: 135px;
-    padding-left: 172px;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    font-family: "Exo 2", "Trebuchet MS","Helvetica","Arial",'PingFang SC','Hiragino Sans GB','STHeiti Light','Microsoft YaHei','SimHei','WenQuanYi Micro Hei',sans-serif;
+  position: relative;
+  height: 135px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding-left: 172px;
+  font-family: "Exo 2", "Trebuchet MS",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","STHeiti Light","Microsoft YaHei",SimHei,"WenQuanYi Micro Hei",sans-serif;
 }
 
 .music-data .cover-photo {
-    width: 136px;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 0;
+  width: 136px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
 }
 
 .cover-photo {
-    position: absolute;
-    left: 0;
-    top: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .cover-photo-mask {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 153px;
-    height: 100%;
-    /* background: url(../../images/cover.png) 0 0 no-repeat; */
-    background-size: contain;
-    pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 153px;
+  height: 100%;
+  /* background: url(../../images/cover.png) 0 0 no-repeat; */
+  background-size: contain;
+  pointer-events: none;
 }
 
 .data-info {
-    font-size: 13px;
-    padding-top: 2px;
-    padding-bottom: 1em
+  padding-top: 2px;
+  padding-bottom: 1em;
+  font-size: 13px;
 }
 
 .data-info-title {
-    font-size: 17px;
-    padding: 0 10px 1px 0
+  padding: 0 10px 1px 0;
+  font-size: 17px;
 }
 
 .data-info-meta span + span {
-    margin-left: 20px
+  margin-left: 20px;
 }
 
 .addplay #button {
-    font-size: 12px;
-    padding: 10px 20px
+  padding: 10px 20px;
+  font-size: 12px;
 }
 
 .addplay #button + #button {
-    margin-left: 10px
+  margin-left: 10px;
 }
 
 .lyric-text {
-    position: fixed;
-    bottom: 5px;
-    left: 0px;
-    transition: all 0.3s;
+  position: fixed;
+  bottom: 5px;
+  left: 0;
+  transition: all .3s;
 }
 
 .lyric-text .lrc-box {
-    font-size: 16px;
-    color: transparent;
+  color: transparent;
+  font-size: 16px;
 }
 
 .lyric-text .geci_attention {
-    color: #333;
+  color: #333333;
 
 }
 

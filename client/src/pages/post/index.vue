@@ -45,8 +45,8 @@ export default {
 
 <style lang='scss'>
 .post-list {
-  min-width: 40rem;
   width: 56%;
+  min-width: 40rem;
   margin-top: 1rem;
 }
 </style>
