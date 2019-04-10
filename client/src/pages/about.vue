@@ -11,7 +11,7 @@
     <div class="card">
       <div class="info">
         <img
-          src="http://p9uqlanms.bkt.clouddn.com/无脸男-1528469109147.jpg"
+          src="~assets/images/avatar.jpg"
           alt="avatar"
           class="avatar"
         >
@@ -21,6 +21,8 @@
         <div class="hobby">
           看书、旅游、摄影（学习ing）
         </div>
+      </div>
+      <div class="other">
         <div class="wish">
           <p>这里加个心愿便利贴</p>
           <p>去日本旅游</p>
@@ -31,7 +33,6 @@
         </div>
       </div>
     </div>
-    <!-- <img :src="'http://p9uqlanms.bkt.clouddn.com/photo.webp' | waterMark" alt="my photo" class="photo"> -->
   </div>
 </template>
 
@@ -53,10 +54,15 @@ export default {
 
   .card {
     position: absolute;
-    top: 54%;
-    bottom: 3rem;
-    left: 20%;
-    width: 60%;
+    top: 34%;
+    left: 130px;
+    display: flex;
+    width: 50%;
+    min-width: 600px;
+    height: 30%;
+    min-height: 300px;
+
+    padding: 3rem 2rem;
     background-color: $whitesmoke;
     border-radius: $radius;
 
@@ -75,20 +81,25 @@ export default {
         45deg, #114abc, #114abc $line-width, #ffffff $line-width, #ffffff 2 * $line-width, #bf2010 2 * $line-width, #bf2010 3 * $line-width, #ffffff 3 * $line-width, #ffffff 4 * $line-width
       );
       border-radius: 6px;
-      box-shadow: 1px 2px 6px 1px rgba(76, 66, 47, .75);
+      box-shadow: 0 0 10px rgba(0, 0, 0, .5);
       content: "";
     }
   }
 
   .info {
+    flex: 4;
     height: 100%;
-    padding: 3rem 2rem;
     overflow: hidden;
     text-align: center;
+    // border-right: 1px solid $color-border;
 
     > div {
       margin-top: .5rem;
     }
+  }
+
+  .other {
+    flex: 6;
   }
 
   .avatar {
@@ -172,7 +183,7 @@ export default {
 @media screen and (min-width: 1600px) {
   .about-me {
     .card {
-      top: 58%;
+      top: 48%;
       // left: 20%;
       // width: 60%;
     }
