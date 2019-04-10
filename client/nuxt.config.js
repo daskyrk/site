@@ -73,6 +73,7 @@ const config = {
     '~/assets/style/common.scss',
     '~/assets/style/syntax.scss',
     '~/assets/style/transition.scss',
+    '~/assets/style/util.scss',
     'element-ui/lib/theme-chalk/index.css',
     'mavon-editor/dist/css/index.css',
   ],
