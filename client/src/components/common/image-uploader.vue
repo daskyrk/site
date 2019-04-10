@@ -1,6 +1,6 @@
 <template>
   <div
-    class="uploader"
+    class="image-uploader"
     @click="selectFile"
   >
     <i class="el-icon-plus avatar-uploader-icon" />
@@ -124,7 +124,7 @@ export default {
 </script>
 
 <style lang="scss">
-.uploader {
+.image-uploader {
   display: inline-block;
   height: 164px;
   width: 164px;

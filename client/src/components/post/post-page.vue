@@ -16,10 +16,7 @@
       <span>评论 {{ detail.meta.comments }}</span>
     </div>
     <!-- eslint-disable -->
-    <div
-      class="content markdown-content"
-      v-html="marked(detail.content)"
-    />
+    <div class="content markdown-content" v-html="marked(detail.content)" />
     <!-- eslint-enable -->
     <div class="post-info">
       <span>
@@ -161,83 +158,80 @@ export default {
 .post {
   width: 40%;
   min-width: 41.25rem;
-}
-
-.meta {
-  margin-top: 1rem;
-  font-size: 0.75rem;
-  color: $color-text-desc;
-  span {
-    margin-right: 0.5rem;
-  }
-}
-
-.content {
-  overflow: auto;
-  margin-top: 1rem;
-}
-
-.post-info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row-reverse;
-  font-size: 0.75rem;
-  margin-top: 2rem;
-  color: $color-text-sub;
-
-  .tags {
-    a {
-      margin-left: 0.5rem;
+  .meta {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: $color-text-desc;
+    span {
+      margin-right: 0.5rem;
     }
   }
-
-  a:hover {
-    text-decoration: underline;
+  .content {
+    overflow: auto;
+    margin-top: 1rem;
   }
-}
+  .post-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    font-size: 0.75rem;
+    margin-top: 2rem;
+    color: $color-text-sub;
 
-.share-box {
-  margin: 2rem 0;
-  padding: 1rem 0;
-}
-
-aside {
-  position: fixed;
-  top: 18.75rem;
-  right: 2rem;
-  user-select: none;
-
-  > div {
-    width: 3rem;
-    height: 3rem;
-    line-height: 3rem;
-    text-align: center;
-    margin-top: 0.5rem;
-    border: 1px solid $platinum;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-    cursor: pointer;
-    border-radius: 100%;
-    background: rgba(255, 255, 255, 0.8);
-
-    &.active,
-    &:hover {
-      &.red {
-        border-color: $red;
-        color: $red;
-      }
-      &.blue {
-        border-color: $blue;
-        color: $blue;
-      }
-      &.green {
-        border-color: $green;
-        color: $green;
+    .tags {
+      a {
+        margin-left: 0.5rem;
       }
     }
 
-    i {
-      font-size: 1.2rem;
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .share-box {
+    margin: 2rem 0;
+    padding: 1rem 0;
+  }
+
+  aside {
+    position: fixed;
+    top: 18.75rem;
+    right: 2rem;
+    user-select: none;
+
+    > div {
+      width: 3rem;
+      height: 3rem;
+      line-height: 3rem;
+      text-align: center;
+      margin-top: 0.5rem;
+      border: 1px solid $platinum;
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+      cursor: pointer;
+      border-radius: 100%;
+      background: rgba(255, 255, 255, 0.8);
+
+      &.active,
+      &:hover {
+        &.red {
+          border-color: $red;
+          color: $red;
+        }
+        &.blue {
+          border-color: $blue;
+          color: $blue;
+        }
+        &.green {
+          border-color: $green;
+          color: $green;
+        }
+      }
+
+      i {
+        font-size: 1.2rem;
+      }
     }
   }
 }
