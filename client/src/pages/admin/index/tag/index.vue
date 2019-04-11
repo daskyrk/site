@@ -157,7 +157,7 @@ export default {
     },
     deleteTag(data) {
       this.deletingId = data.id
-      this.$store.dispatch('tag/delTag', data.id).then(() => {
+      this.$store.dispatch('tag/delTag', data).then(() => {
         this.deletingId = null
       })
     },

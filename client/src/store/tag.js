@@ -57,16 +57,16 @@ export default {
       return res
     },
 
-    async updateTag({ dispatch }, { id, ...data }) {
-      const res = await this.$axios.$put(`/tag/${id}`, data)
+    async updateTag({ dispatch }, data) {
+      const res = await this.$axios.$put('/tag', data)
       if (res.success) {
         await dispatch('getTags')
       }
       return res
     },
 
-    async delTag({ dispatch, state }, id) {
-      const res = await this.$axios.$delete(`/tag/${id}`)
+    async delTag({ dispatch, state }, data) {
+      const res = await this.$axios.$delete('/tag', { params: data })
       if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {

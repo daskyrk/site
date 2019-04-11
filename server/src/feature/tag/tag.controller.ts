@@ -35,9 +35,9 @@ export class TagController {
     return this.service.update(tagDto);
   }
 
-  @Delete(':id')
+  @Delete()
   @UseGuards(AuthGuard)
-  public remove(@Param('id') id: string) {
+  public remove(@Query('id') id: string) {
     return this.service.delete(id);
   }
 }
