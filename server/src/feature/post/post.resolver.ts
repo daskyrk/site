@@ -10,15 +10,16 @@ export class PostResolver {
 
   @Query()
   public getPostById(@Args('_id') _id: string) {
-    return this.postService.getPostById(_id);
+    // TODO: 更新第二个参数
+    return this.postService.getPostById(_id, false);
   }
 
   @Query()
   public getPosts(@Args() query: QueryPostDto, @Context('request') request: Request) {
     if (!request.user) {
       console.log('not login:');
-      query.state = 1;
-      query.public = true;
+      query.isPublish = true;
+      query.isPublic = true;
     }
     return this.postService.search(query);
   }

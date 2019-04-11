@@ -110,10 +110,10 @@
       <el-col :span="23">
         <el-form-item
           label="描述"
-          prop="descript"
+          prop="description"
         >
           <el-input
-            v-model="form.descript"
+            v-model="form.description"
             type="textarea"
             rows="4"
             maxlength="200"
@@ -243,8 +243,8 @@ export default {
 
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
-        if (valid) {
-          ;(this.onSubmit || noop)(this.form)
+        if (valid && this.onSubmit) {
+          this.onSubmit(this.form)
         } else {
           return false
         }

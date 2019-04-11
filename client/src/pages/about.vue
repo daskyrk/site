@@ -61,7 +61,6 @@ export default {
     min-width: 600px;
     height: 30%;
     min-height: 300px;
-
     padding: 3rem 2rem;
     background-color: $whitesmoke;
     border-radius: $radius;
@@ -92,7 +91,6 @@ export default {
     overflow: hidden;
     text-align: center;
     // border-right: 1px solid $color-border;
-
     > div {
       margin-top: .5rem;
     }

@@ -12,9 +12,18 @@ export default function({ $axios, store }) {
     const url = config.url.slice(config.url.indexOf('/api') + 5)
     const { success, message } = body || {}
     store.commit('END_FETCH', url + '#' + config.method)
-    // get请求不展示消息
-    if (process.browser && message && config.method !== 'get') {
-      Message[success ? 'success' : 'warning']({ message })
+    const actionMap = {
+      put: '更新成功',
+      delete: '删除成功',
+      post: '创建成功',
+    }
+    if (process.browser) {
+      // get请求不展示消息
+      if (success) {
+        config.method !== 'get' && Message.success({ message: message || actionMap[config.method] })
+      } else {
+        Message.warning({ message: message || '出错了' })
+      }
     }
     return response
   })
@@ -24,6 +33,8 @@ export default function({ $axios, store }) {
     const code = parseInt(error.response && error.response.status)
     if (code === 401) {
       store.commit('user/LOGOUT')
+    } else if(code === 404) {
+
     }
   })
 }

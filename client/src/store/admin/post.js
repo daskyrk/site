@@ -7,6 +7,7 @@ export default {
         pageNo: 1,
         pageSize: 10,
       },
+      types: [],
       detail: {},
       summary: [],
     }
@@ -20,6 +21,10 @@ export default {
 
     SET_POST_DETAIL(state, data) {
       state.detail = data
+    },
+
+    SET_POST_TYPES(state, data) {
+      state.types = data
     },
 
     SET_POST(state, data) {
@@ -55,17 +60,17 @@ export default {
       }
     },
 
-    // 获取文章详情
-    async getPost({ commit, ...rest }, id) {
-      const res = await this.$axios.$get(`/post/${id}`)
+    // 获取文章类型
+    async getPostTypes({ commit, ...rest }, id) {
+      const res = await this.$axios.$get('/post/types')
       if (res && res.success) {
-        commit('SET_POST_DETAIL', res.data)
+        commit('SET_POST_TYPES', res.data)
       }
     },
 
     // 添加文章
     async addPost({ commit, dispatch }, data) {
-      const res = await this.$axios.$post(`/post`, data)
+      const res = await this.$axios.$post('/post', data)
       if (res.success) {
         await dispatch('getPostList')
       }
@@ -73,18 +78,17 @@ export default {
     },
 
     // 编辑文章
-    async updatePost({ commit, dispatch }, { id, ...data }) {
-      const res = await this.$axios.$put(`/post/${id}`, data)
+    async updatePost({ commit, dispatch }, data) {
+      const res = await this.$axios.$put('/post', data)
       if (res.success) {
-        // await dispatch('getPostList');
-        commit('SET_POST', { id, ...data })
+        commit('SET_POST', data)
       }
       return res
     },
 
     // 删除文章
     async delPost({ commit, dispatch, state }, id) {
-      const res = await this.$axios.$delete(`/post/${id}`)
+      const res = await this.$axios.$delete('/post', { params: { id } })
       if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {

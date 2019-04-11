@@ -59,8 +59,8 @@ export default {
     },
 
     // 获取文章详情
-    async getPost({ commit }, id) {
-      const res = await this.$axios.$get(`/post/${id}`)
+    async getPost({ commit, ...rest }, params) {
+      const res = await this.$axios.$get('/post', { params })
       if (res && res.success) {
         commit('SET_POST_DETAIL', res.data)
       }
@@ -68,7 +68,7 @@ export default {
 
     // 喜欢文章
     async likePost({ commit, dispatch, state }, id) {
-      const res = await this.$axios.$put(`/post/${id}/like`)
+      const res = await this.$axios.$put('/post/like', { params: { id } })
       if (res.success) {
         commit('LIKE_PLUS', id)
       }

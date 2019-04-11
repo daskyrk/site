@@ -3,7 +3,6 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards 
 import { PostInfoDto, QueryPostDto } from './dto/post.dto';
 
 import { PostService } from './post.service';
-import { PostState } from './interface/post.interface';
 import { Request } from "express";
 
 @Controller('post')
@@ -18,12 +17,13 @@ export class PostController {
 
   @Get()
   public searchPosts(@Query() query: QueryPostDto, @Req() req: Request) {
-    if (query.id) {
-      return this.postService.getPostById(query.id);
+    const isAdmin = !!req.user;
+    if (!isAdmin) {
+      query.isPublish = true;
+      query.isPublic = true;
     }
-    if (!req.user) {
-      query.state = PostState.RELEASE;
-      query.public = true;
+    if (query.id) {
+      return this.postService.getPostById(query.id, isAdmin);
     }
     return this.postService.search(query);
   }
@@ -39,14 +39,14 @@ export class PostController {
     return this.postService.update(postInfoDto);
   }
 
-  @Delete(':id')
+  @Delete()
   @UseGuards(AuthGuard)
-  public deletePost(@Param('id') id: string) {
+  public deletePost(@Query('id') id: string) {
     return this.postService.delete(id);
   }
 
-  @Put('/:id/like')
-  public likePost(@Param('id') id: string) {
+  @Put('/like')
+  public likePost(@Query('id') id: string) {
     return this.postService.likePost(id);
   }
 }

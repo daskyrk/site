@@ -1,9 +1,10 @@
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PostInfoDto, QueryPostDto } from './dto/post.dto';
+import { isUndefined, omitBy } from "lodash";
 
 import { BaseService } from '@/shared/base';
 import { IPost } from './interface/post.interface';
 import { InjectModel } from '@nestjs/mongoose';
-import { Injectable } from '@nestjs/common';
 import { PaginateModel } from 'mongoose';
 
 @Injectable()
@@ -14,11 +15,18 @@ export class PostService extends BaseService<IPost> {
     super(model);
   }
 
-  public async getPostById(id: string) {
+  public async getPostById(id: string, isAdmin: boolean) {
     const res = await this.model.findById(id);
     if (res) {
-      res.meta.views += 1;
-      res.save();
+      if (!isAdmin) {
+        if (!res.isPublic || !res.isPublish) {
+          throw new UnauthorizedException('该文章暂时无法查看')
+        }
+        res.meta.views += 1;
+        res.save();
+      }
+    } else {
+      throw new NotFoundException('该文章不存在')
     }
 
     return res;
@@ -35,13 +43,14 @@ export class PostService extends BaseService<IPost> {
       pageSize = 10,
       q,
       tag,
-      state,
+      isPublish,
+      isPublic,
       type,
       startAt,
       endAt,
       hot,
     } = query;
-    const querys = {} as any;
+    const querys = omitBy({ tag, isPublish, isPublic, type }, isUndefined) as any;
     const options: {
       sort: any;
       page: number;
@@ -57,29 +66,13 @@ export class PostService extends BaseService<IPost> {
     };
 
     // 关键词查询
-    if (q) {
+    if (q!== undefined) {
       const keywordReg = new RegExp(q);
       querys.$or = [
         { title: keywordReg },
         { content: keywordReg },
         { description: keywordReg },
       ];
-    }
-
-    if (tag) {
-      querys.tag = tag;
-    }
-
-    if (type) {
-      querys.type = type;
-    }
-
-    if (state) {
-      querys.state = state;
-    }
-
-    if (query.public) {
-      querys.public = query.public;
     }
 
     if (startAt) {

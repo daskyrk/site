@@ -1,17 +1,17 @@
 import { IsBoolean, IsIn, IsNotEmpty, IsString } from 'class-validator';
-import { PostState, PostType } from '../interface/post.interface';
+// import { PostState, PostType } from '../interface/post.interface';
 
-import { Transform } from 'class-transformer';
+// import { Transform } from 'class-transformer';
 
-export class PostTransformDto {
-  @Transform(v => PostState[v])
-  public state: number;
+// export class PostTransformDto {
+//   @Transform(v => PostState[v])
+//   public state: number;
 
-  // @Transform(v => PostType[v])
-  // public type: number;
-}
+//   @Transform(v => PostType[v])
+//   public type: number;
+// }
 
-export class PostInfoDto extends PostTransformDto {
+export class PostInfoDto {
   public id: string;
 
   @IsNotEmpty()
@@ -24,8 +24,7 @@ export class PostInfoDto extends PostTransformDto {
   public content: string;
 
   @IsNotEmpty()
-  @IsIn(Object.keys(PostType))
-  public type: PostType;
+  public type: string;
 
   public description: string;
 
@@ -34,11 +33,13 @@ export class PostInfoDto extends PostTransformDto {
   public thumb: string;
 
   @IsBoolean()
-  public public: boolean;
+  public isPublic: boolean;
+
+  @IsBoolean()
+  public isPublish: boolean;
 
   public meta: PostMetaDto;
 }
-
 
 export class PostMetaDto {
   public views: number;
@@ -46,15 +47,16 @@ export class PostMetaDto {
   public comments: number;
 }
 
-export class QueryPostDto extends PostTransformDto {
+export class QueryPostDto {
   public id?: string;
   public pageNo = 1;
   public pageSize = 10;
   public q?: string;
   public tag?: string;
-  public public?: boolean;
+  public isPublic?: boolean;
+  public isPublish?: boolean;
   public startAt?: string;
   public endAt?: string;
   public hot?: boolean;
-  public type?: PostType;
+  public type?: string;
 }

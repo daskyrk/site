@@ -20,10 +20,10 @@ export default {
     PostForm,
   },
 
-  computed: mapState('admin/post', ['detail']),
+  computed: mapState('post', ['detail']),
 
   async fetch({ store, params }) {
-    await store.dispatch('admin/post/getPost', params.id)
+    await store.dispatch('post/getPost', params)
   },
 
   methods: {

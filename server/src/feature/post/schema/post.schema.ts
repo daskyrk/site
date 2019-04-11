@@ -20,11 +20,11 @@ export const PostSchema = new Mongoose.Schema(
     // 内容
     content: { type: String, required: true },
 
-    // 状态 1 草稿 2 发布
-    state: { type: Number, default: 1 },
+    // 是否发布: false 草稿 | true 发布
+    isPublish: { type: Boolean, default: false },
 
     // 公开
-    ['public']: { type: Boolean, default: true },
+    isPublic: { type: Boolean, default: true },
 
     // 缩略图
     thumb: String,
