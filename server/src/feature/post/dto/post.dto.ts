@@ -47,6 +47,7 @@ export class PostMetaDto {
 }
 
 export class QueryPostDto extends PostTransformDto {
+  public id?: string;
   public pageNo = 1;
   public pageSize = 10;
   public q?: string;

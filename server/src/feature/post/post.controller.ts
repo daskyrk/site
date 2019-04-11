@@ -8,7 +8,7 @@ import { Request } from "express";
 
 @Controller('post')
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(private readonly postService: PostService) { }
 
   @Post()
   @UseGuards(AuthGuard)
@@ -16,18 +16,21 @@ export class PostController {
     return this.postService.create(postInfoDto);
   }
 
-  @Get(':id')
-  public getPostById(@Param('id') id: string) {
-    return this.postService.getPostById(id);
-  }
-
   @Get()
   public searchPosts(@Query() query: QueryPostDto, @Req() req: Request) {
+    if (query.id) {
+      return this.postService.getPostById(query.id);
+    }
     if (!req.user) {
       query.state = PostState.RELEASE;
       query.public = true;
     }
     return this.postService.search(query);
+  }
+
+  @Get('types')
+  public getPostTypes() {
+    return this.postService.getTypes();
   }
 
   @Put()
