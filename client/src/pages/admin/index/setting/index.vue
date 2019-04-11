@@ -14,11 +14,11 @@
       <el-row>
         <el-col :span="16">
           <el-form-item
-            label="用户名"
-            prop="username"
+            label="邮箱"
+            prop="email"
           >
             <el-input
-              v-model="userForm.username"
+              v-model="userForm.email"
               :maxlength="20"
             />
           </el-form-item>

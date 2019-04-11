@@ -184,7 +184,7 @@
         >
           <template slot-scope="scope">
             <i
-              v-if="!scope.row.public"
+              v-if="!scope.row.isPublic"
               class="iconfont icon-lock"
             />
           </template>
@@ -195,14 +195,14 @@
         >
           <template slot-scope="scope">
             <i
-              v-if="scope.row.state === 1"
+              v-if="scope.row.isPublish"
               class="iconfont icon-fabu"
             />
             <i
-              v-if="scope.row.state !== 1"
+              v-if="!scope.row.isPublish"
               class="iconfont icon-caogao"
             />
-            {{ scope.row.state === 1 ? '草稿' : '发布' }}
+            {{ scope.row.isPublish ? '发布' : '草稿' }}
           </template>
         </el-table-column>
         <el-table-column

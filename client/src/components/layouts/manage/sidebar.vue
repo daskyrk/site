@@ -51,6 +51,7 @@ export default {
       const path = this.$route.path
       let longestMatch = menus[0]
       menus.map(m => {
+        m.active = false;
         if (path.includes(m.link) && m.link.length > longestMatch.link.length) {
           longestMatch = m
         }
