@@ -39,7 +39,7 @@
         class="iconfont icon-search header-search-icon"
         @click="showSearch"
       />
-      <music-player v-bind="musicConf" />
+      <!-- <music-player v-bind="musicConf" /> -->
     </div>
   </header>
 </template>
@@ -50,7 +50,7 @@ import MusicPlayer from '~/components/common/music-player'
 
 export default {
   components: {
-    MusicPlayer,
+    // MusicPlayer,
   },
 
   data() {
