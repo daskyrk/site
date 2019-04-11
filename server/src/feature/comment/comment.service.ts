@@ -28,7 +28,7 @@ export class CommentService extends BaseService<IComment> {
       sort: { createdAt: -1 },
       page: Number(pageNo),
       limit: Number(pageSize),
-      // select: '',
+      select: '-ip',
       // populate: ['tag'],
     };
 
@@ -68,5 +68,14 @@ export class CommentService extends BaseService<IComment> {
     const comment = await super.create(data);
 
     return await comment.save();
+  }
+
+  public async like(id: string) {
+    const result = await this.model.findById(id);
+    if (result) {
+      result.likes += 1;
+      result.save();
+    }
+    return result;
   }
 }

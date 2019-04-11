@@ -35,7 +35,7 @@ export default {
       }
     },
 
-    // 添加评论
+    // 删除评论
     async delComment({ state }, data) {
       const res = await this.$axios.$delete(`/comment`, data)
       return res

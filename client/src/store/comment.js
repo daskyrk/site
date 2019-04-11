@@ -43,7 +43,7 @@ export default {
 
     // 点赞评论
     async likeComment({ commit }, id) {
-      const res = await this.$axios.$put(`/likeComment/${id}`)
+      const res = await this.$axios.$patch('/comment/like', { id })
       if (res.success) {
         commit('LIKE_PLUS', id)
       }

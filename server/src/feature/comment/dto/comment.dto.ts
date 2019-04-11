@@ -51,6 +51,7 @@ export class CommentDto {
 }
 
 export class QueryCommentDto {
+  public id?: string;
   public pageNo: number;
   public pageSize: number;
   public q?: string;

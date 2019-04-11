@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   Query,
@@ -27,12 +28,10 @@ export class CommentController {
 
   @Get()
   public search(@Query() query: QueryCommentDto) {
+    if (query.id) {
+      return this.commentService.findById(query.id);
+    }
     return this.commentService.search(query);
-  }
-
-  @Get(':id')
-  public findOne(@Param('id') id: string) {
-    return this.commentService.findById(id);
   }
 
   @Put()
@@ -40,9 +39,14 @@ export class CommentController {
     return this.commentService.update(commentDto);
   }
 
-  @Delete(':id')
+  @Delete()
   @UseGuards(AuthGuard)
-  public remove(@Param('id') id: string) {
+  public remove(@Query('id') id: string) {
     return this.commentService.delete(id);
+  }
+
+  @Patch('like')
+  public like(@Body('id') id: string) {
+    return this.commentService.like(id);
   }
 }
