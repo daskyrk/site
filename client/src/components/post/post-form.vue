@@ -54,33 +54,29 @@
             v-model="form.type"
             size="small"
           >
-            <el-radio-button label="ARTICLE">
-              文章
-            </el-radio-button>
-            <el-radio-button label="READ">
-              读书
-            </el-radio-button>
-            <el-radio-button label="THINK">
-              感悟
-            </el-radio-button>
+            <el-radio-button
+              v-for="type in types"
+              :key="type"
+              :label="type"
+            />
           </el-radio-group>
         </el-form-item>
         <el-form-item label="状态">
           <el-radio-group
-            v-model="form.state"
+            v-model="form.isPublish"
             size="small"
           >
-            <el-radio-button :label="1">
+            <el-radio-button :label="false">
               草稿
             </el-radio-button>
-            <el-radio-button :label="2">
+            <el-radio-button :label="true">
               发布
             </el-radio-button>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="公开">
           <el-radio-group
-            v-model="form.public"
+            v-model="form.isPublic"
             size="small"
           >
             <el-radio-button :label="true">
@@ -181,7 +177,7 @@ export default {
         tags: [],
         content: '',
         public: true,
-        type: 'ARTICLE',
+        type: this.types ? this.types[0] : '文章',
         state: 1,
         thumb: '',
         ...this.detail,
@@ -198,6 +194,7 @@ export default {
     ...mapState({
       tags: state => state.tag.list,
     }),
+    ...mapState('admin/post', ['types']),
   },
 
   watch: {
@@ -208,6 +205,7 @@ export default {
 
   async created() {
     await this.$store.dispatch('tag/getTags')
+    await this.$store.dispatch('admin/post/getPostTypes')
   },
 
   methods: {
