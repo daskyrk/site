@@ -53,20 +53,15 @@ export class UserController {
     return this.userService.search(q);
   }
 
-  @Get(':id')
-  public findOne(@Param('id') id: string) {
-    return this.userService.findById(id);
-  }
-
   @Put()
   @UseGuards(AuthGuard)
   public update(@Body() userInfoDto: UserInfoDto) {
     return this.userService.update(userInfoDto);
   }
 
-  @Delete(':id')
+  @Delete()
   @UseGuards(AuthGuard)
-  public remove(@Param('id') id: string) {
+  public remove(@Query('id') id: string) {
     return this.userService.delete(id);
   }
 }
