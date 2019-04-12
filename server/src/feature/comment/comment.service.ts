@@ -54,7 +54,7 @@ export class CommentService extends BaseService<IComment> {
       req.ip ||
       req.ips[0];
     ip = Array.isArray(ip) ? ip[0] : ip;
-    ip.replace('::ffff:', '');
+    ip = ip.replace('::ffff:', '');
     data.ip = ip;
     data.agent = req.headers['user-agent'] || data.agent;
 
