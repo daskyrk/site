@@ -103,7 +103,7 @@ export default {
       const q = this.q
       if (q !== '') {
         this.loading = true
-        this.$store.dispatch('read/search', { q, count: 36 }).then(() => {
+        this.$store.dispatch('read/search', { q: encodeURIComponent(q), count: 36 }).then(() => {
           this.loading = false
         })
       } else {

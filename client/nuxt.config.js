@@ -117,11 +117,11 @@ const config = {
     //   changeOrigin: true,
     //   pathRewrite: { '^/api/proxy/lylares': '' },
     // },
-    '/api/proxy/douban': {
-      target: 'https://api.douban.com',
-      changeOrigin: true,
-      pathRewrite: { '^/api/proxy/douban': '' },
-    },
+    // '/api/proxy/book/search': {
+    //   target: 'https://book.douban.com/subject_search',
+    //   changeOrigin: true,
+    //   pathRewrite: { '^/api/proxy/book/search': '' },
+    // },
     '/api': {
       target: IS_DEV || process.server ? 'http://localhost:8000' : 'https://lijun.space',
       changeOrigin: true,

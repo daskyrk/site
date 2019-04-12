@@ -4,6 +4,8 @@ import { PostInfoDto, QueryPostDto } from './dto/post.dto';
 
 import { PostService } from './post.service';
 import { Request } from "express";
+import axios from 'axios';
+import { decrypt } from '@/utils/douban-read-crack.js';
 
 @Controller('post')
 export class PostController {
@@ -31,6 +33,17 @@ export class PostController {
   @Get('types')
   public getPostTypes() {
     return this.postService.getTypes();
+  }
+
+  @Get('book/search')
+  public async searchBooks(@Query('q') q: string) {
+    const resp = await axios.get('https://book.douban.com/subject_search?search_text=' + q);
+    let match = resp.data.match(/window\.__DATA__ = "([^"]+)"/);
+    if (match) {
+      match = match[1];
+    }
+    const decryptResult = decrypt(match);
+    return decryptResult ? decryptResult.payload : null;
   }
 
   @Put()

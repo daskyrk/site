@@ -36,7 +36,7 @@ export default {
   actions: {
     async getBooks({ commit, state }, data) {
       const query = { ...state.query, ...data }
-      const res = await this.$axios.$get('/book', { params: query })
+      const res = await this.$axios.$get('/post/book', { params: query })
       commit('UPDATE_PAGE', query)
       if (res.success) {
         commit('GET_BOOKS', res.data)
@@ -45,7 +45,7 @@ export default {
     },
 
     async search({ commit, state }, data) {
-      const res = await this.$axios.$get('/proxy/douban/v2/book/search', {
+      const res = await this.$axios.$get('/post/book/search', {
         params: data,
       })
       commit('SET_BOOK_QUERY', res.books)
