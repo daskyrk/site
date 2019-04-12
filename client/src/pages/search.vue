@@ -10,11 +10,11 @@
         {{ nameMap[tag] }}
       </span>
       <span
-        v-if="keyword"
+        v-if="q"
         class="search-keyword"
       >
         <i class="iconfont icon-search" />
-        {{ keyword }}
+        {{ q }}
       </span>
     </div>
     <div v-if="list.length">
@@ -51,7 +51,7 @@ export default {
     LoadMore,
   },
 
-  watchQuery: ['tag', 'keyword'],
+  watchQuery: ['tag', 'q'],
 
   computed: {
     ...mapState('search', ['list', 'query']),
@@ -60,14 +60,14 @@ export default {
     tag() {
       return this.$route.query.tag
     },
-    keyword() {
-      return this.$route.query.keyword
+    q() {
+      return this.$route.query.q
     },
   },
 
   async fetch({ store, query }) {
-    const { tag, keyword } = query
-    await store.dispatch('search/doSearch', { tag, keyword })
+    const { tag, q } = query
+    await store.dispatch('search/doSearch', { tag, q })
   },
 
   beforeDestroy() {

@@ -70,6 +70,7 @@ export class PostService extends BaseService<IPost> {
       const keywordReg = new RegExp(q);
       querys.$or = [
         { title: keywordReg },
+        { keyword: keywordReg },
         { content: keywordReg },
         { description: keywordReg },
       ];

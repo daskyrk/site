@@ -101,7 +101,7 @@ export default {
     search(e) {
       const value = e.target.value.trim()
       if (value.length) {
-        this.$router.push(`/search?keyword=${e.target.value.trim()}`)
+        this.$router.push(`/search?q=${e.target.value.trim()}`)
       }
     },
     getScrollTop() {
