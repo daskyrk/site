@@ -2,7 +2,7 @@ import { ImageDto, QueryImageDto } from './dto/image.dto';
 
 import { BaseService } from '@/shared/base';
 import { IImage } from './interface/image.interface';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel } from 'daskyrk-mongoose';
 import { Injectable } from '@nestjs/common';
 import { PaginateModel } from 'mongoose';
 

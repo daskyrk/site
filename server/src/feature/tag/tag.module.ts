@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-import { TagSchema } from './schema/tag.schema';
+import { MongooseModule } from 'daskyrk-mongoose';
 import { TagController } from './tag.controller';
+import { TagSchema } from './schema/tag.schema';
 import { TagService } from './tag.service';
 
 @Module({

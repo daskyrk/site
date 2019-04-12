@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { WishService } from './wish.service';
+import { MongooseModule } from 'daskyrk-mongoose';
 import { WishController } from './wish.controller';
-import { MongooseModule } from '@nestjs/mongoose';
 import { WishSchema } from './schema/wish.schema';
+import { WishService } from './wish.service';
 
 @Module({
   imports: [

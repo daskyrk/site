@@ -2,7 +2,7 @@ import { QueryTagDto, TagDto } from './dto/tag.dto';
 
 import { BaseService } from '@/shared/base';
 import { ITag } from './interface/tag.interface';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel } from 'daskyrk-mongoose';
 import { Injectable } from '@nestjs/common';
 import { PaginateModel } from 'mongoose';
 

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseModule } from 'daskyrk-mongoose';
 import { PostController } from './post.controller';
 import { PostSchema } from './schema/post.schema';
 // import { PostResolver } from './post.resolver';

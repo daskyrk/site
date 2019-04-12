@@ -2,7 +2,7 @@ import { LoginDto, UserInfoDto } from './dto/user.dto';
 
 import { BaseService } from 'shared/base';
 import { IUser } from './interface/user.interface';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel } from 'daskyrk-mongoose';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { generateToken } from '@/utils/auth';

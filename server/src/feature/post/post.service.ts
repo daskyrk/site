@@ -4,7 +4,7 @@ import { isUndefined, omitBy } from "lodash";
 
 import { BaseService } from '@/shared/base';
 import { IPost } from './interface/post.interface';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel } from 'daskyrk-mongoose';
 import { PaginateModel } from 'mongoose';
 
 @Injectable()

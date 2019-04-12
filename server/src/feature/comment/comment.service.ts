@@ -2,7 +2,7 @@ import { CommentDto, QueryCommentDto } from './dto/comment.dto';
 
 import { BaseService } from '@/shared/base';
 import { IComment } from './interface/comment.interface';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel } from 'daskyrk-mongoose';
 import { Injectable } from '@nestjs/common';
 import { PaginateModel } from 'mongoose';
 import { Request } from 'express';

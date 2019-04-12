@@ -2,7 +2,7 @@ import { QueryWishDto, WishDto } from './dto/wish.dto';
 
 import { BaseService } from '@/shared/base';
 import { IWish } from './interface/wish.interface';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel } from 'daskyrk-mongoose';
 import { Injectable } from '@nestjs/common';
 import { PaginateModel } from 'mongoose';
 

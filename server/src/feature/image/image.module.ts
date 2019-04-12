@@ -2,7 +2,7 @@ import { ImageController } from './image.controller';
 import { ImageSchema } from './schema/image.schema';
 import { ImageService } from './image.service';
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseModule } from 'daskyrk-mongoose';
 
 @Module({
   imports: [

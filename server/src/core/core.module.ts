@@ -1,7 +1,7 @@
 import { GraphQLModule } from '@nestjs/graphql';
 import { MailerModule } from './mailer';
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseModule } from 'daskyrk-mongoose';
 import config from '@/config';
 
 /**
