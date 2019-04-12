@@ -110,111 +110,113 @@ $sidebar-tip-width: .25rem;
       }
     }
   }
-}
 
-// .logo-wrap {
-//   display: flex;
-//   width: 100%;
-//   height: $header-height;
-// }
-.logo {
-  width: 100%;
-  height: $header-height;
-  background-image: url(~assets/images/logo.svg);
-  background-repeat: no-repeat;
-  background-position: 50%;
-  background-size: contain;
-  transition: $transition;
-}
 
-// .owner {
-//   flex: 1;
-//   display: inline-flex;
-//   align-items: center;
-//   color: $white;
-//   opacity: 1;
-//   font-size: 1.125rem;
-//   letter-spacing: 0.25rem;
-//   transition: $transition;
-// }
-.menus {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  width: 100%;
-  text-align: center;
-
-  > li {
-    position: relative;
-    margin-top: 10px;
-
-    &.active {
-      &::before {
-        position: absolute;
-        left: 0;
-        height: 100%;
-        border-left: $sidebar-tip-width solid $green;
-        content: "";
-      }
-
-      .menu-item {
-        color: $sidebar-text-hover;
-        background-color: $sidebar-bg-hover;
-
-        i {
-          color: $green;
-        }
-      }
-    }
-  }
-
-  .menu-item {
-    height: 3rem;
-    padding-left: 3rem;
-    overflow: hidden;
-    color: $sidebar-text;
-    line-height: 3rem;
-    text-align: left;
-    outline: none;
-    transition: padding-left .3s;
-
-    &:hover {
-      color: $sidebar-text-hover;
-      background-color: $sidebar-bg-hover;
-    }
-
-    i {
-      transition: $transition;
-    }
-
-    span {
-      margin-left: .625rem;
-      transition: $transition;
-    }
-  }
-}
-
-.toggle-side {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 2.5rem;
-  color: $sidebar-text;
-  background-color: $sidebar-bg;
-  border-top: 1px solid hsla(0, 0%, 100%, .25);
-  cursor: pointer;
-  transition: $transition;
-
-  i {
-    font-size: 1.125rem;
+  // .logo-wrap {
+  //   display: flex;
+  //   width: 100%;
+  //   height: $header-height;
+  // }
+  .logo {
+    width: 100%;
+    height: $header-height;
+    background-image: url(~assets/images/logo.svg);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: contain;
     transition: $transition;
   }
 
-  &:hover {
+  // .owner {
+  //   flex: 1;
+  //   display: inline-flex;
+  //   align-items: center;
+  //   color: $white;
+  //   opacity: 1;
+  //   font-size: 1.125rem;
+  //   letter-spacing: 0.25rem;
+  //   transition: $transition;
+  // }
+  .menus {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+
+    > li {
+      position: relative;
+      margin-top: 10px;
+
+      &.active {
+        &::before {
+          position: absolute;
+          left: 0;
+          height: 100%;
+          border-left: $sidebar-tip-width solid $green;
+          content: "";
+        }
+
+        .menu-item {
+          color: $sidebar-text-hover;
+          background-color: $sidebar-bg-hover;
+
+          i {
+            color: $green;
+          }
+        }
+      }
+    }
+
+    .menu-item {
+      height: 3rem;
+      padding-left: 3rem;
+      overflow: hidden;
+      color: $sidebar-text;
+      line-height: 3rem;
+      text-align: left;
+      outline: none;
+      transition: padding-left .3s;
+
+      &:hover {
+        color: $sidebar-text-hover;
+        background-color: $sidebar-bg-hover;
+      }
+
+      i {
+        transition: $transition;
+      }
+
+      span {
+        margin-left: .625rem;
+        transition: $transition;
+      }
+    }
+  }
+
+  .toggle-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 2.5rem;
+    color: $sidebar-text;
+    background-color: $sidebar-bg;
+    border-top: 1px solid hsla(0, 0%, 100%, .25);
+    cursor: pointer;
+    transition: $transition;
+
     i {
-      color: $sidebar-text-hover;
+      font-size: 1.125rem;
+      transition: $transition;
+    }
+
+    &:hover {
+      i {
+        color: $sidebar-text-hover;
+      }
     }
   }
 }
+
 </style>

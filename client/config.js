@@ -21,15 +21,15 @@ export const appConfig = {
   navs: [
     {
       link: '/read',
-      text: '读书',
+      text: 'Read',
     },
     {
       link: '/post',
-      text: '文章',
+      text: 'Article',
     },
     {
       link: '/wall',
-      text: '留言墙',
+      text: 'Wish',
     },
   ],
   adminMenus: [

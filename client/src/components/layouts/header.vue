@@ -3,43 +3,44 @@
     class="default-header"
     :class="{ hide }"
   >
-    <div class="header-left">
-      <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-        <filter id="f1" x="0" y="0" width="100%" height="100%">
-          <feGaussianBlur in="BackgroundImage" stdDeviation="15" />
-        </filter>
-      </svg> -->
-      <nav>
+    <div class="flex-box header-container">
+      <div class="header-left">
         <nuxt-link to="/">
-          首页
+          <img
+            src="~assets/images/daskyrk.png"
+            alt="logo"
+          >
         </nuxt-link>
-        <nuxt-link
-          v-for="(nav, index) in navs"
-          :key="index"
-          :to="nav.link"
-          exact
+      </div>
+      <div class="header-right">
+        <nav>
+          <nuxt-link
+            v-for="(nav, index) in navs"
+            :key="index"
+            :to="nav.link"
+            exact
+          >
+            {{ nav.text }}
+          </nuxt-link>
+        </nav>
+        <i
+          :class="{hide: searchVisible}"
+          class="iconfont icon-search header-search-icon"
+          @click="showSearch"
+        />
+        <input
+          ref="searchInput"
+          v-model="keyword"
+          :class="{hide: !searchVisible}"
+          type="text"
+          class="header-search-input"
+          maxlength="10"
+          placeholder="输入关键字搜素"
+          @keyup.enter="search"
+          @blur="hideSearch"
         >
-          {{ nav.text }}
-        </nuxt-link>
-      </nav>
-    </div>
-    <div class="header-right">
-      <input
-        ref="searchInput"
-        v-model="keyword"
-        :class="{hide: !searchVisible}"
-        type="text"
-        class="header-search-input"
-        maxlength="10"
-        @keyup.enter="search"
-        @blur="hideSearch"
-      >
-      <i
-        :class="{hide: searchVisible}"
-        class="iconfont icon-search header-search-icon"
-        @click="showSearch"
-      />
       <!-- <music-player v-bind="musicConf" /> -->
+      </div>
     </div>
   </header>
 </template>
@@ -122,65 +123,78 @@ export default {
   position: fixed;
   top: 0;
   z-index: 999;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: $header-height;
-  padding: 0 2rem;
+  line-height: $header-height;
   background-color: rgba(255, 255, 255, .4);
   box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
-  transition: transform .3s;
-  // &:before {
-  //   position: absolute;
-  //   left: 0;
-  //   content: '';
-  //   display: block;
-  //   width: 100%;
-  //   height: 100%;
-  //   filter: url(#f1);
-  // }
+  transition: transform .5s;
+
   &.hide {
     transform: translateY(-105%);
   }
 
-  nav {
-    a {
-      margin-right: 2rem;
-      color: $dimgray;
-      transition: color .3s;
+  .header-container {
+    width: 1040px;
+    max-width: 100%;
+    height: 100%;
+    margin: 0 auto;
+  }
+
+  .header-left {
+    img {
+      height: $header-height;
+      margin-left: 1rem;
     }
   }
 
-  .header-right {
-    position: relative;
+  $transition: color .2s, background-color .2s;
+
+  nav {
+    a {
+      display: inline-block;
+      padding: 0 1rem;
+      color: $lightblack;
+      transition: $transition;
+
+      &:hover {
+        color: $color-active-red;
+        background-color: $ghostwhite;
+      }
+    }
   }
 
   .header-search-icon {
     position: absolute;
     right: 0;
+    z-index: 3;
+    width: 4rem;
+    text-align: center;
     cursor: pointer;
 
     &:hover {
-      transform: scale(1.1);
+      color: $color-active-red;
+      background-color: $ghostwhite;
+      transition: $transition;
     }
 
     &.hide {
-      opacity: 0;
+      background-color: transparent;
+      pointer-events: none;
     }
   }
 
   .header-search-input {
     width: 160px;
-    padding-left: .5rem;
+    margin-left: 1rem;
     color: $dimgray;
     border: none;
-    border-bottom: 1px solid $dimgray;
     outline: none;
-    transition: all .25s;
+    transition: all .2s;
 
     &.hide {
       width: 0;
+      margin-left: 4rem;
       opacity: 0;
     }
   }
