@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.app">
+  <div :class="[$style.app, $style.grayBg]">
     <my-header />
 
     <div :class="$style.container">
@@ -28,6 +28,10 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
+}
+
+.gray-bg {
+  background-color: $whitesmoke;
 }
 
 .container {

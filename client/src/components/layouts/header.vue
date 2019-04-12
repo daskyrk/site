@@ -126,12 +126,12 @@ export default {
   width: 100%;
   height: $header-height;
   line-height: $header-height;
-  background-color: rgba(255, 255, 255, .4);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+  background-color: $white;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .1);
   transition: transform .5s;
 
   &.hide {
-    transform: translateY(-105%);
+    transform: translateY(-$header-height);
   }
 
   .header-container {
