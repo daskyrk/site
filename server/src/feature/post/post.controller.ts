@@ -59,7 +59,7 @@ export class PostController {
   }
 
   @Put('/like')
-  public likePost(@Query('id') id: string) {
+  public likePost(@Body('id') id: string) {
     return this.postService.likePost(id);
   }
 }
