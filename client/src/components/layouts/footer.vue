@@ -94,4 +94,24 @@ export default {
     color: $color-active-red;
   }
 }
+
+@include sm-width () {
+  .default-footer {
+    .footer-container {
+      width: 90%;
+      padding: 0;
+    }
+
+    .footer-col {
+      padding: 0;
+      text-align: right;
+
+      &:not(:first-child) {
+        display: none;
+      }
+    }
+  }
+
+}
+
 </style>

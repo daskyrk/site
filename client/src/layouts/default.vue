@@ -1,7 +1,7 @@
 <template>
   <div
     class="app-layout"
-    :class="cls"
+    :class="[_cls, size]"
   >
     <my-header />
 
@@ -16,6 +16,7 @@
 <script>
 import myHeader from '~/components/layouts/header'
 import myFooter from '~/components/layouts/footer'
+import _ from 'lodash'
 
 export default {
   components: {
@@ -24,15 +25,34 @@ export default {
   },
 
   props: {
-    class: String,
+    cls: String,
   },
 
   computed: {
-    cls() {
-      return this.class
+    _cls() {
+      return this.cls
     },
+    size() {
+      return this.$store.state.layout.size
+    }
   },
 
+  mounted() {
+    this.setSize()
+    // window.onresize = _.throttle(this.setSize, 100)
+  },
+
+  methods: {
+    setSize() {
+      // 定义窗口大小变更通知事件
+      const screenWidth = document.documentElement.clientWidth //窗口宽度
+      const screenHeight = document.documentElement.clientHeight //窗口高度
+      this.$store.commit('layout/resize', {
+        screenWidth,
+        screenHeight,
+      })
+    },
+  },
 }
 </script>
 

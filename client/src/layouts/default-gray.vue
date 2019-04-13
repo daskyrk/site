@@ -1,5 +1,5 @@
 <template>
-  <defaultLayout class="gray-bg" />
+  <defaultLayout cls="gray-bg" />
 </template>
 
 <script>

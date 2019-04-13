@@ -39,6 +39,43 @@
           @keyup.enter="search"
           @blur="hideSearch"
         >
+        <div class="mobile-menu-container">
+          <svg
+            class="ham hamRotate"
+            viewBox="-18 -24 148 148"
+            width="64"
+            :class="{active: mobileMenuVisible}"
+            @click="mobileMenuVisible = !mobileMenuVisible"
+          >
+            <path
+              class="line top"
+              d="m 70,33 h -40 c 0,0 -8.5,-0.149796 -8.5,8.5 0,8.649796 8.5,8.5 8.5,8.5 h 20 v -20"
+            />
+            <path
+              class="line middle"
+              d="m 70,50 h -40"
+            />
+            <path
+              class="line bottom"
+              d="m 30,67 h 40 c 0,0 8.5,0.149796 8.5,-8.5 0,-8.649796 -8.5,-8.5 -8.5,-8.5 h -20 v 20"
+            />
+          </svg>
+          <div
+            class="mobile-menu"
+            :class="{visible:mobileMenuVisible}"
+          >
+            <nav>
+              <nuxt-link
+                v-for="(nav, index) in navs"
+                :key="index"
+                :to="nav.link"
+                exact
+              >
+                {{ nav.text }}
+              </nuxt-link>
+            </nav>
+          </div>
+        </div>
       <!-- <music-player v-bind="musicConf" /> -->
       </div>
     </div>
@@ -60,6 +97,7 @@ export default {
       navs: this.$getConfig('navs'),
       hide: false,
       searchVisible: false,
+      mobileMenuVisible: false,
       musicConf: {
         // theme: '可选，不指定时为默认主题，值为"mini"时为迷你版主题',
         music: {
@@ -199,5 +237,78 @@ export default {
       opacity: 0;
     }
   }
+
+  .ham {
+    vertical-align: unset;
+    cursor: pointer;
+    transition: transform 400ms;
+    user-select: none;
+
+    .line {
+      transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+      fill: none;
+      stroke: $black;
+      stroke-width: 3;
+      stroke-linecap: round;
+    }
+
+    &.active {
+      transform: rotate(45deg);
+    }
+
+    .top {
+      stroke-dasharray: 40 121;
+    }
+
+    .bottom {
+      stroke-dasharray: 40 121;
+    }
+
+    &.active .top {
+      stroke-dashoffset: -68px;
+    }
+
+    &.active .bottom {
+      stroke-dashoffset: -68px;
+    }
+  }
+
+  .mobile-menu-container {
+    display: none;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: $header-height;
+    right: -50%;
+    bottom: 0;
+    width: 50%;
+    background-color: $white;
+    transition: right .5s;
+
+    &.visible {
+      right: 0;
+    }
+  }
+
+}
+
+@include sm-width () {
+  .default-header {
+    nav {
+      display: none;
+    }
+
+    .mobile-menu-container {
+      display: unset;
+    }
+
+    .header-search-icon {
+      width: 3rem;
+      margin-right: 4rem;
+      font-size: 18px;
+    }
+  }
+
 }
 </style>

@@ -206,5 +206,12 @@ export default {
   }
 }
 
+@include sm-width () {
+  .search-result {
+    width: 90%;
+  }
+
+}
+
 
 </style>
