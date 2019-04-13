@@ -35,7 +35,7 @@
           type="text"
           class="header-search-input"
           maxlength="10"
-          placeholder="输入关键字搜素"
+          placeholder="想找点什么?"
           @keyup.enter="search"
           @blur="hideSearch"
         >

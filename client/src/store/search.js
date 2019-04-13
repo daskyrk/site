@@ -39,12 +39,17 @@ export default {
 
   actions: {
     async doSearch({ dispatch, commit, state, rootState, ...rest }, params) {
-      if (params.tag && !rootState.tag.list.length) {
-        await dispatch('tag/getTags', null, { root: true })
+      let extra = {};
+      if (params.tag){
+        if (!rootState.tag.list.length) {
+          await dispatch('tag/getTags', null, { root: true })
+        }
+        const matchTag = rootState.tag.list.find(item => item.name === params.tag);
+        extra.tag = matchTag.id;
       }
       commit('UPDATE_QUERY', { pageNo: params.pageNo || 1 })
       const res = await this.$axios.$get('/post', {
-        params: { ...state.query, ...params },
+        params: { ...state.query, ...params, ...extra },
       })
       if (res.success) {
         commit('SET_RESULT', res.data)

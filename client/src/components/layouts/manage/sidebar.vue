@@ -50,6 +50,7 @@ export default {
       const menus = this.$getConfig('adminMenus');
       const path = this.$route.path
       let longestMatch = menus[0]
+      // TODO: use nuxt-link-active
       menus.map(m => {
         m.active = false;
         if (path.includes(m.link) && m.link.length > longestMatch.link.length) {

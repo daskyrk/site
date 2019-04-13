@@ -50,19 +50,22 @@ export class PostService extends BaseService<IPost> {
       endAt,
       hot,
     } = query;
-    const querys = omitBy({ tag, isPublish, isPublic, type }, isUndefined) as any;
+    const querys = omitBy({ isPublish, isPublic, type }, isUndefined) as any;
+    if(tag) {
+      querys.tags = tag;
+    }
     const options: {
       sort: any;
       page: number;
       limit: number;
       select?: string;
-      // populate: string[];
+      populate: string[];
     } = {
       sort: { createdAt: -1 },
       page: Number(pageNo),
       limit: Number(pageSize),
       select: '-content',
-      // populate: ['tag'],
+      populate: ['tags'], // TODO: use populate
     };
 
     // 关键词查询

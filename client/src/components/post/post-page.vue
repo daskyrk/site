@@ -35,7 +35,7 @@
         <nuxt-link
           v-for="tag in detail.tags"
           :key="tag"
-          :to="`/search?tag=${tag}`"
+          :to="`/search?tag=${nameMap[tag]}`"
         >
           {{ nameMap[tag] }}
         </nuxt-link>
