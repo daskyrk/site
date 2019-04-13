@@ -66,6 +66,11 @@ const config = {
   // loading: '~/components/loading.vue',
   // loadingIndicator: 'chasing-dots',
 
+  router: {
+    linkActiveClass: 'active-link',
+    linkExactActiveClass: 'exact-active-link',
+  },
+
   /*
    ** Global CSS
    */

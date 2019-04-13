@@ -201,6 +201,10 @@ export default {
         background-color: $ghostwhite;
       }
     }
+
+    .exact-active-link {
+      color: $color-active-red;
+    }
   }
 
   .header-search-icon {
