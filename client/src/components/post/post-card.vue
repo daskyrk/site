@@ -139,6 +139,7 @@ $desc-line-height: 26px;
     width: 100%;
     padding: 20px;
     overflow: hidden;
+    text-align: left;
     background-color: $ghostwhite;
     transition: background-color .3s;
 
