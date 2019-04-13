@@ -11,18 +11,15 @@ t<template>
     >
       <nuxt-link :to="`/post/${post.id}`">
         <article class="post-item">
-          <img
+          <div
             v-if="post.thumb"
             class="post-thumb"
-            :src="post.thumb"
-            alt="thumb"
-          >
-          <img
+            :style="{background: `url(${post.thumb}) 0 0 no-repeat`}"
+          />
+          <div
             v-else
             class="post-thumb"
-            src="~assets/images/post-bg.jpg"
-            alt="thumb"
-          >
+          />
           <div class="meta">
             <span>
               <i class="iconfont icon-chakan" />
@@ -126,6 +123,8 @@ $desc-line-height: 26px;
   .post-thumb {
     min-width: 100%;
     height: 70%;
+    background: url(~assets/images/post-bg.jpg) 0 0 no-repeat;
+    background-size: cover;
     transition: filter .3s, transform .5s;
   }
 
