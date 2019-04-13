@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="comment-form">
     <div class="comment-editor-box">
       <div class="avatar">
         <img
@@ -134,22 +134,69 @@ export default {
 </script>
 
 .<style lang="scss">
-.comment-editor-box {
-  display: flex;
-  width: 100%;
+.comment-form {
+  .author-info {
+    display: flex;
+    margin-left: 4rem;
 
-  .avatar {
-    position: relative;
-    width: 3rem;
-    margin-right: 1rem;
-
-    img {
+    input {
       width: 100%;
-      border-radius: $radius;
-    }
+      height: 2em;
+      margin-top: .5rem;
+      margin-right: 1rem;
+      padding: 0 .5rem;
+      background: transparent;
+      border: 1px solid $platinum;
+      border-radius: 4px;
+      outline: none;
 
-    i {
-      font-size: 3rem;
+      &:hover {
+        border-color: $lightblack;
+      }
+
+      &:focus {
+        border-color: $color-primary;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &.error {
+        border-color: $color-danger;
+      }
+    }
+  }
+
+  .comment-editor-box {
+    display: flex;
+    width: 100%;
+
+    .avatar {
+      position: relative;
+      width: 3rem;
+      margin-right: 1rem;
+
+      img {
+        width: 100%;
+        border-radius: $radius;
+      }
+
+      i {
+        font-size: 3rem;
+      }
+    }
+  }
+}
+
+@include sm-width () {
+  .comment-form {
+    .author-info {
+      display: block;
+
+      input {
+        margin-right: 0;
+      }
     }
   }
 }

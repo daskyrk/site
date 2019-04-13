@@ -215,6 +215,7 @@ export default {
 <style lang="scss">
 .share-box {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   color: $darkgray;
   opacity: .8;
@@ -283,6 +284,12 @@ export default {
         color: #e67a1c;
       }
     }
+  }
+}
+
+@include sm-width () {
+  .share-box {
+    justify-content: start;
   }
 }
 </style>

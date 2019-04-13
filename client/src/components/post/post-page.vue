@@ -156,8 +156,8 @@ export default {
 
 <style lang="scss">
 .post {
-  width: 40%;
-  min-width: 41.25rem;
+  max-width: 732px;
+  padding: 1rem;
 
   .meta {
     margin-top: 1rem;
@@ -184,8 +184,11 @@ export default {
     font-size: .75rem;
 
     .tags {
+      display: flex;
+      align-items: center;
+
       a {
-        margin-left: .5rem;
+        margin-left: 4px;
       }
     }
 
@@ -239,6 +242,21 @@ export default {
         font-size: 1.2rem;
       }
     }
+  }
+}
+
+@include sm-width () {
+  .post {
+    // width: 100%;
+    aside {
+      display: none;
+    }
+  }
+}
+
+@include md-width () {
+  .post {
+    // width: 70%;
   }
 }
 </style>

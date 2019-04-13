@@ -172,38 +172,6 @@ export default {
     }
   }
 
-  .author-info {
-    display: flex;
-    margin-top: .4rem;
-    margin-left: 4rem;
-
-    input {
-      width: 100%;
-      height: 2em;
-      margin-right: 1rem;
-      padding: .5rem;
-      background: transparent;
-      border: 1px solid $platinum;
-      border-radius: 4px;
-      outline: none;
-
-      &:hover {
-        border-color: $lightblack;
-      }
-
-      &:focus {
-        border-color: $color-primary;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
-
-      &.error {
-        border-color: $color-danger;
-      }
-    }
-  }
 
   .comment-pad {
     margin-top: 2rem;
