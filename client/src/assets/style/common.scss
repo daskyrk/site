@@ -230,22 +230,22 @@ code {
   font-size: 1rem;
 }
 
-::-webkit-scrollbar {
-  width: .5rem;
-  height: .5rem;
-  background: hsla(0, 0%, 100%, .6);
-}
+// ::-webkit-scrollbar {
+//   width: .5rem;
+//   height: .5rem;
+//   background: hsla(0, 0%, 100%, .6);
+// }
 
-::-webkit-scrollbar-track {
-  border-radius: 0;
-}
+// ::-webkit-scrollbar-track {
+//   border-radius: 0;
+// }
 
-::-webkit-scrollbar-thumb {
-  background-color: rgba(95, 95, 95, .4);
-  border-radius: .5rem;
-  transition: all .2s;
+// ::-webkit-scrollbar-thumb {
+//   background-color: rgba(95, 95, 95, .4);
+//   border-radius: .5rem;
+//   transition: all .2s;
 
-  &:hover {
-    background-color: rgba(95, 95, 95, .7);
-  }
-}
+//   &:hover {
+//     background-color: rgba(95, 95, 95, .7);
+//   }
+// }

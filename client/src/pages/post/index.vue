@@ -47,8 +47,21 @@ export default {
 
 <style lang='scss'>
 .post-list {
-  width: 56%;
-  min-width: 40rem;
+  width: 70%;
+  max-width: $content-width;
   margin-top: 1rem;
+  overflow: hidden;
+}
+
+@include md-width () {
+  .post-list {
+    width: 80%;
+  }
+}
+
+@include sm-width () {
+  .post-list {
+    width: 90%;
+  }
 }
 </style>

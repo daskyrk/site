@@ -1,35 +1,29 @@
 t<template>
   <transition-group
     tag="div"
+    class="post-group"
     name="slide-down"
   >
-    <nuxt-link
+    <div
       v-for="post in list"
       :key="post.id"
-      :to="`/post/${post.id}`"
+      class="post-item-container"
     >
-      <div class="post-item">
-        <img
-          v-if="post.thumb"
-          :src="post.thumb"
-          class="post-thumb"
-          alt="thumb"
-        >
-        <svg
-          v-else
-          class="thumb-placeholder"
-          aria-hidden="true"
-        >
-          <use xlink:href="#icon-longmao" />
-        </svg>
-        <div class="content-wrap">
-          <p class="title nowrap">
-            {{ post.title }}
-          </p>
+      <nuxt-link :to="`/post/${post.id}`">
+        <article class="post-item">
+          <img
+            v-if="post.thumb"
+            class="post-thumb"
+            :src="post.thumb"
+            alt="thumb"
+          >
+          <img
+            v-else
+            class="post-thumb"
+            src="~assets/images/post-bg.jpg"
+            alt="thumb"
+          >
           <div class="meta">
-            <span class="time">
-              {{ format(post.createdAt) }}
-            </span>
             <span>
               <i class="iconfont icon-chakan" />
               {{ post.meta.views }}
@@ -43,18 +37,26 @@ t<template>
               {{ post.meta.likes }}
             </span>
           </div>
-          <div class="descript">
-            {{ post.descript || '文章没有描述，进去看看？' | textClip(60) }}
+          <div class="content">
+            <h2 class="title nowrap">
+              {{ post.title }}
+            </h2>
+            <div class="description">
+              {{ post.description || '文章没有描述，进去看看？' | textClip(60) }}
+            </div>
+            <div class="time">
+              {{ format(post.createdAt) }}
+            </div>
           </div>
-        </div>
-        <span
+          <!-- <span
           v-if="topLikeId === post.id"
           class="ribbon"
         >
           赞
-        </span>
-      </div>
-    </nuxt-link>
+        </span> -->
+        </article>
+      </nuxt-link>
+    </div>
   </transition-group>
 </template>
 
@@ -96,92 +98,100 @@ export default {
 </script>
 
 <style lang='scss'>
-$post-card-height: 11rem;
+$post-card-height: 300px;
 $half-ribbon-width: 1rem;
+$desc-line-height: 26px;
+
+.post-group {
+  text-align: center;
+}
+
+.post-item-container {
+  display: inline-block;
+  width: 33%;
+  padding: 1rem;
+  text-align: center;
+}
 
 .post-item {
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   height: $post-card-height;
-  margin-bottom: 2rem;
+  overflow: hidden;
   color: $color-text;
-  background-color: $white;
+  background-color: $ghostwhite;
   border-radius: $radius;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
-
-  &::after {
-    position: absolute;
-    bottom: 0;
-    left: 2%;
-    z-index: -1;
-    width: 96%;
-    height: 30px;
-    border-radius: 50% / 50%;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, .5);
-    transition: box-shadow .25s;
-    content: "";
-  }
-
-  &:hover {
-    box-shadow: 0 1px 20px rgba(0, 0, 0, .3);
-    transform: scale(1.01);
-
-    &::after {
-      box-shadow: 0 0 30px 3px rgba(0, 0, 0, .5);
-    }
-  }
+  box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+  transition: box-shadow .5s;
 
   .post-thumb {
-    min-width: $post-card-height;
-    height: 100%;
-    background: white;
+    min-width: 100%;
+    height: 70%;
+    transition: filter .3s, transform .5s;
   }
 
   .thumb-placeholder {
-    width: $post-card-height;
-    height: $post-card-height;
+    width: 100%;
+    height: 70%;
   }
 
-  .content-wrap {
-    flex: 1;
-    height: 100%;
-    padding: .625rem;
-    padding-right: 2.2rem;
+  .content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
     overflow: hidden;
-    background: $white;
+    background-color: $ghostwhite;
+    transition: background-color .3s;
 
     .title {
       margin-bottom: .5rem;
-      font-weight: 700;
+      font-weight: bold;
       font-size: 1.2rem;
     }
 
-    .meta {
-      display: flex;
-      align-items: center;
-      margin-bottom: .5rem;
-      color: $color-text-desc;
-      font-size: .875rem;
-
-      i {
-        color: $color-text-holder;
-        vertical-align: middle;
-      }
-
-      span {
-        margin-right: .75rem;
-        line-height: 1.375rem;
-      }
-
-      .time {
-        margin-right: 1.2rem;
-      }
+    .description {
+      left: 20px;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      color: $color-text-sub;
+      font-size: 14px;
+      line-height: $desc-line-height;
+      opacity: 0;
+      transition: height .3s .1s, opacity .3s;
     }
 
-    .descript {
-      color: $color-text-sub;
+    .time {
+      color: $color-text-desc;
+      font-size: .875rem;
+    }
+  }
+
+  .meta {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: .5rem;
+    overflow: hidden;
+    color: $platinum;
+    font-size: 14px;
+    text-align: right;
+    opacity: 0;
+    transition: all .3s;
+    transition-delay: .1s;
+
+    i {
+      vertical-align: middle;
+    }
+
+    span {
+      margin-right: .75rem;
+      line-height: 1.375rem;
+    }
+
+    .time {
+      margin-right: 1.2rem;
     }
   }
 
@@ -220,20 +230,43 @@ $half-ribbon-width: 1rem;
       content: "";
     }
   }
-}
 
-@media screen and (min-width: 1000px) {
-  .post-item {
-    height: $post-card-height + 1;
+  &:hover {
+    box-shadow: 0 1px 20px rgba(0, 0, 0, .3);
 
-    .post-thumb {
-      min-width: $post-card-height + 1;
+    .meta {
+      background-color: rgba(0, 0, 0, .5);
+      opacity: 1;
     }
 
-    .thumb-placeholder {
-      width: $post-card-height + 1;
-      height: $post-card-height + 1;
+    .content {
+      background-color: $white;
+    }
+
+    .post-thumb {
+      transform: scale(1.1);
+      filter: blur(3px);
+    }
+
+    .description {
+      height: 3 * $desc-line-height;
+      opacity: 1;
+      transition: height .3s, opacity .3s .1s;
     }
   }
 }
+
+
+@include md-width () {
+  .post-item-container {
+    width: 45%;
+  }
+}
+
+@include sm-width () {
+  .post-item-container {
+    width: 80%;
+  }
+}
+
 </style>

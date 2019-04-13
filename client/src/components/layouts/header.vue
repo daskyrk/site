@@ -174,7 +174,7 @@ export default {
 
   .header-container {
     position: relative;
-    width: 1040px;
+    width: $content-width;
     max-width: 100%;
     height: 100%;
     margin: 0 auto;
