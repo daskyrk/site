@@ -57,6 +57,7 @@ export default {
 .default-footer {
   padding: 2rem 0;
   background: $white;
+  border-top: 1px solid $platinum;
 
   .footer-container {
     display: flex;

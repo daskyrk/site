@@ -72,7 +72,7 @@ export default {
     flex: 1;
     justify-content: center;
     width: 100%;
-    margin: 6rem auto 1rem;
+    margin: 6rem auto 5rem;
   }
 }
 </style>
