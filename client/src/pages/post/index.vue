@@ -20,6 +20,8 @@ export default {
     LoadMore,
   },
 
+  layout: 'default-gray',
+
   computed: {
     ...mapState('post', ['list', 'total', 'query']),
     ...mapGetters('post', ['hasMore']),

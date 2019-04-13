@@ -58,6 +58,8 @@ export default {
     LoadMore,
   },
 
+  layout: 'default-gray',
+
   data() {
     return {
       tag: this.$route.query.tag,

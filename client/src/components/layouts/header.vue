@@ -135,6 +135,7 @@ export default {
   }
 
   .header-container {
+    position: relative;
     width: 1040px;
     max-width: 100%;
     height: 100%;
