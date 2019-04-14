@@ -4,7 +4,7 @@
   </section>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .page-filter {
   background: $white;
   box-shadow: 0 1px 6px $lightgray;

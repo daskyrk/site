@@ -123,7 +123,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .load-more {
   font-size: 2rem;
 }

@@ -107,7 +107,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .dialog-form {
   width: 80%;
   margin: 0 auto;

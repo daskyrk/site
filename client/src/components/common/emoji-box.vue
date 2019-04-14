@@ -1,10 +1,10 @@
 <template>
   <div class="emoji-box">
     <ul class="emoji-list">
-      <li 
-        v-for="emj in emojiList" 
-        :key="emj" 
-        class="emoji-item" 
+      <li
+        v-for="emj in emojiList"
+        :key="emj"
+        class="emoji-item"
         @click="onClick(emj)"
       >
         {{ emj }}
@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .emoji-box {
   z-index: 999;
   width: 16.25rem;

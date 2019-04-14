@@ -65,7 +65,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 $transition: all .25s;
 $sidebar-bg: #303642;
 $sidebar-bg-hover: #222630;

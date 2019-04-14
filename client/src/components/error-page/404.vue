@@ -72,7 +72,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 .page-404 {
   display: flex;
   height: 100vh;

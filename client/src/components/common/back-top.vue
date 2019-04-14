@@ -1,11 +1,11 @@
 <template>
-  <transition 
-    tag="div" 
+  <transition
+    tag="div"
     name="slide-down"
   >
-    <div 
-      v-if="visible" 
-      :class="_cls" 
+    <div
+      v-if="visible"
+      :class="_cls"
       @click="scrollToTop"
     >
       <slot><i class="iconfont icon-shang" /></slot>
@@ -122,7 +122,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .back-top {
   width: 3rem;
   height: 3rem;

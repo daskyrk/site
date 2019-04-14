@@ -31,7 +31,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 .manage-content-card {
   margin: $content-padding;
   overflow: hidden;

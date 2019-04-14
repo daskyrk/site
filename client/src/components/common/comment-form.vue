@@ -133,7 +133,7 @@ export default {
 }
 </script>
 
-.<style lang="scss">
+.<style lang="scss" scoped>
 .comment-form {
   .author-info {
     display: flex;

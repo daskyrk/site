@@ -77,7 +77,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 .back {
   position: relative;
   width: 100%;

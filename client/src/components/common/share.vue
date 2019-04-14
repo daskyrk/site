@@ -212,7 +212,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .share-box {
   display: flex;
   flex-wrap: wrap;

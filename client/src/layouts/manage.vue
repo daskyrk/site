@@ -1,10 +1,10 @@
 <template>
-  <div :class="$style.manageLayout">
+  <div class="manage-layout">
     <manageSidebar />
 
-    <div :class="$style.manageMain">
+    <div class="manage-main">
       <manageHeader />
-      <div :class="$style.manageContent">
+      <div class="manage-content">
         <nuxt />
       </div>
     </div>
@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style lang="scss" module>
+<style lang="scss" scoped>
 .manage-layout {
   display: flex;
   height: 100vh;

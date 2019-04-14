@@ -245,7 +245,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .read-manage {
   position: relative;
   height: 100%;

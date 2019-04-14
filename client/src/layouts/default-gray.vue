@@ -12,7 +12,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .app-layout {
   .gray-bg {
     background-color: $whitesmoke;
