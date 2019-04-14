@@ -172,6 +172,10 @@ export default {
     margin-top: 2rem;
     color: $color-text-sub;
     font-size: .75rem;
+
+    a {
+      color: $color-text-sub;
+    }
   }
 
   .share-box {
