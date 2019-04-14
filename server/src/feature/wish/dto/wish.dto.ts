@@ -1,4 +1,4 @@
-import { IsNotEmpty, Length, IsBoolean } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString, Length } from 'class-validator';
 
 export class WishDto {
   public id: string;
@@ -10,6 +10,9 @@ export class WishDto {
   @IsNotEmpty()
   @Length(1, 200)
   public content: string;
+
+  @IsString()
+  public image: boolean;
 
   @IsBoolean()
   public sticky: boolean;

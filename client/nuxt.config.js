@@ -36,7 +36,7 @@ const config = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: '//at.alicdn.com/t/font_683109_4n4i9xsboa3.css',
+        href: '//at.alicdn.com/t/font_683109_n8rl0flwoon.css',
       },
       {
         rel: 'stylesheet',
@@ -57,7 +57,7 @@ const config = {
       {
         // async: 'async',
         type: 'text/javascript',
-        src: '//at.alicdn.com/t/font_683109_4n4i9xsboa3.js',
+        src: '//at.alicdn.com/t/font_683109_n8rl0flwoon.js',
       },
     ],
     noscript: [{ innerHTML: 'This website requires JavaScript.' }],

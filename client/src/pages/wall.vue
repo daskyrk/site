@@ -1,28 +1,31 @@
 <template>
-  <div class="back">
-    <div class="ding-area">
-      <div
-        v-for="wish in list"
-        :key="wish.id"
-        class="card"
-      >
-        <div class="ding" />
-        <div class="content">
-          {{ wish.content }}
-        </div>
-        <div class="by">
-          - {{ wish.name }}
+  <div class="wish-wall">
+    <div class="wish-list">
+      <div v-for="wish in list" :key="wish.id" class="rotate-card-container">
+        <div class="card card-rotate">
+          <div class="content front">
+            <h4 class="card-title">
+              {{ wish.content }}
+            </h4>
+            <div class="flex-box action">
+              <div class="author">
+                <span>{{ wish.name }}</span>
+              </div>
+              <div class="v-middle stats">
+                <i class="iconfont icon-time" />{{ wish.createdAt | fromNow }}
+              </div>
+            </div>
+          </div>
+          <div class="content back">
+            <div class="reply">
+              主人还没回复您的留言(⊙o⊙)…
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="panel">
-      <textarea
-        ref="wish"
-        class="wish"
-        name="wish"
-        maxlength="300"
-        placeholder="想说点什么呢"
-      />
+    <!-- <div class="panel">
+      <textarea ref="wish" class="wish" name="wish" maxlength="300" placeholder="想说点什么呢" />
       <input
         ref="name"
         name="name"
@@ -32,7 +35,7 @@
       <button @click="submit">
         提交
       </button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -43,7 +46,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'WishWall',
 
-  layout: 'empty',
+  layout: 'default-gray',
 
   data() {
     return {
@@ -78,109 +81,135 @@ export default {
 
 
 <style lang="scss" scoped>
-.back {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background: url(~assets/images/wood.jpg) repeat top left;
-}
-
-.ding-area {
-  position: absolute;
-  top: 0;
-  right: 400px;
-  bottom: 0;
-  left: 0;
+.wish-list {
   display: flex;
   flex-wrap: wrap;
-  padding: 1rem;
-  padding-top: 2rem;
-  overflow: auto;
 }
 
 .card {
   position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 300px;
-  height: 220px;
-  margin: 0 .3rem 1rem .3rem;
-  padding: 2.4rem 1rem 0;
-  background: repeating-linear-gradient(
-    180deg, rgba(224, 224, 224, .5) 0, rgba(202, 202, 202, .5) .44%, rgba(0, 0, 0, 0) .44%, rgba(0, 0, 0, 0) 17%
-  ),
-    #fcf59b;
-  background-color: rgb(220, 179, 113);
-  box-shadow: 0 1px 11px rgba(0, 0, 0, .62), 0 0 40px rgba(0, 0, 0, .1) inset;
+  width: 330px; // TODO: update
+  min-width: 18.75rem;
+  margin: .75rem;
+  background: transparent;
+  border-radius: 6px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  transition: all .8s cubic-bezier(.34, 1.45, .7, 1);
 
-  &::before,
-  &::after {
+  .content {
     position: absolute;
-    top: 30px;
-    bottom: 16px;
-    z-index: -1;
-    background: transparent;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, .7);
-    content: "";
+    top: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 8rem;
+    padding: .9375rem 1.5rem;
+    color: $white;
+    font-size: .875rem;
+    background-image: url(~assets/images/blog8.jpg);
+    background-position: 50%;
+    background-size: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+      0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    backface-visibility: hidden;
+
+    > * {
+      z-index: 2;
+    }
+
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .56);
+      border-radius: 6px;
+      content: "";
+    }
+
   }
 
-  &::before {
-    right: 25px;
-    left: 25px;
-    transform: skew(-15deg) rotate(-6deg);
+  .front {
+    position: relative;
+    z-index: 2;
   }
 
-  &::after {
-    right: 25px;
-    left: 25px;
-    transform: skew(15deg) rotate(6deg);
+  .back {
+    z-index: 5;
+    height: 100%;
+    transform: rotateY(180deg);
   }
 
-  .content,
-  .by {
-    overflow: hidden;
-    line-height: 36px;
-    word-break: break-word;
+  // .header {
+  //   margin: -40px 20px 0;
+  //   padding: 0;
+  //   background-color: #999999;
+  //   border-radius: 3px;
+  // }
+
+  // .header-image {
+  //   position: relative;
+  //   z-index: 1;
+  //   margin-top: -30px;
+  //   margin-right: 15px;
+  //   margin-left: 15px;
+  //   padding: 0;
+  //   border-radius: 6px;
+
+  //   img {
+  //     width: 100%;
+  //     height: auto;
+  //     border-radius: 6px;
+  //     box-shadow: 0 5px 15px -8px rgba(0, 0, 0, .24),
+  //       0 8px 10px -5px rgba(0, 0, 0, .2);
+  //     pointer-events: none;
+  //   }
+
+  //   .shadow {
+  //     position: absolute;
+  //     top: 12px;
+  //     z-index: -1;
+  //     width: 100%;
+  //     height: 100%;
+  //     background-size: cover;
+
+  //     transform: scale(.94);
+  //     filter: blur(12px);
+  //     transition: opacity .45s;
+  //   }
+  // }
+  .card-title {
+    z-index: 2;
+    margin-top: .625rem;
+    font-weight: 700;
   }
 
-  .by {
-    text-align: right;
+  .action {
+    color: $color-white-6;
   }
 }
 
-.ding {
-  position: absolute;
-  top: 9px;
-  left: 45%;
-  display: block;
-  box-sizing: content-box;
-  width: 30px;
-  height: 30px;
-  overflow: visible;
-  background: radial-gradient(
-    circle closest-side at 50% 50%, rgba(25, 119, 196, 1) 0, rgba(25, 119, 196, 1) 4%, rgba(12, 113, 201, 1) 77%, rgba(255, 255, 255, 0) 89%, rgba(255, 255, 255, 0) 100%
-  ),
-    radial-gradient(
-    circle closest-side at 50% 50%, rgba(0, 0, 0, .4) 0, rgba(0, 0, 0, .2) 81%, rgba(255, 255, 255, 0) 92%, rgba(255, 255, 255, 0) 100%
-  ),
-    radial-gradient(
-    circle closest-side at 50% 50%, rgba(64, 150, 238, 1) 0, rgba(64, 150, 238, 1) 100%
-  ),
-    rgba(255, 255, 255, .9);
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-position: 96% -4%, 71% 43%, 50% 50%;
-  // -webkit-background-size: 20px 20px, 20px 20px, auto auto;
-  background-size: 20px 20px, 20px 20px, auto auto;
-  // -webkit-background-clip: border-box, border-box, border-box;
-  background-clip: border-box, border-box, border-box;
-  // -webkit-background-origin: padding-box, padding-box, padding-box;
-  background-origin: padding-box, padding-box, padding-box;
-  border: 0 solid rgba(0, 0, 0, 1);
-  border-radius: 30px;
-  outline: none;
-  // -webkit-box-shadow: -4px 8px 5px 1px rgba(0, 0, 0, 0.2);
-  box-shadow: -4px 8px 5px 1px rgba(0, 0, 0, .2);
+.rotate-card-container {
+  perspective: 800px;
+
+  .card-rotate {
+    background: transparent;
+    box-shadow: none;
+    transform-style: preserve-3d;
+    transition: all .8s cubic-bezier(.34, 1.45, .7, 1);
+  }
+
+  &:hover {
+    .card-rotate {
+      transform: rotateY(180deg);
+    }
+  }
 }
 
 .panel {
@@ -255,8 +284,6 @@ export default {
     border: 2px solid #1ecd97;
     border-radius: 40px;
     cursor: pointer;
-    -webkit-transition: background-color .3s, color .3s, width .3s,
-      border-width .3s, border-color .3s;
     transition: background-color .3s, color .3s, width .3s, border-width .3s,
       border-color .3s;
     -webkit-tap-highlight-color: transparent;

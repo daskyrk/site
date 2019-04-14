@@ -8,6 +8,8 @@ export const WishSchema = new Mongoose.Schema(
 
     content: { type: String, required: true },
 
+    image: String,
+
     // 置顶
     sticky: { type: Boolean, default: false },
 

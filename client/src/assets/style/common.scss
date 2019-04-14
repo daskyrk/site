@@ -46,32 +46,10 @@ code {
   }
 }
 
-// .container {
-//   width: $container-width;
-//   margin: 0 auto;
-// }
+.iconfont {
+  margin-right: .25rem;
+}
 
-// line
-// .line {
-//   content: '';
-//   position: absolute;
-//   left: 0;
-//   right: 0;
-//   height: 1px;
-//   color: $color-border;
-//   background: currentColor;
-// }
-
-// // 清除浮动
-// .clearfix {
-//   &:after {
-//     content: '';
-//     display: block;
-//     height: 0;
-//     clear: both;
-//     visibility: hidden;
-//   }
-// }
 .markdown-content {
   a {
     margin: 0 .2rem;
