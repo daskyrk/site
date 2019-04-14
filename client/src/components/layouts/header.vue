@@ -210,7 +210,7 @@ export default {
     a {
       display: inline-block;
       padding: 0 1rem;
-      color: $lightblack;
+      color: $black;
       transition: $transition;
 
       &:hover {

@@ -12,18 +12,7 @@
         :class="{ active: q && q.length }"
       />
     </div>
-    <div class="tag-list">
-      <span
-        v-for="tagItem in tags"
-        :key="tagItem.id"
-        class="tag-item"
-        :class="{active:tagItem.name === tag}"
-        @click="setTag(tagItem.name)"
-      >
-        <i class="iconfont icon-biaoqian" />
-        {{ tagItem.name }}
-      </span>
-    </div>
+    <TagList :tags="tags" />
     <div v-if="list.length">
       <post-card :list="list" />
       <LoadMore
@@ -51,11 +40,13 @@
 import { mapState, mapGetters } from 'vuex'
 import PostCard from '~/components/post/post-card'
 import LoadMore from '~/components/common/load-more'
+import TagList from '~/components/common/tag-list'
 
 export default {
   components: {
     PostCard,
     LoadMore,
+    TagList,
   },
 
   layout: 'default-gray',
@@ -81,6 +72,7 @@ export default {
   async fetch({ store, query }) {
     const { tag, q } = query
     await store.dispatch('search/doSearch', { tag, q })
+    await store.dispatch('tag/getTags')
   },
 
   beforeDestroy() {
@@ -172,27 +164,11 @@ export default {
 
   .tag-list {
     margin-bottom: 2rem;
-  }
 
-  .tag-item {
-    display: inline-block;
-    margin: 10px 1rem 0 0;
-    padding: 4px 1rem;
-    font-size: 14px;
-    background-color: $white;
-    border-radius: 1rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, .04);
-    cursor: pointer;
-    // @extend %shallow-shadow;
-    transition: all .2s;
-
-    i {
-      font-size: 14px;
-    }
-
-    &.active,
-    &:hover {
-      color: $color-active-red;
+    .tag-item {
+      margin: 10px 1rem 0 0;
+      padding: .25rem .75rem;
+      border: none;
     }
   }
 

@@ -163,7 +163,6 @@ export default {
   &.depth-1 {
     margin-bottom: .75rem;
     overflow: hidden;
-    border-bottom: 1px solid $color-border;
 
     &:last-child {
       border-bottom: none;

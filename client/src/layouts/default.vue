@@ -140,7 +140,7 @@ export default {
   }
 
   .app-aside {
-    position: absolute;
+    position: fixed;
     left: 100%;
     width: $app-side-width;
     height: 100%;

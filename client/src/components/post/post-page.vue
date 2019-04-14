@@ -27,19 +27,7 @@
           非商用-署名-自由转载
         </a>
       </span>
-      <div
-        v-if="detail.tags.length"
-        class="tags"
-      >
-        <i class="iconfont icon-biaoqian" />
-        <nuxt-link
-          v-for="tag in detail.tags"
-          :key="tag"
-          :to="`/search?tag=${nameMap[tag]}`"
-        >
-          {{ nameMap[tag] }}
-        </nuxt-link>
-      </div>
+      <TagList :tags="detail.tags.map(t => ({id: t, name:nameMap[t]}) )" />
     </div>
     <aside class="side">
       <el-tooltip
@@ -87,12 +75,14 @@ import { setLS, getLS } from '~/utils'
 import BackTop from '~/components/common/back-top'
 import Share from '~/components/common/share'
 import Comment from '~/components/common/comment'
+import TagList from '~/components/common/tag-list'
 
 export default {
   components: {
     BackTop,
     Share,
     Comment,
+    TagList,
   },
 
   props: {
@@ -182,19 +172,6 @@ export default {
     margin-top: 2rem;
     color: $color-text-sub;
     font-size: .75rem;
-
-    .tags {
-      display: flex;
-      align-items: center;
-
-      a {
-        margin-left: 4px;
-      }
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
   }
 
   .share-box {
@@ -245,7 +222,7 @@ export default {
   }
 }
 
-@include sm-width () {
+@include sm-width() {
   .post {
     // width: 100%;
     aside {
@@ -254,7 +231,7 @@ export default {
   }
 }
 
-@include md-width () {
+@include md-width() {
   .post {
     // width: 70%;
   }
