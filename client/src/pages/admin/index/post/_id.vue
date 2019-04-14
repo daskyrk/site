@@ -2,7 +2,6 @@
   <div class="form-wrap">
     <post-form
       :detail="detail"
-      :types="types"
       :on-submit="onSubmit"
     />
   </div>
