@@ -14,7 +14,7 @@ t<template>
           <div
             v-if="post.thumb"
             class="post-thumb"
-            :style="{background: `url(${post.thumb}) 0 0 no-repeat`}"
+            :style="{backgroundImage: `url(${post.thumb})`}"
           />
           <div
             v-else
