@@ -200,6 +200,7 @@ export default {
   }
 
   .header-right {
+    display: flex;
     height: 100%;
   }
 
