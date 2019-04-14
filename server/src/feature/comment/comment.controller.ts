@@ -15,15 +15,23 @@ import { CommentDto, QueryCommentDto } from './dto/comment.dto';
 
 import { AuthGuard } from '@/core/guards';
 import { CommentService } from './comment.service';
+import { PostService } from '../post/post.service';
 import { Request } from "express";
 
 @Controller('comment')
 export class CommentController {
-  constructor(private readonly commentService: CommentService) {}
+  constructor(
+    private readonly commentService: CommentService,
+    private readonly postService: PostService,
+    ) {}
 
   @Post()
   public create(@Body() commentDto: CommentDto, @Req() req: Request) {
-    return this.commentService.createComment(commentDto, req);
+    const newComment = this.commentService.createComment(commentDto, req);
+    if (newComment) {
+      this.postService.commentPost(commentDto.postId);
+    }
+    return newComment;
   }
 
   @Get()
