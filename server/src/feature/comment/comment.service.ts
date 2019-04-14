@@ -16,7 +16,7 @@ export class CommentService extends BaseService<IComment> {
     super(model);
   }
 
-  public async search({ pageNo = 1, pageSize = 10, q }: QueryCommentDto) {
+  public async search({ pageNo = 1, pageSize = 10, postId, q }: QueryCommentDto) {
     const query = {} as any;
     const options: {
       sort: any;
@@ -31,6 +31,10 @@ export class CommentService extends BaseService<IComment> {
       select: '-ip',
       // populate: ['tag'],
     };
+
+    if (postId) {
+      query.postId = postId;
+    }
 
     // 关键词查询
     if (q) {
