@@ -66,6 +66,13 @@ export default {
   mounted() {
     this.setSize()
     // window.onresize = _.throttle(this.setSize, 100)
+    window.addEventListener('keydown', this.onKeyDown);
+    window.addEventListener('keyup', this.onKeyUp);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.onKeyDown)
+    window.removeEventListener('keyup', this.onKeyUp)
   },
 
   methods: {
@@ -82,7 +89,15 @@ export default {
       if (this.sideopen) {
         this.$store.commit('layout/toggleAppSide', false)
       }
-    }
+    },
+    onKeyDown(e) {
+      console.log('this.pressKey:', this.pressKey.key);
+      if (e.repeat) { return }
+      this.$store.commit('layout/pressKey', e);
+    },
+    onKeyUp() {
+      this.$store.commit('layout/pressKey', null);
+    },
   },
 }
 </script>

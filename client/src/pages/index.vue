@@ -59,20 +59,14 @@
         class="blur"
       />
     </h4>
-    <admin-entry />
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import AdminEntry from '~/components/common/admin-entry'
 
 export default {
   name: 'Welcome',
-
-  components: {
-    AdminEntry,
-  },
 
   layout: 'empty',
 

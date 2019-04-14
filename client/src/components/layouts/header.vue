@@ -4,9 +4,18 @@
     :class="{ hide }"
   >
     <div class="flex-box header-container">
-      <div class="header-left">
-        <nuxt-link to="/">
+      <div
+        class="header-left"
+        :class="{'rabbit-hole': pressKey.key === 'Meta'}"
+      >
+        <nuxt-link :to="pressKey.key === 'Meta' ? '/admin' : '/'">
           <img
+            class="logo admin-entry"
+            src="~assets/images/logo.png"
+            alt="logo"
+          >
+          <img
+            class="logo"
             src="~assets/images/daskyrk.png"
             alt="logo"
           >
@@ -118,6 +127,7 @@ export default {
   computed: {
     ...mapState({
       sideopen: state => state.layout.sideOpen,
+      pressKey: state => state.layout.pressKey,
     }),
   },
 
@@ -162,7 +172,7 @@ export default {
     },
     toggleAppSide() {
       this.$store.commit('layout/toggleAppSide', !this.sideopen);
-    }
+    },
   },
 }
 </script>
@@ -190,12 +200,28 @@ export default {
     max-width: 100%;
     height: 100%;
     margin: 0 auto;
+    overflow: hidden;
   }
 
   .header-left {
-    img {
+    position: relative;
+    display: inline-block;
+
+    .logo {
       height: $header-height;
       margin-left: 1rem;
+      transition: transform .3s;
+    }
+
+    .admin-entry {
+      position: absolute;
+      bottom: $header-height;
+    }
+
+    &.rabbit-hole {
+      .logo {
+        transform: translateY(100%);
+      }
     }
   }
 

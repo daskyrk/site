@@ -5,6 +5,7 @@ export default {
       screenHeight: 0,
       size: 'lg',
       sideOpen: false,
+      pressKey: {},
     }
   },
 
@@ -25,6 +26,10 @@ export default {
 
     toggleAppSide(state, sideOpen) {
       state.sideOpen = sideOpen
+    },
+
+    pressKey(state, e) {
+      state.pressKey = e || {}
     },
 
   },
