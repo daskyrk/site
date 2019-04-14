@@ -27,7 +27,7 @@
           非商用-署名-自由转载
         </a>
       </span>
-      <TagList :tags="detail.tags.map(t => ({id: t, name:nameMap[t]}) )" />
+      <TagList :tags="detail.tags" />
     </div>
     <aside class="side">
       <el-tooltip
@@ -103,7 +103,6 @@ export default {
 
   computed: {
     // ...mapState('post', ['detail']),
-    ...mapGetters('tag', ['nameMap']),
     isLiked: function() {
       return this.likes.includes(this.detail.id)
     },

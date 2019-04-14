@@ -12,7 +12,10 @@
         :class="{ active: q && q.length }"
       />
     </div>
-    <TagList :tags="tags" />
+    <TagList
+      :tags="tags"
+      :on-click="setTag"
+    />
     <div v-if="list.length">
       <post-card :list="list" />
       <LoadMore
@@ -66,7 +69,6 @@ export default {
     ...mapState({
       tags: state => state.tag.list,
     }),
-    ...mapGetters('tag', ['nameMap']),
   },
 
   async fetch({ store, query }) {
@@ -81,7 +83,7 @@ export default {
 
   methods: {
     doSearch() {
-      let query = '?';
+      let query = '?'
       if (this.q) {
         query += `q=${this.q}&`
       }
@@ -90,9 +92,9 @@ export default {
       }
       this.$router.replace(`/search${query}`)
     },
-    setTag(tagName) {
-      this.tag = this.tag === tagName ? '' : tagName;
-      this.doSearch();
+    setTag({ name }) {
+      this.tag = this.tag === name ? '' : name
+      this.doSearch()
     },
     loadMore() {
       return this.$store.dispatch('search/doSearch', {
@@ -182,12 +184,9 @@ export default {
   }
 }
 
-@include sm-width () {
+@include sm-width() {
   .search-result {
     width: 90%;
   }
-
 }
-
-
 </style>

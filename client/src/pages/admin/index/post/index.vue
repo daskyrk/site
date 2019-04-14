@@ -162,10 +162,10 @@
           <template slot-scope="scope">
             <el-tag
               v-for="tag in scope.row.tags"
-              :key="tag"
+              :key="tag.id"
               class="post-tag"
             >
-              {{ nameMap[tag] }}
+              {{ tag.name }}
             </el-tag>
           </template>
         </el-table-column>
@@ -303,7 +303,6 @@ export default {
       fetch: state => state.fetch['admin/post#get'],
     }),
     ...mapState('admin/post', ['list', 'total', 'query']),
-    ...mapGetters('tag', ['nameMap']),
     ...mapState('tag', {
       tagList: 'list',
     }),

@@ -7,19 +7,8 @@ export default {
         pageNo: 1,
         pageSize: 1000,
       },
-      nameMap: {},
       summary: {},
     }
-  },
-
-  getters: {
-    nameMap: state => {
-      const nameMap = {}
-      state.list.forEach(tag => {
-        nameMap[tag.id] = tag.name
-      })
-      return nameMap
-    },
   },
 
   mutations: {

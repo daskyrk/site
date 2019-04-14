@@ -4,7 +4,7 @@
       v-for="tag in (useDefault ? list : tags)"
       :key="tag.id"
       class="tag-item"
-      @click="onClick(tag)"
+      @click="onClick && onClick(tag)"
     >
       <i class="iconfont icon-biaoqian" />
       {{ tag.name }}
