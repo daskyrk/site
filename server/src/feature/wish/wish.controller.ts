@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   Query,
@@ -45,5 +46,11 @@ export class WishController {
   @UseGuards(AuthGuard)
   public remove(@Param('id') id: string) {
     return this.service.delete(id);
+  }
+
+  @Patch('reply')
+  @UseGuards(AuthGuard)
+  public reply(@Body('id') id: string, @Body('reply') reply: string) {
+    return this.service.reply(id, reply);
   }
 }

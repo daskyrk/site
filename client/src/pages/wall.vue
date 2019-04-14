@@ -1,7 +1,11 @@
 <template>
   <div class="wish-wall">
     <div class="wish-list">
-      <div v-for="wish in list" :key="wish.id" class="rotate-card-container">
+      <div
+        v-for="wish in list"
+        :key="wish.id"
+        class="rotate-card-container"
+      >
         <div class="card card-rotate">
           <div class="content front">
             <h4 class="card-title">

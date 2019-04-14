@@ -37,4 +37,14 @@ export class WishService extends BaseService<IWish> {
 
     return await this.model.paginate(query, options);
   }
+
+  public async reply(id: string, reply: string) {
+    const target = await this.model.findById(id);
+    if (target) {
+      target.reply = reply;
+      target.save();
+    }
+    return target;
+  }
+
 }

@@ -12,7 +12,10 @@ export class WishDto {
   public content: string;
 
   @IsString()
-  public image: boolean;
+  public image: string;
+
+  @IsString()
+  public reply: string;
 
   @IsBoolean()
   public sticky: boolean;
