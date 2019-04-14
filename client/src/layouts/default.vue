@@ -91,12 +91,11 @@ export default {
       }
     },
     onKeyDown(e) {
-      console.log('this.pressKey:', this.pressKey.key);
       if (e.repeat) { return }
       this.$store.commit('layout/pressKey', e);
     },
     onKeyUp() {
-      this.$store.commit('layout/pressKey', null);
+      this.$store.commit('layout/pressKey', {});
     },
   },
 }

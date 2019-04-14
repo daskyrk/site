@@ -29,7 +29,7 @@ export default {
     },
 
     pressKey(state, e) {
-      state.pressKey = e || {}
+      state.pressKey = e
     },
 
   },
