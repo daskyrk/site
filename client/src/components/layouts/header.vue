@@ -13,7 +13,7 @@
         </nuxt-link>
       </div>
       <div class="header-right">
-        <nav>
+        <nav class="header-nav">
           <nuxt-link
             v-for="(nav, index) in navs"
             :key="index"
@@ -44,8 +44,8 @@
             class="ham hamRotate"
             viewBox="-18 -24 148 148"
             width="64"
-            :class="{active: mobileMenuVisible}"
-            @click="mobileMenuVisible = !mobileMenuVisible"
+            :class="{active: sideopen}"
+            @click="toggleAppSide"
           >
             <path
               class="line top"
@@ -60,11 +60,11 @@
               d="m 30,67 h 40 c 0,0 8.5,0.149796 8.5,-8.5 0,-8.649796 -8.5,-8.5 -8.5,-8.5 h -20 v 20"
             />
           </svg>
-          <div
+          <!-- <div
             class="mobile-menu"
             :class="{visible:mobileMenuVisible}"
           >
-            <nav>
+            <nav class="mobile-nav">
               <nuxt-link
                 v-for="(nav, index) in navs"
                 :key="index"
@@ -74,7 +74,7 @@
                 {{ nav.text }}
               </nuxt-link>
             </nav>
-          </div>
+          </div> -->
         </div>
       <!-- <music-player v-bind="musicConf" /> -->
       </div>
@@ -85,6 +85,7 @@
 <script>
 import _ from 'lodash'
 import MusicPlayer from '~/components/common/music-player'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -97,7 +98,6 @@ export default {
       navs: this.$getConfig('navs'),
       hide: false,
       searchVisible: false,
-      mobileMenuVisible: false,
       musicConf: {
         // theme: '可选，不指定时为默认主题，值为"mini"时为迷你版主题',
         music: {
@@ -115,9 +115,18 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState({
+      sideopen: state => state.layout.sideOpen,
+    }),
+  },
+
   mounted() {
     let scrollTop = this.getScrollTop()
     this.onScroll = _.throttle(() => {
+      if (this.sideopen) {
+        return
+      }
       const t = this.getScrollTop()
       this.hide = t > scrollTop
       scrollTop = t
@@ -151,6 +160,9 @@ export default {
         document.body.scrollTop
       )
     },
+    toggleAppSide() {
+      this.$store.commit('layout/toggleAppSide', !this.sideopen);
+    }
   },
 }
 </script>
@@ -187,9 +199,13 @@ export default {
     }
   }
 
+  .header-right {
+    height: 100%;
+  }
+
   $transition: color .2s, background-color .2s;
 
-  nav {
+  .header-nav {
     a {
       display: inline-block;
       padding: 0 1rem;
@@ -284,10 +300,10 @@ export default {
   .mobile-menu {
     position: fixed;
     top: $header-height;
-    right: -50%;
+    right: -60%;
     bottom: 0;
-    width: 50%;
-    background-color: $white;
+    width: 60%;
+    background-color: #eef1f2;
     transition: right .5s;
 
     &.visible {
@@ -295,11 +311,19 @@ export default {
     }
   }
 
+  .mobile-nav {
+    a {
+      display: block;
+      height: 3rem;
+      padding-left: 12px;
+    }
+  }
+
 }
 
 @include sm-width () {
   .default-header {
-    nav {
+    .header-nav {
       display: none;
     }
 

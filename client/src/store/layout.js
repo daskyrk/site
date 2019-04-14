@@ -4,6 +4,7 @@ export default {
       screenWidth: 0,
       screenHeight: 0,
       size: 'lg',
+      sideOpen: false,
     }
   },
 
@@ -20,6 +21,10 @@ export default {
       } else {
         state.size = 'layout-sm'
       }
+    },
+
+    toggleAppSide(state, sideOpen) {
+      state.sideOpen = sideOpen
     },
 
   },

@@ -84,33 +84,34 @@ $header-color-hover: $white;
       }
     }
   }
-}
 
-.header-right {
-  display: flex;
-  height: 100%;
+  .header-right {
+    display: flex;
+    height: 100%;
 
-  .avatar {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 100%;
+    .avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 100%;
+    }
+  }
+
+  .header-operation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4.5rem;
+
+    i {
+      font-size: 1.25rem;
+    }
+
+    &.op:hover {
+      color: $header-color-hover;
+      background-color: $header-bg-hover;
+      cursor: pointer;
+    }
   }
 }
 
-.header-operation {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 4.5rem;
-
-  i {
-    font-size: 1.25rem;
-  }
-
-  &.op:hover {
-    color: $header-color-hover;
-    background-color: $header-bg-hover;
-    cursor: pointer;
-  }
-}
 </style>

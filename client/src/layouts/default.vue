@@ -1,15 +1,31 @@
 <template>
   <div
     class="app-layout"
-    :class="[_cls, size]"
+    :class="[_cls, size, sideopen && 'side-open']"
   >
     <my-header />
 
-    <div class="container">
+    <div
+      class="app-container"
+      @click="closeSide"
+    >
       <nuxt />
     </div>
 
-    <my-footer />
+    <aside class="app-aside">
+      <nav class="mobile-nav">
+        <nuxt-link
+          v-for="(nav, index) in navs"
+          :key="index"
+          :to="nav.link"
+          exact
+        >
+          {{ nav.text }}
+        </nuxt-link>
+      </nav>
+    </aside>
+
+    <my-footer v-if="!sideopen" />
   </div>
 </template>
 
@@ -17,6 +33,7 @@
 import myHeader from '~/components/layouts/header'
 import myFooter from '~/components/layouts/footer'
 import _ from 'lodash'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -28,13 +45,22 @@ export default {
     cls: String,
   },
 
+  data() {
+    return {
+      navs: this.$getConfig('navs'),
+    }
+  },
+
   computed: {
+    ...mapState({
+      sideopen: state => state.layout.sideOpen,
+    }),
     _cls() {
       return this.cls
     },
     size() {
       return this.$store.state.layout.size
-    }
+    },
   },
 
   mounted() {
@@ -52,6 +78,11 @@ export default {
         screenHeight,
       })
     },
+    closeSide() {
+      if (this.sideopen) {
+        this.$store.commit('layout/toggleAppSide', false)
+      }
+    }
   },
 }
 </script>
@@ -62,17 +93,58 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
+  transition: transform .5s;
 
   &.gray-bg {
     background-color: $whitesmoke;
   }
 
-  .container {
+  &.side-open {
+    transform: translateX(-$app-side-width);
+
+    .app-container {
+      position: fixed;
+      top: $header-height;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: 0;
+      overflow: hidden;
+
+      &:after {
+        background-color: $color-dark-4;
+      }
+    }
+  }
+
+  .app-container {
+    position: relative;
     display: flex;
     flex: 1;
     justify-content: center;
     width: 100%;
-    margin: 6rem auto 5rem;
+    margin: $header-height auto 5rem;
+    padding-top: 2rem;
+
+    &:after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+      width: 100%;
+      background-color: transparent;
+      transition: background-color .5s;
+      pointer-events: none;
+      content: "";
+    }
+  }
+
+  .app-aside {
+    position: absolute;
+    left: 100%;
+    width: $app-side-width;
+    height: 100%;
+    background-color: #eef1f2;
   }
 }
 </style>
