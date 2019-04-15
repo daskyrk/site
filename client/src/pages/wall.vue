@@ -1,5 +1,26 @@
 <template>
   <div class="wish-wall">
+    <div class="wish-form">
+      <textarea
+        ref="wish"
+        class="wish"
+        name="wish"
+        maxlength="300"
+        autofocus
+        placeholder="Hi，想说点什么呢"
+      />
+      <div class="flex-box form-action">
+        <input
+          ref="name"
+          name="name"
+          type="text"
+          placeholder="From: 路过的朋友"
+        >
+        <button @click="submit">
+          提交
+        </button>
+      </div>
+    </div>
     <div class="wish-list">
       <div
         v-for="wish in list"
@@ -21,25 +42,38 @@
             </div>
           </div>
           <div class="content back">
-            <div class="reply">
-              主人还没回复您的留言(⊙o⊙)…
+            <textarea
+              v-if="logined"
+
+              v-model="replyMap[wish.id]"
+              class="reply"
+              maxlength="200"
+              placeholder="回复点什么?"
+            />
+            <div
+              v-if="logined"
+              class="reply-action"
+            >
+              <button @click="replyWish(wish.id)">
+                回复
+              </button>
+              <button @click="clearReply(wish.id)">
+                清空
+              </button>
+              <button @click="deleteWish(wish.id)">
+                删除
+              </button>
             </div>
+            <h4
+              v-else
+              class="card-title"
+            >
+              {{ wish.reply || '主人还没回复您的留言(⊙o⊙)…' }}
+            </h4>
           </div>
         </div>
       </div>
     </div>
-    <!-- <div class="panel">
-      <textarea ref="wish" class="wish" name="wish" maxlength="300" placeholder="想说点什么呢" />
-      <input
-        ref="name"
-        name="name"
-        type="text"
-        placeholder="路过的朋友"
-      >
-      <button @click="submit">
-        提交
-      </button>
-    </div> -->
   </div>
 </template>
 
@@ -61,6 +95,14 @@ export default {
 
   computed: {
     ...mapState('wish', ['list']),
+    ...mapState('user', ['logined']),
+    replyMap() {
+      const replyMap = {}
+      this.$store.state.wish.list.forEach(item => {
+        replyMap[item.id] = item.reply
+      })
+      return replyMap
+    },
   },
 
   async fetch({ store }) {
@@ -77,7 +119,17 @@ export default {
       if (!content.length) {
         return this.$message('没有想说的吗~')
       }
-      this.$store.dispatch('wish/addWish', { name, content })
+      this.$store.dispatch('wish/add', { name, content })
+    },
+    replyWish(id) {
+      const reply = this.replyMap[id]
+      this.$store.dispatch('wish/reply', { id, reply })
+    },
+    clearReply(id) {
+      this.replyMap[id] = ''
+    },
+    deleteWish(id) {
+      this.$store.dispatch('wish/delete', id)
     },
   },
 }
@@ -85,6 +137,60 @@ export default {
 
 
 <style lang="scss" scoped>
+.wish-wall {
+  width: 70%;
+}
+
+.wish-form {
+  margin-bottom: 2rem;
+
+  textarea,
+  input {
+    border: 1px solid $color-border;
+    border-radius: $radius;
+
+    &:active,
+    &:focus {
+      border-color: $green;
+      outline: none;
+    }
+
+  }
+
+  textarea {
+    width: 100%;
+    height: 7rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    resize: none;
+  }
+
+  input {
+    width: 70%;
+    padding: .5rem;
+  }
+
+  button {
+    width: 20%;
+    padding: .5rem 1rem;
+    border: 1px solid $color-border;
+    border-radius: $radius;
+    cursor: pointer;
+    transition: background-color .3s, color .3s, width .3s, border-width .3s,
+      border-color .3s;
+
+    &:hover {
+      color: $white;
+      background-color: $green;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+}
+
 .wish-list {
   display: flex;
   flex-wrap: wrap;
@@ -109,7 +215,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    min-height: 8rem;
+    min-height: 9rem;
     padding: .9375rem 1.5rem;
     color: $white;
     font-size: .875rem;
@@ -136,7 +242,6 @@ export default {
       border-radius: 6px;
       content: "";
     }
-
   }
 
   .front {
@@ -197,6 +302,37 @@ export default {
   .action {
     color: $color-white-6;
   }
+
+  .reply {
+    width: 100%;
+    height: 100%;
+    margin-bottom: .25rem;
+    color: $color-white-6;
+    background: transparent;
+    border-radius: $radius;
+    outline: none;
+    resize: none;
+
+    &:focus {
+      border-color: $red;
+    }
+  }
+
+  .reply-action {
+    button {
+      color: $color-white-6;
+      background: transparent;
+      border-radius: 20px;
+      outline: none;
+
+      &:hover {
+        color: $color-active-red;
+        border-color: $color-active-red;
+      }
+    }
+
+  }
+
 }
 
 .rotate-card-container {
@@ -216,102 +352,4 @@ export default {
   }
 }
 
-.panel {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  // justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  width: 400px;
-  padding-top: 230px;
-  overflow: hidden;
-  background: hsla(0, 0%, 100%, .3);
-
-  textarea,
-  input {
-    width: 90%;
-    margin-bottom: 2rem;
-    background: rgba(255, 255, 255, .5);
-    border: 1px solid white;
-    border-radius: 10px;
-
-    &:active,
-    &:focus {
-      border-color: #1ecd97;
-      outline: none;
-    }
-
-    &::-webkit-input-placeholder {
-      color: white;
-    }
-
-    &::-moz-placeholder {
-      /* Mozilla Firefox 19+ */
-      color: white;
-    }
-
-    &:-moz-placeholder {
-      /* Mozilla Firefox 4 to 18 */
-      color: white;
-    }
-
-    &:-ms-input-placeholder {
-      /* Internet Explorer 10-11 */
-      color: white;
-    }
-  }
-
-  textarea {
-    height: 200px;
-    padding: 1rem;
-    resize: none;
-  }
-
-  input {
-    padding: .5rem;
-  }
-
-  button {
-    display: block;
-    width: 200px;
-    height: 50px;
-    margin: 0 auto;
-    padding: 0;
-    color: #1ecd97;
-    font-size: 18px;
-    font-family: Montserrat, sans-serif;
-    letter-spacing: 1px;
-    background: transparent;
-    border: 2px solid #1ecd97;
-    border-radius: 40px;
-    cursor: pointer;
-    transition: background-color .3s, color .3s, width .3s, border-width .3s,
-      border-color .3s;
-    -webkit-tap-highlight-color: transparent;
-
-    &:hover {
-      color: #ffffff;
-      background-color: #1ecd97;
-    }
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  // &::before {
-  //   content: '';
-  //   position: absolute;
-  //   top: 0;
-  //   right: 0;
-  //   bottom: 0;
-  //   left: 0;
-  //   margin: -20px;
-  //   filter: blur(4px);
-  //   background: url(~assets/images/wood.jpg) repeat top left;
-  // }
-}
 </style>

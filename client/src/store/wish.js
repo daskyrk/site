@@ -20,6 +20,18 @@ export default {
     UPDATE_PAGE(state, data) {
       state.query = data
     },
+
+    addWish(state, data) {
+      state.list = [data].concat(state.list);
+    },
+
+    updateWish(state, data) {
+      state.list = state.list.map(item => item.id === data.id ? data : item);
+    },
+
+    deleteWish(state, id) {
+      state.list = state.list.filter(item => item.id !== id);
+    },
   },
 
   actions: {
@@ -33,22 +45,26 @@ export default {
       return res
     },
 
-    async addWish({ dispatch }, data) {
+    async add({ commit }, data) {
       const res = await this.$axios.$post('/wish', data)
       if (res.success) {
-        await dispatch('getWishes')
+        await commit('addWish', res.data)
       }
       return res
     },
 
-    async delWish({ dispatch, state }, id) {
-      const res = await this.$axios.$delete(`/wish/${id}`)
+    async delete({ commit }, id) {
+      const res = await this.$axios.$delete('/wish', { params: { id } })
       if (res.success) {
-        let pageNo = state.query.pageNo
-        if (state.list.length === 1) {
-          pageNo--
-        }
-        await dispatch('getWishes', { pageNo })
+        await commit('deleteWish', id)
+      }
+      return res
+    },
+
+    async reply({ commit }, data) {
+      const res = await this.$axios.$patch('/wish/reply', data)
+      if (res.success) {
+        await commit('updateWish', res.data)
       }
       return res
     },
