@@ -28,7 +28,7 @@ export const appConfig = {
       text: 'Article',
     },
     {
-      link: '/wall',
+      link: '/wish',
       text: 'Wish',
     },
   ],
