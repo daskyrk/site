@@ -142,7 +142,7 @@ export default {
     float: left;
     width: 3.2rem;
     padding: .5rem 0;
-    background-color: $white;
+    background-color: $c-white;
 
     img {
       width: 100%;
@@ -156,7 +156,7 @@ export default {
     left: 1.5rem;
     width: 1px;
     height: 500%;
-    background: $lightgray;
+    background: $c-lightgray;
     content: "";
   }
 
@@ -196,7 +196,7 @@ export default {
   }
 
   .reply-author {
-    color: $red;
+    color: $c-red;
     font-weight: bold;
   }
 
@@ -218,11 +218,11 @@ export default {
       &.active,
       &:hover {
         &.like {
-          color: $red;
+          color: $c-red;
         }
 
         &.reply {
-          color: $green;
+          color: $c-green;
         }
       }
     }

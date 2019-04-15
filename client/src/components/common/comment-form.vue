@@ -146,12 +146,12 @@ export default {
       margin-right: 1rem;
       padding: 0 .5rem;
       background: transparent;
-      border: 1px solid $platinum;
+      border: 1px solid $c-platinum;
       border-radius: 4px;
       outline: none;
 
       &:hover {
-        border-color: $lightblack;
+        border-color: $c-lightblack;
       }
 
       &:focus {

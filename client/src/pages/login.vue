@@ -243,7 +243,7 @@ $input-height: 3rem;
   // background-image: url(https://api.lylares.com/bing/image/random/?w=640&h=480);
   // background-size: cover;
   overflow: hidden;
-  background-color: $black;
+  background-color: $c-black;
 
   canvas {
     width: 100%;
@@ -294,24 +294,24 @@ $input-height: 3rem;
 
     &.focus {
       i {
-        color: $white;
+        color: $c-white;
       }
 
       input {
         &::-webkit-input-placeholder {
-          color: $white;
+          color: $c-white;
         }
 
         &::-moz-placeholder {
-          color: $white;
+          color: $c-white;
         }
 
         &:-moz-placeholder {
-          color: $white;
+          color: $c-white;
         }
 
         &:-ms-input-placeholder {
-          color: $white;
+          color: $c-white;
         }
       }
     }
@@ -327,7 +327,7 @@ $input-height: 3rem;
     &:active,
     &:focus {
       color: $text-color-active;
-      border: 1px solid $orange;
+      border: 1px solid $c-orange;
       outline: none;
     }
   }
@@ -372,14 +372,14 @@ $input-height: 3rem;
       background-color: #3ca271;
 
       &:hover {
-        background-color: $green;
+        background-color: $c-green;
       }
     }
   }
 
   .regist-btn {
     margin-top: 12px;
-    background-color: $darkgray;
+    background-color: $c-darkgray;
   }
 }
 </style>

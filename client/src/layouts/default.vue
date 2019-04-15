@@ -1,32 +1,34 @@
 <template>
-  <div
-    class="app-layout"
-    :class="[_cls, size, sideopen && 'side-open']"
-  >
-    <my-header />
-
+  <v-app>
     <div
-      class="app-container"
-      @click="closeSide"
+      class="app-layout"
+      :class="[_cls, size, sideopen && 'side-open']"
     >
-      <nuxt />
+      <my-header />
+
+      <div
+        class="app-container"
+        @click="closeSide"
+      >
+        <nuxt />
+      </div>
+
+      <aside class="app-aside">
+        <nav class="mobile-nav">
+          <nuxt-link
+            v-for="(nav, index) in navs"
+            :key="index"
+            :to="nav.link"
+            exact
+          >
+            {{ nav.text }}
+          </nuxt-link>
+        </nav>
+      </aside>
+
+      <my-footer v-if="!sideopen" />
     </div>
-
-    <aside class="app-aside">
-      <nav class="mobile-nav">
-        <nuxt-link
-          v-for="(nav, index) in navs"
-          :key="index"
-          :to="nav.link"
-          exact
-        >
-          {{ nav.text }}
-        </nuxt-link>
-      </nav>
-    </aside>
-
-    <my-footer v-if="!sideopen" />
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -110,7 +112,7 @@ export default {
   transition: transform .5s;
 
   &.gray-bg {
-    background-color: $whitesmoke;
+    background-color: $c-whitesmoke;
   }
 
   &.side-open {

@@ -131,7 +131,7 @@ export default {
   height: 164px;
   overflow: hidden;
   text-align: center;
-  border: 1px dashed $lightgray;
+  border: 1px dashed $c-lightgray;
   border-radius: 6px;
   outline: none;
   cursor: pointer;
@@ -142,7 +142,7 @@ export default {
     align-items: center;
     width: 100%;
     height: 100%;
-    color: $dimgray;
+    color: $c-dimgray;
     font-size: 1.75rem;
     transition: color .3s;
   }
@@ -168,7 +168,7 @@ export default {
   //   justify-content: center;
   //   overflow: hidden;
   //   transition: border-color 0.3s;
-  //   border: 1px dashed $dimgray;
+  //   border: 1px dashed $c-dimgray;
   //   border-radius: 6px;
 
   //   .el-progress {

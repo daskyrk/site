@@ -56,8 +56,8 @@ export default {
 <style lang="scss" scoped>
 .default-footer {
   padding: 2rem 0;
-  background: $white;
-  border-top: 1px solid $platinum;
+  background: $c-white;
+  border-top: 1px solid $c-platinum;
 
   .footer-container {
     display: flex;

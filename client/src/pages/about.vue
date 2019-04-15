@@ -62,7 +62,7 @@ export default {
     height: 30%;
     min-height: 300px;
     padding: 3rem 2rem;
-    background-color: $whitesmoke;
+    background-color: $c-whitesmoke;
     border-radius: $radius;
 
     $card-border: .6rem;

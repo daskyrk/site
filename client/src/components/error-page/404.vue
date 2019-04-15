@@ -76,7 +76,7 @@ export default {
 .page-404 {
   display: flex;
   height: 100vh;
-  background-color: $black;
+  background-color: $c-black;
   cursor: none;
 
   .tip {

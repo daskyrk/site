@@ -143,7 +143,7 @@ export default {
   height: 150px;
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background-color: $white;
+  background-color: $c-white;
   border: 2px solid transparent;
   border-radius: $radius;
   box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
@@ -154,7 +154,7 @@ export default {
   }
 
   &.selected {
-    border: 2px solid $green;
+    border: 2px solid $c-green;
   }
 
   .img-wrap {
@@ -179,7 +179,7 @@ export default {
     font-size: 1rem;
 
     a {
-      color: $green;
+      color: $c-green;
     }
 
     .subtitle {

@@ -1,24 +1,24 @@
 // Color palette
-$green: #46c085;
-$cyan: #5bd6d0;
-$blue: #5294fa;
-$purple: #8570f7;
-$orange: #fa9548;
-$yellow: #fdce4e;
-$red: #f35c6f;
-$black: #333333;
-$lightblack: #666666;
-$dimgray: #999999;
-$darkgray: #a9a9a9;
-$lightgray: #d3d3d3;
-$gainsboro: #cacaca;
-$platinum: #eeeeee;
-$whitesmoke: #f5f5f5;
-$ghostwhite: #f8f8f8;
-$white: #ffffff;
+$c-green: #46c085;
+$c-cyan: #5bd6d0;
+$c-blue: #5294fa;
+$c-purple: #8570f7;
+$c-orange: #fa9548;
+$c-yellow: #fdce4e;
+$c-red: #f35c6f;
+$c-black: #333333;
+$c-lightblack: #666666;
+$c-dimgray: #999999;
+$c-darkgray: #a9a9a9;
+$c-lightgray: #d3d3d3;
+$c-gainsboro: #cacaca;
+$c-platinum: #eeeeee;
+$c-whitesmoke: #f5f5f5;
+$c-ghostwhite: #f8f8f8;
+$c-white: #ffffff;
 
 // theme
-$color-primary: $green;
+$color-primary: $c-green;
 
 $color-dark-8: rgba(0, 0, 0, .8) !default;
 $color-dark-6: rgba(0, 0, 0, .6) !default;
@@ -45,12 +45,12 @@ $color-text-icon: $color-dark-3 !default;
 $color-text-holder: $color-dark-2 !default;
 
 // Color status
-$color-success: $green;
-$color-danger: $red;
-$color-warning: $orange;
-$color-info: $blue;
+$color-success: $c-green;
+$color-danger: $c-red;
+$color-warning: $c-orange;
+$color-info: $c-blue;
 $color-active: $color-primary;
-$color-active-red: $red;
+$color-active-red: $c-red;
 $color-disabled: $color-dark-3;
 
 // Color border
@@ -60,7 +60,7 @@ $color-border-hover: $color-active;
 // Color decorator
 $color-hover: #f2f1fc;
 $color-hover-bg: rgba(0, 0, 0, .12);
-$color-background: $whitesmoke;
+$color-background: $c-whitesmoke;
 $color-split: #e1e4e8;
 $color-shadow: $color-dark-3;
 

@@ -54,7 +54,7 @@ export default {
   z-index: 999;
   width: 16.25rem;
   padding: .5rem;
-  background-color: $white;
+  background-color: $c-white;
   border: 1px solid $color-border;
   border-radius: $radius;
 

@@ -115,7 +115,7 @@ $desc-line-height: 26px;
   height: $post-card-height;
   overflow: hidden;
   color: $color-text;
-  background-color: $ghostwhite;
+  background-color: $c-ghostwhite;
   border-radius: $radius;
   box-shadow: 0 0 20px rgba(0, 0, 0, .1);
   transition: box-shadow .5s;
@@ -140,7 +140,7 @@ $desc-line-height: 26px;
     padding: 20px;
     overflow: hidden;
     text-align: left;
-    background-color: $ghostwhite;
+    background-color: $c-ghostwhite;
     transition: background-color .3s;
 
     .title {
@@ -174,7 +174,7 @@ $desc-line-height: 26px;
     height: 100%;
     padding: .5rem;
     overflow: hidden;
-    color: $platinum;
+    color: $c-platinum;
     font-size: 14px;
     text-align: right;
     opacity: 0;
@@ -202,9 +202,9 @@ $desc-line-height: 26px;
     display: inline-block;
     width: 2 * $half-ribbon-width;
     padding: 10px 0 4px;
-    color: $white;
+    color: $c-white;
     text-align: center;
-    background: $orange;
+    background: $c-orange;
     border-top-left-radius: $radius;
 
     &:before {
@@ -224,9 +224,9 @@ $desc-line-height: 26px;
       left: 0;
       width: 0;
       height: 0;
-      border-right: $half-ribbon-width solid $orange;
+      border-right: $half-ribbon-width solid $c-orange;
       border-bottom: $half-ribbon-width solid transparent;
-      border-left: $half-ribbon-width solid $orange;
+      border-left: $half-ribbon-width solid $c-orange;
       content: "";
     }
   }
@@ -240,7 +240,7 @@ $desc-line-height: 26px;
     }
 
     .content {
-      background-color: $white;
+      background-color: $c-white;
     }
 
     .post-thumb {

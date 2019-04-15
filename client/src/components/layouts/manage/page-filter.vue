@@ -6,8 +6,8 @@
 
 <style lang="scss" scoped>
 .page-filter {
-  background: $white;
-  box-shadow: 0 1px 6px $lightgray;
+  background: $c-white;
+  box-shadow: 0 1px 6px $c-lightgray;
 
   .filter-content {
     padding: $content-padding;
@@ -27,7 +27,7 @@
     align-items: center;
     height: 3rem;
     padding: 0 $content-padding;
-    background-color: $ghostwhite;
+    background-color: $c-ghostwhite;
 
     .el-form-item {
       margin-bottom: 0;

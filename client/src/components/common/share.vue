@@ -217,7 +217,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  color: $darkgray;
+  color: $c-darkgray;
   opacity: .8;
 
   &:hover {

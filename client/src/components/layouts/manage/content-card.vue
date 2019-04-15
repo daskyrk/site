@@ -35,9 +35,9 @@ export default {
 .manage-content-card {
   margin: $content-padding;
   overflow: hidden;
-  background-color: $white;
+  background-color: $c-white;
   border-radius: $radius;
-  box-shadow: 0 0 6px $lightgray;
+  box-shadow: 0 0 6px $c-lightgray;
 }
 
 .header,
@@ -51,8 +51,8 @@ export default {
 }
 
 .header {
-  background-color: $ghostwhite;
-  border-bottom: 1px solid $platinum;
+  background-color: $c-ghostwhite;
+  border-bottom: 1px solid $c-platinum;
 
   &::before {
     position: absolute;
@@ -60,7 +60,7 @@ export default {
     left: 0;
     width: 4px;
     height: 100%;
-    background-color: $green;
+    background-color: $c-green;
     content: "";
   }
 }

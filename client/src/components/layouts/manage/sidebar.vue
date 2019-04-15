@@ -70,7 +70,7 @@ $transition: all .25s;
 $sidebar-bg: #303642;
 $sidebar-bg-hover: #222630;
 $sidebar-text: rgba(255, 255, 255, .65);
-$sidebar-text-hover: $white;
+$sidebar-text-hover: $c-white;
 $manage-sidebar-open-width: 12.5rem;
 $manage-sidebar-close-width: 4.5rem;
 $sidebar-tip-width: .25rem;
@@ -132,7 +132,7 @@ $sidebar-tip-width: .25rem;
   //   flex: 1;
   //   display: inline-flex;
   //   align-items: center;
-  //   color: $white;
+  //   color: $c-white;
   //   opacity: 1;
   //   font-size: 1.125rem;
   //   letter-spacing: 0.25rem;
@@ -154,7 +154,7 @@ $sidebar-tip-width: .25rem;
           position: absolute;
           left: 0;
           height: 100%;
-          border-left: $sidebar-tip-width solid $green;
+          border-left: $sidebar-tip-width solid $c-green;
           content: "";
         }
 
@@ -163,7 +163,7 @@ $sidebar-tip-width: .25rem;
           background-color: $sidebar-bg-hover;
 
           i {
-            color: $green;
+            color: $c-green;
           }
         }
       }

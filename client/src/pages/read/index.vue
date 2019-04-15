@@ -16,7 +16,7 @@
                 :to="item.id"
                 append
               >
-                <img :src="item.extra.book.image | dealImg({w:100})">
+                <img :src="item.extra ?item.extra.book.image : ''| dealImg({w:100})">
               </nuxt-link>
             </div>
           </li>
@@ -147,7 +147,7 @@ export default {
     img {
       width: $book-width;
       height: $book-height;
-      background-color: $white;
+      background-color: $c-white;
       cursor: pointer;
     }
   }

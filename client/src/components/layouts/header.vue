@@ -186,7 +186,7 @@ export default {
   width: 100%;
   height: $header-height;
   line-height: $header-height;
-  background-color: $white;
+  background-color: $c-white;
   box-shadow: 0 1px 5px rgba(0, 0, 0, .1);
   transition: transform .5s;
 
@@ -236,12 +236,12 @@ export default {
     a {
       display: inline-block;
       padding: 0 1rem;
-      color: $black;
+      color: $c-black;
       transition: $transition;
 
       &:hover {
         color: $color-active-red;
-        background-color: $ghostwhite;
+        background-color: $c-ghostwhite;
       }
     }
 
@@ -260,7 +260,7 @@ export default {
 
     &:hover {
       color: $color-active-red;
-      background-color: $ghostwhite;
+      background-color: $c-ghostwhite;
       transition: $transition;
     }
 
@@ -273,7 +273,7 @@ export default {
   .header-search-input {
     width: 160px;
     margin-left: 1rem;
-    color: $dimgray;
+    color: $c-dimgray;
     border: none;
     outline: none;
     transition: all .2s;
@@ -294,7 +294,7 @@ export default {
     .line {
       transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
       fill: none;
-      stroke: $black;
+      stroke: $c-black;
       stroke-width: 3;
       stroke-linecap: round;
     }

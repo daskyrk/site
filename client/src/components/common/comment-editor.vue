@@ -105,13 +105,13 @@ export default {
     overflow: auto;
     font-size: .95em;
     line-height: 1.8em;
-    border: 1px solid $platinum;
+    border: 1px solid $c-platinum;
     border-radius: 4px;
     outline: none;
     cursor: auto;
 
     &:hover {
-      border-color: $lightblack;
+      border-color: $c-lightblack;
     }
 
     &:focus {

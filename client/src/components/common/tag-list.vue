@@ -40,7 +40,7 @@ export default {
   .tag-item {
     display: inline-block;
     padding: .25rem .5rem;
-    background-color: $white;
+    background-color: $c-white;
     border: 1px solid $color-border;
     border-radius: 1rem;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .04);

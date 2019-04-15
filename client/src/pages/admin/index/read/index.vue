@@ -257,7 +257,7 @@ export default {
   bottom: 0;
   width: 100%;
   height: 60%;
-  background-color: $white;
+  background-color: $c-white;
   transform: translateY(100%);
   transition: transform .3s;
 

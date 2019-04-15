@@ -37,7 +37,7 @@
         placement="top"
       >
         <div
-          :class="{ red: true, active: isLiked }"
+          :class="{ 'c-red': true, active: isLiked }"
           @click="like(detail.id)"
         >
           <i class="iconfont icon-xin" />
@@ -45,14 +45,14 @@
       </el-tooltip>
       <div
         v-if="mounted.comment"
-        class="green"
+        class="c-green"
         @click="scrollToComment"
       >
         <i class="iconfont icon-liuyan" />
       </div>
       <back-top
         :distance="260"
-        cls="blue"
+        cls="c-blue"
       />
     </aside>
     <lazy-component>
@@ -195,26 +195,26 @@ export default {
       line-height: 3rem;
       text-align: center;
       background: rgba(255, 255, 255, .8);
-      border: 1px solid $platinum;
+      border: 1px solid $c-platinum;
       border-radius: 100%;
       box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .14);
       cursor: pointer;
 
       &.active,
       &:hover {
-        &.red {
-          color: $red;
-          border-color: $red;
+        &.c-red {
+          color: $c-red;
+          border-color: $c-red;
         }
 
-        &.blue {
-          color: $blue;
-          border-color: $blue;
+        &.c-blue {
+          color: $c-blue;
+          border-color: $c-blue;
         }
 
-        &.green {
-          color: $green;
-          border-color: $green;
+        &.c-green {
+          color: $c-green;
+          border-color: $c-green;
         }
       }
 

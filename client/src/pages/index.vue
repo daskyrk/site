@@ -137,7 +137,7 @@ export default {
     right: 10%;
     padding: 2rem;
     overflow: hidden;
-    color: $white;
+    color: $c-white;
     background-color: rgba(181, 181, 181, .3);
     border-radius: $radius;
 
@@ -174,7 +174,7 @@ export default {
     bottom: 4rem;
     padding: 1rem 4rem;
     overflow: hidden;
-    color: $white;
+    color: $c-white;
     font-size: 1rem;
     background: rgba(0, 0, 0, .4);
     box-shadow: 0 0 6px #000000;
@@ -194,7 +194,7 @@ export default {
   display: inline-flex;
   padding: 2px;
   overflow: hidden;
-  color: $white;
+  color: $c-white;
   font-weight: 400;
   text-transform: uppercase;
 
@@ -203,7 +203,7 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
-    border-bottom: 2px solid $black;
+    border-bottom: 2px solid $c-black;
     transform: translate3d(-101%, 0, 0);
     transition: transform .5s;
     content: "";

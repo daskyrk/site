@@ -60,7 +60,7 @@ export default {
 $header-bg: #3c4049;
 $header-bg-hover: #222630;
 $header-color: #aab1c3;
-$header-color-hover: $white;
+$header-color-hover: $c-white;
 
 .manage-header {
   z-index: 9;

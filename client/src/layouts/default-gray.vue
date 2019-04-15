@@ -15,7 +15,7 @@ export default {
 <style lang="scss" scoped>
 .app-layout {
   .gray-bg {
-    background-color: $whitesmoke;
+    background-color: $c-whitesmoke;
   }
 }
 </style>

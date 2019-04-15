@@ -33,6 +33,6 @@ export default {
 <style lang="scss" scoped>
 .form-wrap {
   padding: 2rem 0;
-  background-color: $white;
+  background-color: $c-white;
 }
 </style>

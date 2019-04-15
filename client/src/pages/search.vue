@@ -126,10 +126,10 @@ export default {
       height: $search-input-height;
       padding-right: 2rem;
       padding-left: 1rem;
-      color: $black;
+      color: $c-black;
       font-size: 14px;
       line-height: $search-input-height;
-      background-color: $white;
+      background-color: $c-white;
       border: 1px solid rgba(184, 197, 214, .2);
       border-radius: $search-input-height;
       outline: 0;

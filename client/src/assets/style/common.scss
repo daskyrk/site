@@ -28,30 +28,26 @@ pre {
   margin-bottom: 1em;
   overflow: auto;
   font-size: 12px;
-  background-color: $black;
+  background-color: $c-black;
   border-radius: $radius;
 }
 
 code {
   display: block;
   padding: 1em;
-  color: $platinum;
+  color: $c-platinum;
   line-height: 1.6em;
   background-color: transparent;
 
   &::selection,
   *::selection {
-    color: $white;
+    color: $c-white;
     background: #43d8e4;
   }
 }
 
 * {
   -webkit-tap-highlight-color: transparent;
-}
-
-.iconfont {
-  margin-right: .25rem;
 }
 
 .markdown-content {

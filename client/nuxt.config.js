@@ -40,6 +40,10 @@ const config = {
       },
       {
         rel: 'stylesheet',
+        href: '//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons',
+      },
+      {
+        rel: 'stylesheet',
         href: '//cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css',
       },
       {
@@ -80,6 +84,7 @@ const config = {
     '~/assets/style/transition.scss',
     '~/assets/style/util.scss',
     'element-ui/lib/theme-chalk/index.css',
+    'vuetify/dist/vuetify.min.css',
     'mavon-editor/dist/css/index.css',
   ],
   styleResources: {
@@ -102,6 +107,7 @@ const config = {
     '~/plugins/copy.client.js',
     '~/plugins/gtm.client.js',
     '~/plugins/moment.js',
+    '~/plugins/vuetify.js',
     '~/plugins/element-ui.js',
     '~/plugins/axios.js',
     '~/plugins/lazy-load.js',

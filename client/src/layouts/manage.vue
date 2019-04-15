@@ -34,7 +34,7 @@ export default {
   flex: 1;
   flex-direction: column;
   overflow-x: hidden;
-  background-color: $whitesmoke;
+  background-color: $c-whitesmoke;
 }
 
 .manage-content {

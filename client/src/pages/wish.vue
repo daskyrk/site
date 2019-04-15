@@ -16,9 +16,9 @@
           type="text"
           placeholder="From: 路过的朋友"
         >
-        <button @click="submit">
+        <v-btn color="success" @click="submit">
           提交
-        </button>
+        </v-btn>
       </div>
     </div>
     <div class="wish-list">
@@ -151,7 +151,7 @@ export default {
 
     &:active,
     &:focus {
-      border-color: $green;
+      border-color: $c-green;
       outline: none;
     }
 
@@ -167,26 +167,8 @@ export default {
 
   input {
     width: 70%;
-    padding: .5rem;
-  }
-
-  button {
-    width: 20%;
-    padding: .5rem 1rem;
-    border: 1px solid $color-border;
-    border-radius: $radius;
-    cursor: pointer;
-    transition: background-color .3s, color .3s, width .3s, border-width .3s,
-      border-color .3s;
-
-    &:hover {
-      color: $white;
-      background-color: $green;
-    }
-
-    &:focus {
-      outline: none;
-    }
+    height: 2.25rem;
+    padding: 0 1rem;
   }
 
 }
@@ -218,7 +200,7 @@ export default {
     width: 100%;
     min-height: 9rem;
     padding: .9375rem 1.5rem;
-    color: $white;
+    color: $c-white;
     font-size: .875rem;
     background-image: url(~assets/images/blog8.jpg);
     background-position: 50%;
@@ -315,7 +297,7 @@ export default {
     resize: none;
 
     &:focus {
-      border-color: $red;
+      border-color: $c-red;
     }
   }
 
