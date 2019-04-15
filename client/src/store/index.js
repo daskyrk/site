@@ -10,12 +10,13 @@ export default {
     }
   },
   actions: {
-    nuxtServerInit({ commit }, { req }) {
+    async nuxtServerInit({ dispatch, commit }, { req }) {
       let token = null
       if (req.headers.cookie) {
         var parsed = cookieparser.parse(req.headers.cookie)
         token = parsed.token
       }
+      await dispatch('user/getMyInfo')
       commit('user/SET_TOKEN', token)
     },
 
@@ -27,6 +28,7 @@ export default {
     },
 
     async getBingStory({ commit }) {
+      // TODO: change to another api
       const res = await this.$axios.$get(
         'https://api.berryapi.net/bing?AppKey=rOQmtNTWzw',
       )

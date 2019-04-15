@@ -9,12 +9,11 @@ export default {
   },
 
   mutations: {
-    LOGIN_START(state, data) {
-      state.logined = true
-    },
-
     SET_USER(state, data) {
       state.userInfo = data
+      if (data.id) {
+        state.logined = true
+      }
     },
 
     SET_LOGIN_STATE(state, data) {
@@ -24,6 +23,7 @@ export default {
     LOGOUT(state) {
       state.userInfo = {}
       state.token = null
+      state.logined = false
     },
 
     SET_TOKEN(state, data) {
@@ -41,7 +41,6 @@ export default {
 
   actions: {
     async login({ commit }, data) {
-      commit('SET_LOGIN_STATE', true)
       const res = await this.$axios.$post('/user/login', data)
 
       if (res && res.success) {
@@ -50,8 +49,8 @@ export default {
         commit('SET_TOKEN', token)
       } else {
         commit('SET_USER', {})
+        commit('SET_LOGIN_STATE', false)
       }
-      commit('SET_LOGIN_STATE', false)
       return res
     },
 
@@ -68,7 +67,7 @@ export default {
       return res
     },
 
-    async getUserInfo({ commit }) {
+    async getMyInfo({ commit }) {
       const res = await this.$axios.$get('/user/info')
 
       if (res && res.success) {
@@ -79,7 +78,7 @@ export default {
 
     async updateConfig({ dispatch }, data) {
       const res = await this.$axios.$put('/user', data)
-      await dispatch('getUserInfo')
+      await dispatch('getMyInfo')
       return res
     },
 
