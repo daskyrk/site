@@ -3,9 +3,11 @@
     <div class="footer-container">
       <div class="footer-col copy-right">
         <p>
+          Copyright © 2019
           <nuxt-link to="/about">
-            @daskyrk
+            daskyrk
           </nuxt-link>
+          All Rights Reserved.
         </p>
         <p>Powered by Nuxt</p>
         <p>已运行 10个月 3天 12小时 43分</p>
@@ -82,6 +84,10 @@ export default {
   .copy-right {
     margin: 0;
     line-height: 20px;
+
+    a {
+      color: inherit;
+    }
   }
 
   .friend-link {
@@ -96,7 +102,7 @@ export default {
   }
 }
 
-@include sm-width () {
+@include sm-width() {
   .default-footer {
     .footer-container {
       width: 90%;
@@ -112,7 +118,5 @@ export default {
       }
     }
   }
-
 }
-
 </style>
