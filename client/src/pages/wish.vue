@@ -16,7 +16,10 @@
           type="text"
           placeholder="From: 路过的朋友"
         >
-        <v-btn color="success" @click="submit">
+        <v-btn
+          color="success"
+          @click="submit"
+        >
           提交
         </v-btn>
       </div>

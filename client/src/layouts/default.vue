@@ -68,8 +68,8 @@ export default {
   mounted() {
     this.setSize()
     // window.onresize = _.throttle(this.setSize, 100)
-    window.addEventListener('keydown', this.onKeyDown);
-    window.addEventListener('keyup', this.onKeyUp);
+    window.addEventListener('keydown', this.onKeyDown)
+    window.addEventListener('keyup', this.onKeyUp)
   },
 
   beforeDestroy() {
@@ -93,11 +93,13 @@ export default {
       }
     },
     onKeyDown(e) {
-      if (e.repeat) { return }
-      this.$store.commit('layout/pressKey', e);
+      if (e.repeat) {
+        return
+      }
+      this.$store.commit('layout/pressKey', e)
     },
     onKeyUp() {
-      this.$store.commit('layout/pressKey', {});
+      this.$store.commit('layout/pressKey', {})
     },
   },
 }
@@ -128,8 +130,13 @@ export default {
       overflow: hidden;
 
       &:after {
-        background-color: $color-dark-4;
+        background-color: $color-dark-2;
       }
+    }
+
+    .app-aside {
+      box-shadow: 0 8px 10px -5px rgba(0, 0, 0, .2),
+        0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12);
     }
   }
 
@@ -161,6 +168,7 @@ export default {
     width: $app-side-width;
     height: 100%;
     background-color: #eef1f2;
+    transition: box-shadow .4s .1s;
   }
 }
 </style>
