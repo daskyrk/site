@@ -1,28 +1,25 @@
 <template>
   <div class="about-me">
-    <!-- <div class="book">
-      <div class="left">
-      </div>
-      <div class="middle"></div>
-      <div class="right">
-
-      </div>
-    </div> -->
-    <div class="card">
-      <div class="info">
-        <img
-          src="~assets/images/avatar.jpg"
-          alt="avatar"
-          class="avatar"
-        >
-        <div class="nick">
+    <div class="header" />
+    <div class="info-container">
+      <img
+        src="~assets/images/avatar.jpg"
+        alt="avatar"
+        class="avatar"
+      >
+      <div class="base-info">
+        <h4 class="nick">
           daskyrk
+        </h4>
+        <div class="job">
+          前端工程师
+        </div>
+        <div class="site">
+          github, weixin
         </div>
         <div class="hobby">
           看书、旅游、摄影（学习ing）
         </div>
-      </div>
-      <div class="other">
         <div class="wish">
           <p>这里加个心愿便利贴</p>
           <p>去日本旅游</p>
@@ -38,135 +35,67 @@
 
 <script>
 export default {
-  layout: 'empty',
+  // layout: 'empty',
 }
 </script>
 
 <style lang="scss" scoped>
 .about-me {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: url(~assets/images/desk.jpg) no-repeat;
-  background-size: cover;
-
-  .card {
-    position: absolute;
-    top: 34%;
-    left: 130px;
-    display: flex;
-    width: 50%;
-    min-width: 600px;
-    height: 30%;
-    min-height: 300px;
-    padding: 3rem 2rem;
-    background-color: $c-whitesmoke;
-    border-radius: $radius;
-
-    $card-border: .6rem;
-    $line-width: .6rem;
-
-    &::after {
-      position: absolute;
-      top: -$card-border;
-      right: -$card-border;
-      bottom: -$card-border;
-      left: -$card-border;
-      z-index: -1;
-      padding: 20px;
-      background: repeating-linear-gradient(
-        45deg, #114abc, #114abc $line-width, #ffffff $line-width, #ffffff 2 * $line-width, #bf2010 2 * $line-width, #bf2010 3 * $line-width, #ffffff 3 * $line-width, #ffffff 4 * $line-width
-      );
-      border-radius: 6px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, .5);
-      content: "";
-    }
+  width: 96vw;
+  // TODO: 搞点视差滚动？
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, .32), rgba(0, 0, 0, 0)), url(~assets/images/about-bg.webp);
+    background-position: center;
+    background-size: cover;
   }
 
-  .info {
+  .info-container {
+    position: relative;
+    max-width: 95%;
+    margin: 0 auto;
+    margin-top: 22vh;
+    text-align: center;
+    background-color: $c-white;
+    border-color: $c-white;
+    border-radius: $radius-lg;
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, .2),0 24px 38px 3px rgba(0, 0, 0, .14),0 9px 46px 8px rgba(0, 0, 0, .12);
+  }
+
+  .base-info {
     flex: 4;
     height: 100%;
+    padding: 2rem;
     overflow: hidden;
     text-align: center;
-    // border-right: 1px solid $color-border;
-    > div {
-      margin-top: .5rem;
-    }
-  }
 
-  .other {
-    flex: 6;
+    > * {
+      margin: 12px 0;
+    }
+
+    .nick {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .job {
+      color: $color-text-desc;
+    }
+
   }
 
   .avatar {
-    width: 80px;
-    height: 80px;
+    max-width: 130px;
+    max-height: 130px;
+    margin: -50px auto 0;
     border-radius: 100%;
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, .56), 0 4px 25px 0 rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
   }
 
-  // .book {
-  //   height: 500px;
-  //   width: 800px;
-  //   display: flex;
-  //   position: relative;
-
-  //   .left {
-  //     flex: 1px;
-  //     position: relative;
-  //     padding: 1rem;
-  //     background-color: #fee86b;
-  //     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
-  //       0 0 40px rgba(0, 0, 0, 0.1) inset;
-  //     &::before {
-  //       content: '';
-  //       position: absolute;
-  //       height: 30px;
-  //       bottom: 3px;
-  //       width: 60%;
-  //       left: 17px;
-  //       transform: rotateZ(4deg);
-  //       z-index: -1;
-  //       box-shadow: 0 0 50px 5px rgba(0, 0, 0, 0.7);
-  //       border-radius: 50%/50%;
-  //       border-bottom-left-radius: 0%;
-  //       border-bottom-right-radius: 40%;
-  //     }
-  //     &::after {
-  //       content: '';
-  //       position: absolute;
-  //       height: 30px;
-  //       bottom: 1px;
-  //       width: 46%;
-  //       right: -5px;
-  //       transform: rotateZ(-4deg);
-  //       z-index: -1;
-  //       box-shadow: 0 0 60px 6px rgba(0, 0, 0, 0.88);
-  //       border-radius: 50%/50%;
-  //     }
-  //   }
-  //   .middle {
-  //     width: 3px;
-  //     margin-left: 1px;
-  //     background-image: linear-gradient(
-  //       to bottom,
-  //       #ffffff 0%,
-  //       #ffffff 50%,
-  //       #28ebff 51%,
-  //       #28ebff 100%
-  //     );
-  //     background-size: 100% 19px;
-  //     background-repeat: repeat-y;
-  //   }
-  //   .right {
-  //     flex: 1px;
-  //     padding: 1rem;
-  //     background-color: #298f62;
-  //     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
-  //       0 0 40px rgba(0, 0, 0, 0.1) inset;
-  //   }
-  // }
 }
 
 // @media screen and (min-width: 1200px) {
