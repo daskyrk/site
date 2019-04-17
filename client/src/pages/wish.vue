@@ -1,33 +1,60 @@
 <template>
-  <div class="wish-wall">
-    <div class="wish-form">
-      <textarea
-        ref="wish"
-        class="wish"
-        name="wish"
-        maxlength="300"
-        autofocus
-        placeholder="Hi，想说点什么呢"
-      />
-      <div class="flex-box form-action">
-        <input
-          ref="name"
-          name="name"
-          type="text"
-          placeholder="From: 路过的朋友"
+  <v-container grid-list-xl>
+    <v-form v-model="validate">
+      <v-container>
+        <v-layout
+          wrap
+          justify-space-between
+          default
         >
-        <v-btn
-          color="success"
-          @click="submit"
-        >
-          提交
-        </v-btn>
-      </div>
-    </div>
-    <div class="wish-list">
-      <div
+          <v-flex
+            xs12
+          >
+            <v-textarea
+              v-model="content"
+              label="Your Wish"
+              hint="Hi，想说点什么呢"
+              :rules="contentRules"
+              :counter="300"
+            />
+          </v-flex>
+
+          <v-flex
+            xs12
+            md10
+          >
+            <v-text-field
+              v-model="name"
+              :rules="nameRules"
+              :counter="15"
+              clearable
+              label="From"
+              required
+            />
+          </v-flex>
+
+          <v-flex
+            xs12
+            md2
+            class="text-right"
+          >
+            <v-btn
+              color="success"
+              @click="submit"
+            >
+              Submit
+            </v-btn>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-form>
+    <v-layout wrap>
+      <v-flex
         v-for="wish in list"
         :key="wish.id"
+        xs12
+        sm6
+        md4
         class="rotate-card-container"
       >
         <div class="card card-rotate">
@@ -47,7 +74,6 @@
           <div class="content back">
             <textarea
               v-if="logined"
-
               v-model="replyMap[wish.id]"
               class="reply"
               maxlength="200"
@@ -75,9 +101,9 @@
             </h4>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 
@@ -93,6 +119,17 @@ export default {
     return {
       submiting: false,
       success: false,
+      validate: false,
+      content: '',
+      contentRules: [
+        v => !!v || '写点什么吧...',
+        v => v.length <= 300 || '内容太多啦'
+      ],
+      name: '',
+      nameRules: [
+        v => !!v || '忘了写名字呢',
+        v => v && v.length <= 15 || '名字太长啦'
+      ]
     }
   },
 
@@ -114,15 +151,14 @@ export default {
 
   methods: {
     submit() {
-      if (this.list.length > 40) {
-        return this.$message('留言有些多了，待我先归档一下~')
+      // if (this.list.length > 40) {
+      //   return this.$message('留言有些多了，待我先归档一下~')
+      // }
+      if (this.validate) {
+        const name = this.name || '路过的朋友'
+        const content = this.content
+        this.$store.dispatch('wish/add', { name, content })
       }
-      const name = this.$refs.name.value || '路过的朋友'
-      const content = this.$refs.wish.value.slice(0, 300)
-      if (!content.length) {
-        return this.$message('没有想说的吗~')
-      }
-      this.$store.dispatch('wish/add', { name, content })
     },
     replyWish(id) {
       const reply = this.replyMap[id]
@@ -144,38 +180,35 @@ export default {
   width: 70%;
 }
 
-.wish-form {
-  margin-bottom: 2rem;
+// .wish-form {
+//   margin-bottom: 2rem;
 
-  textarea,
-  input {
-    border: 1px solid $color-border;
-    border-radius: $radius;
+//   textarea,
+//   input {
+//     border: 1px solid $color-border;
+//     border-radius: $radius;
 
-    &:active,
-    &:focus {
-      border-color: $c-green;
-      outline: none;
-    }
+//     &:active,
+//     &:focus {
+//       border-color: $c-green;
+//       outline: none;
+//     }
+//   }
 
-  }
+//   textarea {
+//     width: 100%;
+//     height: 7rem;
+//     margin-bottom: 2rem;
+//     padding: 1rem;
+//     resize: none;
+//   }
 
-  textarea {
-    width: 100%;
-    height: 7rem;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    resize: none;
-  }
-
-  input {
-    width: 70%;
-    height: 2.25rem;
-    padding: 0 1rem;
-  }
-
-}
-
+//   input {
+//     width: 70%;
+//     height: 2.25rem;
+//     padding: 0 1rem;
+//   }
+// }
 .wish-list {
   display: flex;
   flex-wrap: wrap;
@@ -184,9 +217,7 @@ export default {
 
 .card {
   position: relative;
-  width: 330px; // TODO: update
-  min-width: 18.75rem;
-  margin: .75rem;
+  width: 100%;
   background: transparent;
   border-radius: 6px;
   -webkit-transform-style: preserve-3d;
@@ -289,6 +320,12 @@ export default {
     color: $color-white-6;
   }
 
+  .stats {
+    i {
+      margin: 4px;
+    }
+  }
+
   .reply {
     width: 100%;
     height: 100%;
@@ -316,9 +353,7 @@ export default {
         border-color: $color-active-red;
       }
     }
-
   }
-
 }
 
 .rotate-card-container {
@@ -337,5 +372,4 @@ export default {
     }
   }
 }
-
 </style>

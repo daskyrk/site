@@ -21,7 +21,6 @@ export class WishController {
   constructor(private readonly service: WishService) { }
 
   @Post()
-  @UseGuards(AuthGuard)
   public create(@Body() wishDto: WishDto) {
     return this.service.create(wishDto);
   }
