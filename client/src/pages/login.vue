@@ -9,6 +9,41 @@
     <!-- <div class="title">
       Welcome
     </div> -->
+    <!-- <v-form v-model="validate">
+      <v-container>
+        <v-layout
+          wrap
+          justify-space-between
+          default
+        >
+          <v-flex
+            xs12
+          >
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              :counter="15"
+              clearable
+              label="Email"
+              required
+            />
+          </v-flex>
+
+          <v-flex
+            xs12
+          >
+            <v-text-field
+              v-model="password"
+              :rules="passwordRules"
+              :counter="15"
+              clearable
+              label="Password"
+              required
+            />
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-form> -->
     <form
       class="login-form"
       @submit.prevent
@@ -28,23 +63,37 @@
         <input
           v-model="form.password"
           type="password"
-          placeholder="暗号？"
+          placeholder="密码？"
           @focus="toggleFocus($event, true)"
           @blur="toggleFocus($event, false)"
         >
       </div>
+      <!-- <v-btn
+        color="blue"
+        dark
+        @click="submitForm('form', 'login')"
+      >
+        登录
+      </v-btn>
+      <v-btn
+        color="green"
+        dark
+        @click="submitForm('form', 'add')"
+      >
+        注册
+      </v-btn> -->
       <button
         type="submit"
         @click="submitForm('form', 'login')"
       >
-        开门
+        登录
       </button>
       <button
         v-if="registerable"
         class="regist-btn"
         @click="submitForm('form', 'add')"
       >
-        入伙
+        注册
       </button>
     </form>
   </div>
@@ -60,15 +109,20 @@ export default {
 
 	data() {
 		return {
+      validate: false,
 			form: {
 				email: '',
 				password: '',
-			},
+      },
+      email: '',
+      emailRules: [],
+      password: '',
+      passwordRules: [],
 			rules: {
 				email: [{ required: true, message: '邮箱？', trigger: 'blur' }],
 				password: [
-					{ required: true, message: '暗号？', trigger: 'blur' },
-					{ min: 6, message: '暗号太短了', trigger: 'blur' },
+					{ required: true, message: '密码？', trigger: 'blur' },
+					{ min: 6, message: '密码太短了', trigger: 'blur' },
 				],
 			},
 		}
@@ -292,27 +346,17 @@ $input-height: 3rem;
       transition: color .25s;
     }
 
+    input {
+      background-color: hsla(0, 0%, 100%, .1);
+    }
+
     &.focus {
       i {
         color: $c-white;
       }
 
       input {
-        &::-webkit-input-placeholder {
-          color: $c-white;
-        }
-
-        &::-moz-placeholder {
-          color: $c-white;
-        }
-
-        &:-moz-placeholder {
-          color: $c-white;
-        }
-
-        &:-ms-input-placeholder {
-          color: $c-white;
-        }
+        background-color: hsla(0, 0%, 100%, .2);
       }
     }
   }
@@ -323,11 +367,12 @@ $input-height: 3rem;
     height: $input-height;
     font-size: 18px;
     border-radius: $input-height;
+    transition: all .3s ease-in-out;
 
     &:active,
     &:focus {
       color: $text-color-active;
-      border: 1px solid $c-orange;
+      // border: 1px solid $c-orange;
       outline: none;
     }
   }
@@ -378,7 +423,7 @@ $input-height: 3rem;
   }
 
   .regist-btn {
-    margin-top: 12px;
+    margin-top: 1rem;
     background-color: $c-darkgray;
   }
 }
