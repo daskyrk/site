@@ -63,14 +63,14 @@
             flat
             @click="dialogVisible = false"
           >
-            Close
+            关闭
           </v-btn>
           <v-btn
             color="blue darken-1"
             flat
             @click="submit"
           >
-            Submit
+            提交
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -82,50 +82,52 @@
         xs12
         sm6
         md4
-        class="rotate-card-container"
+        shrink
       >
-        <div class="card card-rotate">
-          <div class="content front">
-            <h4 class="card-title">
-              {{ wish.content }}
-            </h4>
-            <div class="flex-box action">
-              <div class="author">
-                <span>{{ wish.name }}</span>
-              </div>
-              <div class="v-middle stats">
-                <i class="iconfont icon-time" />{{ wish.createdAt | fromNow }}
+        <div class="rotate-card-container">
+          <div class="card card-rotate">
+            <div class="content front">
+              <h4 class="card-title">
+                {{ wish.content }}
+              </h4>
+              <div class="flex-box action">
+                <div class="author">
+                  <span>{{ wish.name }}</span>
+                </div>
+                <div class="v-middle stats">
+                  <i class="iconfont icon-time" />{{ wish.createdAt | fromNow }}
+                </div>
               </div>
             </div>
-          </div>
-          <div class="content back">
-            <textarea
-              v-if="logined"
-              v-model="replyMap[wish.id]"
-              class="reply"
-              maxlength="200"
-              placeholder="回复点什么?"
-            />
-            <div
-              v-if="logined"
-              class="reply-action"
-            >
-              <button @click="replyWish(wish.id)">
-                回复
-              </button>
-              <button @click="clearReply(wish.id)">
-                清空
-              </button>
-              <button @click="deleteWish(wish.id)">
-                删除
-              </button>
+            <div class="content back">
+              <textarea
+                v-if="logined"
+                v-model="replyMap[wish.id]"
+                class="reply"
+                maxlength="200"
+                placeholder="回复点什么?"
+              />
+              <div
+                v-if="logined"
+                class="reply-action"
+              >
+                <button @click="replyWish(wish.id)">
+                  回复
+                </button>
+                <button @click="clearReply(wish.id)">
+                  清空
+                </button>
+                <button @click="deleteWish(wish.id)">
+                  删除
+                </button>
+              </div>
+              <h4
+                v-else
+                class="card-title"
+              >
+                {{ wish.reply || '主人还没回复您的留言(⊙o⊙)…' }}
+              </h4>
             </div>
-            <h4
-              v-else
-              class="card-title"
-            >
-              {{ wish.reply || '主人还没回复您的留言(⊙o⊙)…' }}
-            </h4>
           </div>
         </div>
       </v-flex>
@@ -212,8 +214,10 @@ export default {
 }
 
 .add-btn {
-  position: relative;
-  left: -100px;
+  position: fixed;
+  bottom: 6%;
+  left: 6%;
+  z-index: 10;
 }
 
 .wish-list {
@@ -321,6 +325,7 @@ export default {
     z-index: 2;
     margin-top: .625rem;
     font-weight: 700;
+    font-size: 1rem;
   }
 
   .action {
