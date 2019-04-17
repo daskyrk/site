@@ -1,53 +1,81 @@
 <template>
   <v-container grid-list-xl>
-    <v-form v-model="validate">
-      <v-container>
-        <v-layout
-          wrap
-          justify-space-between
-          default
+    <v-dialog
+      v-model="dialogVisible"
+      max-width="600px"
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          fab
+          dark
+          color="primary"
+          class="add-btn"
+          v-on="on"
         >
-          <v-flex
-            xs12
-          >
-            <v-textarea
-              v-model="content"
-              label="Your Wish"
-              hint="Hi，想说点什么呢"
-              :rules="contentRules"
-              :counter="300"
-            />
-          </v-flex>
+          <v-icon dark>
+            add
+          </v-icon>
+        </v-btn>
+      </template>
+      <v-card>
+        <v-card-title>
+          <span class="headline">您的留言</span>
+        </v-card-title>
+        <v-card-text>
+          <v-form v-model="validate">
+            <v-container>
+              <v-layout
+                wrap
+                justify-space-between
+                default
+              >
+                <v-flex
+                  xs12
+                >
+                  <v-textarea
+                    v-model="content"
+                    label="Your Wish"
+                    hint="Hi，想说点什么呢"
+                    :rules="contentRules"
+                    :counter="300"
+                  />
+                </v-flex>
 
-          <v-flex
-            xs12
-            md10
+                <v-flex
+                  xs12
+                >
+                  <v-text-field
+                    v-model="name"
+                    :rules="nameRules"
+                    :counter="15"
+                    clearable
+                    label="From"
+                    required
+                  />
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="blue darken-1"
+            flat
+            @click="dialogVisible = false"
           >
-            <v-text-field
-              v-model="name"
-              :rules="nameRules"
-              :counter="15"
-              clearable
-              label="From"
-              required
-            />
-          </v-flex>
-
-          <v-flex
-            xs12
-            md2
-            class="text-right"
+            Close
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            flat
+            @click="submit"
           >
-            <v-btn
-              color="success"
-              @click="submit"
-            >
-              Submit
-            </v-btn>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-form>
+            Submit
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-layout wrap>
       <v-flex
         v-for="wish in list"
@@ -119,6 +147,7 @@ export default {
     return {
       submiting: false,
       success: false,
+      dialogVisible: false,
       validate: false,
       content: '',
       contentRules: [
@@ -158,6 +187,9 @@ export default {
         const name = this.name || '路过的朋友'
         const content = this.content
         this.$store.dispatch('wish/add', { name, content })
+        this.name = '';
+        this.content = '';
+        this.dialogVisible = false;
       }
     },
     replyWish(id) {
@@ -180,35 +212,11 @@ export default {
   width: 70%;
 }
 
-// .wish-form {
-//   margin-bottom: 2rem;
+.add-btn {
+  position: relative;
+  left: -100px;
+}
 
-//   textarea,
-//   input {
-//     border: 1px solid $color-border;
-//     border-radius: $radius;
-
-//     &:active,
-//     &:focus {
-//       border-color: $c-green;
-//       outline: none;
-//     }
-//   }
-
-//   textarea {
-//     width: 100%;
-//     height: 7rem;
-//     margin-bottom: 2rem;
-//     padding: 1rem;
-//     resize: none;
-//   }
-
-//   input {
-//     width: 70%;
-//     height: 2.25rem;
-//     padding: 0 1rem;
-//   }
-// }
 .wish-list {
   display: flex;
   flex-wrap: wrap;
