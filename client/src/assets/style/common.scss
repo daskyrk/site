@@ -46,6 +46,10 @@ code {
   }
 }
 
+button:active {
+  outline: none;
+}
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
