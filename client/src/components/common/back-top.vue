@@ -71,7 +71,9 @@ export default {
 
   mounted() {
     this.targetNode = (this.getTarget || noop)() || window
-    this.targetNode.addEventListener('scroll', this.handleScroll)
+    this.targetNode.addEventListener('scroll', this.handleScroll, {
+      passive: true,
+    })
     this.handleScroll()
   },
 

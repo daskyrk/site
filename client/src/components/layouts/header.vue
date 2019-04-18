@@ -141,7 +141,9 @@ export default {
       this.hide = t > scrollTop
       scrollTop = t
     }, 200)
-    window.addEventListener('scroll', this.onScroll)
+    window.addEventListener('scroll', this.onScroll, {
+      passive: true,
+    })
   },
 
   beforeDestroy() {
