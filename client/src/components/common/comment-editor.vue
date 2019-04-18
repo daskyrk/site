@@ -109,6 +109,7 @@ export default {
     border-radius: 4px;
     outline: none;
     cursor: auto;
+    transition: border-color .3s ease-in-out;
 
     &:hover {
       border-color: $c-lightblack;

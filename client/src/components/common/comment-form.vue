@@ -61,7 +61,7 @@
         type="input"
         name="site"
         maxlength="20"
-        placeholder="您的网站？"
+        placeholder="您的网站"
       >
     </div>
   </div>
@@ -149,6 +149,7 @@ export default {
       border: 1px solid $c-platinum;
       border-radius: 4px;
       outline: none;
+      transition: border-color .3s ease-in-out;
 
       &:hover {
         border-color: $c-lightblack;
