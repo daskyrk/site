@@ -33,7 +33,6 @@
     "element-ui": "^2.7.2",
     "gravatar": "^1.8.0",
     "highlight": "^0.2.4",
-    "js-cookie": "^2.2.0",
     "koa": "^2.7.0",
     "lodash": "^4.17.11",
     "marked": "^0.6.2",
