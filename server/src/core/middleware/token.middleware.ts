@@ -8,15 +8,17 @@ export function tokenMiddleware(req: Request, res: Response, next: () => any) {
   if (cookies && cookies.token) {
     token = cookies.token;
   } else if (headers.authorization) {
-    const [type] = headers.authorization.split(' ');
-    if (type ==='Bearer') {
-      token = checkToken(token);
+    const [type, tk] = headers.authorization.split(' ');
+    if (type === 'Bearer') {
+      token = tk;
     }
   }
   if (token) {
-    const encoded = checkToken(token);
-    if (encoded) {
-      req.user = encoded;
+    const { decoded, error } = checkToken(token);
+    if (error) {
+      res.clearCookie('token');
+    } else if (decoded) {
+      req.user = decoded;
     }
   }
   next();

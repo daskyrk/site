@@ -1,3 +1,4 @@
+import { UnauthorizedException } from '@nestjs/common';
 import config from '../config';
 import jwt from 'jsonwebtoken';
 
@@ -14,11 +15,9 @@ export function verifyToken(token: string) {
   return jwt.verify(token, config.TOKEN_KEY, { maxAge: config.TOKEN_TIME });
 }
 
-export function checkToken(token: string | null) {
+export function checkToken(token: string) {
   let decoded = null;
-  if (!token) {
-    return null;
-  }
+  let error = null;
   try {
     // const decoded = verifyToken(token) as TokenPayload;
     // // console.log('过期时间:', getTime(decoded.expireTime));
@@ -27,10 +26,12 @@ export function checkToken(token: string | null) {
     // return Number(decoded.expireTime) > now;
     decoded = verifyToken(token);
   } catch (err) {
+    error = err;
     console.log('token error:', err);
+    // throw new UnauthorizedException(err);
   }
-  return decoded;
-}
+  return { decoded, error };
+};
 
 // function getToken(ctx) {
 //   // const authHeader = req.headers && req.headers.authorization;

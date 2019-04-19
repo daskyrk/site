@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PostInfoDto, QueryPostDto } from './dto/post.dto';
 import { isUndefined, omitBy } from "lodash";
 
@@ -20,7 +20,7 @@ export class PostService extends BaseService<IPost> {
     if (res) {
       if (!isAdmin) {
         if (!res.isPublic || !res.isPublish) {
-          throw new UnauthorizedException('该文章暂时无法查看')
+          throw new ForbiddenException('该文章暂时无法查看')
         }
         res.meta.views += 1;
         res.save();
