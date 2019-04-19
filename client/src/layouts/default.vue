@@ -66,6 +66,7 @@ export default {
   },
 
   mounted() {
+    // this.getIP()
     this.setSize()
     // window.onresize = _.throttle(this.setSize, 100)
     window.addEventListener('keydown', this.onKeyDown)
@@ -100,6 +101,9 @@ export default {
     },
     onKeyUp() {
       this.$store.commit('layout/pressKey', {})
+    },
+    getIP() {
+      this.$store.dispatch('getIP')
     },
   },
 }

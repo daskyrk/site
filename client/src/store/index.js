@@ -7,17 +7,25 @@ export default {
       breadcrumb: [],
       uploadToken: null,
       story: {},
+      ip: null,
     }
   },
   actions: {
     async nuxtServerInit({ dispatch, commit }, { req }) {
-      let token = null
       if (req.headers.cookie) {
-        var parsed = cookieparser.parse(req.headers.cookie)
-        token = parsed.token
+        const { token } = cookieparser.parse(req.headers.cookie)
+        if (token) {
+          await dispatch('user/getMyInfo')
+          commit('user/SET_TOKEN', token)
+        }
       }
-      await dispatch('user/getMyInfo')
-      commit('user/SET_TOKEN', token)
+      // 不应该在这里，否则拿到的应该是node端的ip了
+      // await dispatch('getIP')
+    },
+
+    async getIP({ commit }) {
+      const ip = await this.$axios.$get('http://icanhazip.com')
+      commit('SET_IP', ip.replace(/[\r\n]/g, ""))
     },
 
     async getUploadToken({ commit }) {
@@ -43,6 +51,10 @@ export default {
 
     SET_UPLOAD_TOKEN(state, data) {
       state.uploadToken = data
+    },
+
+    SET_IP(state, data) {
+      state.ip = data
     },
 
     START_FETCH(state, url) {

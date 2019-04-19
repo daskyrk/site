@@ -1,9 +1,13 @@
 // import { encode } from 'querystring';
 import { Message } from 'element-ui'
 
-export default function({ $axios, store }) {
+export default function ({ $axios, store, redirect, error }) {
   // $axios.setToken(store.state.userInfo.token || '', 'Bearer');
   $axios.onRequest(config => {
+    const ip = store.state.ip;
+    if (ip) {
+      config.headers['X-Real-IP'] = ip;
+    }
     store.commit('START_FETCH', config.url.substring(1) + '#' + config.method)
   })
 
@@ -28,13 +32,18 @@ export default function({ $axios, store }) {
     return response
   })
 
-  $axios.onError(error => {
-    // store.commit('END_FETCH', error.response)
-    const code = parseInt(error.response && error.response.status)
-    if (code === 401) {
-      store.commit('user/LOGOUT')
-    } else if(code === 404) {
-
-    }
+  $axios.onError(err => {
+    // store.commit('END_FETCH', err.response)
+    // const code = parseInt(err.response && err.response.status)
+    // if (code === 401) {
+    //   store.commit('user/LOGOUT')
+    //   // redirect('/login')
+    // } else if(code === 403) {
+    //   console.log('call error:');
+    //   // store.commit('user/SET_NO_AUTH')
+    //   error({ statusCode: 403, message: 'WTF' })
+    // } else if(code === 404) {
+    //   error({statusCode: 404, message: '???'})
+    // }
   })
 }
