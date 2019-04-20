@@ -12,15 +12,19 @@ export default {
   },
   actions: {
     async nuxtServerInit({ dispatch, commit }, { req }) {
-      if (req.headers.cookie) {
-        const { token } = cookieparser.parse(req.headers.cookie)
-        if (token) {
-          await dispatch('user/getMyInfo')
-          commit('user/SET_TOKEN', token)
+      try {
+        if (req.headers.cookie) {
+          const { token } = cookieparser.parse(req.headers.cookie)
+          if (token) {
+            await dispatch('user/getMyInfo')
+            commit('user/SET_TOKEN', token)
+          }
         }
+        // 不应该在这里，否则拿到的应该是node端的ip了
+        // await dispatch('getIP')
+      } catch (error) {
+        console.log('error in init:', error);
       }
-      // 不应该在这里，否则拿到的应该是node端的ip了
-      // await dispatch('getIP')
     },
 
     async getIP({ commit }) {

@@ -34,16 +34,12 @@ export default function ({ $axios, store, redirect, error }) {
 
   $axios.onError(err => {
     // store.commit('END_FETCH', err.response)
-    // const code = parseInt(err.response && err.response.status)
-    // if (code === 401) {
-    //   store.commit('user/LOGOUT')
-    //   // redirect('/login')
-    // } else if(code === 403) {
-    //   console.log('call error:');
-    //   // store.commit('user/SET_NO_AUTH')
-    //   error({ statusCode: 403, message: 'WTF' })
-    // } else if(code === 404) {
-    //   error({statusCode: 404, message: '???'})
-    // }
+    const code = parseInt(err.response && err.response.status)
+    if (code === 401) {
+      store.commit('user/LOGOUT')
+      // redirect('/login')
+    }
+    error({ statusCode: code, message: err.message })
+
   })
 }
