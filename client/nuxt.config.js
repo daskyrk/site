@@ -174,6 +174,7 @@ const config = {
         maxSize: 250000
       }
     },
+    transpile: [/^vuetify/],
     loaders: {
       cssModules: {
         localIdentName: '[local]_[hash:base64:5]',
