@@ -1,7 +1,10 @@
 import * as webpack from 'webpack'
 
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 import NuxtConfiguration from '@nuxt/config'
 import { appConfig } from './config'
+
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
@@ -67,13 +70,11 @@ const config = {
     noscript: [{ innerHTML: 'This website requires JavaScript.' }],
   },
 
+  /*
+   ** Customize the progress-bar
+   */
   // loading: '~/components/loading.vue',
   // loadingIndicator: 'chasing-dots',
-
-  router: {
-    linkActiveClass: 'active-link',
-    linkExactActiveClass: 'exact-active-link',
-  },
 
   /*
    ** Global CSS
@@ -93,14 +94,26 @@ const config = {
       '~/assets/style/mixin.scss',
     ],
   },
+
+  router: {
+    linkActiveClass: 'active-link',
+    linkExactActiveClass: 'exact-active-link',
+  },
+
   render: {
     bundleRenderer: {
       shouldPreload: (file, type) => {
         return ['script', 'style', 'font'].includes(type)
       }
+    },
+    http2: {
+      push: true
     }
   },
 
+  /*
+   ** Plugins to load before mounting the App
+   */
   plugins: [
     '~/plugins/combined-inject.js',
     '~/plugins/markdown.client.js',
@@ -115,8 +128,20 @@ const config = {
     '~/plugins/custom-components.js',
   ],
 
-  modules: ['@nuxtjs/axios', '@nuxtjs/style-resources'],
+  /*
+   ** Nuxt.js modules
+   */
+  modules: [
+    // Doc: https://axios.nuxtjs.org/usage
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa',
+    '@nuxtjs/style-resources'
+  ],
 
+  /*
+   ** Axios module configuration
+   *  See https://github.com/nuxt-community/axios-module#options
+   */
   axios: {
     proxy: true,
     prefix: '/api', // it only work when proxy is enabled
@@ -143,13 +168,24 @@ const config = {
     /*
      ** You can extend webpack config here
      */
+    optimization: {
+      splitChunks: {
+        minSize: 10000,
+        maxSize: 250000
+      }
+    },
     loaders: {
       cssModules: {
         localIdentName: '[local]_[hash:base64:5]',
         camelCase: true,
       },
     },
-    extend(config, { isDev, isClient }) {
+    plugins: [
+      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
+      new LodashModuleReplacementPlugin,
+      new VuetifyLoaderPlugin()
+    ],
+    extend(config, { isDev, isClient, loaders }) {
       // Run ESLint on save
       // if (isDev && isClient) {
       //   if (!config.module) {
@@ -162,12 +198,9 @@ const config = {
       //     exclude: /(node_modules)/,
       //   })
       // }
-      if (!config.plugins) {
-        config.plugins = []
-      }
-      config.plugins.push(
-        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
-      )
+
+      // rules[2].use[0] is babel-loader
+      config.module.rules[2].use[0].options.plugins = ['lodash'];
     },
   },
 }
