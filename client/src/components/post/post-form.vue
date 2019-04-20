@@ -150,6 +150,8 @@
 import axios from 'axios'
 import { mapState } from 'vuex'
 import ImageUploader from '~/components/common/image-uploader'
+import 'mavon-editor/dist/css/index.css';
+
 
 function noop() {}
 

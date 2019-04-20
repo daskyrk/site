@@ -14,6 +14,7 @@
 <script>
 import manageHeader from '~/components/layouts/manage/header'
 import manageSidebar from '~/components/layouts/manage/sidebar'
+import 'element-ui/lib/theme-chalk/index.css'
 
 export default {
   components: {
