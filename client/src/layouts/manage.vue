@@ -1,20 +1,30 @@
 <template>
-  <div class="manage-layout">
-    <manageSidebar />
+  <v-app dark>
+    <core-filter />
 
-    <div class="manage-main">
-      <manageHeader />
-      <div class="manage-content">
-        <nuxt />
+    <core-toolbar />
+
+    <core-drawer />
+    <v-content>
+      <div class="manage-layout">
+        <manageSidebar />
+
+        <div class="manage-main">
+          <manageHeader />
+          <div class="manage-content">
+            <nuxt />
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
 import manageHeader from '~/components/layouts/manage/header'
 import manageSidebar from '~/components/layouts/manage/sidebar'
 import 'element-ui/lib/theme-chalk/index.css'
+import '~/assets/style/material.scss'
 
 export default {
   components: {

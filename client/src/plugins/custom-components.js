@@ -1,9 +1,12 @@
-import Vue from 'vue'
-import Chart from '~/components/common/chart'
-import CCard from '~/components/layouts/manage/content-card'
-import PGFilter from '~/components/layouts/manage/page-filter'
-import EmptyHolder from '~/components/common/empty-holder'
+import '~/components/global'
 
+import CCard from '~/components/layouts/manage/content-card'
+import Chart from '~/components/common/chart'
+import EmptyHolder from '~/components/common/empty-holder'
+import PGFilter from '~/components/layouts/manage/page-filter'
+import Vue from 'vue'
+
+// TODO: move other to global dir for auth regist
 export default () => {
   Vue.component('chart', Chart)
   Vue.component('ccard', CCard)

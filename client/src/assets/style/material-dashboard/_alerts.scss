@@ -1,0 +1,48 @@
+.v-alert {
+  .v-alert__dismissible .v-icon {
+    color: rgba($white, .5);
+    font-size: $font-size-default + 2;
+  }
+
+  .v-alert__icon.v-icon {
+    color: $white;
+    font-size: $font-size-alert-icon;
+  }
+}
+
+.v-snack {
+  .v-icon:not(:first-child) {
+    margin-left: $margin-general + 1;
+    color: rgba($white, .5);
+  }
+
+  .v-icon:first-child {
+    font-size: $font-size-alert-icon;
+  }
+
+  .v-snack__content {
+    height: auto;
+    padding: $padding-general $padding-general + 5;
+  }
+
+  .v-snack__wrapper {
+    border-radius: $border-radius-base + 1;
+  }
+}
+
+.v-snack .v-snack__wrapper,
+.v-alert {
+  @include alert-shadow("info", lighten($brand-info, 5%));
+  @include alert-shadow("success", $brand-success);
+  @include alert-shadow("error", $brand-danger);
+  @include alert-shadow("warning", $brand-warning);
+  @include alert-shadow("purple", $brand-primary);
+}
+
+.v-snack {
+  @include notifications-color("info", lighten($brand-info, 5%));
+  @include notifications-color("success", $brand-success);
+  @include notifications-color("error", $brand-danger);
+  @include notifications-color("warning", $brand-warning);
+  @include notifications-color("purple", $brand-primary);
+}
