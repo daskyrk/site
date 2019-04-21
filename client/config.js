@@ -39,14 +39,14 @@ export const appConfig = {
       icon: 'mdi-view-dashboard',
     },
     {
-      to: '/admin/read',
-      text: '读书管理',
-      icon: 'mdi-book-multiple',
-    },
-    {
       to: '/admin/post',
       text: '文章管理',
       icon: 'mdi-file-document',
+    },
+    {
+      to: '/admin/read',
+      text: '读书管理',
+      icon: 'mdi-book-multiple',
     },
     {
       to: '/admin/comment',

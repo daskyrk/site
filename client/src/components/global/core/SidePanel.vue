@@ -61,27 +61,6 @@
             />
           </v-flex>
           <v-flex xs12>
-            <v-btn
-              href="https://www.creative-tim.com/product/vuetify-material-dashboard"
-              target="_blank"
-              color="success"
-              block
-            >
-              Free Download
-            </v-btn>
-          </v-flex>
-          <v-flex xs12>
-            <v-btn
-              href="https://demos.creative-tim.com/vuetify-material-dashboard/documentation"
-              target="_blank"
-              class="white--text"
-              color="primary"
-              block
-            >
-              Documentation
-            </v-btn>
-          </v-flex>
-          <v-flex xs12>
             <div class="text-xs-center body-2 text-uppercase">
               <div class=" sidebar-filter">
                 Thank You for Sharing!
@@ -149,10 +128,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations('app', ['setImage']),
-    setColor (color) {
-      this.$store.state.app.color = color
-    }
+    ...mapMutations('app', ['setImage', 'setColor']),
   }
 }
 </script>

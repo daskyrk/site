@@ -1,3 +1,5 @@
+import SimpleVueValidation from 'simple-vue-validator';
+import Vue from 'vue';
 import { appConfig } from '../../config';
 
 /**
@@ -9,3 +11,6 @@ import { appConfig } from '../../config';
 export default ({ app }, inject) => {
   inject('getConfig', (key) => key ? appConfig[key] : appConfig)
 }
+
+Vue.use(SimpleVueValidation);
+Vue.prototype.$validator = SimpleVueValidation.Validator

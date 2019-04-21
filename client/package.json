@@ -44,6 +44,7 @@
     "nuxt": "^2.6.1",
     "querystring": "^0.2.0",
     "raf": "^3.4.1",
+    "simple-vue-validator": "^0.16.0",
     "ts-node": "^8.0.3",
     "vue": "^2.6.10",
     "vue-lazyload": "^1.2.6",
