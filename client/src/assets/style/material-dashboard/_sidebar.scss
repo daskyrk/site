@@ -25,7 +25,6 @@
 
         .v-list__tile__title {
           padding: 0;
-          font-weight: $font-weight-lighter;
           font-size: $font-size-general !important;
         }
       }
@@ -72,7 +71,6 @@
       width: $divider-width;
       margin: $divider-margins auto $divider-margins + 25;
       border-color: $black-opacity-3;
-
     }
 
     .v-image__image--contain {
@@ -80,7 +78,7 @@
     }
 
     .v-avatar {
-      @include shadow-big ();
+      @include shadow-big();
     }
   }
 }

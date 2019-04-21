@@ -10,8 +10,6 @@
   box-shadow: 0 1px 6px $c-lightgray;
 
   .filter-content {
-    padding: $content-padding;
-
     .el-form-item:last-child {
       margin-bottom: 0;
     }
@@ -26,7 +24,6 @@
     justify-content: space-between;
     align-items: center;
     height: 3rem;
-    padding: 0 $content-padding;
     background-color: $c-ghostwhite;
 
     .el-form-item {

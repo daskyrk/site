@@ -33,7 +33,6 @@ export default {
 
 <style lang="scss" scoped>
 .manage-content-card {
-  margin: $content-padding;
   overflow: hidden;
   background-color: $c-white;
   border-radius: $radius;

@@ -5,9 +5,8 @@
     <core-toolbar />
 
     <core-drawer />
-    <v-content>
-      <nuxt />
-    </v-content>
+
+    <core-container />
   </v-app>
 </template>
 
@@ -18,6 +17,3 @@ import '~/assets/style/material.scss'
 export default {
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

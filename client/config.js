@@ -46,12 +46,12 @@ export const appConfig = {
     {
       to: '/admin/post',
       text: '文章管理',
-      icon: 'mdi-file',
+      icon: 'mdi-file-document',
     },
     {
       to: '/admin/comment',
       text: '留言管理',
-      icon: 'mdi-comment-multiple',
+      icon: 'mdi-forum',
     },
     {
       to: '/admin/tag',

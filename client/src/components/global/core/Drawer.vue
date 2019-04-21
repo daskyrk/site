@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer
-    id="app-drawer"
+    id="admin-app-drawer"
     v-model="inputValue"
     app
     dark
@@ -53,10 +53,10 @@
           </v-list-tile-action>
           <v-list-tile-title v-text="link.text" />
         </v-list-tile>
-        <v-list-tile
+        <!-- <v-list-tile
           disabled
           active-class="primary"
-          class="v-list-item v-list__tile--buy"
+          class="v-list-item v-list__tile--bottom"
           to="/upgrade"
         >
           <v-list-tile-action>
@@ -65,7 +65,7 @@
           <v-list-tile-title class="font-weight-light">
             Setting
           </v-list-tile-title>
-        </v-list-tile>
+        </v-list-tile> -->
       </v-layout>
     </v-img>
   </v-navigation-drawer>
@@ -155,14 +155,14 @@ export default {
 </script>
 
 <style lang="scss">
-#app-drawer {
+#admin-app-drawer {
   .v-list__tile {
     border-radius: 4px;
 
-    &--buy {
-      margin-top: auto;
-      margin-bottom: 17px;
-    }
+    // &--bottom {
+    //   margin-top: auto;
+    //   margin-bottom: 17px;
+    // }
   }
 
   .v-image__image--contain {

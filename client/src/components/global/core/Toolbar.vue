@@ -1,14 +1,13 @@
 <template>
   <v-toolbar
-    id="core-toolbar"
-
     flat
     prominent
+    class="mb-0"
     style="background: #eeeeee;"
   >
     <div class="v-toolbar-title">
       <v-toolbar-title
-        class="tertiary--text font-weight-light"
+        class="tertiary--text"
       >
         <v-btn
           v-if="responsive"
@@ -19,9 +18,10 @@
         >
           <v-icon>mdi-view-list</v-icon>
         </v-btn>
+        {{ title }}
         <v-breadcrumbs :items="breadcrumb">
           <template v-slot:divider>
-            <v-icon>mdi-chevron_right</v-icon>
+            <v-icon>mdi-chevron-right</v-icon>
           </template>
         </v-breadcrumbs>
       </v-toolbar-title>
@@ -167,9 +167,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  #core-toolbar a {
-    text-decoration: none;
-  }
-</style>
