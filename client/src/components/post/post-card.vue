@@ -182,11 +182,13 @@ $desc-line-height: 26px;
     transition-delay: .1s;
 
     i {
-      vertical-align: middle;
+      margin-right: .375rem;
     }
 
     span {
-      margin-right: .75rem;
+      display: inline-flex;
+      align-items: center;
+      margin-right: .625rem;
       line-height: 1.375rem;
     }
 
