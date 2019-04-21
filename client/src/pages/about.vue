@@ -2,6 +2,7 @@
   <div class="about-me">
     <div class="header" />
     <div class="info-container">
+      <!-- TODO: 使用userInfo里的信息 -->
       <img
         src="~assets/images/avatar.jpg"
         alt="avatar"

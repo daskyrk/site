@@ -43,17 +43,17 @@ const config = {
       },
       {
         rel: 'stylesheet',
-        href: '//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons',
+        href: '//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900',
       },
       {
         rel: 'stylesheet',
         href: '//cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css',
       },
-      {
-        rel: 'stylesheet',
-        href:
-          '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-reboot.min.css',
-      },
+      // {
+      //   rel: 'stylesheet',
+      //   href:
+      //     '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-reboot.min.css',
+      // },
       {
         rel: 'stylesheet',
         href:

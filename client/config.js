@@ -34,34 +34,34 @@ export const appConfig = {
   ],
   adminMenus: [
     {
-      link: '/admin',
+      to: '/admin/dashboard',
       text: '总览',
-      icon: 'home',
+      icon: 'mdi-view-dashboard',
     },
     {
-      link: '/admin/read',
+      to: '/admin/read',
       text: '读书管理',
-      icon: 'book',
+      icon: 'mdi-book-multiple',
     },
     {
-      link: '/admin/post',
+      to: '/admin/post',
       text: '文章管理',
-      icon: 'post',
+      icon: 'mdi-file',
     },
     {
-      link: '/admin/comment',
+      to: '/admin/comment',
       text: '留言管理',
-      icon: 'comment',
+      icon: 'mdi-comment-multiple',
     },
     {
-      link: '/admin/tag',
+      to: '/admin/tag',
       text: '标签管理',
-      icon: 'tag',
+      icon: 'mdi-tag-multiple',
     },
     {
-      link: '/admin/setting',
+      to: '/admin/setting',
       text: '系统设置',
-      icon: 'setting',
+      icon: 'mdi-settings',
     },
   ],
 }

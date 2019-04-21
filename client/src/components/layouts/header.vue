@@ -11,12 +11,12 @@
         <nuxt-link :to="pressKey.key === 'Meta' ? '/admin' : '/'">
           <img
             class="logo admin-entry"
-            src="~assets/images/logo.png"
+            src="/img/logo.png"
             alt="logo"
           >
           <img
             class="logo"
-            src="~assets/images/daskyrk.png"
+            src="/img/daskyrk.png"
             alt="logo"
           >
         </nuxt-link>

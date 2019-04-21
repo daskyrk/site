@@ -19,7 +19,11 @@
         >
           <v-icon>mdi-view-list</v-icon>
         </v-btn>
-        {{ title }}
+        <v-breadcrumbs :items="breadcrumb">
+          <template v-slot:divider>
+            <v-icon>mdi-chevron_right</v-icon>
+          </template>
+        </v-breadcrumbs>
       </v-toolbar-title>
     </div>
 
@@ -119,8 +123,18 @@ export default {
     responsiveInput: false
   }),
 
+  computed: {
+    breadcrumb() {
+      return this.$store.state.breadcrumb
+    },
+    user() {
+      return this.$store.state.user.userInfo
+    },
+  },
+
   watch: {
     '$route' (val) {
+      console.log('val:', val);
       this.title = val.name
     }
   },

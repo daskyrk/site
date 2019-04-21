@@ -1,56 +1,23 @@
 <template>
-  <v-app dark>
-    <core-filter />
+  <v-app>
+    <core-side-panel />
 
     <core-toolbar />
 
     <core-drawer />
     <v-content>
-      <div class="manage-layout">
-        <manageSidebar />
-
-        <div class="manage-main">
-          <manageHeader />
-          <div class="manage-content">
-            <nuxt />
-          </div>
-        </div>
-      </div>
+      <nuxt />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import manageHeader from '~/components/layouts/manage/header'
-import manageSidebar from '~/components/layouts/manage/sidebar'
 import 'element-ui/lib/theme-chalk/index.css'
 import '~/assets/style/material.scss'
 
 export default {
-  components: {
-    manageHeader,
-    manageSidebar,
-  },
 }
 </script>
 
 <style lang="scss" scoped>
-.manage-layout {
-  display: flex;
-  height: 100vh;
-}
-
-.manage-main {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  overflow-x: hidden;
-  background-color: $c-whitesmoke;
-}
-
-.manage-content {
-  position: relative;
-  flex: 1;
-  overflow: auto;
-}
 </style>
