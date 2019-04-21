@@ -84,7 +84,7 @@ const config = {
     '~/assets/style/syntax.scss',
     '~/assets/style/transition.scss',
     '~/assets/style/util.scss',
-    'vuetify/dist/vuetify.min.css',
+    // 'vuetify/dist/vuetify.min.css',
   ],
   styleResources: {
     scss: [// 这里只能包含 variable、mixin, 禁止包容任何真实样式，否则每个style里都会重复一遍
@@ -118,7 +118,7 @@ const config = {
     '~/plugins/copy.client.js',
     '~/plugins/gtm.client.js',
     '~/plugins/moment.js',
-    '~/plugins/vuetify.js',
+    // '~/plugins/vuetify.js',
     '~/plugins/element-ui.js',
     '~/plugins/axios.js',
     '~/plugins/lazy-load.js',
@@ -182,7 +182,7 @@ const config = {
     plugins: [
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
       new LodashModuleReplacementPlugin,
-      new VuetifyLoaderPlugin()
+      // new VuetifyLoaderPlugin()
     ],
     extend(config, { isDev, isClient, loaders }) {
       // Run ESLint on save
