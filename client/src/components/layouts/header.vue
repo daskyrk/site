@@ -208,6 +208,7 @@ export default {
   .header-left {
     position: relative;
     display: inline-block;
+    height: 100%;
 
     .logo {
       height: $header-height;
