@@ -151,11 +151,11 @@ const config = {
     //   changeOrigin: true,
     //   pathRewrite: { '^/api/proxy/lylares': '' },
     // },
-    '/api/proxy/bing': {
-      target: 'http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1',
-      changeOrigin: true,
-      pathRewrite: { '^/api/proxy/bing': '' },
-    },
+    // '/api/proxy/bing': {
+    //   target: 'http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1',
+    //   changeOrigin: true,
+    //   pathRewrite: { '^/api/proxy/bing': '' },
+    // },
     '/api': {
       target: IS_DEV || process.server ? 'http://localhost:8000' : 'https://lijun.space',
       changeOrigin: true,

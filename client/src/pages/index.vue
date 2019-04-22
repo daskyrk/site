@@ -15,23 +15,6 @@
         class="blur"
       />
     </div>
-    <div
-      v-if="story.title"
-      class="story-desc"
-    >
-      <p class="title">
-        {{ story.title }}
-      </p>
-      <p
-        v-if="story.Country"
-        class="position"
-      >
-        <i class="iconfont icon-zuobiao" /> {{ story.Country }} · {{ story.City }}
-      </p>
-      <p class="detail">
-        {{ story.story }}
-      </p>
-    </div>
     <h4 class="nav">
       <template v-for="(nav, index) in navs">
         <nuxt-link
@@ -74,12 +57,6 @@ export default {
     return {
       navs: this.$getConfig('navs'),
       mode: this.$getConfig('bg_mode'),
-      story: {
-        title: 'ww',
-        Country: 'ffff',
-        City: 'sf',
-        story: 'florem',
-      },
     }
   },
 
@@ -93,18 +70,13 @@ export default {
       // }
       if (this.bgImage) {
         return {
-          backgroundImage: `url(${this.bgImage})`,
+          backgroundImage: `url(https://api.dujin.org/bing/1366.php)`,
         }
       }
       return {}
     },
   },
 
-  async fetch({ app, store }) {
-    if (app.$getConfig('bg_mode') === 'story') {
-      await store.dispatch('getBingStory')
-    }
-  },
 }
 </script>
 
@@ -174,25 +146,6 @@ export default {
     filter: blur(3px);
   }
 
-  .story-desc {
-    position: absolute;
-    right: 0;
-    bottom: 4rem;
-    padding: 1rem 4rem;
-    overflow: hidden;
-    color: $c-white;
-    font-size: 1rem;
-    background: rgba(0, 0, 0, .4);
-    box-shadow: 0 0 6px #000000;
-
-    > p {
-      margin-bottom: 10px;
-    }
-
-    .title {
-      font-weight: bold;
-    }
-  }
 }
 
 .link {

@@ -6,7 +6,6 @@ export default {
       fetch: {},
       breadcrumb: [],
       uploadToken: null,
-      story: {},
       ip: null,
       bgImage: '',
     }
@@ -39,12 +38,6 @@ export default {
         commit('SET_UPLOAD_TOKEN', res.data)
       }
     },
-
-    async getBingStory({ commit }) {
-      // TODO: change to another api
-      const res = await this.$axios.$get('/proxy/bing')
-      commit('SET_BG_IMAGE', `https://bing.com\\${res.images[0].url}`)
-    },
   },
   mutations: {
     SET_BREADCRUMB(state, data) {
@@ -65,10 +58,6 @@ export default {
 
     END_FETCH(state, url) {
       state.fetch[url] = false
-    },
-
-    SET_BING_STORY(state, data) {
-      state.story = data
     },
 
     SET_BG_IMAGE(state, data) {
