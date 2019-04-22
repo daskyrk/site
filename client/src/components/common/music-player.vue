@@ -16,7 +16,7 @@
       <div class="mplayer-info">
         <div class="mplayer-info-cover">
           <img
-            :src="music.coverSrc || 'https://picsum.photos/100/?random'"
+            :src="music.cover || 'https://picsum.photos/100/?random'"
             alt="cd-cover"
           >
         </div>
@@ -106,15 +106,6 @@ import spectrum from '~/utils/spectrum.js'
 
 const THEME_DEFAULT = 'default'
 const THEME_MINI = 'mini'
-
-function getAbsLeft(el) {
-  let left = el.offsetLeft
-  while (el.offsetParent) {
-    el = el.offsetParent
-    left += el.offsetLeft
-  }
-  return left
-}
 
 export default {
   props: {
