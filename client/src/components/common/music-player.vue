@@ -9,8 +9,8 @@
         :src="music.src"
         preload="auto"
         @ended="handleAudioEnd"
-        @canplaythrough="handleCanPlayThrough($event)"
-        @durationchange="handleDurationChange($event)"
+        @canplaythrough="handleCanPlayThrough"
+        @durationchange="handleDurationChange"
         @timeupdate="handleTimeUpdate"
       />
       <div class="mplayer-info">
@@ -130,14 +130,18 @@ export default {
       type: Boolean,
       default: false,
     },
+    loop: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
     return {
       loading: true,
-      loop: false,
       playing: false,
       adjustingVolume: false,
+      audioEnd: false,
       durationText: 'loading',
       duration: 0,
       currentLrcIndex: 0,
@@ -150,7 +154,8 @@ export default {
   computed: {
     containerClass() {
       return {
-        'mplayer-container': true,
+        'mplayer-container': this.theme === THEME_DEFAULT,
+        'mplayer-container-mini': this.theme === THEME_MINI,
         'mplayer-haslrc': !!this.music.lrc,
         'mplayer-isloading': this.loading,
         'mplayer-isplaying': this.playing,
@@ -236,10 +241,12 @@ export default {
       return i
     },
     handleAudioEnd() {
+      console.log('this.loop:', this.loop);
       if (this.loop) {
         this.$refs.audio.play()
       } else {
         this.audioEnd = true
+        this.playing = false
       }
     },
     handleCanPlayThrough(e) {
@@ -309,7 +316,7 @@ export default {
       let count = 0
       const maxCount = 200
 
-      utils.addClass(meplayerContainer, 'mplayer-changing-theme')
+      utils.addClass(mplayerContainer, 'mplayer-changing-theme')
 
       theme = theme === THEME_DEFAULT ? THEME_MINI : THEME_DEFAULT
 
@@ -317,18 +324,18 @@ export default {
 
       function loop() {
         count++
-        meplayerContainer.style.opacity -= step
-        if (meplayerContainer.style.opacity <= 0) {
+        mplayerContainer.style.opacity -= step
+        if (mplayerContainer.style.opacity <= 0) {
           step *= -1
-          meplayerContainer.style.opacity = 0
-          utils.toggleClass(meplayerContainer, 'mplayer-container-mini')
-          utils.toggleClass(meplayerContainer, 'mplayer-container')
+          mplayerContainer.style.opacity = 0
+          utils.toggleClass(mplayerContainer, 'mplayer-container-mini')
+          utils.toggleClass(mplayerContainer, 'mplayer-container')
         }
-        if (meplayerContainer.style.opacity < 1 && count < maxCount) {
+        if (mplayerContainer.style.opacity < 1 && count < maxCount) {
           requestAnimationFrame(loop)
         } else {
           setTimeout(function() {
-            utils.removeClass(meplayerContainer, 'mplayer-changing-theme')
+            utils.removeClass(mplayerContainer, 'mplayer-changing-theme')
           }, 500)
         }
       }
@@ -708,6 +715,123 @@ export default {
     height: 100%;
     background: #d94240;
   }
+}
+
+.mplayer-container-mini {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(59, 59, 177, .18);
+
+  .mplayer-control {
+    margin-right: 0;
+  }
+
+  .mplayer-control-play {
+    position: absolute;
+    top: 0;
+    width: 90px;
+    height: 90px;
+    color: #d94240;
+    font-size: 26px;
+    line-height: 90px;
+
+    [class^="icon-"] {
+      position: absolute;
+      left: 50%;
+      margin-left: -11px;
+      line-height: 90px;
+      cursor: pointer;
+      transition: all .5s;
+    }
+
+    .icon-music-play {
+      transform: translateX(4px);
+      opacity: 1;
+    }
+
+    .icon-music-pause {
+      transform: translateX(-16px);
+      opacity: 0;
+    }
+  }
+
+  &.mplayer-isplaying {
+    .mplayer-control-play {
+      .icon-music-play {
+        transform: translateX(16px);
+        opacity: 0;
+      }
+
+      .icon-music-pause {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  .mplayer-volume {
+    margin: 0 auto;
+  }
+
+  .mplayer-volume-progress {
+    display: none;
+  }
+
+  .mplayer-volume-bg {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    color: rgba(0, 0, 0, .9);
+    font-size: 30px;
+    line-height: 90px;
+    text-align: center;
+    background: rgba(255, 255, 255, .98);
+    border-radius: 50%;
+    transition: all .8s;
+
+    i {
+      transform: translateX(-20px);
+      opacity: 0;
+      transition: all .7s;
+    }
+  }
+
+  &.mplayer-adjusting-volume {
+    .mplayer-volume-bg {
+      z-index: 0;
+      opacity: 1;
+
+      i {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  &.mplayer-changing-theme {
+    .mplayer-volume-bg {
+      display: none;
+    }
+  }
+}
+
+.mplayer-isplaying {
+  &.mplayer-container-mini {
+    animation: breath 2s infinite alternate;
+  }
+}
+
+.mplayer-container-mini .mplayer-info,
+.mplayer-container-mini .mplayer-spectrum,
+.mplayer-container-mini .mplayer-lyric,
+.mplayer-container-mini .mplayer-duration,
+.mplayer-container-mini .mplayer-loadingsign,
+.mplayer-container-mini .mplayer-timeline-bg {
+  display: none;
 }
 
 @keyframes breath {
