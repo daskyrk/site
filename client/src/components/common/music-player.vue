@@ -1,8 +1,8 @@
 <template>
   <div class="player-container">
     <div
-      ref="container"
       :class="containerClass"
+      @mousewheel.prevent="handleMouseWheel"
     >
       <audio
         ref="audio"
@@ -66,14 +66,14 @@
         </div>
       </div>
       <div class="mplayer-volume-bg">
-        <div
-          ref="volumeArea"
-          class="mplayer-volume"
-        >
-          <i class="icon-music-volume" />
+        <div class="mplayer-volume">
+          <i
+            class="icon-music-volume"
+            :style="{opacity: volume}"
+          />
           <div
-            ref="volumeProgress"
             class="mplayer-volume-progress"
+            :style="{width: volume * 100 + '%'}"
           />
         </div>
       </div>
@@ -88,12 +88,10 @@
       </div>
       <div class="mplayer-timeline-bg">
         <div
-          ref="timeline"
           class="mplayer-timeline"
           @click="handleTimeLineClick($event)"
         >
           <div
-            ref="timePassed"
             class="mplayer-timeline-passed"
             :style="{width: playPercent}"
           />
@@ -139,10 +137,13 @@ export default {
       loading: true,
       loop: false,
       playing: false,
+      adjustingVolume: false,
       durationText: 'loading',
       duration: 0,
       currentLrcIndex: 0,
       currentTime: 0,
+      volume: 0.8,
+      volumeStep: 0.05,
     }
   },
 
@@ -153,6 +154,7 @@ export default {
         'mplayer-haslrc': !!this.music.lrc,
         'mplayer-isloading': this.loading,
         'mplayer-isplaying': this.playing,
+        'mplayer-adjusting-volume': this.adjustingVolume,
       }
     },
     lyrics() {
@@ -269,76 +271,33 @@ export default {
         if (this.theme === THEME_DEFAULT && !this.hasLrc) {
           spectrum.draw()
         }
-        // 播放状态中可以用滑轮调节音量
-        // meplayerContainer.addEventListener(
-        //   'mousewheel',
-        //   (function handleMouseWheel() {
-        //     const timer = null;
-        //     const step = 0.05;
-        //     _handleMouseWheel = function(event) {
-        //       if (timer) {
-        //         clearTimeout(timer);
-        //       }
-        //       if (
-        //         !meplayerContainer.className.includes('mplayer-adjusting-volume')
-        //       ) {
-        //         utils.addClass(meplayerContainer, 'mplayer-adjusting-volume');
-        //       }
-        //       if (event.wheelDeltaY < 0 && audio.volume > step) {
-        //         audio.volume -= step;
-        //       }
-        //       if (event.wheelDeltaY > 0 && audio.volume < 1 - step) {
-        //         audio.volume += step;
-        //       }
-        //       if (theme === THEME_DEFAULT) {
-        //         volumeProgress.style.width = audio.volume * 100 + '%';
-        //       } else {
-        //         volumeArea.querySelector('i').style.opacity = audio.volume;
-        //       }
-        //       event.preventDefault();
-
-        //       timer = setTimeout(function() {
-        //         utils.removeClass(meplayerContainer, 'mplayer-adjusting-volume');
-        //       }, 1000);
-        //     };
-        //     return _handleMouseWheel;
-        //   })(),
-        // );
       } else {
         audio.pause()
         spectrum.stop()
-        // meplayerContainer.removeEventListener('mousewheel', _handleMouseWheel);
       }
       this.playing = !audio.paused
     },
-    handleMouseWheel() {
-      let timer = null
-      let step = 0.05
-      _handleMouseWheel = function(event) {
-        if (timer) {
-          clearTimeout(timer)
-        }
-        if (!meplayerContainer.className.includes('mplayer-adjusting-volume')) {
-          utils.addClass(meplayerContainer, 'mplayer-adjusting-volume')
-        }
-        if (event.wheelDeltaY < 0 && audio.volume > step) {
-          audio.volume -= step
-        }
-        if (event.wheelDeltaY > 0 && audio.volume < 1 - step) {
-          audio.volume += step
-        }
-        if (theme === THEME_DEFAULT) {
-          volumeProgress.style.width = audio.volume * 100 + '%'
-        } else {
-          volumeArea.querySelector('i').style.opacity = audio.volume
-        }
-        event.preventDefault()
-
-        timer = setTimeout(function() {
-          utils.removeClass(meplayerContainer, 'mplayer-adjusting-volume')
-        }, 1000)
+    handleMouseWheel(e) {
+      if (!this.playing) {
+        return
       }
-      return _handleMouseWheel
+      if (this.timer) {
+        clearTimeout(this.timer)
+      }
+      const step = this.volumeStep;
+      const audio = this.$refs.audio;
+      this.adjustingVolume = true
+      if (e.wheelDeltaY < 0 && audio.volume > step) {
+        audio.volume -= step
+      }
+      if (e.wheelDeltaY > 0 && audio.volume < 1 - step) {
+        audio.volume += step
+      }
+      this.volume = audio.volume;
+
+      this.timer = setTimeout(()=> {
+        this.adjustingVolume = false
+      }, 1000)
     },
     handleTimeLineClick(e) {
       const clickPercent = e.offsetX / e.currentTarget.offsetWidth
