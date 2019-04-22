@@ -1,5 +1,5 @@
 <template>
-  <div class="player-container">
+  <no-ssr>
     <div
       :class="containerClass"
       @mousewheel.prevent="handleMouseWheel"
@@ -98,7 +98,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </no-ssr>
 </template>
 
 <script>
@@ -342,17 +342,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.player-container {
-  position: fixed;
-  right: 30px;
-  z-index: 2;
-  width: 360px;
-}
-
 .mplayer-container {
   position: relative;
   box-sizing: border-box;
   width: 100%;
+  min-width: 360px;
   height: 90px;
   font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei",
     "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
