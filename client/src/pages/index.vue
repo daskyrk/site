@@ -74,31 +74,37 @@ export default {
     return {
       navs: this.$getConfig('navs'),
       mode: this.$getConfig('bg_mode'),
+      story: {
+        title: 'ww',
+        Country: 'ffff',
+        City: 'sf',
+        story: 'florem',
+      },
     }
   },
 
   computed: {
-    ...mapState(['story']),
+    ...mapState(['bgImage']),
     style() {
       // if (this.mode === 'random') {
       //   return {
       //     backgroundImage: `url(https://api.lylares.com/bing/image/random/?w=640&h=480)`,
       //   }
       // }
-      // if (this.story.image) {
-      //   return {
-      //     backgroundImage: `url(${this.story.image})`,
-      //   }
-      // }
+      if (this.bgImage) {
+        return {
+          backgroundImage: `url(${this.bgImage})`,
+        }
+      }
       return {}
     },
   },
 
-  // async fetch({ app, store }) {
-  //   if (process.env.bg_mode === 'story') {
-  //     await store.dispatch('getBingStory')
-  //   }
-  // },
+  async fetch({ app, store }) {
+    if (app.$getConfig('bg_mode') === 'story') {
+      await store.dispatch('getBingStory')
+    }
+  },
 }
 </script>
 

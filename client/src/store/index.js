@@ -8,6 +8,7 @@ export default {
       uploadToken: null,
       story: {},
       ip: null,
+      bgImage: '',
     }
   },
   actions: {
@@ -41,11 +42,8 @@ export default {
 
     async getBingStory({ commit }) {
       // TODO: change to another api
-      const res = await this.$axios.$get(
-        'https://api.berryapi.net/bing?AppKey=rOQmtNTWzw',
-      )
-      console.log('res:', res);
-      // commit('SET_BING_STORY', res)
+      const res = await this.$axios.$get('/proxy/bing')
+      commit('SET_BG_IMAGE', `https://bing.com\\${res.images[0].url}`)
     },
   },
   mutations: {
@@ -71,6 +69,10 @@ export default {
 
     SET_BING_STORY(state, data) {
       state.story = data
+    },
+
+    SET_BG_IMAGE(state, data) {
+      state.bgImage = data
     },
   },
 }
