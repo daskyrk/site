@@ -22,13 +22,11 @@ export default {
     },
 
     async getSongs({ commit }, ids) {
-      const data = await this.$axios.$get("/proxy/hitokoto/nm/summary/" + ids.join(","), {
-        lyric: true,
-        common: true,
-        comment: true,
-      })
-      commit('setSongs', data);
-      return data;
+      const data = await this.$axios.$get("/proxy/hitokoto/nm/summary/" + ids.join(",") + "?lyric=true&common=true")
+      if (data.code === 200) {
+        commit('setSongs', data.songs);
+      }
+      return data.songs;
     },
 
     // async search({ commit, state }, data) {
