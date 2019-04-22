@@ -104,18 +104,15 @@
 <script>
 import spectrum from '~/utils/spectrum.js'
 
-const THEME_DEFAULT = 'default'
-const THEME_MINI = 'mini'
-
 export default {
   props: {
     music: {
       type: Object,
       required: true,
     },
-    theme: {
-      type: String,
-      default: THEME_DEFAULT,
+    mini: {
+      type: Boolean,
+      default: false,
     },
     autoplay: {
       type: Boolean,
@@ -145,8 +142,8 @@ export default {
   computed: {
     containerClass() {
       return {
-        'mplayer-container': this.theme === THEME_DEFAULT,
-        'mplayer-container-mini': this.theme === THEME_MINI,
+        'mplayer-container': !this.mini,
+        'mplayer-container-mini': this.mini,
         'mplayer-haslrc': !!this.music.lrc,
         'mplayer-isloading': this.loading,
         'mplayer-isplaying': this.playing,
@@ -169,7 +166,9 @@ export default {
   },
 
   mounted() {
-    spectrum.init(this.$refs.canvas)
+    if (this.$refs.canvas) {
+      spectrum.init(this.$refs.canvas)
+    }
   },
 
   methods: {
@@ -256,7 +255,7 @@ export default {
       if (audio) {
         this.currentTime = audio.currentTime
         const curTimeForLrc = audio.currentTime.toFixed(3)
-        if (this.hasLrc && this.theme === THEME_DEFAULT) {
+        if (this.hasLrc && !this) {
           this.currentLrcIndex = this.currentIndex(curTimeForLrc)
         }
       }
@@ -266,7 +265,7 @@ export default {
 
       if (audio.paused) {
         audio.play()
-        if (this.theme === THEME_DEFAULT && !this.hasLrc) {
+        if (!this.mini && !this.hasLrc) {
           spectrum.draw()
         }
       } else {
@@ -309,7 +308,7 @@ export default {
 
       utils.addClass(mplayerContainer, 'mplayer-changing-theme')
 
-      theme = theme === THEME_DEFAULT ? THEME_MINI : THEME_DEFAULT
+      // theme = mini ? normal : mini
 
       loop()
 
@@ -342,12 +341,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$h: 90px;
+$transition: all .6s cubic-bezier(0, .36, .51, 1.39);
+$right: 30px;
+
 .mplayer-container {
   position: relative;
   box-sizing: border-box;
   width: 100%;
   min-width: 360px;
-  height: 90px;
+  height: $h;
   font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei",
     "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
   background: #ffffff;
@@ -355,13 +358,13 @@ export default {
 
   &.mplayer-isplaying {
     .mplayer-info-cover {
-      left: -90px;
+      transform: translateX(-100%);
       opacity: 0;
+      pointer-events: none;
     }
 
     .mplayer-meta {
-      margin-left: 10px;
-      transform: scale(.85, .85);
+      transform: scale(.85, .85) translateX(-110px);
 
       .mplayer-meta-title {
         margin-top: 4px;
@@ -395,8 +398,13 @@ export default {
     }
 
     .mplayer-control-play {
-      top: 20px;
+      top: -70px;
+      opacity: .6;
       animation: breath 2s infinite alternate;
+
+      &:hover {
+        opacity: .9;
+      }
 
       .icon-music-play {
         transform: translateX(8px);
@@ -462,22 +470,19 @@ export default {
 
 .mplayer-info {
   position: relative;
-  left: 0;
+  display: flex;
   font-weight: 300;
-  opacity: 1;
 }
 
 .mplayer-info-cover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 90px;
-  padding-right: 20px;
+  width: $h;
+  height: $h;
+  margin-right: 10px;
   overflow: hidden;
-  transition: all .6s cubic-bezier(0, .36, .51, 1.39);
+  transition: $transition;
 
   img {
-    width: 90px;
+    width: $h;
     height: 100%;
     border: 6px solid #ffffff;
     box-shadow: 0 0 20px rgba(59, 59, 177, .35);
@@ -485,12 +490,12 @@ export default {
 }
 
 .mplayer-meta {
-  float: left;
-  margin-left: 110px;
-  transition: all .6s cubic-bezier(0, .36, .51, 1.39);
+  display: inline-flex;
+  flex-direction: column;
+  line-height: initial;
+  transition: $transition;
 
   .mplayer-meta-time-tick {
-    margin-top: 30px;
     color: rgba(0, 0, 0, .6);
     font-size: 13px;
     letter-spacing: 1px;
@@ -502,14 +507,15 @@ export default {
 .mplayer-meta-title {
   margin-top: 27px;
   margin-bottom: 2px;
-  color: #6a6b6f;
+  color: #464649;
   font-size: 14px;
   letter-spacing: 1px;
-  transition: all .6s cubic-bezier(0, .36, .51, 1.39);
+  transition: $transition;
 }
 
 .mplayer-meta-author {
-  color: #ceced6;
+  flex-grow: 1;
+  color: #95959b;
   font-size: 12px;
 }
 
@@ -530,13 +536,10 @@ export default {
 .mplayer-lyric {
   position: absolute;
   top: 0;
-  left: 50%;
+  left: $h;
   z-index: -2;
-  width: 220px;
   height: 100%;
-  margin-left: -120px;
   overflow: hidden;
-  transform: translateY(15px);
   opacity: 0;
   transition: all 1s;
 }
@@ -577,12 +580,13 @@ export default {
 
 .mplayer-control {
   position: relative;
-  float: right;
-  margin-right: 40px;
+  margin-right: $right;
 }
 
 .mplayer-volume-bg {
   position: absolute;
+  top: 0;
+  left: 0;
   z-index: -1;
   width: 100%;
   height: 100%;
@@ -647,7 +651,7 @@ export default {
 .mplayer-duration,
 .mplayer-loadingsign {
   position: absolute;
-  right: 40px;
+  right: $right;
   bottom: 24px;
   color: rgba(0, 0, 0, .6);
   font-size: 12px;
@@ -657,7 +661,7 @@ export default {
 
 .mplayer-container.mplayer-isplaying .mplayer-duration,
 .mplayer-container.mplayer-isplaying .mplayer-loadingsign {
-  bottom: 5px;
+  bottom: 44px;
   z-index: -1;
   transform: scale(.5, .5);
   opacity: 0;
@@ -704,8 +708,8 @@ export default {
 
 .mplayer-container-mini {
   position: relative;
-  width: 90px;
-  height: 90px;
+  width: $h;
+  height: $h;
   background: #ffffff;
   border-radius: 50%;
   box-shadow: 0 0 20px rgba(59, 59, 177, .18);
@@ -717,17 +721,17 @@ export default {
   .mplayer-control-play {
     position: absolute;
     top: 0;
-    width: 90px;
-    height: 90px;
+    width: $h;
+    height: $h;
     color: #d94240;
     font-size: 26px;
-    line-height: 90px;
+    line-height: $h;
 
     [class^="icon-"] {
       position: absolute;
       left: 50%;
       margin-left: -11px;
-      line-height: 90px;
+      line-height: $h;
       cursor: pointer;
       transition: all .5s;
     }
@@ -772,7 +776,7 @@ export default {
     height: 100%;
     color: rgba(0, 0, 0, .9);
     font-size: 30px;
-    line-height: 90px;
+    line-height: $h;
     text-align: center;
     background: rgba(255, 255, 255, .98);
     border-radius: 50%;
