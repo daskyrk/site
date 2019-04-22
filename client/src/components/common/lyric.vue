@@ -1,5 +1,5 @@
 <template>
-  <div class="uplayer-lyric-area">
+  <div class="mplayer-lyric-area">
     <p
       v-for="(lyric, i) in lyrics"
       :key="i"

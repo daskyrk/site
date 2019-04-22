@@ -13,81 +13,81 @@
         @durationchange="handleDurationChange($event)"
         @timeupdate="handleTimeUpdate"
       />
-      <div class="uplayer-info">
-        <div class="uplayer-info-cover">
+      <div class="mplayer-info">
+        <div class="mplayer-info-cover">
           <img
             :src="music.coverSrc || 'https://picsum.photos/100/?random'"
             alt="cd-cover"
           >
         </div>
-        <div class="uplayer-meta">
-          <div class="uplayer-meta-title">
+        <div class="mplayer-meta">
+          <div class="mplayer-meta-title">
             {{ music.title }}
           </div>
-          <div class="uplayer-meta-author">
+          <div class="mplayer-meta-author">
             {{ music.author }}
           </div>
-          <div class="uplayer-meta-time-tick">
+          <div class="mplayer-meta-time-tick">
             <span
               ref="timeTick"
-              class="uplayer-meta-time-tick-text"
+              class="mplayer-meta-time-tick-text"
             />
           </div>
         </div>
       </div>
       <canvas
         ref="canvas"
-        class="uplayer-spectrum"
+        class="mplayer-spectrum"
       />
       <div
         ref="lyricArea"
-        class="uplayer-lyric"
+        class="mplayer-lyric"
       >
-        <div class="uplayer-lyric-area" />
+        <div class="mplayer-lyric-area" />
       </div>
-      <div class="uplayer-control">
+      <div class="mplayer-control">
         <div
           ref="playBtn"
-          class="uplayer-control-play"
+          class="mplayer-control-play"
           @click="handlePlayClick"
         >
           <i class="icon-music-play" />
           <i class="icon-music-pause" />
         </div>
       </div>
-      <div class="uplayer-volume-bg">
+      <div class="mplayer-volume-bg">
         <div
           ref="volumeArea"
-          class="uplayer-volume"
+          class="mplayer-volume"
         >
           <i class="icon-music-volume" />
           <div
             ref="volumeProgress"
-            class="uplayer-volume-progress"
+            class="mplayer-volume-progress"
           />
         </div>
       </div>
       <div
         ref="duration"
-        class="uplayer-duration"
+        class="mplayer-duration"
       >
         <i class="icon-music-clock" />
-        <span class="uplayer-duration-text">
+        <span class="mplayer-duration-text">
           {{ durationText }}
         </span>
       </div>
-      <div class="uplayer-loadingsign">
+      <div class="mplayer-loadingsign">
         <i class="icon-music-spin animate-spin" />loading
       </div>
-      <div class="uplayer-timeline-bg">
+      <div class="mplayer-timeline-bg">
         <div
           ref="timeline"
-          class="uplayer-timeline"
+          class="mplayer-timeline"
           @click="handleTimeLineClick($event)"
         >
           <div
             ref="timePassed"
-            class="uplayer-timeline-passed"
+            class="mplayer-timeline-passed"
           />
         </div>
       </div>
@@ -102,8 +102,8 @@ import spectrum from '~/utils/spectrum.js'
 
 const THEME_DEFAULT = 'default'
 const THEME_MINI = 'mini'
-const LYRIC_CURRENT_CLASS = 'uplayer-lyric-current'
-const LYRIC_NEXT_CLASS = 'uplayer-lyric-next'
+const LYRIC_CURRENT_CLASS = 'mplayer-lyric-current'
+const LYRIC_NEXT_CLASS = 'mplayer-lyric-next'
 
 function parseSec(sec) {
   const tempMin = (sec / 60) | 0
@@ -205,10 +205,10 @@ export default {
   computed: {
     containerClass() {
       return {
-        'uplayer-container': true,
-        'uplayer-haslrc': !!this.music.lrc,
-        'uplayer-isloading': this.loading,
-        'uplayer-isplaying': this.playing,
+        'mplayer-container': true,
+        'mplayer-haslrc': !!this.music.lrc,
+        'mplayer-isloading': this.loading,
+        'mplayer-isplaying': this.playing,
       }
     },
     lyrics() {
@@ -252,29 +252,29 @@ export default {
         const tempLrcLine = tempLrcLines[tempLrcIndex]
         const tempLrcLineNext = tempLrcLines[tempLrcIndex + 1]
 
-        if (!tempLrcLine.className.includes('uplayer-lyric-current')) {
+        if (!tempLrcLine.className.includes('mplayer-lyric-current')) {
           utils.removeClass(
-            lyricArea.querySelector('.uplayer-lyric-current'),
-            'uplayer-lyric-current',
+            lyricArea.querySelector('.mplayer-lyric-current'),
+            'mplayer-lyric-current',
           )
-          if (lyricArea.querySelector('.uplayer-lyric-pre')) {
+          if (lyricArea.querySelector('.mplayer-lyric-pre')) {
             utils.removeClass(
-              lyricArea.querySelector('.uplayer-lyric-pre'),
-              'uplayer-lyric-pre',
+              lyricArea.querySelector('.mplayer-lyric-pre'),
+              'mplayer-lyric-pre',
             )
           }
-          if (lyricArea.querySelector('.uplayer-lyric-next')) {
+          if (lyricArea.querySelector('.mplayer-lyric-next')) {
             utils.removeClass(
-              lyricArea.querySelector('.uplayer-lyric-next'),
-              'uplayer-lyric-next',
+              lyricArea.querySelector('.mplayer-lyric-next'),
+              'mplayer-lyric-next',
             )
           }
-          utils.addClass(tempLrcLine, 'uplayer-lyric-current')
+          utils.addClass(tempLrcLine, 'mplayer-lyric-current')
           if (tempLrcLinePre) {
-            utils.addClass(tempLrcLinePre, 'uplayer-lyric-pre')
+            utils.addClass(tempLrcLinePre, 'mplayer-lyric-pre')
           }
           if (tempLrcLineNext) {
-            utils.addClass(tempLrcLineNext, 'uplayer-lyric-next')
+            utils.addClass(tempLrcLineNext, 'mplayer-lyric-next')
           }
         }
 
@@ -303,9 +303,9 @@ export default {
         //         clearTimeout(timer);
         //       }
         //       if (
-        //         !meplayerContainer.className.includes('uplayer-adjusting-volume')
+        //         !meplayerContainer.className.includes('mplayer-adjusting-volume')
         //       ) {
-        //         utils.addClass(meplayerContainer, 'uplayer-adjusting-volume');
+        //         utils.addClass(meplayerContainer, 'mplayer-adjusting-volume');
         //       }
         //       if (event.wheelDeltaY < 0 && audio.volume > step) {
         //         audio.volume -= step;
@@ -321,7 +321,7 @@ export default {
         //       event.preventDefault();
 
         //       timer = setTimeout(function() {
-        //         utils.removeClass(meplayerContainer, 'uplayer-adjusting-volume');
+        //         utils.removeClass(meplayerContainer, 'mplayer-adjusting-volume');
         //       }, 1000);
         //     };
         //     return _handleMouseWheel;
@@ -332,7 +332,7 @@ export default {
         spectrum.stop()
         // meplayerContainer.removeEventListener('mousewheel', _handleMouseWheel);
       }
-      // utils.toggleClass(meplayerContainer, 'uplayer-isplaying');
+      // utils.toggleClass(meplayerContainer, 'mplayer-isplaying');
       this.playing = !audio.paused
     },
     handleMouseWheel() {
@@ -342,8 +342,8 @@ export default {
         if (timer) {
           clearTimeout(timer)
         }
-        if (!meplayerContainer.className.includes('uplayer-adjusting-volume')) {
-          utils.addClass(meplayerContainer, 'uplayer-adjusting-volume')
+        if (!meplayerContainer.className.includes('mplayer-adjusting-volume')) {
+          utils.addClass(meplayerContainer, 'mplayer-adjusting-volume')
         }
         if (event.wheelDeltaY < 0 && audio.volume > step) {
           audio.volume -= step
@@ -359,7 +359,7 @@ export default {
         event.preventDefault()
 
         timer = setTimeout(function() {
-          utils.removeClass(meplayerContainer, 'uplayer-adjusting-volume')
+          utils.removeClass(meplayerContainer, 'mplayer-adjusting-volume')
         }, 1000)
       }
       return _handleMouseWheel
@@ -388,7 +388,7 @@ export default {
       let count = 0
       const maxCount = 200
 
-      utils.addClass(meplayerContainer, 'uplayer-changing-theme')
+      utils.addClass(meplayerContainer, 'mplayer-changing-theme')
 
       theme = theme === THEME_DEFAULT ? THEME_MINI : THEME_DEFAULT
 
@@ -400,14 +400,14 @@ export default {
         if (meplayerContainer.style.opacity <= 0) {
           step *= -1
           meplayerContainer.style.opacity = 0
-          utils.toggleClass(meplayerContainer, 'uplayer-container-mini')
-          utils.toggleClass(meplayerContainer, 'uplayer-container')
+          utils.toggleClass(meplayerContainer, 'mplayer-container-mini')
+          utils.toggleClass(meplayerContainer, 'mplayer-container')
         }
         if (meplayerContainer.style.opacity < 1 && count < maxCount) {
           requestAnimationFrame(loop)
         } else {
           setTimeout(function() {
-            utils.removeClass(meplayerContainer, 'uplayer-changing-theme')
+            utils.removeClass(meplayerContainer, 'mplayer-changing-theme')
           }, 500)
         }
       }
@@ -422,14 +422,15 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .player-container {
   position: fixed;
   right: 30px;
+  z-index: 2;
   width: 360px;
 }
 
-.uplayer-container {
+.mplayer-container {
   position: relative;
   box-sizing: border-box;
   width: 100%;
@@ -440,87 +441,80 @@ export default {
   box-shadow: 0 0 20px rgba(59, 59, 177, .18);
 }
 
-.uplayer-info {
+.mplayer-info {
   position: relative;
   left: 0;
   font-weight: 300;
   opacity: 1;
 }
 
-.uplayer-info-cover {
+.mplayer-info-cover {
   position: absolute;
   top: 0;
   left: 0;
   height: 90px;
   padding-right: 20px;
   overflow: hidden;
-  -webkit-transition: all .6s cubic-bezier(0, .36, .51, 1.39);
   transition: all .6s cubic-bezier(0, .36, .51, 1.39);
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-info-cover {
+.mplayer-container.mplayer-isplaying .mplayer-info-cover {
   left: -90px;
   opacity: 0;
 }
 
-.uplayer-info-cover img {
+.mplayer-info-cover img {
   width: 90px;
   height: 100%;
   border: 6px solid #ffffff;
   box-shadow: 0 0 20px rgba(59, 59, 177, .35);
 }
 
-.uplayer-meta {
+.mplayer-meta {
   float: left;
   margin-left: 110px;
-  -webkit-transition: all .6s cubic-bezier(0, .36, .51, 1.39);
   transition: all .6s cubic-bezier(0, .36, .51, 1.39);
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-meta {
+.mplayer-container.mplayer-isplaying .mplayer-meta {
   margin-left: 10px;
-  -webkit-transform: scale(.85, .85);
   transform: scale(.85, .85);
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-meta .uplayer-meta-title {
+.mplayer-container.mplayer-isplaying .mplayer-meta .mplayer-meta-title {
   margin-top: 4px;
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-meta .uplayer-meta-time-tick {
-  -webkit-transform: translateY(0);
+.mplayer-container.mplayer-isplaying .mplayer-meta .mplayer-meta-time-tick {
   transform: translateY(0);
   opacity: 1;
-  -webkit-transition: all .6s cubic-bezier(0, .36, .51, 1.39) .65s;
   transition: all .6s cubic-bezier(0, .36, .51, 1.39) .65s;
 }
 
-.uplayer-meta .uplayer-meta-time-tick {
+.mplayer-meta .mplayer-meta-time-tick {
   margin-top: 30px;
   color: rgba(0, 0, 0, .6);
   font-size: 13px;
   letter-spacing: 1px;
-  -webkit-transform: translateY(10px);
   transform: translateY(10px);
   opacity: 0;
 }
 
-.uplayer-meta-title {
+.mplayer-meta-title {
   margin-top: 27px;
   margin-bottom: 2px;
   color: #6a6b6f;
   font-size: 14px;
   letter-spacing: 1px;
-  -webkit-transition: all .6s cubic-bezier(0, .36, .51, 1.39);
   transition: all .6s cubic-bezier(0, .36, .51, 1.39);
 }
 
-.uplayer-meta-author {
+.mplayer-meta-author {
   color: #ceced6;
   font-size: 12px;
 }
 
-.uplayer-spectrum {
+.mplayer-spectrum {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -529,25 +523,22 @@ export default {
   height: 30px;
   margin-top: -15px;
   margin-left: -120px;
-  -webkit-transform: translateX(110px);
   transform: translateX(110px);
   opacity: 0;
-  -webkit-transition: all .7s cubic-bezier(.17, .67, .45, 1.26) .1s;
   transition: all .7s cubic-bezier(.17, .67, .45, 1.26) .1s;
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-spectrum {
+.mplayer-container.mplayer-isplaying .mplayer-spectrum {
   width: 220px;
-  -webkit-transform: translateX(0);
   transform: translateX(0);
   opacity: 1;
 }
 
-.uplayer-container.uplayer-haslrc .uplayer-spectrum {
+.mplayer-container.mplayer-haslrc .mplayer-spectrum {
   display: none;
 }
 
-.uplayer-lyric {
+.mplayer-lyric {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -557,108 +548,100 @@ export default {
   margin-top: -45px;
   margin-left: -120px;
   overflow: hidden;
-  -webkit-transform: translateY(15px);
   transform: translateY(15px);
   opacity: 0;
-  -webkit-transition: all 1s;
   transition: all 1s;
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-lyric {
+.mplayer-container.mplayer-isplaying .mplayer-lyric {
   z-index: 0;
-  -webkit-transform: translateY(0);
   transform: translateY(0);
   opacity: 1;
 }
 
-.uplayer-lyric-area {
+.mplayer-lyric-area {
   margin-top: 35px;
   color: rgba(0, 0, 0, .7);
   font-size: 12px;
   text-align: center;
   opacity: 0;
-  -webkit-transition: -webkit-transform .7s;
   transition: transform .7s;
 }
 
-.uplayer-lyric-area p {
+.mplayer-lyric-area p {
   width: 100%;
   margin: 0;
   padding: 0;
   line-height: 0;
   opacity: 0;
-  -webkit-transition: all .6s;
   transition: all .6s;
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-lyric-area p {
+.mplayer-container.mplayer-isplaying .mplayer-lyric-area p {
   line-height: 20px;
 }
 
-.uplayer-haslrc .uplayer-lyric-area {
+.mplayer-haslrc .mplayer-lyric-area {
   display: block;
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-lyric-area {
+.mplayer-container.mplayer-isplaying .mplayer-lyric-area {
   opacity: 1;
 }
 
-.uplayer-lyric-area .uplayer-lyric-current {
+.mplayer-lyric-area .mplayer-lyric-current {
   font-size: 1.1em;
   opacity: 1;
 }
 
-.uplayer-lyric-area .uplayer-lyric-pre,
-.uplayer-lyric-area .uplayer-lyric-next {
+.mplayer-lyric-area .mplayer-lyric-pre,
+.mplayer-lyric-area .mplayer-lyric-next {
   opacity: .35;
 }
 
-.uplayer-control {
+.mplayer-control {
   position: relative;
   float: right;
   margin-right: 40px;
 }
 
-.uplayer-volume-bg {
+.mplayer-volume-bg {
   position: absolute;
   z-index: -1;
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, .8);
   opacity: 0;
-  -webkit-transition: all .8s;
   transition: all .8s;
 }
 
-.uplayer-container.uplayer-adjusting-volume .uplayer-volume-bg {
+.mplayer-container.mplayer-adjusting-volume .mplayer-volume-bg {
   z-index: 20;
 }
 
-.uplayer-volume {
+.mplayer-volume {
   width: 60px;
   margin: 13px auto 0;
   color: rgba(150, 150, 150, .75);
   font-size: 50px;
   text-align: center;
-  -webkit-transition: all .9s;
   transition: all .9s;
 }
 
-.uplayer-container.uplayer-adjusting-volume .uplayer-volume-bg {
+.mplayer-container.mplayer-adjusting-volume .mplayer-volume-bg {
   opacity: 1;
 }
 
-.uplayer-volume-progress {
+.mplayer-volume-progress {
   height: 4px;
   background: rgba(150, 150, 150, .75);
   border-radius: 1px;
   /*margin-top: -1px;*/
 
-  -webkit-transition: width .2s;
   transition: width .2s;
 }
 
-.uplayer-control-play {
+.mplayer-control-play {
   position: absolute;
   top: -25px;
   right: 0;
@@ -670,137 +653,121 @@ export default {
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(59, 59, 177, .22);
   cursor: pointer;
-  -webkit-transition: top .6s cubic-bezier(0, .74, .61, 1.35);
   transition: top .6s cubic-bezier(0, .74, .61, 1.35);
 }
 
-.uplayer-control-play:hover {
-  -webkit-animation: breath 2s infinite alternate;
+.mplayer-control-play:hover {
   animation: breath 2s infinite alternate;
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-control-play {
+.mplayer-container.mplayer-isplaying .mplayer-control-play {
   top: 20px;
-  -webkit-animation: breath 2s infinite alternate;
   animation: breath 2s infinite alternate;
 }
 
-.uplayer-control-play i {
+.mplayer-control-play i {
   position: absolute;
   left: 50%;
   margin-left: -7px;
   line-height: 50px;
-  -webkit-transition: all .5s;
   transition: all .5s;
 }
 
-.uplayer-control-play .icon-music-play {
-  -webkit-transform: translateX(2px);
+.mplayer-control-play .icon-music-play {
   transform: translateX(2px);
   opacity: 1;
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-control-play .icon-music-play {
-  -webkit-transform: translateX(8px);
+.mplayer-container.mplayer-isplaying .mplayer-control-play .icon-music-play {
   transform: translateX(8px);
   opacity: 0;
 }
 
-.uplayer-control-play .icon-music-pause {
-  -webkit-transform: translateX(-8px);
+.mplayer-control-play .icon-music-pause {
   transform: translateX(-8px);
   opacity: 0;
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-control-play .icon-music-pause {
-  -webkit-transform: translateX(-1px);
+.mplayer-container.mplayer-isplaying .mplayer-control-play .icon-music-pause {
   transform: translateX(-1px);
   opacity: 1;
 }
 
-.uplayer-duration,
-.uplayer-loadingsign {
+.mplayer-duration,
+.mplayer-loadingsign {
   position: absolute;
   right: 40px;
   bottom: 24px;
   color: rgba(0, 0, 0, .6);
   font-size: 12px;
   letter-spacing: 1px;
-  -webkit-transition: all .6s cubic-bezier(0, .74, .61, 1.35);
   transition: all .6s cubic-bezier(0, .74, .61, 1.35);
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-duration,
-.uplayer-container.uplayer-isplaying .uplayer-loadingsign {
+.mplayer-container.mplayer-isplaying .mplayer-duration,
+.mplayer-container.mplayer-isplaying .mplayer-loadingsign {
   bottom: 5px;
   z-index: -1;
-  -webkit-transform: scale(.5, .5);
   transform: scale(.5, .5);
   opacity: 0;
 }
 
-.uplayer-container.uplayer-isloading .uplayer-duration {
+.mplayer-container.mplayer-isloading .mplayer-duration {
   opacity: 0;
 }
 
-.uplayer-loadingsign {
+.mplayer-loadingsign {
   opacity: 0;
 }
 
-.uplayer-container.uplayer-isloading .uplayer-loadingsign {
+.mplayer-container.mplayer-isloading .mplayer-loadingsign {
   opacity: 1;
 }
 
-.uplayer-duration i,
-.uplayer-loadingsign i {
+.mplayer-duration i,
+.mplayer-loadingsign i {
   margin-right: 3px;
   color: rgba(217, 66, 64, .5);
-  -webkit-transform: scale(.9, .9);
   transform: scale(.9, .9);
-  -webkit-transition: all .7s;
   transition: all .7s;
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-duration i {
-  -webkit-transform: rotateZ(360deg);
+.mplayer-container.mplayer-isplaying .mplayer-duration i {
   transform: rotateZ(360deg);
 }
 
-.uplayer-timeline-bg {
+.mplayer-timeline-bg {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 8px;
 }
 
-.uplayer-timeline {
+.mplayer-timeline {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 2px;
   overflow: hidden;
   background: rgba(231, 231, 239, .8);
-  -webkit-transform: translateY(2px);
   transform: translateY(2px);
   opacity: 0;
-  -webkit-transition: all .5s;
   transition: all .5s;
 }
 
-.uplayer-container.uplayer-isplaying .uplayer-timeline {
-  -webkit-transform: translateY(0);
+.mplayer-container.mplayer-isplaying .mplayer-timeline {
   transform: translateY(0);
   cursor: pointer;
   opacity: 1;
 }
 
-.uplayer-container.uplayer-isplaying
-.uplayer-timeline-bg:hover
-.uplayer-timeline {
+.mplayer-container.mplayer-isplaying
+.mplayer-timeline-bg:hover
+.mplayer-timeline {
   height: 8px;
 }
 
-.uplayer-timeline .uplayer-timeline-passed {
+.mplayer-timeline .mplayer-timeline-passed {
   position: absolute;
   bottom: 0;
   width: 0;
@@ -808,18 +775,8 @@ export default {
   background: #d94240;
 }
 
-.uplayer-container.uplayer-changing-theme .uplayer-volume-bg {
+.mplayer-container.mplayer-changing-theme .mplayer-volume-bg {
   display: none;
-}
-
-@-webkit-keyframes breath {
-  0% {
-    box-shadow: 0 0 35px rgba(59, 59, 177, .22);
-  }
-
-  100% {
-    box-shadow: 0 0 10px rgba(59, 59, 177, .33);
-  }
 }
 
 @keyframes breath {
