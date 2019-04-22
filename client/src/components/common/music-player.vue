@@ -58,9 +58,8 @@
       </div>
       <div class="mplayer-control">
         <div
-          ref="playBtn"
           class="mplayer-control-play"
-          @click="handlePlayClick"
+          @click="handlePlayToggle"
         >
           <i class="icon-music-play" />
           <i class="icon-music-pause" />
@@ -78,10 +77,7 @@
           />
         </div>
       </div>
-      <div
-        ref="duration"
-        class="mplayer-duration"
-      >
+      <div class="mplayer-duration">
         <i class="icon-music-clock" />
         <span class="mplayer-duration-text">
           {{ durationText }}
@@ -112,16 +108,6 @@ import spectrum from '~/utils/spectrum.js'
 
 const THEME_DEFAULT = 'default'
 const THEME_MINI = 'mini'
-const LYRIC_CURRENT_CLASS = 'mplayer-lyric-current'
-const LYRIC_NEXT_CLASS = 'mplayer-lyric-next'
-
-function parseSec(sec) {
-  const tempMin = (sec / 60) | 0
-  const tempSec = sec % 60 | 0
-  const curMin = tempMin < 10 ? '0' + tempMin : tempMin
-  const curSec = tempSec < 10 ? '0' + tempSec : tempSec
-  return curMin + ':' + curSec
-}
 
 function getAbsLeft(el) {
   let left = el.offsetLeft
@@ -257,20 +243,25 @@ export default {
     handleCanPlayThrough(e) {
       const duration = e.target.duration
       this.loading = false
-      this.durationText = parseSec(duration.toFixed(0))
+      this.durationText = this.parseSec(duration.toFixed(0))
+      if (this.autoplay && !this.playing) {
+        this.handlePlayToggle();
+      }
     },
     handleDurationChange(e) {
       this.duration = e.target.duration
     },
     handleTimeUpdate() {
       const audio = this.$refs.audio
-      this.currentTime = audio.currentTime
-      const curTimeForLrc = audio.currentTime.toFixed(3)
-      if (this.hasLrc && this.theme === THEME_DEFAULT) {
-        this.currentLrcIndex = this.currentIndex(curTimeForLrc)
+      if (audio) {
+        this.currentTime = audio.currentTime
+        const curTimeForLrc = audio.currentTime.toFixed(3)
+        if (this.hasLrc && this.theme === THEME_DEFAULT) {
+          this.currentLrcIndex = this.currentIndex(curTimeForLrc)
+        }
       }
     },
-    handlePlayClick() {
+    handlePlayToggle() {
       const audio = this.$refs.audio
 
       if (audio.paused) {
@@ -318,7 +309,6 @@ export default {
         spectrum.stop()
         // meplayerContainer.removeEventListener('mousewheel', _handleMouseWheel);
       }
-      // utils.toggleClass(meplayerContainer, 'mplayer-isplaying');
       this.playing = !audio.paused
     },
     handleMouseWheel() {
@@ -351,23 +341,9 @@ export default {
       return _handleMouseWheel
     },
     handleTimeLineClick(e) {
-      const target = e.target
-      const clickPercent = (e.pageX - getAbsLeft(target)) / target.offsetWidth
-      // this.$refs.timePassed.style.width = clickPercent * 100 + '%'
+      const clickPercent = e.offsetX / e.currentTarget.offsetWidth
       this.currentTime = (clickPercent * this.duration).toFixed(0)
       this.$refs.audio.currentTime = this.currentTime
-    },
-    play() {
-      if (audio.paused) {
-        this.playing = true
-        audio.play()
-      }
-    },
-    pause() {
-      if (!audio.paused) {
-        this.playing = false
-        audio.pause()
-      }
     },
     toggleTheme() {
       let step = 0.03
