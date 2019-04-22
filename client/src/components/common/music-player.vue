@@ -422,7 +422,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .player-container {
   position: fixed;
   right: 30px;
@@ -439,6 +439,112 @@ export default {
     "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
   background: #ffffff;
   box-shadow: 0 0 20px rgba(59, 59, 177, .18);
+
+  &.mplayer-isplaying {
+    .mplayer-info-cover {
+      left: -90px;
+      opacity: 0;
+    }
+
+    .mplayer-meta {
+      margin-left: 10px;
+      transform: scale(.85, .85);
+
+      .mplayer-meta-title {
+        margin-top: 4px;
+      }
+
+      .mplayer-meta-time-tick {
+        transform: translateY(0);
+        opacity: 1;
+        transition: all .6s cubic-bezier(0, .36, .51, 1.39) .65s;
+      }
+    }
+
+    .mplayer-spectrum {
+      width: 220px;
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .mplayer-lyric {
+      z-index: 0;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .mplayer-lyric-area {
+      opacity: 1;
+
+      p {
+        line-height: 20px;
+      }
+    }
+
+    .mplayer-control-play {
+      top: 20px;
+      animation: breath 2s infinite alternate;
+
+      .icon-music-play {
+        transform: translateX(8px);
+        opacity: 0;
+      }
+
+      .icon-music-pause {
+        transform: translateX(-1px);
+        opacity: 1;
+      }
+    }
+
+    .mplayer-duration {
+      i {
+        transform: rotateZ(360deg);
+      }
+    }
+
+    .mplayer-timeline {
+      transform: translateY(0);
+      cursor: pointer;
+      opacity: 1;
+    }
+
+    .mplayer-timeline-bg {
+      &:hover {
+        .mplayer-timeline {
+          height: 8px;
+        }
+      }
+    }
+  }
+
+  &.mplayer-haslrc {
+    .mplayer-spectrum {
+      display: none;
+    }
+  }
+
+  &.mplayer-adjusting-volume {
+    .mplayer-volume-bg {
+      z-index: 20;
+      opacity: 1;
+    }
+  }
+
+  &.mplayer-isloading {
+    .mplayer-duration {
+      opacity: 0;
+    }
+
+    .mplayer-loadingsign {
+      opacity: 1;
+    }
+  }
+
+  &.mplayer-changing-theme {
+    .mplayer-volume-bg {
+      display: none;
+    }
+  }
 }
 
 .mplayer-info {
@@ -456,48 +562,28 @@ export default {
   padding-right: 20px;
   overflow: hidden;
   transition: all .6s cubic-bezier(0, .36, .51, 1.39);
-}
 
-.mplayer-container.mplayer-isplaying .mplayer-info-cover {
-  left: -90px;
-  opacity: 0;
-}
-
-.mplayer-info-cover img {
-  width: 90px;
-  height: 100%;
-  border: 6px solid #ffffff;
-  box-shadow: 0 0 20px rgba(59, 59, 177, .35);
+  img {
+    width: 90px;
+    height: 100%;
+    border: 6px solid #ffffff;
+    box-shadow: 0 0 20px rgba(59, 59, 177, .35);
+  }
 }
 
 .mplayer-meta {
   float: left;
   margin-left: 110px;
   transition: all .6s cubic-bezier(0, .36, .51, 1.39);
-}
 
-.mplayer-container.mplayer-isplaying .mplayer-meta {
-  margin-left: 10px;
-  transform: scale(.85, .85);
-}
-
-.mplayer-container.mplayer-isplaying .mplayer-meta .mplayer-meta-title {
-  margin-top: 4px;
-}
-
-.mplayer-container.mplayer-isplaying .mplayer-meta .mplayer-meta-time-tick {
-  transform: translateY(0);
-  opacity: 1;
-  transition: all .6s cubic-bezier(0, .36, .51, 1.39) .65s;
-}
-
-.mplayer-meta .mplayer-meta-time-tick {
-  margin-top: 30px;
-  color: rgba(0, 0, 0, .6);
-  font-size: 13px;
-  letter-spacing: 1px;
-  transform: translateY(10px);
-  opacity: 0;
+  .mplayer-meta-time-tick {
+    margin-top: 30px;
+    color: rgba(0, 0, 0, .6);
+    font-size: 13px;
+    letter-spacing: 1px;
+    transform: translateY(10px);
+    opacity: 0;
+  }
 }
 
 .mplayer-meta-title {
@@ -528,16 +614,6 @@ export default {
   transition: all .7s cubic-bezier(.17, .67, .45, 1.26) .1s;
 }
 
-.mplayer-container.mplayer-isplaying .mplayer-spectrum {
-  width: 220px;
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.mplayer-container.mplayer-haslrc .mplayer-spectrum {
-  display: none;
-}
-
 .mplayer-lyric {
   position: absolute;
   top: 50%;
@@ -553,12 +629,6 @@ export default {
   transition: all 1s;
 }
 
-.mplayer-container.mplayer-isplaying .mplayer-lyric {
-  z-index: 0;
-  transform: translateY(0);
-  opacity: 1;
-}
-
 .mplayer-lyric-area {
   margin-top: 35px;
   color: rgba(0, 0, 0, .7);
@@ -566,32 +636,26 @@ export default {
   text-align: center;
   opacity: 0;
   transition: transform .7s;
+
+  p {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    opacity: 0;
+    transition: all .6s;
+  }
+
+  .mplayer-lyric-current {
+    font-size: 1.1em;
+    opacity: 1;
+  }
 }
 
-.mplayer-lyric-area p {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  line-height: 0;
-  opacity: 0;
-  transition: all .6s;
-}
-
-.mplayer-container.mplayer-isplaying .mplayer-lyric-area p {
-  line-height: 20px;
-}
-
-.mplayer-haslrc .mplayer-lyric-area {
-  display: block;
-}
-
-.mplayer-container.mplayer-isplaying .mplayer-lyric-area {
-  opacity: 1;
-}
-
-.mplayer-lyric-area .mplayer-lyric-current {
-  font-size: 1.1em;
-  opacity: 1;
+.mplayer-haslrc {
+  .mplayer-lyric-area {
+    display: block;
+  }
 }
 
 .mplayer-lyric-area .mplayer-lyric-pre,
@@ -615,10 +679,6 @@ export default {
   transition: all .8s;
 }
 
-.mplayer-container.mplayer-adjusting-volume .mplayer-volume-bg {
-  z-index: 20;
-}
-
 .mplayer-volume {
   width: 60px;
   margin: 13px auto 0;
@@ -628,16 +688,10 @@ export default {
   transition: all .9s;
 }
 
-.mplayer-container.mplayer-adjusting-volume .mplayer-volume-bg {
-  opacity: 1;
-}
-
 .mplayer-volume-progress {
   height: 4px;
   background: rgba(150, 150, 150, .75);
   border-radius: 1px;
-  /*margin-top: -1px;*/
-
   transition: width .2s;
 }
 
@@ -654,43 +708,28 @@ export default {
   box-shadow: 0 0 10px rgba(59, 59, 177, .22);
   cursor: pointer;
   transition: top .6s cubic-bezier(0, .74, .61, 1.35);
-}
 
-.mplayer-control-play:hover {
-  animation: breath 2s infinite alternate;
-}
+  &:hover {
+    animation: breath 2s infinite alternate;
+  }
 
-.mplayer-container.mplayer-isplaying .mplayer-control-play {
-  top: 20px;
-  animation: breath 2s infinite alternate;
-}
+  i {
+    position: absolute;
+    left: 50%;
+    margin-left: -7px;
+    line-height: 50px;
+    transition: all .5s;
+  }
 
-.mplayer-control-play i {
-  position: absolute;
-  left: 50%;
-  margin-left: -7px;
-  line-height: 50px;
-  transition: all .5s;
-}
+  .icon-music-play {
+    transform: translateX(2px);
+    opacity: 1;
+  }
 
-.mplayer-control-play .icon-music-play {
-  transform: translateX(2px);
-  opacity: 1;
-}
-
-.mplayer-container.mplayer-isplaying .mplayer-control-play .icon-music-play {
-  transform: translateX(8px);
-  opacity: 0;
-}
-
-.mplayer-control-play .icon-music-pause {
-  transform: translateX(-8px);
-  opacity: 0;
-}
-
-.mplayer-container.mplayer-isplaying .mplayer-control-play .icon-music-pause {
-  transform: translateX(-1px);
-  opacity: 1;
+  .icon-music-pause {
+    transform: translateX(-8px);
+    opacity: 0;
+  }
 }
 
 .mplayer-duration,
@@ -712,16 +751,8 @@ export default {
   opacity: 0;
 }
 
-.mplayer-container.mplayer-isloading .mplayer-duration {
-  opacity: 0;
-}
-
 .mplayer-loadingsign {
   opacity: 0;
-}
-
-.mplayer-container.mplayer-isloading .mplayer-loadingsign {
-  opacity: 1;
 }
 
 .mplayer-duration i,
@@ -730,10 +761,6 @@ export default {
   color: rgba(217, 66, 64, .5);
   transform: scale(.9, .9);
   transition: all .7s;
-}
-
-.mplayer-container.mplayer-isplaying .mplayer-duration i {
-  transform: rotateZ(360deg);
 }
 
 .mplayer-timeline-bg {
@@ -753,30 +780,14 @@ export default {
   transform: translateY(2px);
   opacity: 0;
   transition: all .5s;
-}
 
-.mplayer-container.mplayer-isplaying .mplayer-timeline {
-  transform: translateY(0);
-  cursor: pointer;
-  opacity: 1;
-}
-
-.mplayer-container.mplayer-isplaying
-.mplayer-timeline-bg:hover
-.mplayer-timeline {
-  height: 8px;
-}
-
-.mplayer-timeline .mplayer-timeline-passed {
-  position: absolute;
-  bottom: 0;
-  width: 0;
-  height: 100%;
-  background: #d94240;
-}
-
-.mplayer-container.mplayer-changing-theme .mplayer-volume-bg {
-  display: none;
+  .mplayer-timeline-passed {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 100%;
+    background: #d94240;
+  }
 }
 
 @keyframes breath {
@@ -802,7 +813,6 @@ export default {
 
 [class^="icon-music-"]:before,
 [class*=" icon-music"]:before {
-
   display: inline-block;
   font-weight: normal;
   font-family: "fontello";
