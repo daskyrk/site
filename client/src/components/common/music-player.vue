@@ -28,10 +28,9 @@
             {{ music.author }}
           </div>
           <div class="mplayer-meta-time-tick">
-            <span
-              ref="timeTick"
-              class="mplayer-meta-time-tick-text"
-            />
+            <span class="mplayer-meta-time-tick-text">
+              {{ curTime }}
+            </span>
           </div>
         </div>
       </div>
@@ -39,11 +38,23 @@
         ref="canvas"
         class="mplayer-spectrum"
       />
-      <div
-        ref="lyricArea"
-        class="mplayer-lyric"
-      >
-        <div class="mplayer-lyric-area" />
+      <div class="mplayer-lyric">
+        <div
+          class="mplayer-lyric-area"
+          :style="{transform: `translateY(${-20 * currentLrcIndex}px)`}"
+        >
+          <p
+            v-for="(lyric, i) in lyrics"
+            :key="i"
+            :class="{
+              'mplayer-lyric-pre': currentLrcIndex === i -1,
+              'mplayer-lyric-current': currentLrcIndex === i,
+              'mplayer-lyric-next': currentLrcIndex === i+1,
+            }"
+          >
+            {{ lyric.text }}
+          </p>
+        </div>
       </div>
       <div class="mplayer-control">
         <div
@@ -88,6 +99,7 @@
           <div
             ref="timePassed"
             class="mplayer-timeline-passed"
+            :style="{width: playPercent}"
           />
         </div>
       </div>
@@ -96,9 +108,7 @@
 </template>
 
 <script>
-// import test from 'meplayer';
 import spectrum from '~/utils/spectrum.js'
-// import 'meplayer/dist/meplayer.min.css';
 
 const THEME_DEFAULT = 'default'
 const THEME_MINI = 'mini'
@@ -122,59 +132,6 @@ function getAbsLeft(el) {
   return left
 }
 
-function currentIndex(time) {
-  if (time < lyrics[0].time) return 0
-  for (let i = 0, l = lyrics.length; i < l; i++) {
-    if (
-      time >= lyrics[i].time &&
-      (!lyrics[i + 1] || time <= lyrics[i + 1].time)
-    ) {
-      break
-    }
-  }
-  return i
-}
-
-var lyrics
-
-// 歌词解析脚本
-// 修改自：https://github.com/DIYgod/APlayer
-function parse(text) {
-  var lyric = text.split('\n')
-  var lrc = []
-  var len = lyric.length
-  var reg1 = /\[(\d{2}):(\d{2})\.(\d{2,3})]/g
-  var reg2 = /\[(\d{2}):(\d{2})\.(\d{2,3})]/
-  for (var i = 0; i < len; i++) {
-    var time = lyric[i].match(reg1)
-    var lrcText = lyric[i].replace(reg1, '').replace(/^\s+|\s+$/g, '')
-    // 排除空行
-    if (!lrcText) {
-      continue
-    }
-    if (time != null) {
-      var timeLen = time.length
-      for (var j = 0; j < timeLen; j++) {
-        var oneTime = reg2.exec(time[j])
-        var lrcTime =
-          oneTime[1] * 60 +
-          parseInt(oneTime[2]) +
-          parseInt(oneTime[3]) / ((oneTime[3] + '').length === 2 ? 100 : 1000)
-        lrc.push({
-          time: lrcTime,
-          text: lrcText,
-        })
-      }
-    }
-  }
-  lrc.sort(function(a, b) {
-    return a.time - b.time
-  })
-
-  lyrics = lrc
-  return this
-}
-
 export default {
   props: {
     music: {
@@ -195,10 +152,11 @@ export default {
     return {
       loading: true,
       loop: false,
-      hasLrc: false,
       playing: false,
       durationText: 'loading',
       duration: 0,
+      currentLrcIndex: 0,
+      currentTime: 0,
     }
   },
 
@@ -212,7 +170,17 @@ export default {
       }
     },
     lyrics() {
-      return this.music.lrc ? parse(this.music.lrc) : []
+      return this.music.lrc ? this.parseLyric(this.music.lrc) : []
+    },
+    hasLrc() {
+      return !!this.music.lrc
+    },
+    curTime() {
+      return this.parseSec(this.currentTime)
+    },
+    playPercent() {
+      const percent = 100 * (this.currentTime / this.duration)
+      return percent.toFixed(2) + '%'
     },
   },
 
@@ -221,6 +189,64 @@ export default {
   },
 
   methods: {
+    // 歌词解析脚本
+    // 修改自：https://github.com/DIYgod/APlayer
+    parseLyric(text) {
+      var lyric = text.split('\n')
+      var lrc = []
+      var len = lyric.length
+      var reg1 = /\[(\d{2}):(\d{2})\.(\d{2,3})]/g
+      var reg2 = /\[(\d{2}):(\d{2})\.(\d{2,3})]/
+      for (var i = 0; i < len; i++) {
+        var time = lyric[i].match(reg1)
+        var lrcText = lyric[i].replace(reg1, '').replace(/^\s+|\s+$/g, '')
+        // 排除空行
+        if (!lrcText) {
+          continue
+        }
+        if (time != null) {
+          var timeLen = time.length
+          for (var j = 0; j < timeLen; j++) {
+            var oneTime = reg2.exec(time[j])
+            var lrcTime =
+              oneTime[1] * 60 +
+              parseInt(oneTime[2]) +
+              parseInt(oneTime[3]) /
+                ((oneTime[3] + '').length === 2 ? 100 : 1000)
+            lrc.push({
+              time: lrcTime,
+              text: lrcText,
+            })
+          }
+        }
+      }
+      lrc.sort(function(a, b) {
+        return a.time - b.time
+      })
+      return lrc
+    },
+    parseSec(sec) {
+      const tempMin = (sec / 60) | 0
+      const tempSec = sec % 60 | 0
+      const curMin = tempMin < 10 ? '0' + tempMin : tempMin
+      const curSec = tempSec < 10 ? '0' + tempSec : tempSec
+      return curMin + ':' + curSec
+    },
+    currentIndex(time) {
+      const lyrics = this.lyrics
+      if (time < lyrics[0].time) return 0
+      let i = 0
+      const length = lyrics.length
+      for (i = 0; i < length; i++) {
+        if (
+          time >= lyrics[i].time &&
+          (!lyrics[i + 1] || time <= lyrics[i + 1].time)
+        ) {
+          break
+        }
+      }
+      return i
+    },
     handleAudioEnd() {
       if (this.loop) {
         this.$refs.audio.play()
@@ -238,50 +264,10 @@ export default {
     },
     handleTimeUpdate() {
       const audio = this.$refs.audio
-      const curTime = audio.currentTime
+      this.currentTime = audio.currentTime
       const curTimeForLrc = audio.currentTime.toFixed(3)
-      const playPercent = 100 * (curTime / this.duration)
-
-      this.$refs.timePassed.style.width = playPercent.toFixed(2) + '%'
-      this.$refs.timeTick.innerText = parseSec(curTime)
-
       if (this.hasLrc && this.theme === THEME_DEFAULT) {
-        const tempLrcIndex = currentIndex(curTimeForLrc)
-        const tempLrcLines = lyricArea.querySelectorAll('p')
-        const tempLrcLinePre = tempLrcLines[tempLrcIndex - 1]
-        const tempLrcLine = tempLrcLines[tempLrcIndex]
-        const tempLrcLineNext = tempLrcLines[tempLrcIndex + 1]
-
-        if (!tempLrcLine.className.includes('mplayer-lyric-current')) {
-          utils.removeClass(
-            lyricArea.querySelector('.mplayer-lyric-current'),
-            'mplayer-lyric-current',
-          )
-          if (lyricArea.querySelector('.mplayer-lyric-pre')) {
-            utils.removeClass(
-              lyricArea.querySelector('.mplayer-lyric-pre'),
-              'mplayer-lyric-pre',
-            )
-          }
-          if (lyricArea.querySelector('.mplayer-lyric-next')) {
-            utils.removeClass(
-              lyricArea.querySelector('.mplayer-lyric-next'),
-              'mplayer-lyric-next',
-            )
-          }
-          utils.addClass(tempLrcLine, 'mplayer-lyric-current')
-          if (tempLrcLinePre) {
-            utils.addClass(tempLrcLinePre, 'mplayer-lyric-pre')
-          }
-          if (tempLrcLineNext) {
-            utils.addClass(tempLrcLineNext, 'mplayer-lyric-next')
-          }
-        }
-
-        this.$refs.lyricArea.style.webkitTransform =
-          'translateY(-' + 20 * tempLrcIndex + 'px)'
-        this.$refs.lyricArea.style.transform =
-          'translateY(-' + 20 * tempLrcIndex + 'px)'
+        this.currentLrcIndex = this.currentIndex(curTimeForLrc)
       }
     },
     handlePlayClick() {
@@ -367,9 +353,9 @@ export default {
     handleTimeLineClick(e) {
       const target = e.target
       const clickPercent = (e.pageX - getAbsLeft(target)) / target.offsetWidth
-      this.$refs.timePassed.style.width = clickPercent * 100 + '%'
-      console.log('to :', clickPercent * this.duration)
-      this.$refs.audio.currentTime = (clickPercent * this.duration).toFixed(0)
+      // this.$refs.timePassed.style.width = clickPercent * 100 + '%'
+      this.currentTime = (clickPercent * this.duration).toFixed(0)
+      this.$refs.audio.currentTime = this.currentTime
     },
     play() {
       if (audio.paused) {
@@ -413,11 +399,11 @@ export default {
       }
     },
 
-    search(kw) {
-      this.$store.dispatch('music/search', { q, count: 36 }).then(() => {
-        this.loading = false
-      })
-    },
+    // search(kw) {
+    //   this.$store.dispatch('music/search', { q, count: 36 }).then(() => {
+    //     this.loading = false
+    //   })
+    // },
   },
 }
 </script>
@@ -616,12 +602,11 @@ export default {
 
 .mplayer-lyric {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
   z-index: -2;
   width: 220px;
   height: 100%;
-  margin-top: -45px;
   margin-left: -120px;
   overflow: hidden;
   transform: translateY(15px);
