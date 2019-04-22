@@ -265,7 +265,7 @@ $desc-line-height: 26px;
 
 @include sm-width () {
   .post-item-container {
-    width: 80%;
+    width: 100%;
   }
 }
 

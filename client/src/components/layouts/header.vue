@@ -22,6 +22,13 @@
         </nuxt-link>
       </div>
       <div class="header-right">
+        <div class="header-music">
+          <music-player
+            v-bind="musicConf"
+            autoplay
+            loop
+          />
+        </div>
         <nav class="header-nav">
           <nuxt-link
             v-for="(nav, index) in navs"
@@ -85,7 +92,6 @@
             </nav>
           </div> -->
         </div>
-      <!-- <music-player v-bind="musicConf" /> -->
       </div>
     </div>
   </header>
@@ -98,7 +104,7 @@ import { mapState } from 'vuex'
 
 export default {
   components: {
-    // MusicPlayer,
+    MusicPlayer,
   },
 
   data() {
@@ -107,20 +113,6 @@ export default {
       navs: this.$getConfig('navs'),
       hide: false,
       searchVisible: false,
-      musicConf: {
-        // theme: '可选，不指定时为默认主题，值为"mini"时为迷你版主题',
-        music: {
-          src: 'http://sc1.111ttt.cn/2017/1/11/11/304112002347.mp3',
-          title: '晚风',
-          author: '好妹妹乐队',
-          cover:
-            'https://p3.music.126.net/Jkr2d7T0r51pVA9utSRiig==/109951163096071991.jpg?param=300y300',
-          lrc:
-            '[00:24.600]温柔的晚风\n[00:27.830]轻轻吹过 爱人的梦中\n[00:36.690]温柔的晚风\n[00:39.129]轻轻吹过 故乡的天空\n[00:47.690]温柔的晚风\n[00:50.749]轻轻吹过 城市的灯火\n[00:59.119]今夜的晚风\n[01:02.439]你去哪里 请告诉我\n[01:08.249]\n[01:10.879]温柔的晚风\n[01:14.590]轻轻吹过 爱人的梦中\n[01:22.179]温柔的晚风\n[01:25.549]轻轻吹过 故乡的天空\n[01:33.809]温柔的晚风\n[01:37.539]轻轻地吹过 城市的灯火\n[01:46.509]今夜的晚风\n[01:49.919]你要去哪里 请告诉我\n[01:56.419]\n[02:37.140]温柔的晚风\n[02:40.740]轻轻吹过 爱人的梦中\n[02:49.060]温柔的晚风\n[02:52.370]轻轻吹过 故乡的天空\n[03:00.680]温柔的晚风\n[03:03.860]轻轻吹过 城市的灯火\n[03:12.190]今夜的晚风\n[03:15.440]你要去哪里 请告诉我\n[03:21.370]\n[03:23.620]温柔的晚风\n[03:27.090]轻轻吹过 爱人的梦中\n[03:35.280]温柔的晚风\n[03:39.570]轻轻吹过 故乡的天空\n[03:47.620]温柔的晚风\n[03:50.880]轻轻地吹过 城市的灯火\n[03:59.180]今夜的晚风\n[04:02.680]你要去哪里 请告诉我\n[04:08.800]\n[04:33.830]温柔的晚风\n[04:37.350]请你带走 我昨天的梦\n[04:45.350]今夜的晚风\n[04:48.960]我要去哪里 请告诉我\n[04:59.690]\n',
-        },
-        // target: '.player-container',
-        autoplay: false, // 是否自动播放
-      },
     }
   },
 
@@ -129,6 +121,22 @@ export default {
       sideopen: state => state.layout.sideOpen,
       pressKey: state => state.layout.pressKey,
     }),
+    musicConf() {
+    const song = this.$store.state.music.songs[0] || {}
+    return {
+        // theme: '可选，不指定时为默认主题，值为"mini"时为迷你版主题',
+        music: {
+          // src: 'http://sc1.111ttt.cn/2017/1/11/11/304112002347.mp3',
+          src: song.url,
+          title: song.name,
+          author: song.artists.join(' '),
+          cover: song.album.picture,
+          lrc: song.lyric.base,
+        },
+        // target: '.player-container',
+        autoplay: false, // 是否自动播放
+      }
+    }
   },
 
   mounted() {
@@ -230,6 +238,13 @@ export default {
   .header-right {
     display: flex;
     height: 100%;
+  }
+
+  .header-music {
+    position: fixed;
+    top: 70px;
+    right: 320px;
+
   }
 
   $transition: color .2s, background-color .2s;

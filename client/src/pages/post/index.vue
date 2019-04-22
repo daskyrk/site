@@ -12,18 +12,37 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import MusicPlayer from '~/components/common/music-player'
+
 import PostCard from '~/components/post/post-card'
 import LoadMore from '~/components/common/load-more'
-import 'meplayer'
-import 'meplayer/dist/meplayer.min.css'
 
 export default {
   components: {
     PostCard,
     LoadMore,
+    // MusicPlayer,
   },
 
   layout: 'default-gray',
+
+  // data() {
+  //   const song = this.$store.state.music.songs[3]
+  //   return {
+  //     musicConf: {
+  //       // theme: '可选，不指定时为默认主题，值为"mini"时为迷你版主题',
+  //       music: {
+  //         src: song.url,
+  //         title: song.name,
+  //         author: song.artists.join(' '),
+  //         cover: song.album.picture,
+  //         lrc: song.lyric.base,
+  //       },
+  //       // target: '.player-container',
+  //       autoplay: false, // 是否自动播放
+  //     },
+  //   }
+  // },
 
   computed: {
     ...mapState('post', ['list', 'total', 'query']),
@@ -36,10 +55,10 @@ export default {
   async fetch({ store }) {
     await store.dispatch('post/getPostList')
     await store.dispatch('music/getSongs', [
-      1356486334,
-      28387594,
-      131726,
-      29713754,
+      483671599,
+      // 28387594,
+      // 131726,
+      // 29713754,
     ])
   },
 
@@ -47,21 +66,21 @@ export default {
     this.$store.commit('post/RESET_LIST')
   },
 
-  mounted() {
-    const song = this.songs[3]
-    mePlayer({
-      // theme: '可选，不指定时为默认主题，值为"mini"时为迷你版主题',
-      music: {
-        src: song.url,
-        title: song.name,
-        author: song.artists.join(' '),
-        cover: song.album.picture,
-        lrc: song.lyric.base,
-      },
-      target: '.music',
-      autoplay: false, // 是否自动播放
-    })
-  },
+  // mounted() {
+  //   const song = this.songs[3]
+  //   mePlayer({
+  //     // theme: '可选，不指定时为默认主题，值为"mini"时为迷你版主题',
+  //     music: {
+  //       src: song.url,
+  //       title: song.name,
+  //       author: song.artists.join(' '),
+  //       cover: song.album.picture,
+  //       lrc: song.lyric.base,
+  //     },
+  //     target: '.music',
+  //     autoplay: false, // 是否自动播放
+  //   })
+  // },
 
   methods: {
     loadMore() {
