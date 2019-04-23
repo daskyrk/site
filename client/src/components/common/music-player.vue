@@ -5,6 +5,7 @@
       @mousewheel.prevent="handleMouseWheel"
     >
       <audio
+        v-if="music.src"
         ref="audio"
         :src="music.src"
         preload="auto"
@@ -121,6 +122,10 @@ export default {
     loop: {
       type: Boolean,
       default: false,
+    },
+    onPlay: {
+      type: Function,
+      default: () => {}
     },
   },
 
@@ -255,7 +260,7 @@ export default {
       if (audio) {
         this.currentTime = audio.currentTime
         const curTimeForLrc = audio.currentTime.toFixed(3)
-        if (this.hasLrc && !this) {
+        if (this.hasLrc && !this.mini) {
           this.currentLrcIndex = this.currentIndex(curTimeForLrc)
         }
       }
@@ -273,6 +278,7 @@ export default {
         spectrum.stop()
       }
       this.playing = !audio.paused
+      this.onPlay(this.playing);
     },
     handleMouseWheel(e) {
       if (!this.playing) {
@@ -562,6 +568,7 @@ $right: 30px;
   }
 
   .mplayer-lyric-current {
+    color: #d94240;
     font-size: 1.1em;
     opacity: 1;
   }

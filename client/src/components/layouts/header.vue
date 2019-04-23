@@ -22,13 +22,6 @@
         </nuxt-link>
       </div>
       <div class="header-right">
-        <div class="header-music">
-          <music-player
-            v-bind="musicConf"
-            autoplay
-            loop
-          />
-        </div>
         <nav class="header-nav">
           <nuxt-link
             v-for="(nav, index) in navs"
@@ -39,22 +32,45 @@
             {{ nav.text }}
           </nuxt-link>
         </nav>
-        <i
-          :class="{hide: searchVisible}"
-          class="iconfont icon-search header-search-icon"
-          @click="showSearch"
-        />
-        <input
-          ref="searchInput"
-          v-model="keyword"
-          :class="{hide: !searchVisible}"
-          type="text"
-          class="header-search-input"
-          maxlength="10"
-          placeholder="想找点什么?"
-          @keyup.enter="search"
-          @blur="hideSearch"
+        <div
+          class="header-icon-wrap"
+          @click.self="musicVisible = !musicVisible"
         >
+          <i
+            class="iconfont icon-music"
+            :class="{playing: playingMusic}"
+          />
+          <div
+            v-show="musicVisible"
+            class="header-music"
+          >
+            <music-player
+              :music="music"
+              :on-play="onPlay"
+              autoplay
+              loop
+            />
+          </div>
+        </div>
+        <div
+          class="header-icon-wrap"
+          :class="{['search-visible']: searchVisible}"
+          @click="showSearch"
+        >
+          <i
+            class="iconfont icon-search header-search-icon"
+          />
+          <input
+            ref="searchInput"
+            v-model="keyword"
+            type="text"
+            class="header-search-input"
+            maxlength="10"
+            placeholder="想找点什么?"
+            @keyup.enter="search"
+            @blur="hideSearch"
+          >
+        </div>
         <div class="mobile-menu-container">
           <svg
             class="ham hamRotate"
@@ -112,6 +128,8 @@ export default {
       keyword: '',
       navs: this.$getConfig('navs'),
       hide: false,
+      musicVisible: false,
+      playingMusic: false,
       searchVisible: false,
     }
   },
@@ -121,20 +139,17 @@ export default {
       sideopen: state => state.layout.sideOpen,
       pressKey: state => state.layout.pressKey,
     }),
-    musicConf() {
-    const song = this.$store.state.music.songs[0] || {}
-    return {
-        // theme: '可选，不指定时为默认主题，值为"mini"时为迷你版主题',
-        music: {
-          // src: 'http://sc1.111ttt.cn/2017/1/11/11/304112002347.mp3',
-          src: song.url,
-          title: song.name,
-          author: song.artists.join(' '),
-          cover: song.album.picture,
-          lrc: song.lyric.base,
-        },
-        // target: '.player-container',
-        autoplay: false, // 是否自动播放
+    music() {
+      const song = this.$store.state.music.songs[0]
+      if (!song) {
+        return { }
+      }
+      return {
+        src: song.url,
+        title: song.name,
+        author: song.artists.join(' '),
+        cover: song.album.picture,
+        lrc: song.lyric.base,
       }
     }
   },
@@ -152,6 +167,12 @@ export default {
     window.addEventListener('scroll', this.onScroll, {
       passive: true,
     })
+    this.$store.dispatch('music/getSongs', [
+      483671599,
+      // 28387594,
+      // 131726,
+      // 29713754,
+    ])
   },
 
   beforeDestroy() {
@@ -183,6 +204,9 @@ export default {
     toggleAppSide() {
       this.$store.commit('layout/toggleAppSide', !this.sideopen);
     },
+    onPlay(playing) {
+      this.playingMusic = playing;
+    }
   },
 }
 </script>
@@ -243,8 +267,7 @@ export default {
   .header-music {
     position: fixed;
     top: 70px;
-    right: 320px;
-
+    right: 20%;
   }
 
   $transition: color .2s, background-color .2s;
@@ -267,39 +290,69 @@ export default {
     }
   }
 
-  .header-search-icon {
-    position: absolute;
-    right: 0;
+  .header-icon-wrap {
+    position: relative;
     z-index: 3;
-    width: 4rem;
+    min-width: 4rem;
+    overflow: hidden;
     text-align: center;
     cursor: pointer;
+    transition: $transition;
+
+    > i {
+      pointer-events: none;
+    }
+
 
     &:hover {
       color: $color-active-red;
       background-color: $c-ghostwhite;
-      transition: $transition;
     }
 
-    &.hide {
-      background-color: transparent;
-      pointer-events: none;
+    &.search-visible {
+      width: 200px;
+
+      .header-search-icon {
+        background-color: transparent;
+        transform: translateX(-1rem);
+      }
+
+      .header-search-input {
+        opacity: 1;
+        transition: opacity .5s;
+      }
     }
   }
 
+  .icon-music {
+    display: inline-block;
+    width: 18px;
+    font-size: 18px;
+
+    &.playing {
+      color: $color-active-red;
+      animation: playing 2s linear infinite;
+    }
+  }
+
+  .header-search-icon {
+    position: absolute;
+    left: 0;
+    z-index: 2;
+    display: inline-block;
+    width: 4rem;
+    transition: background-color .25s, transform .25s;
+  }
+
   .header-search-input {
-    width: 160px;
-    margin-left: 1rem;
+    position: absolute;
+    left: 0;
+    width: 200px;
+    padding-left: 2rem;
     color: $c-dimgray;
     border: none;
     outline: none;
-    transition: all .2s;
-
-    &.hide {
-      width: 0;
-      margin-left: 4rem;
-      opacity: 0;
-    }
+    opacity: 0;
   }
 
   .ham {
@@ -365,6 +418,12 @@ export default {
 
 }
 
+@include md-width () {
+  .header-music {
+    right: 10%;
+  }
+}
+
 @include sm-width () {
   .default-header {
     .header-nav {
@@ -380,7 +439,21 @@ export default {
       margin-right: 4rem;
       font-size: 18px;
     }
+
+    .header-music {
+      right: 6px;
+    }
+  }
+}
+
+
+@keyframes playing {
+  0% {
+    transform: rotate(0deg);
   }
 
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
