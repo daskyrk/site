@@ -1,4 +1,3 @@
-// import { encode } from 'querystring';
 import { Message } from 'element-ui'
 
 export default function ({ $axios, store, redirect, error }) {
