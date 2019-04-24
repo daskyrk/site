@@ -3,6 +3,7 @@ import * as webpack from 'webpack'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 import NuxtConfiguration from '@nuxt/config'
 import { appConfig } from './config'
+import parse from 'url-parse';
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
@@ -146,11 +147,19 @@ const config = {
     credentials: true,
   },
   proxy: {
-    // '/api/proxy/lylares': {
-    //   target: 'https://api.berryapi.net',
-    //   changeOrigin: true,
-    //   pathRewrite: { '^/api/proxy/lylares': '' },
-    // },
+    '/api/proxy/randomImage': {
+      target: 'https://api.ixiaowai.cn',
+      changeOrigin: true,
+      pathRewrite: function (path, req) {
+        const { query } = parse(req.url, true);
+        const typeMap = {
+          acg: '/api/api.php?return=json',
+          acg2: '/mcapi/mcapi.php?return=json',
+          nature: '/gqapi/gqapi.php?return=json'
+        }
+        return typeMap[query.type || 'nature'];
+      },
+    },
     '/api/proxy/hitokoto': {
       target: 'https://v1.hitokoto.cn',
       changeOrigin: true,

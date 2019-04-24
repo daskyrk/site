@@ -7,6 +7,7 @@ export default {
         pageNo: 1,
         pageSize: 20,
       },
+      randomImage: '',
     }
   },
 
@@ -15,9 +16,24 @@ export default {
       state.list = list
       state.total = total
     },
+
+    SET_RANDOM_IMAGE(state, url) {
+      state.randomImage = url
+    },
   },
 
   actions: {
+    // 获取图片上传记录
+    async getRandomImage({ commit }, type) {
+      const resString = await this.$axios.$get(`/proxy/randomImage`, {
+        params: { type },
+      })
+      const res = JSON.parse(resString.trim());
+      if (res.code === "200") {
+        commit('SET_RANDOM_IMAGE', res.imgurl.replace(/\/\/\w+\.sinaimg/, '//ws3.sinaimg'))
+      }
+    },
+
     // 获取图片上传记录
     async getImages({ commit, state }, params) {
       const res = await this.$axios.$get(`/image`, {
