@@ -1,13 +1,13 @@
 {
   "include": [
-    "src/**/*",
+    "src/**/*"
   ],
   "exclude": ["node_modules", "**/*.spec.ts"],
   "compilerOptions": {
     "esModuleInterop": true,
-    "baseUrl": "./",
+    "baseUrl": "./src/",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"]
     },
     "outDir": "./dist",
     "types": ["node"],
@@ -25,6 +25,6 @@
     "lib": ["dom", "es5", "es6", "es7", "es2015.promise"],
     "sourceMap": true,
     "pretty": true,
-    "removeComments": true,
+    "removeComments": true
   }
 }

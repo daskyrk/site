@@ -15,7 +15,7 @@
     "start:debug": "nodemon --config nodemon-debug.json",
     "push": "rsync -rv --delete -e 'ssh vps' dist/* :/root/workspace/blog/server/dist",
     "pushEnv": "rsync -rv --delete -e 'ssh vps' src/config/.env :/root/workspace/blog/server/dist/config/.env",
-    "start:prod": "node -r ts-node/register -r tsconfig-paths/register dist/main.js",
+    "start:prod": "node -r ./tsconfig-paths-bootstrap.js dist/main.js",
     "直接push dist目录上去，就不用这个了 prestart:prod": "rimraf dist && npm run build",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "format": "prettier --write \"src/**/*.ts\"",
