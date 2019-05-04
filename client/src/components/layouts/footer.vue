@@ -10,33 +10,17 @@
           All Rights Reserved.
         </p>
         <p>Powered by Nuxt</p>
-        <p>大概存活了 {{ footer.fromNow | toNow }}</p>
-
-        <!-- <div class="footer-link">
-          <template v-for="(item, i) in footer.data">
-            {{ i === 0 ? '' : footer.split }}
-            <nuxt-link
-              v-if="item.link"
-              :key="i"
-              :to="item.link"
-            >
-              {{ item.text }}
-            </nuxt-link>
-            <span
-              v-else
-              :key="i"
-            >
-              {{ item.text }}
-            </span>
-          </template>
-        </div> -->
+        <p>大概存活了 {{ footer.startTime | toNow }}</p>
       </div>
 
       <div class="footer-col friend-link">
         <p>友链：</p>
-        <p>
-          <nuxt-link to="/about">
-            我的小窝
+        <p
+          v-for="friend in footer.friends"
+          :key="friend.name"
+        >
+          <nuxt-link :to="friend.link">
+            {{ friend.name }}
           </nuxt-link>
         </p>
       </div>
