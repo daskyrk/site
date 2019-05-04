@@ -17,7 +17,7 @@
     "stylelint-fix": "stylelint 'src/**/*.{scss,vue}' --config .stylelintrc.json --fix",
     "limit-dev": "node --max_old_space_size=1000 ./node_modules/.bin/nuxt",
     "debug": "node --inspect-brk=9229 nuxt",
-    "push": "rsync -rv --delete -e 'ssh root@45.63.119.104' .nuxt/* :/root/workspace/blog/client/.nuxt",
+    "push": "rsync -rv --delete -e 'ssh vps' .nuxt/* :/root/workspace/blog/client/.nuxt",
     "bp": "npm run build && npm run push",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

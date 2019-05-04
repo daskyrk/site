@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "private": true,
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
     "comment": "下面两个命令是提供热重载功能的，同时用",
     "webpack": "webpack --config webpack.config.js",
     "start": "node dist/server",
@@ -14,6 +14,7 @@
     "start:dev": "nodemon",
     "start:debug": "nodemon --config nodemon-debug.json",
     "push": "rsync -rv --delete -e 'ssh vps' dist/* :/root/workspace/blog/server/dist",
+    "pushEnv": "rsync -rv --delete -e 'ssh vps' src/config/.env :/root/workspace/blog/server/.env",
     "start:prod": "ts-node -r tsconfig-paths/register dist/main.js",
     "直接push dist目录上去，就不用这个了 prestart:prod": "rimraf dist && npm run build",
     "lint": "tslint -p tsconfig.json -c tslint.json",
@@ -23,8 +24,6 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "encode": "ts-node src/config/encode-config.ts",
-    "decode": "ts-node src/config/encode-config.ts de=1",
     "old-start": "pm2 start lib/index.js --name 'server'",
     "dev": "nodemon --exec \"NODE_ENV=development node --harmony lib/index.js\""
   },
