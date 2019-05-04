@@ -1,31 +1,88 @@
 <template>
-  <div class="wish-page">
-    <div class="wish-form">
-      <div>
-        <textarea
-          v-model="content"
-          placeholder="Hi，想说点什么呢"
-          maxlength="300"
-        />
-      </div>
-      <div class="row-2 flex-box">
-        <input
-          v-model="name"
-          placeholder="来自"
+  <v-container grid-list-xl>
+    <v-dialog
+      v-model="dialogVisible"
+      max-width="600px"
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          fab
+          color="normal"
+          class="add-btn"
+          v-on="on"
         >
-        <button
-          color="blue darken-1"
-          @click="submit"
-        >
-          提交
-        </button>
-      </div>
-    </div>
-    <div class="wish-list flex-box">
-      <div
+          <v-icon dark>
+            add
+          </v-icon>
+        </v-btn>
+      </template>
+      <v-card>
+        <v-card-title>
+          <span class="headline">您的留言</span>
+        </v-card-title>
+        <v-card-text>
+          <v-form v-model="validate">
+            <v-container>
+              <v-layout
+                wrap
+                justify-space-between
+                default
+              >
+                <v-flex
+                  xs12
+                >
+                  <v-textarea
+                    v-model="content"
+                    label="Your Wish"
+                    hint="Hi，想说点什么呢"
+                    :rules="contentRules"
+                    :counter="300"
+                  />
+                </v-flex>
+
+                <v-flex
+                  xs12
+                >
+                  <v-text-field
+                    v-model="name"
+                    :rules="nameRules"
+                    :counter="15"
+                    clearable
+                    label="From"
+                    required
+                  />
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="blue darken-1"
+            flat
+            @click="dialogVisible = false"
+          >
+            关闭
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            flat
+            @click="submit"
+          >
+            提交
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-layout wrap>
+      <v-flex
         v-for="wish in list"
         :key="wish.id"
-        class="wish-item"
+        xs12
+        sm6
+        md4
+        shrink
       >
         <div class="rotate-card-container">
           <div class="card card-rotate">
@@ -73,9 +130,9 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 
@@ -124,20 +181,17 @@ export default {
 
   methods: {
     submit() {
-      if (this.list.length > 50) {
-        return this.$message('留言有些多了，待我先归档一下~')
+      // if (this.list.length > 40) {
+      //   return this.$message('留言有些多了，待我先归档一下~')
+      // }
+      if (this.validate) {
+        const name = this.name || '路过的朋友'
+        const content = this.content
+        this.$store.dispatch('wish/add', { name, content })
+        this.name = '';
+        this.content = '';
+        this.dialogVisible = false;
       }
-      if (!this.name) {
-        return this.$message('忘了署名啊')
-      }
-      if (!this.content) {
-        return this.$message('没什么想说的吗')
-      }
-      const name = this.name
-      const content = this.content
-      this.$store.dispatch('wish/add', { name, content })
-      this.name = '';
-      this.content = '';
     },
     replyWish(id) {
       const reply = this.replyMap[id]
@@ -166,63 +220,10 @@ export default {
   z-index: 10;
 }
 
-.wish-page {
-  width: 60%;
-}
-
 .wish-list {
+  display: flex;
   flex-wrap: wrap;
-}
-
-.wish-item {
-  width: 300px;
-  margin-bottom: 30px;
-}
-
-.wish-form {
-  width: 500px;
-  margin: 0 auto;
-  margin-top: 40px;
-  margin-bottom: 60px;
-  text-align: center;
-
-  textarea,
-  input,
-  button {
-    border: 1px solid $color-text-sub;
-    border-radius: $radius;
-    outline: none;
-    transition: all ease-in .1s;
-
-    &:hover,
-    &:focus,
-    &:active {
-      border: 1px solid $c-orange;
-    }
-  }
-
-  textarea {
-    width: 100%;
-    height: 100px;
-    padding: 6px;
-  }
-
-  input {
-    padding: 6px;
-  }
-
-  button {
-    width: 80px;
-    height: 36px;
-    background-color: transparent;
-    border: thin solid currentColor;
-    transition: all ease-in .1s;
-
-    &:hover {
-      color: $c-orange;
-    }
-  }
-
+  justify-content: space-between;
 }
 
 .card {
@@ -381,19 +382,6 @@ export default {
     .card-rotate {
       transform: rotateY(180deg);
     }
-  }
-}
-
-
-@include md-width() {
-  .wish-list {
-    width: 80%;
-  }
-}
-
-@include sm-width() {
-  .wish-list {
-    width: 90%;
   }
 }
 </style>
