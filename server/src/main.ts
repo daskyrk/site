@@ -10,7 +10,7 @@ import { ValidationPipe } from '@/core/pipe';
 // import compression from 'compression';
 import config from '@/config';
 import cookieParser from 'cookie-parser';
-import csurf from 'csurf';
+// import csurf from 'csurf';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import { tokenMiddleware } from '@/core/middleware';
@@ -40,7 +40,7 @@ async function bootstrap() {
   });
   // 设置与安全相关的 HTTP 头
   app.use(helmet());
-  app.use(csurf({ cookie: true }));
+  // app.use(csurf({ cookie: true }));
   app.use(
     new rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
