@@ -589,6 +589,7 @@ $right: 30px;
 
 .mplayer-control {
   position: relative;
+  z-index: 2;
   margin-right: $right;
 }
 
