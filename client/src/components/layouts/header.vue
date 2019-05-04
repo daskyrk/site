@@ -166,12 +166,12 @@ export default {
     window.addEventListener('scroll', this.onScroll, {
       passive: true,
     })
-    this.$store.dispatch('music/getSongs', [
-      483671599,
-      // 28387594,
-      // 131726,
-      // 29713754,
-    ])
+    // this.$store.dispatch('music/getSongs', [
+    //   483671599,
+    //   // 28387594,
+    //   // 131726,
+    //   // 29713754,
+    // ])
   },
 
   beforeDestroy() {
