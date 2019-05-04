@@ -8,6 +8,10 @@ export function fromNow(time) {
   return moment(time).fromNow()
 }
 
+export function toNow(time) {
+  return moment(time).toNow(true)
+}
+
 export function textClip(text = '', limit = 20, append = '...') {
   return text.length > limit ? text.slice(0, limit) + append : text
 }

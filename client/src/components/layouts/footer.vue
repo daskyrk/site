@@ -10,7 +10,7 @@
           All Rights Reserved.
         </p>
         <p>Powered by Nuxt</p>
-        <p>已运行 10个月 3天 12小时 43分</p>
+        <p>大概存活了 {{ footer.fromNow | toNow }}</p>
 
         <!-- <div class="footer-link">
           <template v-for="(item, i) in footer.data">

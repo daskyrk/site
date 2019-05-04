@@ -7,6 +7,7 @@ export const appConfig = {
   bg_mode: 'story', // static | story | random
   gtmId: 'UA-121869307-1', // google tag manager id
   footer: {
+    fromNow: '2019-05-04 09:00:00',
     split: '|',
     data: [
       {
