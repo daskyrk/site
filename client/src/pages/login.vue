@@ -88,13 +88,13 @@
       >
         登录
       </button>
-      <button
+      <!-- <button
         v-if="registerable"
         class="regist-btn"
         @click="submitForm('form', 'add')"
       >
         注册
-      </button>
+      </button> -->
     </form>
   </div>
 </template>
