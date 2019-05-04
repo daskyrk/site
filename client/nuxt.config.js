@@ -155,7 +155,9 @@ const config = {
         const typeMap = {
           acg: '/api/api.php?return=json',
           acg2: '/mcapi/mcapi.php?return=json',
-          nature: '/gqapi/gqapi.php?return=json'
+          nature: '/gqapi/gqapi.php?return=json',
+          // 可直接作为图片src
+          other: 'https://img.xjh.me/random_img.php?return=302',
         }
         return typeMap[query.type || 'nature'];
       },
