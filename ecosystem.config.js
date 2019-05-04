@@ -10,6 +10,8 @@ module.exports = {
       env_production: {
         NODE_ENV: 'production',
       },
+      output: '../logs/server-out.log',
+      error: '../logs/server-error.log',
     },
     {
       name: 'blog-client',
@@ -21,6 +23,8 @@ module.exports = {
       env_production: {
         NODE_ENV: 'production',
       },
+      output: '../logs/client-out.log',
+      error: '../logs/client-error.log',
     },
   ],
 
