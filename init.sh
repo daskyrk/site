@@ -86,6 +86,7 @@ read -s -n1 -p "Press any key to continue ..."
 
 echo "clone 项目"
 git clone git@github.com:daskyrk/blog.git
+git checkout feature/no-vuetify
 cd blog/client
 echo "安装前端依赖"
 npm i
