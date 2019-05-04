@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import { checkToken } from '@/utils/auth';
 
-export function tokenMiddleware(req: Request, res: Response, next: () => any) {
+export function tokenMiddleware(req: any, res: Response, next: () => any) {
   const { cookies, headers } = req;
   let token = null;
   if (cookies && cookies.token) {

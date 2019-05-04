@@ -1,6 +1,6 @@
 import { LoginDto, UserInfoDto } from './dto/user.dto';
 
-import { BaseService } from 'shared/base';
+import { BaseService } from '@/shared/base';
 import { IUser } from './interface/user.interface';
 import { InjectModel } from 'daskyrk-mongoose';
 import { Injectable } from '@nestjs/common';

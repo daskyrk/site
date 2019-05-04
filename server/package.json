@@ -7,11 +7,13 @@
   "private": true,
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
+    "comment": "下面两个命令是提供热重载功能的，同时用",
     "webpack": "webpack --config webpack.config.js",
     "start": "node dist/server",
-    "nodemon": "nodemon",
+    "comment2": "下面的命令是自动生成的",
+    "start:dev": "nodemon",
     "start:debug": "nodemon --config nodemon-debug.json",
-    "start:prod": "node dist/main.js",
+    "start:prod": "ts-node -r tsconfig-paths/register dist/main.js",
     "prestart:prod": "rimraf dist && npm run build",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "format": "prettier --write \"src/**/*.ts\"",
@@ -73,6 +75,7 @@
     "require-context": "^1.1.0",
     "rimraf": "^2.6.3",
     "rxjs": "^6.4.0",
+    "tsconfig-paths": "^3.8.0",
     "typescript": "^3.3.3333",
     "utility": "^1.16.1"
   },

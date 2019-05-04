@@ -18,7 +18,7 @@ export class PostController {
   }
 
   @Get()
-  public searchPosts(@Query() query: QueryPostDto, @Req() req: Request) {
+  public searchPosts(@Query() query: QueryPostDto, @Req() req: any) {
     const isAdmin = !!req.user;
     if (!isAdmin) {
       query.isPublish = true;

@@ -5,10 +5,9 @@
   "exclude": ["node_modules", "**/*.spec.ts"],
   "compilerOptions": {
     "esModuleInterop": true,
-    "rootDir": "src",
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
     "outDir": "./dist",
     "types": ["node"],
