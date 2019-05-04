@@ -3,5 +3,6 @@ server/src/config/config.ts
 client/.nuxt
 db/blog/
 .env*
+.deploy
 */dist
 temp

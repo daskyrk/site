@@ -103,3 +103,6 @@ npm i
 echo "恢复数据"
 cd ../db
 bash init.sh
+
+echo "恢复nginx配置"
+rsync -rv -e 'ssh vps' .deploy/nginx/* :/etc/nginx
