@@ -1,13 +1,12 @@
-import { AuthGuard, RolesGuard } from '@/core/guards';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { TimeoutInterceptor, TransformInterceptor } from '@/core/interceptors';
 
 import { AnyExceptionFilter } from '@/core/filters';
 import { AppModule } from '@/app.module';
-import { BlogLogger } from '@/shared/logger/logger';
-import { Logger } from '@nestjs/common';
+// import { BlogLogger } from '@/shared/logger/logger';
+// import { Logger } from '@nestjs/common';
 import { ValidationPipe } from '@/core/pipe';
-import bodyParser from 'body-parser';
+// import bodyParser from 'body-parser';
 // import compression from 'compression';
 import config from '@/config';
 import cookieParser from 'cookie-parser';
@@ -41,7 +40,7 @@ async function bootstrap() {
   });
   // 设置与安全相关的 HTTP 头
   app.use(helmet());
-  // app.use(csurf({ cookie: true }));
+  app.use(csurf({ cookie: true }));
   app.use(
     new rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
