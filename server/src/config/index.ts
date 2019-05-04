@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import path from 'path';
 
 export interface EnvConfig {
   [prop: string]: string;
@@ -10,7 +11,7 @@ export class ConfigService {
   private readonly envConfig: EnvConfig;
 
   constructor(filePath: string) {
-    const config = dotenv.parse(fs.readFileSync(filePath));
+    const config = dotenv.parse(fs.readFileSync(path.join(__dirname, filePath)));
     const envConfig = this.validateInput(config);
     this.envConfig = envConfig;
     console.log('envConfig:', envConfig);
@@ -143,4 +144,4 @@ export class ConfigService {
   }
 }
 
-export default new ConfigService('@/config/.env');
+export default new ConfigService('./.env');
