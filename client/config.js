@@ -15,21 +15,12 @@ export const appConfig = {
         link: '/'
       }
     ],
-    data: [
-      {
-        text: '涅尘',
-      },
-      {
-        text: '@lijun',
-        link: '/about',
-      },
-    ],
   },
   navs: [
-    {
-      link: '/read',
-      text: 'Read',
-    },
+    // {
+    //   link: '/read',
+    //   text: 'Read',
+    // },
     {
       link: '/post',
       text: 'Article',

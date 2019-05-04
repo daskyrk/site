@@ -15,16 +15,16 @@ export default function ({ $axios, store, redirect, error }) {
     const url = config.url.slice(config.url.indexOf('/api') + 5)
     const { success, message } = body || {}
     store.commit('END_FETCH', url + '#' + config.method)
-    const actionMap = {
-      put: '更新成功',
-      delete: '删除成功',
-      post: '创建成功',
-    }
+    // const actionMap = {
+    //   put: '更新成功',
+    //   delete: '删除成功',
+    //   post: '创建成功',
+    // }
     if (process.browser) {
       // get请求不展示消息
-      if (success) {
-        config.method !== 'get' && Message.success({ message: message || actionMap[config.method] })
-      } else {
+      if (success === true) {
+        // config.method !== 'get' && Message.success({ message: message || actionMap[config.method] })
+      } else if(success === false) {
         Message.warning({ message: message || '出错了' })
       }
     }

@@ -47,7 +47,6 @@
             <music-player
               :music="music"
               :on-play="onPlay"
-              autoplay
               loop
             />
           </div>

@@ -5,7 +5,6 @@
       @mousewheel.prevent="handleMouseWheel"
     >
       <audio
-        v-if="music.src"
         ref="audio"
         :src="music.src"
         preload="auto"
@@ -17,6 +16,7 @@
       <div class="mplayer-info">
         <div class="mplayer-info-cover">
           <img
+            v-if="music.src"
             :src="music.cover || 'https://picsum.photos/100/?random'"
             alt="cd-cover"
           >
@@ -171,7 +171,7 @@ export default {
   },
 
   mounted() {
-    if (this.$refs.canvas) {
+    if (this.$refs.canvas !== undefined) {
       spectrum.init(this.$refs.canvas)
     }
   },
@@ -236,7 +236,6 @@ export default {
       return i
     },
     handleAudioEnd() {
-      console.log('this.loop:', this.loop);
       if (this.loop) {
         this.$refs.audio.play()
       } else {
@@ -271,6 +270,9 @@ export default {
       if (audio.paused) {
         audio.play()
         if (!this.mini && !this.hasLrc) {
+          if (this.$refs.canvas !== undefined) {
+            spectrum.init(this.$refs.canvas)
+          }
           spectrum.draw()
         }
       } else {
