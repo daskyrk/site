@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "analysis": "nuxt build -a",
     "start": "nuxt start",
+    "analysis": "nuxt build -a",
     "generate": "nuxt generate",
     "lint": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "stylelint-fix": "stylelint 'src/**/*.{scss,vue}' --config .stylelintrc.json --fix",

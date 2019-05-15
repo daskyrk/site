@@ -133,7 +133,7 @@ const config = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
     '@nuxtjs/style-resources'
   ],
 
@@ -145,6 +145,7 @@ const config = {
     proxy: true,
     prefix: '/api', // it only work when proxy is enabled
     credentials: true,
+    https: !IS_DEV,
   },
   proxy: {
     '/api/proxy/randomImage': {

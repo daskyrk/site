@@ -19,6 +19,9 @@ export default {
   async fetch({ store, params }) {
     await store.dispatch('post/getPost', params)
     await store.dispatch('tag/getTags', { pageSize: 100 })
+    await store.dispatch('music/getSongs', [
+      483671599,
+    ])
   },
 }
 </script>
