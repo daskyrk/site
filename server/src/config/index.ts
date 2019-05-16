@@ -144,4 +144,4 @@ export class ConfigService {
   }
 }
 
-export default new ConfigService('./.env');
+export default new ConfigService('.env');

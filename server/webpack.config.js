@@ -7,6 +7,10 @@ module.exports = {
   entry: ['webpack/hot/poll?100', './src/main.ts'],
   watch: true,
   target: 'node',
+  node: {
+    __dirname: true,// 指向input file的路径
+    __filename: true,
+  },
   externals: [
     nodeExternals({
       whitelist: ['webpack/hot/poll?100'],
@@ -30,7 +34,9 @@ module.exports = {
       }),
     ],
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+  ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'server.js',
