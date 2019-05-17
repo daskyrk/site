@@ -1,5 +1,5 @@
 */node_modules
-server/src/config/config.ts
+server/src/config/env.json
 client/.nuxt
 db/blog/
 .env*
