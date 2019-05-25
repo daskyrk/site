@@ -1,6 +1,5 @@
 const path = require('path');
 const convict = require('convict');
-// const dotenv = require('dotenv');
 
 // 必须要设置default字段
 var config = convict({
@@ -84,12 +83,9 @@ var config = convict({
   }
 });
 
-// Load environment dependent configuration
-// convict.addParser({ extension: 'env', parse: dotenv.parse });
 const envPath = path.join(__dirname, './env.json');
 config.loadFile(envPath);
 
-// Perform validation
 config.validate({ allowed: 'strict' });
 
 module.exports = config;
