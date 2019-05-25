@@ -1,8 +1,12 @@
+import NuxtConfiguration from '@nuxt/config'
+
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 const pkg = require('./package')
 
-module.exports = {
+const config: NuxtConfiguration = {
   mode: 'spa',
+
+  srcDir: 'src/',
 
   /*
    ** Headers of the page
@@ -71,7 +75,7 @@ module.exports = {
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
+        (config.module as any).rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
@@ -85,3 +89,5 @@ module.exports = {
     port: 3002
   }
 }
+
+export default config
