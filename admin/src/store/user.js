@@ -3,7 +3,6 @@ export default {
     return {
       userInfo: {},
       logined: false,
-      token: null,
       registerable: true,
     }
   },
@@ -22,16 +21,7 @@ export default {
 
     LOGOUT(state) {
       state.userInfo = {}
-      state.token = null
       state.logined = false
-    },
-
-    SET_TOKEN(state, data) {
-      state.token = data
-    },
-
-    CLEAR_TOKEN(state) {
-      state.token = null
     },
 
     SET_REGISTERABLE(state, data) {
@@ -41,12 +31,11 @@ export default {
 
   actions: {
     async login({ commit }, data) {
-      const res = await this.$axios.$post('/user/login', data)
+      const res = await this.$axios.$post('/user/login', data, { tip: '登录' })
 
-      if (res && res.success) {
-        const { user, token } = res.data
+      if (res.success) {
+        const { user } = res.data
         commit('SET_USER', user)
-        commit('SET_TOKEN', token)
       } else {
         commit('SET_USER', {})
         commit('SET_LOGIN_STATE', false)
@@ -57,10 +46,9 @@ export default {
     async add({ commit }, data) {
       const res = await this.$axios.$post('/user', data)
 
-      if (res && res.success) {
-        const { user, token } = res.data
+      if (res.success) {
+        const { user } = res.data
         commit('SET_USER', user)
-        commit('SET_TOKEN', token)
       } else {
         commit('SET_USER', {})
       }
@@ -70,7 +58,7 @@ export default {
     async getMyInfo({ commit }) {
       const res = await this.$axios.$get('/user/info')
 
-      if (res && res.success) {
+      if (res.success) {
         commit('SET_USER', res.data)
       }
       return res

@@ -6,35 +6,21 @@ export default {
       fetch: {},
       breadcrumb: [],
       uploadToken: null,
-      ip: null,
-      bgImage: '',
     }
   },
   actions: {
-    async nuxtServerInit({ dispatch, commit }, { req }) {
+    // 注意这里不是nuxtServerInit，是通过plugin实现的，因为nuxtServerInit不在spa模式运行
+    async nuxtClientInit({ dispatch, commit }, { req }) {
       try {
-        if (req.headers.cookie) {
-          const { token } = cookieparser.parse(req.headers.cookie)
-          if (token) {
-            await dispatch('user/getMyInfo')
-            commit('user/SET_TOKEN', token)
-          }
-        }
-        // 不应该在这里，否则拿到的应该是node端的ip了
-        // await dispatch('getIP')
+        await dispatch('user/getMyInfo')
       } catch (error) {
         console.log('error in init:', error)
       }
     },
 
-    async getIP({ commit }) {
-      const ip = await this.$axios.$get('http://icanhazip.com')
-      commit('SET_IP', ip.replace(/[\r\n]/g, ''))
-    },
-
     async getUploadToken({ commit }) {
       const res = await this.$axios.$get('/uploadToken')
-      if (res && res.success) {
+      if (res.success) {
         commit('SET_UPLOAD_TOKEN', res.data)
       }
     },
@@ -48,20 +34,12 @@ export default {
       state.uploadToken = data
     },
 
-    SET_IP(state, data) {
-      state.ip = data
-    },
-
     START_FETCH(state, url) {
       state.fetch[url] = true
     },
 
     END_FETCH(state, url) {
       state.fetch[url] = false
-    },
-
-    SET_BG_IMAGE(state, data) {
-      state.bgImage = data
     },
   },
 }

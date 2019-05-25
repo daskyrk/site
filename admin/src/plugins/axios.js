@@ -11,19 +11,16 @@ export default function ({ $axios, store, redirect, error }) {
   })
 
   $axios.onResponse((response) => {
-    const { data: body, config } = response
-    const url = config.url.slice(config.url.indexOf('/api') + 5)
-    const { success, message } = body || {}
-    store.commit('END_FETCH', url + '#' + config.method)
-    // const actionMap = {
-    //   put: '更新成功',
-    //   delete: '删除成功',
-    //   post: '创建成功',
-    // }
+    const { data, config } = response
+    const { success, message } = data || {}
+    const { url, method, tip } = config
+    const _url = url.replace(/^\/api\//, '')
+
+    store.commit('END_FETCH', _url + '#' + method)
     if (process.browser) {
-      // get请求不展示消息
       if (success === true) {
-        // config.method !== 'get' && Message.success({ message: message || actionMap[config.method] })
+        // get请求不展示消息
+        method !== 'get' && Message.success(`${tip}成功` || message || '成功')
       } else if (success === false) {
         Message.warning({ message: message || '出错了' })
       }
@@ -32,12 +29,16 @@ export default function ({ $axios, store, redirect, error }) {
   })
 
   $axios.onError((err) => {
-    // store.commit('END_FETCH', err.response)
-    const code = parseInt(err.response && err.response.status)
-    if (code === 401) {
+    const { response, message } = err
+    const { data, status } = response
+    store.commit('END_FETCH', response)
+    console.error(err)
+    Message.error(data.message || message)
+    if (status === 401) {
       store.commit('user/LOGOUT')
-      // redirect('/login')
+      redirect('/login')
     }
-    error({ statusCode: code, message: err.message })
+    // 调用error 会显示error页面
+    // error({ statusCode: code, message: err.message })
   })
 }

@@ -54,6 +54,7 @@ const config: NuxtConfiguration = {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    { src: '~/plugins/nuxt-client-init.js', ssr: false },
     '~/plugins/filter',
     '~/plugins/axios',
     '~/plugins/moment',

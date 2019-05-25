@@ -22,7 +22,6 @@
     "marked": "^0.6.2",
     "moment": "^2.24.0",
     "nuxt": "^2.7.1",
-    "simple-vue-validator": "^0.16.0",
     "ts-node": "^8.1.1",
     "url-parse": "^1.4.7",
     "vue-m-message": "^1.1.1",

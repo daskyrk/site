@@ -63,7 +63,7 @@ export default {
     // 获取文章类型
     async getPostTypes({ commit, ...rest }, id) {
       const res = await this.$axios.$get('/post/types')
-      if (res && res.success) {
+      if (res.success) {
         commit('SET_POST_TYPES', res.data)
       }
     },
