@@ -109,11 +109,11 @@ import { mapState } from 'vuex'
 
 export default {
   meta: {
-    breadcrumb: '系统设置'
+    breadcrumb: '系统设置',
   },
 
   components: {
-    ImageUploader
+    ImageUploader,
   },
 
   data() {
@@ -132,18 +132,18 @@ export default {
       savingUser: false,
       userRules: {
         username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' }
+          { required: true, message: '请输入用户名', trigger: 'blur' },
         ],
         email: [
           {
             type: 'email',
             message: '请输入正确的邮箱地址',
-            trigger: ['blur', 'change']
-          }
+            trigger: ['blur', 'change'],
+          },
         ],
         newPassword: [{ min: 6, message: '密码至少6位', trigger: 'blur' }],
-        checkPass: [{ validator: checkPassComfirm, trigger: 'blur' }]
-      }
+        checkPass: [{ validator: checkPassComfirm, trigger: 'blur' }],
+      },
     }
   },
 
@@ -157,9 +157,9 @@ export default {
         email: '',
         newPassword: '',
         checkPass: '',
-        ...this.$store.state.user.userInfo
+        ...this.$store.state.user.userInfo,
       }
-    }
+    },
   },
 
   methods: {
@@ -173,8 +173,8 @@ export default {
     },
     onSuccess(url) {
       this.userForm.avatar = url
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -8,8 +8,8 @@ export default ({ store, route }) => {
       return list.concat([
         {
           title: meta ? meta.breadcrumb : item.name,
-          url: item.path
-        }
+          url: item.path,
+        },
       ])
     }, [])
 

@@ -5,7 +5,7 @@
 <script>
 export default {
   meta: {
-    breadcrumb: '文章管理'
-  }
+    breadcrumb: '文章管理',
+  },
 }
 </script>

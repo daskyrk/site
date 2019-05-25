@@ -63,6 +63,6 @@
 
 export default {
   components: {
-  }
+  },
 }
 </script>

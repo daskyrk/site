@@ -5,8 +5,8 @@ export default {
       total: 0,
       query: {
         pageNo: 1,
-        pageSize: 10
-      }
+        pageSize: 10,
+      },
     }
   },
 
@@ -21,14 +21,14 @@ export default {
         item => (item.id === id ? { ...item, state: newState } : item)
       )
       // const target
-    }
+    },
   },
 
   actions: {
     // 获取评论列表
     async getComments({ commit, state }, params) {
       const res = await this.$axios.$get(`/comment`, {
-        params: { ...state.query, ...params }
+        params: { ...state.query, ...params },
       })
       if (res.success) {
         commit('SET_COMMENT_LIST', res.data)
@@ -46,6 +46,6 @@ export default {
       const res = await this.$axios.$put(`/comment`, data)
       commit('SET_COMMENT_STATE', data)
       return res
-    }
-  }
+    },
+  },
 }

@@ -251,7 +251,7 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   meta: {
-    breadcrumb: '文章列表'
+    breadcrumb: '文章列表',
   },
 
   data() {
@@ -264,7 +264,7 @@ export default {
         public: -1,
         type: -1,
         tag: '',
-        timeRange: []
+        timeRange: [],
       },
       // timeRangeDay: 0,
       pickerOptions: {
@@ -273,39 +273,39 @@ export default {
             text: '最近三天',
             onClick(picker) {
               picker.$emit('pick', getDateRange(3))
-            }
+            },
           },
           {
             text: '最近一周',
             onClick(picker) {
               picker.$emit('pick', getDateRange(7))
-            }
+            },
           },
           {
             text: '最近一个月',
             onClick(picker) {
               picker.$emit('pick', getDateRange(30))
-            }
+            },
           },
           {
             text: '最近三个月',
             onClick(picker) {
               picker.$emit('pick', getDateRange(90))
-            }
-          }
-        ]
-      }
+            },
+          },
+        ],
+      },
     }
   },
 
   computed: {
     ...mapState({
-      fetch: state => state.fetch['admin/post#get']
+      fetch: state => state.fetch['admin/post#get'],
     }),
     ...mapState('admin/post', ['list', 'total', 'query']),
     ...mapState('tag', {
-      tagList: 'list'
-    })
+      tagList: 'list',
+    }),
   },
 
   async fetch({ store }) {
@@ -329,13 +329,13 @@ export default {
     },
     pageNoChange(pageNo) {
       this.$store.dispatch('admin/post/getPostList', {
-        pageNo
+        pageNo,
       })
     },
     pageSizeChange(pageSize) {
       this.$store.dispatch('admin/post/getPostList', {
         pageNo: 1,
-        pageSize
+        pageSize,
       })
     },
     editPost(row) {
@@ -362,8 +362,8 @@ export default {
     reset() {
       this.$refs.filterForm.resetFields()
       // this.timeRangeDay = 0;
-    }
-  }
+    },
+  },
 }
 </script>
 

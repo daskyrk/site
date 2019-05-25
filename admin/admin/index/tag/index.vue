@@ -86,11 +86,11 @@ import { mapState } from 'vuex'
 
 export default {
   meta: {
-    breadcrumb: '标签管理'
+    breadcrumb: '标签管理',
   },
 
   components: {
-    DialogForm
+    DialogForm,
   },
 
   data() {
@@ -103,9 +103,9 @@ export default {
           $type: 'input',
           label: '标签名',
           rules: [
-            { required: true, message: '请输入标签名称', trigger: 'blur' }
+            { required: true, message: '请输入标签名称', trigger: 'blur' },
           ],
-          prop: 'name'
+          prop: 'name',
         },
         {
           $id: 'descript',
@@ -114,21 +114,21 @@ export default {
           prop: 'descript',
           $el: {
             maxlength: 30,
-            placeholder: '不超过30个字符'
-          }
-        }
+            placeholder: '不超过30个字符',
+          },
+        },
       ],
       fieldsValue: undefined,
       addMode: true,
-      deletingId: null
+      deletingId: null,
     }
   },
 
   computed: {
     ...mapState({
-      fetch: state => state.fetch['admin/post#get']
+      fetch: state => state.fetch['admin/post#get'],
     }),
-    ...mapState('tag', ['list', 'total', 'query'])
+    ...mapState('tag', ['list', 'total', 'query']),
   },
 
   async fetch({ store }) {
@@ -138,7 +138,7 @@ export default {
   methods: {
     pageChange(pageNo) {
       this.$store.dispatch('tag/getTags', {
-        pageNo
+        pageNo,
       })
     },
     showDialog(title, data = null) {
@@ -169,7 +169,7 @@ export default {
     },
     onClose() {
       this.dialogVisible = false
-    }
-  }
+    },
+  },
 }
 </script>

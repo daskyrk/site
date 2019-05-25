@@ -7,7 +7,7 @@ export default {
       breadcrumb: [],
       uploadToken: null,
       ip: null,
-      bgImage: ''
+      bgImage: '',
     }
   },
   actions: {
@@ -37,7 +37,7 @@ export default {
       if (res && res.success) {
         commit('SET_UPLOAD_TOKEN', res.data)
       }
-    }
+    },
   },
   mutations: {
     SET_BREADCRUMB(state, data) {
@@ -62,6 +62,6 @@ export default {
 
     SET_BG_IMAGE(state, data) {
       state.bgImage = data
-    }
-  }
+    },
+  },
 }

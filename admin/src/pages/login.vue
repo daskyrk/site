@@ -57,7 +57,7 @@ export default {
       validate: false,
       form: {
         email: '',
-        password: ''
+        password: '',
       },
       email: '',
       emailRules: [],
@@ -67,27 +67,27 @@ export default {
         email: [{ required: true, message: '邮箱？', trigger: 'blur' }],
         password: [
           { required: true, message: '密码？', trigger: 'blur' },
-          { min: 6, message: '密码太短了', trigger: 'blur' }
-        ]
-      }
+          { min: 6, message: '密码太短了', trigger: 'blur' },
+        ],
+      },
     }
   },
 
   computed: {
-    ...mapState('user', ['logined', 'registerable'])
+    ...mapState('user', ['logined', 'registerable']),
   },
 
   // async fetch({ store }) {
   //   await store.dispatch('user/checkRegisterable')
   // },
 
-  mounted() {
-    this.detachEvents = this.startBg()
-  },
+  // mounted() {
+  //   // this.detachEvents = this.startBg()
+  // },
 
-  beforeDestroy() {
-    this.detachEvents()
-  },
+  // beforeDestroy() {
+  //   this.detachEvents()
+  // },
 
   methods: {
     toggleFocus(e, isFocus) {
@@ -118,8 +118,8 @@ export default {
           this.$router.push(this.$route.query.redirectTo || '/')
         }
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

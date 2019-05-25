@@ -151,11 +151,11 @@ import SearchBook from '~/components/read/search'
 
 export default {
   meta: {
-    breadcrumb: '读书管理'
+    breadcrumb: '读书管理',
   },
 
   components: {
-    SearchBook
+    SearchBook,
   },
 
   data() {
@@ -166,16 +166,16 @@ export default {
       saying: '',
       selectSingleMode: true,
       searchVisible: false,
-      dialogVisible: false
+      dialogVisible: false,
     }
   },
 
   computed: {
     ...mapState({
-      fetch: state => state.fetch['admin/post#get']
+      fetch: state => state.fetch['admin/post#get'],
     }),
     ...mapState('admin/post', ['list', 'total', 'query']),
-    ...mapState('read', ['searchList'])
+    ...mapState('read', ['searchList']),
   },
 
   async fetch({ store }) {
@@ -214,9 +214,9 @@ export default {
             author: book.author,
             image: book.image,
             saying: this.saying,
-            url: book.url
-          }
-        }
+            url: book.url,
+          },
+        },
       }
       this.$store.dispatch('admin/post/updatePost', data)
       this.currentRow = {}
@@ -225,17 +225,17 @@ export default {
     pageNoChange(pageNo) {
       this.$store.dispatch('admin/post/getPostList', {
         pageNo,
-        type: this.type
+        type: this.type,
       })
     },
     pageSizeChange(pageSize) {
       this.$store.dispatch('admin/post/getPostList', {
         pageNo: 1,
         pageSize,
-        type: this.type
+        type: this.type,
       })
-    }
-  }
+    },
+  },
 
   // mounted() {
   //   console.log('placeholder:', placeholder);

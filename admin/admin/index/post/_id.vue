@@ -13,11 +13,11 @@ import PostForm from '~/components/post/post-form'
 
 export default {
   meta: {
-    breadcrumb: '编辑文章'
+    breadcrumb: '编辑文章',
   },
 
   components: {
-    PostForm
+    PostForm,
   },
 
   computed: mapState('post', ['detail']),
@@ -29,8 +29,8 @@ export default {
   methods: {
     onSubmit(data) {
       this.$store.dispatch('admin/post/updatePost', data)
-    }
-  }
+    },
+  },
 }
 </script>
 

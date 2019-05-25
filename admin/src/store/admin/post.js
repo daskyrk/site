@@ -5,11 +5,11 @@ export default {
       total: 0,
       query: {
         pageNo: 1,
-        pageSize: 10
+        pageSize: 10,
       },
       types: [],
       detail: {},
-      summary: []
+      summary: [],
     }
   },
 
@@ -40,13 +40,13 @@ export default {
       state.total = 0
       state.query = {
         pageNo: 1,
-        pageSize: 6
+        pageSize: 6,
       }
     },
 
     SET_POST_SUMMARY(state, data) {
       state.summary = data
-    }
+    },
   },
 
   actions: {
@@ -106,6 +106,6 @@ export default {
         commit('SET_POST_SUMMARY', res.data)
       }
       return res
-    }
-  }
+    },
+  },
 }

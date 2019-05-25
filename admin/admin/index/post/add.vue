@@ -11,11 +11,11 @@ import PostForm from '~/components/post/post-form'
 
 export default {
   meta: {
-    breadcrumb: '添加文章'
+    breadcrumb: '添加文章',
   },
 
   components: {
-    PostForm
+    PostForm,
   },
 
   methods: {
@@ -25,8 +25,8 @@ export default {
           this.$router.push('/admin/post')
         }
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

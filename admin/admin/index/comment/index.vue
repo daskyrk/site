@@ -207,7 +207,7 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   meta: {
-    breadcrumb: '留言列表'
+    breadcrumb: '留言列表',
   },
 
   filters: {
@@ -216,13 +216,13 @@ export default {
         0: 'shenhe',
         1: 'circle-check',
         2: 'circle-cross',
-        3: 'guidang'
+        3: 'guidang',
       }
       return 'iconfont icon-' + iconMap[state]
     },
     dealSite: function (site) {
       return site.includes('http') ? site : `http://${site}`
-    }
+    },
   },
 
   data() {
@@ -231,13 +231,13 @@ export default {
       filterForm: {
         keyword: '',
         state: -1,
-        timeRange: []
+        timeRange: [],
       },
       stateMap: {
         0: '待审核',
         1: '通过',
         2: '不通过',
-        3: '已归档'
+        3: '已归档',
       },
       pickerOptions: {
         shortcuts: [
@@ -245,36 +245,36 @@ export default {
             text: '最近三天',
             onClick(picker) {
               picker.$emit('pick', getDateRange(3))
-            }
+            },
           },
           {
             text: '最近一周',
             onClick(picker) {
               picker.$emit('pick', getDateRange(7))
-            }
+            },
           },
           {
             text: '最近一个月',
             onClick(picker) {
               picker.$emit('pick', getDateRange(30))
-            }
+            },
           },
           {
             text: '最近三个月',
             onClick(picker) {
               picker.$emit('pick', getDateRange(90))
-            }
-          }
-        ]
-      }
+            },
+          },
+        ],
+      },
     }
   },
 
   computed: {
     ...mapState({
-      fetch: state => state.fetch['admin/comment#get']
+      fetch: state => state.fetch['admin/comment#get'],
     }),
-    ...mapState('admin/comment', ['list', 'total', 'query'])
+    ...mapState('admin/comment', ['list', 'total', 'query']),
   },
 
   async fetch({ store }) {
@@ -294,20 +294,20 @@ export default {
     pageNoChange(pageNo) {
       this.$store.dispatch('admin/comment/getComments', {
         pageNo,
-        type: 1
+        type: 1,
       })
     },
     pageSizeChange(pageSize) {
       this.$store.dispatch('admin/comment/getComments', {
         pageNo: 1,
         pageSize,
-        type: 1
+        type: 1,
       })
     },
     updateComment(row, state) {
       this.$store.dispatch('admin/comment/updateComment', {
         id: row.id,
-        state
+        state,
       })
     },
     delComment(row) {
@@ -328,8 +328,8 @@ export default {
     reset() {
       this.$refs.filterForm.resetFields()
       // this.timeRangeDay = 0;
-    }
-  }
+    },
+  },
 }
 </script>
 
