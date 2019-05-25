@@ -1,46 +1,61 @@
 <template>
   <div ref="page" class="login-page">
-    <div class="title">
-      Welcome
-    </div>
-    <v-form v-model="validate">
-      <v-container>
-        <v-layout wrap justify-space-between default>
-          <v-flex xs12>
-            <v-text-field
-              v-model="email"
-              :rules="emailRules"
-              :counter="15"
-              clearable
-              label="Email"
-              required
-            />
-          </v-flex>
-
-          <v-flex xs12>
-            <v-text-field
-              v-model="password"
-              :rules="passwordRules"
-              :counter="15"
-              clearable
-              label="Password"
-              required
-            />
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-form>
-    <form class="login-form" @submit.prevent>
-      <v-btn color="blue" dark @click="submitForm('form', 'login')">
-        登录
-      </v-btn>
-      <v-btn color="green" dark @click="submitForm('form', 'add')">
-        注册
-      </v-btn>
-      <button v-if="registerable" class="regist-btn" @click="submitForm('form', 'add')">
-        注册
-      </button>
-    </form>
+    <v-container fluid fill-height>
+      <v-layout align-center justify-center>
+        <v-flex xs12 sm8 md4>
+          <v-card class="elevation-12">
+            <v-toolbar dark color="primary">
+              <v-toolbar-title>后台</v-toolbar-title>
+              <v-spacer />
+              <v-tooltip bottom>
+                <v-btn slot="activator" icon large href="http://baidu.com" target="_blank">
+                  <v-icon large>
+                    home
+                  </v-icon>
+                </v-btn>
+                <span>前台</span>
+              </v-tooltip>
+            </v-toolbar>
+            <v-card-text>
+              <v-form v-model="valid">
+                <v-text-field
+                  v-model="form.email"
+                  prepend-icon="person"
+                  name="login"
+                  label="邮箱"
+                  type="text"
+                  :rules="rules.email"
+                  :counter="15"
+                  clearable
+                  required
+                />
+                <v-text-field
+                  id="password"
+                  v-model="form.password"
+                  prepend-icon="lock"
+                  name="password"
+                  label="密码"
+                  type="password"
+                  :rules="rules.password"
+                  :counter="15"
+                  clearable
+                  required
+                />
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn color="primary" @click="submit('login')">
+                登录
+              </v-btn>
+              <v-btn v-if="registerable" @click="submit('add')">
+                注册
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
@@ -54,20 +69,19 @@ export default {
 
   data() {
     return {
-      validate: false,
+      valid: false,
       form: {
         email: '',
         password: '',
       },
-      email: '',
-      emailRules: [],
-      password: '',
-      passwordRules: [],
       rules: {
-        email: [{ required: true, message: '邮箱？', trigger: 'blur' }],
+        email: [
+          v => !!v || '必填',
+          v => /.+@.+/.test(v) || '格式不正确',
+        ],
         password: [
-          { required: true, message: '密码？', trigger: 'blur' },
-          { min: 6, message: '密码太短了', trigger: 'blur' },
+          v => !!v || '必填',
+          v => v.length > 6 || '少于6位',
         ],
       },
     }
@@ -81,43 +95,15 @@ export default {
   //   await store.dispatch('user/checkRegisterable')
   // },
 
-  // mounted() {
-  //   // this.detachEvents = this.startBg()
-  // },
-
-  // beforeDestroy() {
-  //   this.detachEvents()
-  // },
-
   methods: {
-    toggleFocus(e, isFocus) {
-      const parentNode = e.target.parentNode
-      const cls = parentNode.className.split(' ')
-      parentNode.className = isFocus
-        ? cls.concat(['focus']).join(' ')
-        : cls.filter(a => a !== 'focus').join(' ')
-    },
-    submitForm(formName, type) {
-      // this.$refs[formName].validate(valid => {
-      //   if (valid) {
-      //     const action = type === 'login' ? 'user/login' : 'user/add';
-      //     this.$store.dispatch(action, this.form).then(res => {
-      //       this.$router.push(this.$route.query.redirectTo || '/');
-      //     });
-      //   } else {
-      //     return false;
-      //   }
-      const { email, password } = this.form
-      // TODO: add error tip
-      if (password.length < 6) {
-        return
-      }
-      const action = type === 'login' ? 'user/login' : 'user/add'
-      this.$store.dispatch(action, this.form).then((res) => {
-        if (res.success) {
+    submit(type) {
+      console.log('this.valid:', this.valid)
+      if (this.valid) {
+        const action = type === 'login' ? 'user/login' : 'user/add'
+        this.$store.dispatch(action, this.form).then((res) => {
           this.$router.push(this.$route.query.redirectTo || '/')
-        }
-      })
+        })
+      }
     },
   },
 }
@@ -141,7 +127,7 @@ $input-height: 3rem;
   // background-image: url(https://api.lylares.com/bing/image/random/?w=640&h=480);
   // background-size: cover;
   overflow: hidden;
-  background-color: $c-black;
+  // background-color: $c-black;
 }
 
 .title {

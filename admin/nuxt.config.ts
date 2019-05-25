@@ -21,16 +21,16 @@ const config: NuxtConfiguration = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: pkg.description },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
         href:
-          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
-      }
-    ]
+          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons',
+      },
+    ],
   },
 
   /*
@@ -41,24 +41,24 @@ const config: NuxtConfiguration = {
   /*
    ** Global CSS
    */
-  css: ['@/assets/style/common.scss', '@/assets/style/app.styl'],
+  css: ['~/assets/style/common.scss', '~/assets/style/app.styl'],
   styleResources: {
     scss: [
       // 这里只能包含 variable、mixin, 禁止包容任何真实样式，否则每个style里都会重复一遍
-      '@/assets/style/variable.scss',
-      '@/assets/style/mixin.scss'
-    ]
+      '~/assets/style/variable.scss',
+      '~/assets/style/mixin.scss',
+    ],
   },
 
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
-    '@/plugins/filter',
-    '@/plugins/axios',
-    '@/plugins/moment',
-    '@/plugins/message',
-    '@/plugins/vuetify'
+    '~/plugins/filter',
+    '~/plugins/axios',
+    '~/plugins/moment',
+    '~/plugins/message',
+    '~/plugins/vuetify',
   ],
 
   /*
@@ -68,7 +68,7 @@ const config: NuxtConfiguration = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/style-resources',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
   ],
   /*
    ** Axios module configuration
@@ -78,7 +78,7 @@ const config: NuxtConfiguration = {
     proxy: true,
     prefix: '/api', // it only work when proxy is enabled
     credentials: true,
-    https: !IS_DEV
+    https: !IS_DEV,
   },
   proxy: {
     '/api/proxy/randomImage': {
@@ -91,20 +91,20 @@ const config: NuxtConfiguration = {
           acg2: '/mcapi/mcapi.php?return=json',
           nature: '/gqapi/gqapi.php?return=json',
           // 可直接作为图片src
-          other: 'https://img.xjh.me/random_img.php?return=302'
+          other: 'https://img.xjh.me/random_img.php?return=302',
         }
         return typeMap[query.type || 'nature']
-      }
+      },
     },
     '/api/proxy/hitokoto': {
       target: 'https://v1.hitokoto.cn',
       changeOrigin: true,
-      pathRewrite: { '^/api/proxy/hitokoto': '' }
+      pathRewrite: { '^/api/proxy/hitokoto': '' },
     },
     '/api': {
       target: IS_DEV || process.server ? 'http://localhost:8000' : 'https://lijun.space',
-      changeOrigin: true
-    }
+      changeOrigin: true,
+    },
   },
 
   /*
@@ -114,34 +114,29 @@ const config: NuxtConfiguration = {
     transpile: ['vuetify/lib'],
     plugins: [
       new VuetifyLoaderPlugin(),
+      // eslint-disable-next-line no-useless-escape
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
-      new LodashModuleReplacementPlugin()
+      new LodashModuleReplacementPlugin(),
       // new VuetifyLoaderPlugin()
     ],
     loaders: {
       stylus: {
-        import: ['~assets/style/variables.styl']
-      }
+        import: ['~assets/style/variables.styl'],
+      },
     },
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {
-      // Run ESLint on save
-      if (ctx.isDev && ctx.isClient && config.module) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    }
+    extend(config, { isDev, isClient, loaders }) {
+      // @ts-ignore
+      // rules[2].use[0] is babel-loader
+      config.module.rules[2].use[0].options.plugins = ['lodash']
+    },
   },
 
   server: {
-    port: 3002
-  }
+    port: 3002,
+  },
 }
 
 export default config
