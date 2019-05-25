@@ -71,7 +71,6 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
 .page-404 {
   display: flex;

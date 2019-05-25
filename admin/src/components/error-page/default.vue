@@ -17,7 +17,6 @@ export default {
 }
 </script>
 
-
 <style>
 .error-page {
   padding-top: 10%;
