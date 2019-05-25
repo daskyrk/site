@@ -10,15 +10,20 @@ module.exports = {
   extends: [
     '@nuxtjs',
     'plugin:nuxt/recommended',
-    'plugin:prettier/recommended',
-    'prettier',
-    'prettier/vue'
+    // 'plugin:prettier/recommended',
+    // 'prettier',
+    // 'prettier/vue'
   ],
   plugins: [
-    'prettier'
+    'vue'
   ],
   // add your custom rules here
   rules: {
+    'no-unused-vars': 'warn',
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'vue/require-default-prop': 'off',
+    "vue/component-name-in-template-casing": ["off", "kebab-case"],
     'nuxt/no-cjs-in-config': 'off'
   }
 }

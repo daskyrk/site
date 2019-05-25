@@ -1,0 +1,93 @@
+// Color palette
+$c-green: #46c085;
+$c-cyan: #5bd6d0;
+$c-blue: #5294fa;
+$c-purple: #8570f7;
+$c-orange: #fa9548;
+$c-yellow: #fdce4e;
+$c-red: #f35c6f;
+$c-black: #333333;
+$c-lightblack: #666666;
+$c-dimgray: #999999;
+$c-darkgray: #a9a9a9;
+$c-lightgray: #d3d3d3;
+$c-gainsboro: #cacaca;
+$c-platinum: #eeeeee;
+$c-whitesmoke: #f5f5f5;
+$c-ghostwhite: #f8f8f8;
+$c-white: #ffffff;
+
+// theme
+$color-primary: $c-green;
+
+$color-dark-8: rgba(0, 0, 0, .8) !default;
+$color-dark-6: rgba(0, 0, 0, .6) !default;
+$color-dark-5: rgba(0, 0, 0, .5) !default;
+$color-dark-4: rgba(0, 0, 0, .4) !default;
+$color-dark-3: rgba(0, 0, 0, .3) !default;
+$color-dark-2: rgba(0, 0, 0, .2) !default;
+$color-dark-1: rgba(0, 0, 0, .1) !default;
+
+$color-white-8: rgba(255, 255, 255, .8) !default;
+$color-white-6: rgba(255, 255, 255, .6) !default;
+$color-white-5: rgba(255, 255, 255, .5) !default;
+$color-white-4: rgba(255, 255, 255, .4) !default;
+$color-white-3: rgba(255, 255, 255, .3) !default;
+$color-white-2: rgba(255, 255, 255, .2) !default;
+$color-white-1: rgba(255, 255, 255, .1) !default;
+
+// Color text
+$color-text: $color-dark-8 !default;
+$color-text-normal: $color-dark-8 !default;
+$color-text-sub: $color-dark-6 !default;
+$color-text-desc: $color-dark-4 !default;
+$color-text-icon: $color-dark-3 !default;
+$color-text-holder: $color-dark-2 !default;
+
+// Color status
+$color-success: $c-green;
+$color-danger: $c-red;
+$color-warning: $c-orange;
+$color-info: $c-blue;
+$color-active: $color-primary;
+$color-active-red: $c-red;
+$color-disabled: $color-dark-3;
+
+// Color border
+$color-border: $color-dark-1;
+$color-border-hover: $color-active;
+
+// Color decorator
+$color-hover: #f2f1fc;
+$color-hover-bg: rgba(0, 0, 0, .12);
+$color-background: $c-whitesmoke;
+$color-split: #e1e4e8;
+$color-shadow: $color-dark-3;
+
+// layout
+$header-height: 4rem;
+$footer-height: 4rem;
+$app-side-width: 60%;
+$layout-padding: 1rem;
+$content-padding: 2rem;
+$content-width: 1040px;
+
+// 圆角
+$radius: 4px;
+$radius-lg: 6px;
+
+// 间距
+$p4: 4px;
+$p8: 8px;
+$p12: 12px;
+$p16: 16px;
+$p20: 20px;
+$p24: 24px;
+$p28: 28px;
+$p32: 32px;
+
+// 字体
+$fz12: 12px;
+$fz14: 14px;
+$fz16: 16px;
+$fz18: 18px;

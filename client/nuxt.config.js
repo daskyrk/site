@@ -193,7 +193,7 @@ const config = {
     },
     plugins: [
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
-      new LodashModuleReplacementPlugin,
+      new LodashModuleReplacementPlugin(),
       // new VuetifyLoaderPlugin()
     ],
     extend(config, { isDev, isClient, loaders }) {

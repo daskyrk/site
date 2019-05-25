@@ -1,7 +1,12 @@
+import * as webpack from 'webpack'
+
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 import NuxtConfiguration from '@nuxt/config'
+import parse from 'url-parse'
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 const pkg = require('./package')
+const IS_DEV = process.env.NODE_ENV !== 'production'
 
 const config: NuxtConfiguration = {
   mode: 'spa',
@@ -36,12 +41,25 @@ const config: NuxtConfiguration = {
   /*
    ** Global CSS
    */
-  css: ['~/assets/style/app.styl'],
+  css: ['@/assets/style/common.scss', '@/assets/style/app.styl'],
+  styleResources: {
+    scss: [
+      // 这里只能包含 variable、mixin, 禁止包容任何真实样式，否则每个style里都会重复一遍
+      '@/assets/style/variable.scss',
+      '@/assets/style/mixin.scss'
+    ]
+  },
 
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/vuetify'],
+  plugins: [
+    '@/plugins/filter',
+    '@/plugins/axios',
+    '@/plugins/moment',
+    '@/plugins/message',
+    '@/plugins/vuetify'
+  ],
 
   /*
    ** Nuxt.js modules
@@ -49,13 +67,44 @@ const config: NuxtConfiguration = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/style-resources',
     '@nuxtjs/pwa'
   ],
   /*
    ** Axios module configuration
+   *  See https://github.com/nuxt-community/axios-module#options
    */
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+    proxy: true,
+    prefix: '/api', // it only work when proxy is enabled
+    credentials: true,
+    https: !IS_DEV
+  },
+  proxy: {
+    '/api/proxy/randomImage': {
+      target: 'https://api.ixiaowai.cn',
+      changeOrigin: true,
+      pathRewrite: function (path, req) {
+        const { query } = parse(req.url, true)
+        const typeMap = {
+          acg: '/api/api.php?return=json',
+          acg2: '/mcapi/mcapi.php?return=json',
+          nature: '/gqapi/gqapi.php?return=json',
+          // 可直接作为图片src
+          other: 'https://img.xjh.me/random_img.php?return=302'
+        }
+        return typeMap[query.type || 'nature']
+      }
+    },
+    '/api/proxy/hitokoto': {
+      target: 'https://v1.hitokoto.cn',
+      changeOrigin: true,
+      pathRewrite: { '^/api/proxy/hitokoto': '' }
+    },
+    '/api': {
+      target: IS_DEV || process.server ? 'http://localhost:8000' : 'https://lijun.space',
+      changeOrigin: true
+    }
   },
 
   /*
@@ -63,7 +112,12 @@ const config: NuxtConfiguration = {
    */
   build: {
     transpile: ['vuetify/lib'],
-    plugins: [new VuetifyLoaderPlugin()],
+    plugins: [
+      new VuetifyLoaderPlugin(),
+      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
+      new LodashModuleReplacementPlugin()
+      // new VuetifyLoaderPlugin()
+    ],
     loaders: {
       stylus: {
         import: ['~assets/style/variables.styl']
@@ -74,8 +128,8 @@ const config: NuxtConfiguration = {
      */
     extend(config, ctx) {
       // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        (config.module as any).rules.push({
+      if (ctx.isDev && ctx.isClient && config.module) {
+        config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
