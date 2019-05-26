@@ -12,17 +12,17 @@ export default function ({ $axios, store, redirect, error }) {
 
   $axios.onResponse((response) => {
     const { data, config } = response
-    const { success, message } = data || {}
-    const { url, method, tip } = config
+    const { success, message = '' } = data || {}
+    const { url, method, tip = '' } = config
     const _url = url.replace(/^\/api\//, '')
 
     store.commit('END_FETCH', _url + '#' + method)
     if (process.browser) {
       if (success === true) {
         // get请求不展示消息
-        method !== 'get' && Message.success(tip ? `${tip}成功` : message || '成功')
+        method !== 'get' && Message.success(message.slice(0, 40) || `${tip}成功`)
       } else if (success === false) {
-        Message.warning({ message: message || '出错了' })
+        Message.warning(message.slice(0, 40) || `${tip}出错了`)
       }
     }
     return response

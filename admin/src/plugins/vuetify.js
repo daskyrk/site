@@ -15,7 +15,7 @@ Vue.use(Vuetify, {
     // warning: colors.amber.base,
     // error: colors.deepOrange.accent4,
     // success: colors.green.accent3,
-    primary: '#4caf50',
+    primary: '#00bcd4',
     secondary: '#4caf50',
     tertiary: '#495057',
     accent: '#82B1FF',

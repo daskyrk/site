@@ -70,16 +70,24 @@ export default {
 
     // 添加文章
     async addPost({ commit, dispatch }, data) {
-      const res = await this.$axios.$post('/post', data)
+      const res = await this.$axios.$post('/post', data, { tip: '添加文章' })
       if (res.success) {
         await dispatch('getPostList')
       }
       return res
     },
 
+    // 获取文章详情
+    async getPost({ commit, ...rest }, params) {
+      const res = await this.$axios.$get('/post', { params })
+      if (res && res.success) {
+        commit('SET_POST_DETAIL', res.data)
+      }
+    },
+
     // 编辑文章
     async updatePost({ commit, dispatch }, data) {
-      const res = await this.$axios.$put('/post', data)
+      const res = await this.$axios.$put('/post', data, { tip: '更新文章' })
       if (res.success) {
         commit('SET_POST', data)
       }
@@ -88,7 +96,7 @@ export default {
 
     // 删除文章
     async delPost({ commit, dispatch, state }, id) {
-      const res = await this.$axios.$delete('/post', { params: { id } })
+      const res = await this.$axios.$delete('/post', { params: { id } }, { tip: '删除文章' })
       if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {

@@ -262,4 +262,135 @@ export default {
 .markdown-editor {
   height: 500px;
 }
+
+.markdown-content {
+  a {
+    margin: 0 .2rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .image-package {
+    width: 92%;
+    margin: 0 auto 1rem auto;
+    text-align: center;
+
+    .img-caption {
+      display: inline-block;
+      min-width: 10%;
+      max-width: 80%;
+      min-height: 22px;
+      margin: 0 auto;
+      padding: 6px;
+      color: #969696;
+      font-size: 14px;
+      line-height: 1.2;
+      border-bottom: 1px solid #d9d9d9;
+
+      &:empty {
+        display: none;
+      }
+    }
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    margin: .5rem auto;
+    text-align: center;
+    border-radius: $radius;
+    // transition: all 0.25s;
+    opacity: .9;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.8rem;
+    text-indent: 2rem;
+
+    &.text-center {
+      text-align: center;
+    }
+
+    &.text-right {
+      text-align: right;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 1.5rem 0;
+    padding-left: 0;
+    font-weight: 700;
+    line-height: 1.8rem;
+    text-indent: 0;
+
+    // &:target {
+    //   padding-top: 4.5rem;
+    // }
+  }
+
+  hr {
+    height: .1rem;
+    background: $color-split;
+    border: 0;
+  }
+
+  blockquote {
+    margin-bottom: .3rem;
+    padding: 0 1rem;
+    color: #6a737d;
+    border-left: .25rem solid #dfe2e5;
+
+    p {
+      text-indent: 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  ul,
+  ol {
+    margin-bottom: .3rem;
+    padding-left: 2rem;
+
+    > li {
+      padding: .5rem;
+      line-height: 1.4rem;
+      list-style-type: disc;
+
+      > p {
+        text-indent: 0;
+      }
+
+      > ul {
+        li {
+          list-style-type: circle;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  ol {
+    > li {
+      list-style-type: decimal;
+    }
+  }
+}
 </style>

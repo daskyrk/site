@@ -62,7 +62,7 @@ export default {
   },
 
   computed: {
-    ...mapState('admin/post', ['summary']),
+    ...mapState('post', ['summary']),
 
     postChartData() {
       const typeMap = {
@@ -94,8 +94,8 @@ export default {
   },
 
   async fetch({ store }) {
-    // await store.dispatch('admin/post/summary')
-    // await store.dispatch('admin/tag/summary');
+    // await store.dispatch('/post/summary')
+    // await store.dispatch('/tag/summary');
   },
 }
 </script>

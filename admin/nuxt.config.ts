@@ -27,7 +27,7 @@ const config: NuxtConfiguration = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: '//at.alicdn.com/t/font_683109_n8rl0flwoon.css',
+        href: '//at.alicdn.com/t/font_683109_cidniqc3tj.css',
       },
       {
         rel: 'stylesheet',
@@ -37,11 +37,12 @@ const config: NuxtConfiguration = {
     ],
   },
   script: [
-    {
-      // async: 'async',
-      type: 'text/javascript',
-      src: '//at.alicdn.com/t/font_683109_n8rl0flwoon.js',
-    },
+    // 暂时没有彩色图标需求
+    // {
+    //   // async: 'async',
+    //   type: 'text/javascript',
+    //   src: '//at.alicdn.com/t/font_683109_z2wj22rbmi.js',
+    // },
   ],
 
   /*
@@ -70,6 +71,7 @@ const config: NuxtConfiguration = {
    */
   plugins: [
     { src: '~/plugins/nuxt-client-init.js', ssr: false },
+    { src: '~/plugins/mavon-editor.js', ssr: false },
     '~/plugins/filter',
     '~/plugins/axios',
     '~/plugins/moment',

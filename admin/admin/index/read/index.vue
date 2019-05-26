@@ -172,14 +172,14 @@ export default {
 
   computed: {
     ...mapState({
-      fetch: state => state.fetch['admin/post#get'],
+      fetch: state => state.fetch['/post#get'],
     }),
-    ...mapState('admin/post', ['list', 'total', 'query']),
+    ...mapState('/post', ['list', 'total', 'query']),
     ...mapState('read', ['searchList']),
   },
 
   async fetch({ store }) {
-    await store.dispatch('admin/post/getPostList', { type: 'READ' })
+    await store.dispatch('/post/getPostList', { type: 'READ' })
   },
 
   methods: {
@@ -218,18 +218,18 @@ export default {
           },
         },
       }
-      this.$store.dispatch('admin/post/updatePost', data)
+      this.$store.dispatch('/post/updatePost', data)
       this.currentRow = {}
       this.selectedBook = {}
     },
     pageNoChange(pageNo) {
-      this.$store.dispatch('admin/post/getPostList', {
+      this.$store.dispatch('/post/getPostList', {
         pageNo,
         type: this.type,
       })
     },
     pageSizeChange(pageSize) {
-      this.$store.dispatch('admin/post/getPostList', {
+      this.$store.dispatch('/post/getPostList', {
         pageNo: 1,
         pageSize,
         type: this.type,

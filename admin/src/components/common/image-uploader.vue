@@ -14,7 +14,7 @@
       :src="imageSrc"
     >
     <v-icon v-else>
-      plus
+      mdi-cloud-upload-outline
     </v-icon>
   </div>
 </template>
@@ -129,8 +129,8 @@ export default {
 .image-uploader {
   position: relative;
   display: inline-block;
-  width: 164px;
-  height: 164px;
+  width: 120px;
+  height: 120px;
   overflow: hidden;
   text-align: center;
   border: 1px dashed $c-lightgray;

@@ -74,7 +74,7 @@
                   <v-textarea
                     v-model="userForm.slogan"
                     class="purple-input"
-                    prepend-icon="mdi-halloween"
+                    prepend-icon="iconfont icon-qianming"
                     label="个性签名"
                     :rules="rules.slogan"
                     :counter="200"
@@ -110,9 +110,6 @@
             class="mx-auto d-block"
             size="130"
           >
-            <!-- <img
-              src="/img/avatar.jpg"
-            > -->
             <image-uploader
               :on-success="onSuccess"
               :src="userForm.avatar"

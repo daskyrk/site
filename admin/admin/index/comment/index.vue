@@ -272,13 +272,13 @@ export default {
 
   computed: {
     ...mapState({
-      fetch: state => state.fetch['admin/comment#get'],
+      fetch: state => state.fetch['/comment#get'],
     }),
-    ...mapState('admin/comment', ['list', 'total', 'query']),
+    ...mapState('/comment', ['list', 'total', 'query']),
   },
 
   async fetch({ store }) {
-    await store.dispatch('admin/comment/getComments')
+    await store.dispatch('/comment/getComments')
   },
 
   methods: {
@@ -292,26 +292,26 @@ export default {
       return [start, end]
     },
     pageNoChange(pageNo) {
-      this.$store.dispatch('admin/comment/getComments', {
+      this.$store.dispatch('/comment/getComments', {
         pageNo,
         type: 1,
       })
     },
     pageSizeChange(pageSize) {
-      this.$store.dispatch('admin/comment/getComments', {
+      this.$store.dispatch('/comment/getComments', {
         pageNo: 1,
         pageSize,
         type: 1,
       })
     },
     updateComment(row, state) {
-      this.$store.dispatch('admin/comment/updateComment', {
+      this.$store.dispatch('/comment/updateComment', {
         id: row.id,
         state,
       })
     },
     delComment(row) {
-      this.$store.dispatch('admin/comment/delComment', row.id)
+      this.$store.dispatch('/comment/delComment', row.id)
     },
     onSubmit() {
       this.$refs.filterForm.validate((valid) => {
@@ -319,7 +319,7 @@ export default {
           const { timeRange, ...rest } = this.filterForm
           const [startAt, endAt] = timeRange
           const data = { pageNo: 1, startAt, endAt, ...rest }
-          this.$store.dispatch('admin/comment/getComments', data)
+          this.$store.dispatch('/comment/getComments', data)
         } else {
           return false
         }

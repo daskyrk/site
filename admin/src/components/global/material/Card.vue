@@ -23,13 +23,17 @@
         />
         <span v-else>
           <h4
-            class="title font-weight-light mb-2"
+            class="title mb-2"
             v-text="title"
           />
           <p
-            class="category font-weight-thin"
+            class="category"
             v-text="text"
           />
+        </span>
+
+        <span class="operation">
+          <slot name="operation" />
         </span>
       </v-card>
       <slot
@@ -42,10 +46,7 @@
       <slot />
     </v-card-text>
 
-    <v-divider
-      v-if="$slots.actions"
-      class="mx-3"
-    />
+    <v-divider v-if="$slots.actions" class="mx-3" />
 
     <v-card-actions v-if="$slots.actions">
       <slot name="actions" />
@@ -90,10 +91,7 @@ export default {
 
   computed: {
     hasOffset() {
-      return this.$slots.header ||
-        this.$slots.offset ||
-        this.title ||
-        this.text
+      return this.$slots.header || this.$slots.offset || this.title || this.text
     },
     styles() {
       if (!this.hasOffset) return null
@@ -108,11 +106,26 @@ export default {
 </script>
 
 <style lang="scss">
-  .v-card--material {
-    &__header {
-      &.v-card {
-        border-radius: 4px;
+.v-card--material {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .v-input--selection-controls {
+      margin-top: 0;
+    }
+
+    .operation {
+      display: inline-flex;
+      > * {
+        margin-left: 16px;
       }
     }
+
+    &.v-card {
+      border-radius: 4px;
+    }
   }
+}
 </style>
