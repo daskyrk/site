@@ -64,9 +64,11 @@ export default {
       return res
     },
 
-    async update({ dispatch }, data) {
+    async update({ commit }, data) {
       const res = await this.$axios.$put('/user', data)
-      await dispatch('getMyInfo')
+      if (res.success) {
+        commit('SET_USER', res.data)
+      }
       return res
     },
 

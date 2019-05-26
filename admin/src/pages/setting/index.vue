@@ -41,7 +41,6 @@
                     prepend-icon="sentiment_satisfied_alt"
                     label="昵称"
                     :counter="20"
-                    clearable
                   />
                 </v-flex>
                 <v-flex
@@ -53,7 +52,7 @@
                     hint="至少6位字符以上"
                     prepend-icon="mdi-key"
                     :append-icon="showPassword ? 'visibility' : 'visibility_off'"
-                    :rules="[rules.required, rules.min, rules.password]"
+                    :rules="[rules.min, rules.password]"
                     :type="showPassword ? 'text' : 'password'"
                     @click:append="showPassword = !showPassword"
                   />
@@ -66,7 +65,7 @@
                     v-model="confirm"
                     prepend-icon="mdi-key-change"
                     :append-icon="showPassword ? 'visibility' : 'visibility_off'"
-                    :rules="[rules.required, rules.min, rules.confirm]"
+                    :rules="[rules.min, rules.confirm]"
                     :type="showPassword ? 'text' : 'password'"
                     @click:append="showPassword = !showPassword"
                   />
@@ -75,7 +74,7 @@
                   <v-textarea
                     v-model="userForm.slogan"
                     class="purple-input"
-                    prepend-icon="sentiment_satisfied_alt"
+                    prepend-icon="mdi-halloween"
                     label="个性签名"
                     :rules="rules.slogan"
                     :counter="200"
@@ -120,23 +119,23 @@
             />
           </v-avatar>
           <v-card-text class="text-xs-center">
-            <h6 class="category text-gray font-weight-thin mb-3">
-              CEO / CO-FOUNDER
+            <h6 class="category text-gray mb-3">
+              看书 | 旅游 | 摄影
             </h6>
             <h4 class="card-title font-weight-light">
-              李 骏
+              {{ userForm.nick }}
             </h4>
             <p class="card-description font-weight-light">
-              每一处都是未曾遇见的风景...
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore voluptatem repellendus illo possimus, consequatur repudiandae officiis aliquam, suscipit facilis debitis nesciunt consequuntur! Aspernatur, sit earum molestias perferendis maiores libero voluptate!
+              每一处都是未曾遇见的风景<br>
+              发生的事永远不会忘记，只不过想不起来了而已...╮(╯▽╰)╭
             </p>
-            <v-btn
+            <!-- <v-btn
               color="success"
               round
               class="font-weight-light"
             >
               Follow
-            </v-btn>
+            </v-btn> -->
           </v-card-text>
         </material-card>
       </v-flex>
@@ -158,45 +157,54 @@ export default {
   },
 
   data() {
+    // 不用回填加密后的密码
+    const { password, ...rest } = this.$store.state.user.userInfo
     return {
       valid: false,
       showPassword: false,
       savingUser: false,
       confirm: '',
-      rules: {
-        required: v => !!v || '必填',
-        min: v => v.length > 6 || '少于6位',
-        password: v => !this.confirm || v === this.confirm || '密码不一致',
-        confirm: v => v === this.userForm.password || '密码不一致',
-      },
-    }
-  },
-
-  computed: {
-    userForm() {
-      // 不用回填加密后的密码
-      const { password, ...rest } = this.$store.state.user.userInfo
-      return {
+      userForm: {
         nick: '',
         slogan: '',
         avatar: '',
         email: '',
         password: '',
         ...rest,
-      }
-    },
+      },
+      rules: {
+        required: v => !!v || '必填',
+        min: v => !v || v.length > 6 || '少于6位',
+        password: v => !this.confirm || v === this.confirm || '密码不一致',
+        confirm: v => v === this.userForm.password || '密码不一致',
+      },
+    }
   },
 
   methods: {
     submit() {
       this.$refs.form.validate(true)
       if (this.valid) {
-        this.$store.dispatch('user/update', this.userForm)
+        const { password, ...rest } = this.userForm
+        const data = password === ''
+          ? { ...rest, password: this.$store.state.user.userInfo.password }
+          : this.userForm
+        this.$store.dispatch('user/update', data)
       }
     },
     onSuccess(url) {
+      this.$msg.info('记得点击更新保存哦~')
       this.userForm.avatar = url
     },
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.image-uploader {
+  width: 100%;
+  height: 100%;
+  border: none;
+  overflow: unset;
+}
+</style>

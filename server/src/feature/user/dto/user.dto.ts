@@ -12,7 +12,7 @@ export class LoginDto {
   public email: string;
 
   @IsDefined({ message: "password can't not be empty" })
-  @Length(6, 30)
+  @Length(6, 64)
   public password: string;
 }
 

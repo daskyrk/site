@@ -3,7 +3,6 @@
     class="image-uploader"
     @click="selectFile"
   >
-    <i class="el-icon-plus avatar-uploader-icon" />
     <input
       ref="input"
       type="file"
@@ -14,6 +13,9 @@
       v-if="imageSrc"
       :src="imageSrc"
     >
+    <v-icon v-else>
+      plus
+    </v-icon>
   </div>
 </template>
 
@@ -95,11 +97,11 @@ export default {
       const isLt2M = file.size / 1024 / 1024 < this.limit
 
       // if (!typeAllowed) {
-      //   this.$message.error(`上传图片只能是以下格式：${this.allowTypes}`);
+      //   this.$msg.error(`上传图片只能是以下格式：${this.allowTypes}`);
       //   return false;
       // }
       if (!isLt2M) {
-        this.$message.error(`上传图片大小不能超过 ${this.limit}MB!`)
+        this.$msg.error(`上传图片大小不能超过 ${this.limit}MB!`)
         return false
       }
       return true
@@ -116,7 +118,7 @@ export default {
     },
 
     handleError(res) {
-      this.$message.error(res.message)
+      this.$msg.error(res.message)
       ;(this.onError || noop)(res.message)
     },
   },

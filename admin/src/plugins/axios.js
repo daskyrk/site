@@ -20,7 +20,7 @@ export default function ({ $axios, store, redirect, error }) {
     if (process.browser) {
       if (success === true) {
         // get请求不展示消息
-        method !== 'get' && Message.success(`${tip}成功` || message || '成功')
+        method !== 'get' && Message.success(tip ? `${tip}成功` : message || '成功')
       } else if (success === false) {
         Message.warning({ message: message || '出错了' })
       }
