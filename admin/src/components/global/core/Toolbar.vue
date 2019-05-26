@@ -135,7 +135,7 @@ export default {
   watch: {
     '$route'(val) {
       console.log('val:', val)
-      this.title = val.name
+      this.title = val.path === '' ? '总览' : val.name
     },
   },
 

@@ -4,32 +4,32 @@ export const appConfig = {
   frontPage: 'https://lijun.space',
   menus: [
     {
-      link: '/admin',
+      to: '/',
       text: '总览',
       icon: 'iconfont icon-home',
     },
     {
-      link: '/admin/read',
+      to: '/read',
       text: '读书管理',
       icon: 'iconfont icon-book',
     },
     {
-      link: '/admin/post',
+      to: '/post',
       text: '文章管理',
       icon: 'iconfont icon-post',
     },
     {
-      link: '/admin/comment',
+      to: '/comment',
       text: '留言管理',
       icon: 'iconfont icon-comment',
     },
     {
-      link: '/admin/tag',
+      to: '/tag',
       text: '标签管理',
       icon: 'iconfont icon-tag',
     },
     {
-      link: '/admin/setting',
+      to: '/setting',
       text: '系统设置',
       icon: 'iconfont icon-setting',
     },

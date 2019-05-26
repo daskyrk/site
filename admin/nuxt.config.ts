@@ -53,8 +53,9 @@ const config: NuxtConfiguration = {
    ** Global CSS
    */
   css: [
+    'vuetify/dist/vuetify.min.css',
+    '~/assets/style/material.scss',
     '~/assets/style/common.scss',
-    '~/assets/style/app.styl',
   ],
   styleResources: {
     scss: [
@@ -134,13 +135,7 @@ const config: NuxtConfiguration = {
       // eslint-disable-next-line no-useless-escape
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
       new LodashModuleReplacementPlugin(),
-      // new VuetifyLoaderPlugin()
     ],
-    loaders: {
-      stylus: {
-        import: ['~assets/style/variables.styl'],
-      },
-    },
     /*
      ** You can extend webpack config here
      */

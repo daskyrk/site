@@ -62,8 +62,6 @@
 <script>
 
 export default {
-  layout: 'manage',
-
   components: {
   },
 }
