@@ -5,3 +5,9 @@
     </v-fade-transition>
   </v-content>
 </template>
+
+<style lang="scss">
+.theme--light.application {
+  background-color: #eee;
+}
+</style>

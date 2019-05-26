@@ -3,7 +3,7 @@
     flat
     prominent
     class="mb-0"
-    style="background: #eeeeee;"
+    style="background: #eee;"
   >
     <div class="v-toolbar-title">
       <v-toolbar-title

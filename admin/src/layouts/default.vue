@@ -1,12 +1,12 @@
 <template>
   <v-app class="use-material-theme">
-    <core-side-panel />
+    <core-nav />
 
-    <core-toolbar />
-
-    <core-drawer />
+    <core-sidebar />
 
     <core-container />
+
+    <core-side-panel />
   </v-app>
 </template>
 
