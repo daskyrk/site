@@ -9,21 +9,11 @@
     mobile-break-point="991"
     width="260"
   >
-    <v-img
-      :src="image"
-      height="100%"
-    >
-      <v-list
-        class="fill-height"
-        column
-      >
+    <v-img :src="image" height="100%">
+      <v-list class="fill-height nav-list" column>
         <v-list-tile avatar>
           <v-list-tile-avatar color="white">
-            <v-img
-              :src="logo"
-              height="34"
-              contain
-            />
+            <v-img :src="logo" height="34" contain />
           </v-list-tile-avatar>
           <v-list-tile-title class="title">
             博客后台
@@ -31,27 +21,26 @@
         </v-list-tile>
         <v-divider />
         <v-list-tile v-if="responsive">
-          <v-text-field
-            class="purple-input search-input"
-            label="Search..."
-            color="purple"
-          />
+          <v-text-field class="purple-input search-input" label="Search..." color="purple" />
         </v-list-tile>
-        <v-list-tile
-          v-for="(link, i) in menus"
-          :key="i"
-          :to="link.to"
-          :active-class="color"
-          avatar
-          class="v-list-item"
-        >
-          <v-list-tile-action>
-            <v-icon>
-              {{ link.icon }}
-            </v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title v-text="link.text" />
-        </v-list-tile>
+
+        <v-list class="inner-list" column>
+          <v-list-tile
+            v-for="(link, i) in menus"
+            :key="i"
+            :to="link.to"
+            :active-class="color"
+            avatar
+            class="v-list-item"
+          >
+            <v-list-tile-action>
+              <v-icon>
+                {{ link.icon }}
+              </v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title v-text="link.text" />
+          </v-list-tile>
+        </v-list>
         <!-- <v-list-tile
           disabled
           active-class="primary"
@@ -117,7 +106,7 @@ export default {
 </script>
 
 <style lang="scss">
-#admin-app-drawer {
+#admin-app-drawer{
   .v-list__tile {
     border-radius: 4px;
 
@@ -127,15 +116,27 @@ export default {
     // }
   }
 
-  .v-image__image--contain {
-    top: 9px;
-    height: 60%;
+  //   .v-image__image--contain {
+  //     top: 9px;
+  //     height: 60%;
+  //   }
+
+  //   .search-input {
+  //     margin-bottom: 30px !important;
+  //     padding-right: 15px;
+  //     padding-left: 15px;
+  //   }
+
+  .nav-list {
+    display: flex;
+    flex-direction: column;
   }
 
-  .search-input {
-    margin-bottom: 30px !important;
-    padding-right: 15px;
-    padding-left: 15px;
+  .inner-list {
+    overflow: auto;
+    background: rgba(0, 0, 0, 0) !important;
+    flex-grow: 1;
+    margin-bottom: 12px;
   }
 }
 </style>

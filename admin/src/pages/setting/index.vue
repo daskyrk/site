@@ -145,7 +145,6 @@
 
 <script>
 import ImageUploader from '~/components/common/image-uploader'
-import { regexp } from '~/utils'
 
 export default {
   meta: {

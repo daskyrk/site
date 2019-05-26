@@ -18,10 +18,18 @@
         >
           <v-icon>mdi-view-list</v-icon>
         </v-btn>
-        {{ title }}
         <v-breadcrumbs :items="breadcrumb">
           <template v-slot:divider>
             <v-icon>mdi-chevron-right</v-icon>
+          </template>
+          <template v-slot:item="props">
+            <v-breadcrumbs-item
+              active-class="active"
+              :to="props.item.to"
+              :class="[props.item.disabled && 'disabled']"
+            >
+              {{ props.item.text }}
+            </v-breadcrumbs-item>
           </template>
         </v-breadcrumbs>
       </v-toolbar-title>
@@ -167,3 +175,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.v-breadcrumbs {
+  display: inline-flex;
+}
+</style>

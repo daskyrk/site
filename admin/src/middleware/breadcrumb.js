@@ -7,8 +7,8 @@ export default ({ store, route }) => {
       const meta = route.meta[index]
       return list.concat([
         {
-          title: meta ? meta.breadcrumb : item.name,
-          url: item.path,
+          text: meta ? meta.breadcrumb : item.name,
+          to: item.path,
         },
       ])
     }, [])

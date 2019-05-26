@@ -62,6 +62,10 @@
 <script>
 
 export default {
+  meta: {
+    breadcrumb: '总览',
+  },
+
   components: {
   },
 }
