@@ -6,32 +6,32 @@ export const appConfig = {
     {
       link: '/admin',
       text: '总览',
-      icon: 'home',
+      icon: 'iconfont icon-home',
     },
     {
       link: '/admin/read',
       text: '读书管理',
-      icon: 'book',
+      icon: 'iconfont icon-book',
     },
     {
       link: '/admin/post',
       text: '文章管理',
-      icon: 'post',
+      icon: 'iconfont icon-post',
     },
     {
       link: '/admin/comment',
       text: '留言管理',
-      icon: 'comment',
+      icon: 'iconfont icon-comment',
     },
     {
       link: '/admin/tag',
       text: '标签管理',
-      icon: 'tag',
+      icon: 'iconfont icon-tag',
     },
     {
       link: '/admin/setting',
       text: '系统设置',
-      icon: 'setting',
+      icon: 'iconfont icon-setting',
     },
   ],
 }

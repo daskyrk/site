@@ -1,0 +1,46 @@
+.v-menu__content {
+  border-radius: $border-radius-dropdown;
+  box-shadow: $box-shadow-general;
+
+  .sidebar-filter {
+    height: 30px;
+    color: $black-color;
+    font-weight: $font-weight-bolder + 100;
+    font-size: $font-size-small !important;
+    line-height: 25px;
+  }
+
+  .v-responsive {
+    max-width: 50px;
+    max-height: 100px;
+    margin: 0 auto;
+    border-radius: $border-radius-dropdown;
+  }
+
+  .container.grid-list-xl .layout .flex {
+    padding: $padding-small - 5;
+  }
+
+  .v-avatar,
+  .v-responsive {
+    border: 3px solid $white;
+    transition: all .34s;
+
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+
+    &.image-active,
+    &.color-active {
+      border-color: $brand-info;
+    }
+  }
+
+  .v-avatar {
+    @include fixed-plugin-colors("primary", $brand-primary);
+    @include fixed-plugin-colors("info", $brand-info);
+    @include fixed-plugin-colors("danger", $brand-danger);
+    @include fixed-plugin-colors("warning", $brand-warning);
+    @include fixed-plugin-colors("success", $brand-success);
+  }
+}

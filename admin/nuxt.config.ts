@@ -27,11 +27,22 @@ const config: NuxtConfiguration = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
+        href: '//at.alicdn.com/t/font_683109_n8rl0flwoon.css',
+      },
+      {
+        rel: 'stylesheet',
         href:
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons',
       },
     ],
   },
+  script: [
+    {
+      // async: 'async',
+      type: 'text/javascript',
+      src: '//at.alicdn.com/t/font_683109_n8rl0flwoon.js',
+    },
+  ],
 
   /*
    ** Customize the progress-bar color
@@ -41,7 +52,10 @@ const config: NuxtConfiguration = {
   /*
    ** Global CSS
    */
-  css: ['~/assets/style/common.scss', '~/assets/style/app.styl'],
+  css: [
+    '~/assets/style/common.scss',
+    '~/assets/style/app.styl',
+  ],
   styleResources: {
     scss: [
       // 这里只能包含 variable、mixin, 禁止包容任何真实样式，否则每个style里都会重复一遍
@@ -59,6 +73,8 @@ const config: NuxtConfiguration = {
     '~/plugins/axios',
     '~/plugins/moment',
     '~/plugins/message',
+    '~/plugins/combined-inject',
+    '~/plugins/custom-components.js',
     '~/plugins/vuetify',
   ],
 

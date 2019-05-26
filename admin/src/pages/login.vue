@@ -84,7 +84,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import { appConfig } from '~~/config'
 import { regexp } from '~/utils'
 
 export default {
@@ -94,7 +93,7 @@ export default {
 
   data() {
     return {
-      frontPage: appConfig.frontPage,
+      frontPage: this.$getConfig('frontPage'),
       valid: false,
       form: {
         email: '',
