@@ -1,5 +1,5 @@
-// 放在body里，不管注入顺序总能覆盖
-body {
+// 增加一个层级，不管注入顺序总能覆盖
+.use-material-theme {
   @import "material-dashboard/mixins";
   @import "material-dashboard/variables";
   @import "material-dashboard/typography";

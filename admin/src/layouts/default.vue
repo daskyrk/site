@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="use-material-theme">
     <core-side-panel />
 
     <core-toolbar />
@@ -11,6 +11,7 @@
 </template>
 
 <script>
-
-export default { }
+export default {
+  middleware: 'auth',
+}
 </script>

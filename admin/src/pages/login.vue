@@ -15,12 +15,11 @@
               <span>前台</span>
             </v-tooltip>
           </v-toolbar>
-          <v-card-text>
+          <v-card-text class="px-4">
             <v-form v-model="valid">
               <v-text-field
                 v-model="form.email"
                 prepend-icon="person"
-                name="login"
                 label="邮箱"
                 type="text"
                 :rules="rules.email"
@@ -32,7 +31,6 @@
                 id="password"
                 v-model="form.password"
                 prepend-icon="lock"
-                name="password"
                 label="密码"
                 type="password"
                 :rules="rules.password"
@@ -42,7 +40,7 @@
               />
             </v-form>
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions class="px-4 py-3">
             <v-spacer />
             <v-btn color="primary" @click="submit('login')">
               登录
@@ -72,7 +70,7 @@
             <v-spacer />
             <nuxt-link to="/">
               <v-btn color="primary">
-                回到首页
+                去首页
               </v-btn>
             </nuxt-link>
           </v-card-actions>
@@ -87,8 +85,6 @@ import { mapState } from 'vuex'
 import { regexp } from '~/utils'
 
 export default {
-  middleware: 'auth',
-
   layout: 'empty',
 
   data() {

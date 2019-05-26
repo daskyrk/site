@@ -30,30 +30,30 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     eventHandlers: {
       type: Array,
-      default: () => ([])
+      default: () => ([]),
     },
     options: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     ratio: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     responsiveOptions: {
       type: Array,
-      default: () => ([])
+      default: () => ([]),
     },
     type: {
       type: String,
       required: true,
-      validator: v => ['Bar', 'Line', 'Pie'].includes(v)
-    }
-  }
+      validator: v => ['Bar', 'Line', 'Pie'].includes(v),
+    },
+  },
 }
 </script>
 

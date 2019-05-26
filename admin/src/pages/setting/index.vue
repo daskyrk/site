@@ -14,37 +14,22 @@
       >
         <material-card
           color="green"
-          title="Edit Profile"
+          title="编辑个人信息"
           text="Complete your profile"
         >
-          <v-form>
+          <v-form ref="form" v-model="valid">
             <v-container py-0>
               <v-layout wrap>
                 <v-flex
                   xs12
-                  md4
+                  md6
                 >
                   <v-text-field
-                    label="Company (disabled)"
+                    v-model="userForm.email"
+                    prepend-icon="email"
+                    label="邮箱"
                     disabled
-                  />
-                </v-flex>
-                <v-flex
-                  xs12
-                  md4
-                >
-                  <v-text-field
-                    class="purple-input"
-                    label="User Name"
-                  />
-                </v-flex>
-                <v-flex
-                  xs12
-                  md4
-                >
-                  <v-text-field
-                    label="Email Address"
-                    class="purple-input"
+                    required
                   />
                 </v-flex>
                 <v-flex
@@ -52,8 +37,11 @@
                   md6
                 >
                   <v-text-field
-                    label="First Name"
-                    class="purple-input"
+                    v-model="userForm.nick"
+                    prepend-icon="sentiment_satisfied_alt"
+                    label="昵称"
+                    :counter="20"
+                    clearable
                   />
                 </v-flex>
                 <v-flex
@@ -61,52 +49,37 @@
                   md6
                 >
                   <v-text-field
-                    label="Last Name"
-                    class="purple-input"
+                    v-model="userForm.password"
+                    hint="至少6位字符以上"
+                    prepend-icon="mdi-key"
+                    :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+                    :rules="[rules.required, rules.min, rules.password]"
+                    :type="showPassword ? 'text' : 'password'"
+                    @click:append="showPassword = !showPassword"
                   />
                 </v-flex>
                 <v-flex
                   xs12
-                  md12
+                  md6
                 >
                   <v-text-field
-                    label="Adress"
-                    class="purple-input"
-                  />
-                </v-flex>
-                <v-flex
-                  xs12
-                  md4
-                >
-                  <v-text-field
-                    label="City"
-                    class="purple-input"
-                  />
-                </v-flex>
-                <v-flex
-                  xs12
-                  md4
-                >
-                  <v-text-field
-                    label="Country"
-                    class="purple-input"
-                  />
-                </v-flex>
-                <v-flex
-                  xs12
-                  md4
-                >
-                  <v-text-field
-                    class="purple-input"
-                    label="Postal Code"
-                    type="number"
+                    v-model="confirm"
+                    prepend-icon="mdi-key-change"
+                    :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+                    :rules="[rules.required, rules.min, rules.confirm]"
+                    :type="showPassword ? 'text' : 'password'"
+                    @click:append="showPassword = !showPassword"
                   />
                 </v-flex>
                 <v-flex xs12>
                   <v-textarea
+                    v-model="userForm.slogan"
                     class="purple-input"
-                    label="About Me"
-                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    prepend-icon="sentiment_satisfied_alt"
+                    label="个性签名"
+                    :rules="rules.slogan"
+                    :counter="200"
+                    clearable
                   />
                 </v-flex>
                 <v-flex
@@ -116,8 +89,11 @@
                   <v-btn
                     class="mx-0 font-weight-light"
                     color="success"
+                    :disabled="savingUser"
+                    type="primary"
+                    @click.prevent="submit"
                   >
-                    更新信息
+                    {{ savingUser ? '更新中' : '更新' }}
                   </v-btn>
                 </v-flex>
               </v-layout>
@@ -135,9 +111,13 @@
             class="mx-auto d-block"
             size="130"
           >
-            <img
+            <!-- <img
               src="/img/avatar.jpg"
-            >
+            > -->
+            <image-uploader
+              :on-success="onSuccess"
+              :src="userForm.avatar"
+            />
           </v-avatar>
           <v-card-text class="text-xs-center">
             <h6 class="category text-gray font-weight-thin mb-3">
@@ -166,7 +146,7 @@
 
 <script>
 import ImageUploader from '~/components/common/image-uploader'
-import { mapState } from 'vuex'
+import { regexp } from '~/utils'
 
 export default {
   meta: {
@@ -174,63 +154,45 @@ export default {
   },
 
   components: {
-    // ImageUploader,
+    ImageUploader,
   },
 
   data() {
-    const checkPassComfirm = (rule, value, callback) => {
-      let msg = null
-      if (value !== this.userForm.newPassword) {
-        msg = '两次输入密码不一致!'
-      }
-      if (msg) {
-        callback(new Error(msg))
-      } else {
-        callback()
-      }
-    }
     return {
+      valid: false,
+      showPassword: false,
       savingUser: false,
-      userRules: {
-        username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
-        ],
-        email: [
-          {
-            type: 'email',
-            message: '请输入正确的邮箱地址',
-            trigger: ['blur', 'change'],
-          },
-        ],
-        newPassword: [{ min: 6, message: '密码至少6位', trigger: 'blur' }],
-        checkPass: [{ validator: checkPassComfirm, trigger: 'blur' }],
+      confirm: '',
+      rules: {
+        required: v => !!v || '必填',
+        min: v => v.length > 6 || '少于6位',
+        password: v => !this.confirm || v === this.confirm || '密码不一致',
+        confirm: v => v === this.userForm.password || '密码不一致',
       },
     }
   },
 
   computed: {
     userForm() {
+      // 不用回填加密后的密码
+      const { password, ...rest } = this.$store.state.user.userInfo
       return {
-        username: '',
         nick: '',
         slogan: '',
         avatar: '',
         email: '',
-        newPassword: '',
-        checkPass: '',
-        ...this.$store.state.user.userInfo,
+        password: '',
+        ...rest,
       }
     },
   },
 
   methods: {
-    submit(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          const { checkPass, ...rest } = this.userForm
-          this.$store.dispatch('user/updateConfig', rest)
-        }
-      })
+    submit() {
+      this.$refs.form.validate(true)
+      if (this.valid) {
+        this.$store.dispatch('user/update', this.userForm)
+      }
     },
     onSuccess(url) {
       this.userForm.avatar = url
@@ -238,15 +200,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.user-setting-form {
-  width: 80%;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.img-item {
-  margin-bottom: 0;
-}
-</style>

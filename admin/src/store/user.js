@@ -43,7 +43,7 @@ export default {
       return res
     },
 
-    async add({ commit }, data) {
+    async regist({ commit }, data) {
       const res = await this.$axios.$post('/user', data)
 
       if (res.success) {
@@ -64,7 +64,7 @@ export default {
       return res
     },
 
-    async updateConfig({ dispatch }, data) {
+    async update({ dispatch }, data) {
       const res = await this.$axios.$put('/user', data)
       await dispatch('getMyInfo')
       return res
