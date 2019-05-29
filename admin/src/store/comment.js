@@ -37,13 +37,13 @@ export default {
 
     // 删除评论
     async delComment({ state }, data) {
-      const res = await this.$axios.$delete(`/comment`, data)
+      const res = await this.$axios.$delete(`/comment`, data, { tip: '删除留言' })
       return res
     },
 
     // 更新评论
     async updateComment({ commit }, data) {
-      const res = await this.$axios.$put(`/comment`, data)
+      const res = await this.$axios.$put(`/comment`, data, { tip: '更新留言状态' })
       commit('SET_COMMENT_STATE', data)
       return res
     },

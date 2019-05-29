@@ -3,7 +3,6 @@
     fill-height
     fluid
     grid-list-xl
-    class="post-manage"
   >
     <v-layout
       justify-center
@@ -21,32 +20,17 @@
               color="transparent"
               slider-color="white"
             >
-              <span
-                class="subheading font-weight-light mr-3"
-                style="align-self: center"
-              >类别:
-              </span>
-              <v-tab
-                v-for="type in types"
-                :key="type"
-                class="mr-3"
-              >
-                <v-icon v-if="type.icon" class="mr-2">
-                  mdi-bug
-                </v-icon>
-                {{ type }}
-              </v-tab>
               <v-tab class="mr-3">
                 <v-icon class="mr-2">
                   mdi-book
                 </v-icon>
-                读书
+                未归档
               </v-tab>
               <v-tab>
                 <v-icon class="mr-2">
                   mdi-music
                 </v-icon>
-                音乐
+                已归档
               </v-tab>
             </v-tabs>
           </v-flex>
@@ -64,30 +48,14 @@
                   slot="items"
                   slot-scope="{ item }"
                 >
-                  <td>{{ item.title }}</td>
-                  <td :class="{'green--text':item.isPublic}">
-                    <span class="pointer" @click="updatePost(item, 'isPublic')">
-                      <i
-                        class="iconfont"
-                        :class="item.isPublic ? 'icon-unlocked' : 'icon-locked'"
-                      />
-                      {{ item.isPublic ? '公开' : '私密' }}
-                    </span>
-                  </td>
-                  <td :class="{'green--text':item.isPublish}">
-                    <span class="pointer" @click="updatePost(item, 'isPublish')">
-                      <i
-                        class="iconfont"
-                        :class="item.isPublish ? 'icon-fabu' : 'icon-caogao'"
-                      />
-                      {{ item.isPublish ? '发布' : '草稿' }}
-                    </span>
+                  <td>{{ item.content }}</td>
+                  <td>{{ item.author.name }}</td>
+                  <td>{{ item.author.email }}</td>
+                  <td>
+                    {{ item.createdAt | dateFormat('YYYY.MM.DD - HH:mm:ss') }}
                   </td>
                   <td>
-                    {{ item.createdAt | dateFormat('YYYY.MM.DD') }}
-                  </td>
-                  <td>
-                    {{ item.updatedAt | dateFormat('YYYY.MM.DD HH:mm:ss') }}
+                    {{ item.ip }}
                   </td>
                   <td class="text-xs-right">
                     <v-btn
@@ -95,17 +63,28 @@
                       small
                       color="green"
                       class="mr-2"
-                      @click="editPost(item)"
+                      :disabled="item.state === 1"
+                      @click="updateComment(item, 1)"
                     >
-                      <v-icon> edit </v-icon>
+                      <v-icon> check </v-icon>
                     </v-btn>
-                    <confirm tip="确定要删除吗？" :ok="() => deletePost(item)">
+                    <v-btn
+                      fab
+                      small
+                      color="red"
+                      class="mr-2"
+                      :disabled="item.state === 2"
+                      @click="updateComment(item, 2)"
+                    >
+                      <v-icon> close </v-icon>
+                    </v-btn>
+                    <confirm tip="确定要归档吗？" :ok="() => archiveComment(item)">
                       <v-btn
                         fab
                         small
-                        color="red"
+                        color="blue"
                       >
-                        <v-icon> delete </v-icon>
+                        <v-icon> mdi-archive </v-icon>
                       </v-btn>
                     </confirm>
                   </td>
@@ -124,24 +103,73 @@ import { mapState } from 'vuex'
 
 export default {
   meta: {
-    breadcrumb: '文章列表',
+    breadcrumb: '留言列表',
+  },
+
+  filters: {
+    stateIcon: function (state) {
+      const iconMap = {
+        0: 'shenhe',
+        1: 'circle-check',
+        2: 'circle-cross',
+        3: 'guidang',
+      }
+      return 'iconfont icon-' + iconMap[state]
+    },
+    dealSite: function (site) {
+      return site.includes('http') ? site : `http://${site}`
+    },
   },
 
   data() {
     const getDateRange = this.getDateRange()
     return {
-      deletingId: null,
       tabs: 0,
       filterForm: {
         keyword: '',
         state: -1,
-        public: -1,
-        type: -1,
-        tag: '',
         timeRange: [],
       },
-      type: '',
-      // timeRangeDay: 0,
+      types: ['normal', 'archived'],
+      stateMap: {
+        0: '待审核',
+        1: '通过',
+        2: '不通过',
+        3: '已归档',
+      },
+      headers: [
+        {
+          sortable: false,
+          text: '内容',
+          value: 'content',
+        },
+        {
+          sortable: false,
+          text: '留言人',
+          value: 'author.name',
+        },
+        {
+          sortable: false,
+          text: '邮箱',
+          value: 'author.email',
+        },
+        {
+          sortable: false,
+          text: '时间',
+          value: 'createdAt',
+        },
+        {
+          sortable: false,
+          text: 'IP',
+          value: 'ip',
+        },
+        {
+          sortable: false,
+          text: '操作',
+          value: 'updatedAt',
+          align: 'right',
+        },
+      ],
       pickerOptions: {
         shortcuts: [
           {
@@ -170,68 +198,27 @@ export default {
           },
         ],
       },
-      headers: [
-        {
-          sortable: false,
-          text: '标题',
-          value: 'name',
-        },
-        {
-          sortable: false,
-          text: '公开',
-          value: 'isPublic',
-        },
-        {
-          sortable: false,
-          text: '发布',
-          value: 'isPublish',
-        },
-        {
-          sortable: false,
-          text: '创建时间',
-          value: 'createdAt',
-        },
-        {
-          sortable: false,
-          text: '更新时间',
-          value: 'updatedAt',
-        },
-        {
-          sortable: false,
-          text: '操作',
-          value: 'updatedAt',
-          align: 'right',
-        },
-      ],
     }
   },
 
   computed: {
     ...mapState({
-      fetch: state => state.fetch['post#get'],
+      fetch: state => state.fetch['comment#get'],
     }),
-    ...mapState('post', ['list', 'total', 'query']),
-    ...mapState('tag', {
-      tagList: 'list',
-    }),
-    types() {
-      return this.list.map(p => p.type)
-    },
+    ...mapState('comment', ['list', 'total', 'query']),
     listTypeMap() {
       const map = {}
-      this.list.forEach((p) => { map[p.type] = (map[p.type] || []).concat(p) })
+      this.list.forEach((p) => {
+        const type = p.state === 3 ? 'archived' : 'normal'
+        map[type] = (map[type] || []).concat(p)
+      })
       return map
     },
   },
 
   async fetch({ store }) {
-    await store.dispatch('post/getPostList')
-    await store.dispatch('tag/getTags', { pageSize: 100 })
+    await store.dispatch('comment/getComments')
   },
-
-  // beforeDestroy() {
-  //   this.$store.commit('post/RESET_LIST');
-  // },
 
   methods: {
     pickDayRange(e) {
@@ -244,27 +231,29 @@ export default {
       return [start, end]
     },
     pageNoChange(pageNo) {
-      this.$store.dispatch('post/getPostList', {
+      this.$store.dispatch('comment/getComments', {
         pageNo,
+        type: 1,
       })
     },
     pageSizeChange(pageSize) {
-      this.$store.dispatch('post/getPostList', {
+      this.$store.dispatch('comment/getComments', {
         pageNo: 1,
         pageSize,
+        type: 1,
       })
     },
-    updatePost(row, key) {
-      this.$store.dispatch('post/updatePost', { ...row, [key]: !row[key] })
+    updateComment(row, state) {
+      this.$store.dispatch('comment/updateComment', {
+        id: row.id,
+        state,
+      })
     },
-    editPost(row) {
-      this.$router.push(`/post/${row.id}`)
+    archiveComment(row) {
+      // this.$store.dispatch('comment/delComment', row.id)
     },
-    deletePost(row) {
-      this.$store.dispatch('post/delPost', row.id)
-    },
-    isDeleting(row) {
-      return row.id === this.deletingId
+    delComment(row) {
+      this.$store.dispatch('comment/delComment', row.id)
     },
     onSubmit() {
       this.$refs.filterForm.validate((valid) => {
@@ -272,7 +261,7 @@ export default {
           const { timeRange, ...rest } = this.filterForm
           const [startAt, endAt] = timeRange
           const data = { pageNo: 1, startAt, endAt, ...rest }
-          this.$store.dispatch('post/getPostList', data)
+          this.$store.dispatch('comment/getComments', data)
         } else {
           return false
         }

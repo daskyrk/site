@@ -25,7 +25,7 @@ export const CommentSchema = new Mongoose.Schema(
     likes: { type: Number, default: 0 },
 
     // 状态 0待审核 1通过 2不通过 3归档
-    state: { type: Number, default: 1 },
+    state: { type: Number, default: 0 },
 
     // ip
     ip: { type: String },
