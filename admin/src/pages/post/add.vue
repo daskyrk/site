@@ -1,12 +1,8 @@
 <template>
-  <div class="form-wrap">
-    <post-form :on-submit="onSubmit" />
-  </div>
+  <post-form :on-submit="onSubmit" />
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import ImageUploader from '~/components/common/image-uploader'
 import PostForm from '~/components/post/post-form'
 
 export default {
@@ -29,10 +25,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.form-wrap {
-  padding: 2rem 0;
-  background-color: $c-white;
-}
-</style>

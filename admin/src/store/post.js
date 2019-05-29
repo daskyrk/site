@@ -87,7 +87,12 @@ export default {
 
     // 编辑文章
     async updatePost({ commit, dispatch }, data) {
-      const res = await this.$axios.$put('/post', data, { tip: '更新文章' })
+      // 获取文章时会自动把tags替换为对象，保存时要再取出id来
+      let tags = []
+      if (typeof data.tags[0] !== 'string') {
+        tags = data.tags.map(t => t.id)
+      }
+      const res = await this.$axios.$put('/post', { ...data, tags }, { tip: '更新文章' })
       if (res.success) {
         commit('SET_POST', data)
       }

@@ -27,7 +27,7 @@ const config: NuxtConfiguration = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: '//at.alicdn.com/t/font_683109_cidniqc3tj.css',
+        href: '//at.alicdn.com/t/font_683109_ydz0h36q4ni.css',
       },
       {
         rel: 'stylesheet',
@@ -76,6 +76,7 @@ const config: NuxtConfiguration = {
     '~/plugins/axios',
     '~/plugins/moment',
     '~/plugins/message',
+    '~/plugins/tooltip',
     '~/plugins/combined-inject',
     '~/plugins/custom-components.js',
     '~/plugins/vuetify',

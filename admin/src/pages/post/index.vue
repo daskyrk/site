@@ -13,36 +13,106 @@
         md12
       >
         <material-card
-          color="green"
-          title="Simple Table"
-          text="Here is a subtitle for this table"
+          class="card-tabs"
         >
-          <v-data-table
-            :headers="headers"
-            :items="items"
-            hide-actions
-          >
-            <template
-              slot="headerCell"
-              slot-scope="{ header }"
+          <v-flex slot="header">
+            <v-tabs
+              v-model="tabs"
+              color="transparent"
+              slider-color="white"
             >
               <span
-                class="subheading font-weight-light text-success text--darken-3"
-                v-text="header.text"
-              />
-            </template>
-            <template
-              slot="items"
-              slot-scope="{ item }"
+                class="subheading font-weight-light mr-3"
+                style="align-self: center"
+              >类别:
+              </span>
+              <v-tab
+                v-for="type in types"
+                :key="type"
+                class="mr-3"
+              >
+                <v-icon v-if="type.icon" class="mr-2">
+                  mdi-bug
+                </v-icon>
+                {{ type }}
+              </v-tab>
+              <v-tab class="mr-3">
+                <v-icon class="mr-2">
+                  mdi-book
+                </v-icon>
+                读书
+              </v-tab>
+              <v-tab>
+                <v-icon class="mr-2">
+                  mdi-music
+                </v-icon>
+                音乐
+              </v-tab>
+            </v-tabs>
+          </v-flex>
+          <v-tabs-items v-model="tabs">
+            <v-tab-item
+              v-for="type in types"
+              :key="type"
             >
-              <td>{{ item.name }}</td>
-              <td>{{ item.country }}</td>
-              <td>{{ item.city }}</td>
-              <td class="text-xs-right">
-                {{ item.salary }}
-              </td>
-            </template>
-          </v-data-table>
+              <v-data-table
+                :headers="headers"
+                :items="listTypeMap[type]"
+                hide-actions
+              >
+                <template
+                  slot="items"
+                  slot-scope="{ item }"
+                >
+                  <td>{{ item.title }}</td>
+                  <td :class="{'green--text':item.isPublic}">
+                    <span class="pointer" @click="updatePost(item, 'isPublic')">
+                      <i
+                        class="iconfont"
+                        :class="item.isPublic ? 'icon-unlocked' : 'icon-locked'"
+                      />
+                      {{ item.isPublic ? '公开' : '私密' }}
+                    </span>
+                  </td>
+                  <td :class="{'green--text':item.isPublish}">
+                    <span class="pointer" @click="updatePost(item, 'isPublish')">
+                      <i
+                        class="iconfont"
+                        :class="item.isPublish ? 'icon-fabu' : 'icon-caogao'"
+                      />
+                      {{ item.isPublish ? '发布' : '草稿' }}
+                    </span>
+                  </td>
+                  <td>
+                    {{ item.createdAt | dateFormat('YYYY.MM.DD') }}
+                  </td>
+                  <td>
+                    {{ item.updatedAt | dateFormat('YYYY.MM.DD HH:mm:ss') }}
+                  </td>
+                  <td class="text-xs-right">
+                    <v-btn
+                      fab
+                      small
+                      color="green"
+                      class="mr-2"
+                      @click="editPost(item)"
+                    >
+                      <v-icon> edit </v-icon>
+                    </v-btn>
+                    <confirm tip="确定要删除吗？" :ok="() => deletePost(item)">
+                      <v-btn
+                        fab
+                        small
+                        color="red"
+                      >
+                        <v-icon> delete </v-icon>
+                      </v-btn>
+                    </confirm>
+                  </td>
+                </template>
+              </v-data-table>
+            </v-tab-item>
+          </v-tabs-items>
         </material-card>
       </v-flex>
       <v-flex
@@ -53,8 +123,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   meta: {
@@ -65,6 +134,7 @@ export default {
     const getDateRange = this.getDateRange()
     return {
       deletingId: null,
+      tabs: 0,
       filterForm: {
         keyword: '',
         state: -1,
@@ -73,6 +143,7 @@ export default {
         tag: '',
         timeRange: [],
       },
+      type: '',
       // timeRangeDay: 0,
       pickerOptions: {
         shortcuts: [
@@ -105,58 +176,34 @@ export default {
       headers: [
         {
           sortable: false,
-          text: 'Name',
+          text: '标题',
           value: 'name',
         },
         {
           sortable: false,
-          text: 'Country',
-          value: 'country',
+          text: '公开',
+          value: 'isPublic',
         },
         {
           sortable: false,
-          text: 'City',
-          value: 'city',
+          text: '发布',
+          value: 'isPublish',
         },
         {
           sortable: false,
-          text: 'Salary',
-          value: 'salary',
+          text: '创建时间',
+          value: 'createdAt',
+        },
+        {
+          sortable: false,
+          text: '更新时间',
+          value: 'updatedAt',
+        },
+        {
+          sortable: false,
+          text: '操作',
+          value: 'updatedAt',
           align: 'right',
-        },
-      ],
-      items: [
-        {
-          name: 'Dakota Rice',
-          country: 'Niger',
-          city: 'Oud-Tunrhout',
-          salary: '$35,738',
-        },
-        {
-          name: 'Minerva Hooper',
-          country: 'Curaçao',
-          city: 'Sinaai-Waas',
-          salary: '$23,738',
-        }, {
-          name: 'Sage Rodriguez',
-          country: 'Netherlands',
-          city: 'Overland Park',
-          salary: '$56,142',
-        }, {
-          name: 'Philip Chanley',
-          country: 'Korea, South',
-          city: 'Gloucester',
-          salary: '$38,735',
-        }, {
-          name: 'Doris Greene',
-          country: 'Malawi',
-          city: 'Feldkirchen in Kārnten',
-          salary: '$63,542',
-        }, {
-          name: 'Mason Porter',
-          country: 'Chile',
-          city: 'Gloucester',
-          salary: '$78,615',
         },
       ],
     }
@@ -170,6 +217,14 @@ export default {
     ...mapState('tag', {
       tagList: 'list',
     }),
+    types() {
+      return this.list.map(p => p.type)
+    },
+    listTypeMap() {
+      const map = {}
+      this.list.forEach((p) => { map[p.type] = (map[p.type] || []).concat(p) })
+      return map
+    },
   },
 
   async fetch({ store }) {
@@ -201,6 +256,9 @@ export default {
         pageNo: 1,
         pageSize,
       })
+    },
+    updatePost(row, key) {
+      this.$store.dispatch('post/updatePost', { ...row, [key]: !row[key] })
     },
     editPost(row) {
       this.$router.push(`/post/${row.id}`)

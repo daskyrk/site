@@ -185,6 +185,10 @@ button:active {
   }
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 ::-webkit-input-placeholder {
   /* WebKit browsers */
   color: $color-disabled;

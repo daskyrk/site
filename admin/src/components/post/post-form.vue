@@ -51,7 +51,7 @@
                   />
                 </v-flex>
                 <v-flex xs6 md4>
-                  <v-select
+                  <v-combobox
                     v-model="form.type"
                     :items="types"
                     prepend-icon="iconfont icon-xuanzefenzu"
@@ -59,7 +59,7 @@
                   />
                 </v-flex>
                 <v-flex xs12>
-                  <v-select
+                  <v-combobox
                     v-model="form.tags"
                     :items="tags"
                     item-text="name"
@@ -76,7 +76,6 @@
                     v-model="form.description"
                     prepend-icon="iconfont icon-description"
                     label="描述"
-                    :rules="rules.description"
                     :counter="200"
                     clearable
                   />
@@ -102,11 +101,12 @@
                   <v-btn
                     class="mx-0 font-weight-light"
                     color="success"
-                    :disabled="saving"
                     type="primary"
+                    :loading="saving"
+                    :disabled="saving"
                     @click.prevent="submit"
                   >
-                    {{ saving ? '更新中' : '更新' }}
+                    {{ form.id ? '更新' : '保存' }}
                   </v-btn>
                 </v-flex>
               </v-layout>
@@ -131,7 +131,7 @@ export default {
   props: {
     detail: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
     onSubmit: {
       type: Function,
@@ -140,8 +140,11 @@ export default {
   },
 
   data() {
-    const { views, comments, likes } = this.detail.meta
-    console.log('this.detail:', this.detail)
+    let metaInfo = null
+    if (this.detail.id) {
+      const { views, comments, likes } = this.detail.meta
+      metaInfo = `${views} 浏览, ${comments} 评论, ${likes} 喜欢`
+    }
     return {
       valid: false,
       saving: false,
@@ -151,15 +154,13 @@ export default {
         tags: [],
         content: '',
         public: true,
-        type: this.types ? this.types[0] : '文章',
+        type: this.types ? this.types[0] : '',
         state: 1,
         thumb: '',
         ...this.detail,
       },
-      metaInfo: `${views} 浏览, ${comments} 评论, ${likes} 喜欢`,
+      metaInfo,
       rules: {
-        title: [{ required: true, trigger: 'blur' }],
-        content: [{ required: true, trigger: 'blur' }],
       },
       images: [],
     }
@@ -216,13 +217,7 @@ export default {
 
     submit() {
       if (this.valid && this.onSubmit) {
-        const { tags, ...rest } = this.form
-        // 获取文章时会自动把tags替换为对象，保存时要再取出id来
-        let _tags = []
-        if (typeof tags[0] !== 'string') {
-          _tags = tags.map(t => t.id)
-        }
-        this.onSubmit({ tags: _tags, ...rest })
+        this.onSubmit(this.form)
       }
     },
 

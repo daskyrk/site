@@ -1,10 +1,8 @@
 <template>
-  <div class="form-wrap">
-    <post-form
-      :detail="detail"
-      :on-submit="onSubmit"
-    />
-  </div>
+  <post-form
+    :detail="detail"
+    :on-submit="onSubmit"
+  />
 </template>
 
 <script>
@@ -33,10 +31,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.form-wrap {
-  padding: 2rem 0;
-  background-color: $c-white;
-}
-</style>
