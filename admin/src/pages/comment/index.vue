@@ -294,35 +294,4 @@ export default {
 </script>
 
 <style lang='scss'>
-.filter-form {
-  .flow-item {
-    overflow: hidden;
-
-    .el-form-item {
-      display: inline-flex;
-      float: left;
-    }
-  }
-}
-
-.kword {
-  width: 380px;
-
-  /deep/ .el-form-item__content {
-    flex: 1;
-  }
-}
-
-.pick-day-range {
-  margin-right: 6.25rem;
-}
-
-.pagination {
-  float: right;
-  margin-top: 1rem;
-}
-
-.post-tag {
-  margin-right: .5rem;
-}
 </style>
