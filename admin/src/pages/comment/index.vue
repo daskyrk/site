@@ -22,13 +22,13 @@
             >
               <v-tab class="mr-3">
                 <v-icon class="mr-2">
-                  mdi-book
+                  unarchive
                 </v-icon>
                 未归档
               </v-tab>
               <v-tab>
                 <v-icon class="mr-2">
-                  mdi-music
+                  archive
                 </v-icon>
                 已归档
               </v-tab>
@@ -49,7 +49,25 @@
                   slot-scope="{ item }"
                 >
                   <td>{{ item.content }}</td>
-                  <td>{{ item.author.name }}</td>
+                  <td>
+                    <v-tooltip v-if="item.author.site" top>
+                      <template v-slot:activator="{ on }">
+                        <a
+                          :href="item.author.site | dealSite"
+                          class="site-link"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          v-on="on"
+                        >
+                          {{ item.author.name }}
+                        </a>
+                      </template>
+                      <span>{{ item.author.site }}</span>
+                    </v-tooltip>
+                    <span v-else>
+                      {{ item.author.name }}
+                    </span>
+                  </td>
                   <td>{{ item.author.email }}</td>
                   <td>
                     {{ item.createdAt | dateFormat('YYYY.MM.DD - HH:mm:ss') }}
@@ -117,7 +135,7 @@ export default {
       return 'iconfont icon-' + iconMap[state]
     },
     dealSite: function (site) {
-      return site.includes('http') ? site : `http://${site}`
+      return site.startsWith('http') ? site : `//${site}`
     },
   },
 
