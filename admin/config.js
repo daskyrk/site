@@ -10,27 +10,27 @@ export const appConfig = {
     },
     {
       to: '/read',
-      text: '读书管理',
+      text: '读书',
       icon: 'iconfont icon-book',
     },
     {
       to: '/post',
-      text: '文章管理',
+      text: '文章',
       icon: 'iconfont icon-post',
     },
     {
       to: '/comment',
-      text: '留言管理',
+      text: '留言',
       icon: 'iconfont icon-comment',
     },
     {
       to: '/tag',
-      text: '标签管理',
+      text: '标签',
       icon: 'iconfont icon-tag',
     },
     {
       to: '/setting',
-      text: '系统设置',
+      text: '设置',
       icon: 'iconfont icon-setting',
     },
   ],
