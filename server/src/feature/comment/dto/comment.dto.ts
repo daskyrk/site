@@ -24,7 +24,7 @@ export class CommentDto {
   public pid: string;
 
   @IsNotEmpty()
-  @Length(0, 2000)
+  @Length(0, 500)
   public content: string;
 
   @IsNotEmpty()

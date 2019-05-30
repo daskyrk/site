@@ -16,19 +16,19 @@ export class CommentService extends BaseService<IComment> {
     super(model);
   }
 
-  public async search({ pageNo = 1, pageSize = 10, postId, q }: QueryCommentDto) {
+  public async search({ pageNo = 1, pageSize = 10, postId, q }: QueryCommentDto, select: string | object) {
     const query = {} as any;
     const options: {
       sort: any;
       page: number;
       limit: number;
-      select?: string;
+      select?: string | object;
       // populate: string[];
     } = {
       sort: { createdAt: -1 },
       page: Number(pageNo),
       limit: Number(pageSize),
-      select: '-ip',
+      select,
       // populate: ['tag'],
     };
 

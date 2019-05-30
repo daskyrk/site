@@ -6,7 +6,7 @@
       rows="4"
       cols="20"
       name="content"
-      maxlength="400"
+      maxlength="500"
       @focus="focus"
     />
     <div class="editor-tools">

@@ -35,11 +35,21 @@ export class CommentController {
   }
 
   @Get()
-  public search(@Query() query: QueryCommentDto) {
-    if (query.id) {
-      return this.commentService.findById(query.id);
+  public search(@Query() query: QueryCommentDto, @Req() req: any) {
+    const isAdmin = !!req.user;
+    let select = {};
+    if (!isAdmin) {
+      select = {
+        ip: 0,
+        city: 0,
+        country: 0,
+        range: 0,
+      }
     }
-    return this.commentService.search(query);
+    if (query.id) {
+      return this.commentService.findById(query.id, select);
+    }
+    return this.commentService.search(query, select);
   }
 
   @Put()
