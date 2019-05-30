@@ -122,10 +122,14 @@ export class PostService extends BaseService<IPost> {
     return res;
   }
 
-  public async commentPost(id: string) {
+  public async commentPost(id: string, remove = false) {
     const res = await this.model.findById(id);
     if (res) {
-      res.meta.comments += 1;
+      if (remove) {
+        res.meta.comments -= 1;
+      }else {
+        res.meta.comments += 1;
+      }
       res.save();
     }
 

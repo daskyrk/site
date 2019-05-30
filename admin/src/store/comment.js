@@ -20,7 +20,12 @@ export default {
       state.list = state.list.map(
         item => (item.id === id ? { ...item, state: newState } : item)
       )
-      // const target
+    },
+
+    REMOVE_COMMENT(state, id) {
+      state.list = state.list.filter(
+        item => item.id !== id
+      )
     },
   },
 
@@ -36,8 +41,11 @@ export default {
     },
 
     // 删除评论
-    async delComment({ state }, data) {
-      const res = await this.$axios.$delete(`/comment`, data, { tip: '删除留言' })
+    async delComment({ commit }, id) {
+      const res = await this.$axios.$delete(`/comment`, { params: { id }, tip: '删除留言' })
+      if (res.success) {
+        commit('REMOVE_COMMENT', id)
+      }
       return res
     },
 

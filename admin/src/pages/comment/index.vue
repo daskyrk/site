@@ -92,7 +92,7 @@
                       color="red"
                       class="mr-2"
                       :disabled="item.state === 2"
-                      @click="updateComment(item, 2)"
+                      @click="delComment(item)"
                     >
                       <v-icon> close </v-icon>
                     </v-btn>

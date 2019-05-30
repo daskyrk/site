@@ -59,8 +59,12 @@ export class CommentController {
 
   @Delete()
   @UseGuards(AuthGuard)
-  public remove(@Query('id') id: string) {
-    return this.commentService.delete(id);
+  public async remove(@Query('id') id: string) {
+    const result = await this.commentService.delete(id);
+    if (result) {
+      await this.postService.commentPost(result.postId, true);
+    }
+    return result;
   }
 
   @Patch('like')
