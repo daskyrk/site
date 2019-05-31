@@ -16,9 +16,9 @@
           title="标签"
         >
           <template slot="operation">
-            <v-dialog v-model="dialog" persistent max-width="600px">
+            <v-dialog v-model="dialogVisible" max-width="600px">
               <template v-slot:activator="{ on }">
-                <v-btn color="blue ma-0" small fab v-on="on">
+                <v-btn color="blue ma-0" small fab v-on="on" @click="showDialog(null)">
                   <v-icon>add</v-icon>
                 </v-btn>
               </template>
@@ -27,29 +27,35 @@
                   <span class="headline">新建标签</span>
                 </v-card-title>
                 <v-card-text>
-                  <v-container grid-list-md>
-                    <v-layout wrap>
-                      <v-flex xs12>
-                        <v-text-field label="名称" required />
-                      </v-flex>
-                      <v-flex xs12>
-                        <v-textarea
-                          v-model="form.descript"
-                          prepend-icon="iconfont icon-description"
-                          label="描述"
-                          :counter="200"
-                          clearable
-                        />
-                      </v-flex>
-                    </v-layout>
-                  </v-container>
+                  <v-form ref="form" v-model="valid">
+                    <v-container grid-list-md>
+                      <v-layout wrap>
+                        <v-flex xs12>
+                          <v-text-field
+                            v-model="form.name"
+                            label="名称"
+                            :rules="rules.name"
+                          />
+                        </v-flex>
+                        <v-flex xs12>
+                          <v-textarea
+                            v-model="form.descript"
+                            label="描述"
+                            :rules="rules.descript"
+                            :counter="30"
+                            clearable
+                          />
+                        </v-flex>
+                      </v-layout>
+                    </v-container>
+                  </v-form>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer />
-                  <v-btn color="grey" dark @click="dialog = false">
+                  <v-btn color="grey" dark @click="onCancel">
                     关闭
                   </v-btn>
-                  <v-btn color="green darken-1" dark @click="dialog = false">
+                  <v-btn color="green darken-1" dark @click="onOk">
                     保存
                   </v-btn>
                 </v-card-actions>
@@ -76,7 +82,7 @@
                   color="green"
                   class="mr-2"
                   :disabled="item.state === 1"
-                  @click="updateComment(item, 1)"
+                  @click="showDialog(item)"
                 >
                   <v-icon> edit </v-icon>
                 </v-btn>
@@ -112,8 +118,8 @@ export default {
 
   data() {
     return {
-      dialog: false,
-      dialogTitle: '',
+      valid: false,
+      dialogVisible: false,
       headers: [
         {
           sortable: false,
@@ -130,28 +136,15 @@ export default {
         name: '',
         descript: '',
       },
-      fields: [
-        {
-          $id: 'name',
-          $type: 'input',
-          label: '标签名',
-          rules: [
-            { required: true, message: '请输入标签名称', trigger: 'blur' },
-          ],
-          prop: 'name',
-        },
-        {
-          $id: 'descript',
-          $type: 'input',
-          label: '标签描述',
-          prop: 'descript',
-          $el: {
-            maxlength: 30,
-            placeholder: '不超过30个字符',
-          },
-        },
-      ],
-      fieldsValue: undefined,
+      rules: {
+        name: [
+          v => !!v || '必填',
+        ],
+        descript: [
+          v => !!v || '必填',
+          v => v.length < 30 || '少于30个字符',
+        ],
+      },
       addMode: true,
       deletingId: null,
     }
@@ -174,34 +167,39 @@ export default {
         pageNo,
       })
     },
-    showDialog(title, data = null) {
-      this.addMode = !data
-      this.dialogTitle = title
-      this.fieldsValue = data
+    resetForm() {
+      this.form = { name: '', descript: '' }
+      this.$refs.form.resetValidation()
+    },
+    showDialog(data) {
+      if (data) {
+        this.addMode = false
+        this.form = { ...data }
+      } else {
+        this.addMode = true
+        this.resetForm()
+      }
       this.dialogVisible = true
     },
-    onOk(data) {
-      if (this.addMode) {
-        this.$store.dispatch('tag/addTag', data)
-      } else {
-        this.$store.dispatch('tag/updateTag', data)
+    onOk() {
+      if (this.valid) {
+        console.log('this.form:', this.form)
+        if (this.addMode) {
+          this.$store.dispatch('tag/addTag', this.form)
+        } else {
+          this.$store.dispatch('tag/updateTag', this.form)
+        }
+        this.dialogVisible = false
       }
-      this.dialogVisible = false
     },
     deleteTag(data) {
-      this.deletingId = data.id
-      this.$store.dispatch('tag/delTag', data).then(() => {
-        this.deletingId = null
-      })
-    },
-    isDeleting(row) {
-      return row.id === this.deletingId
+      this.$store.dispatch('tag/delTag', data.id)
     },
     onCancel() {
       this.dialogVisible = false
-    },
-    onClose() {
-      this.dialogVisible = false
+      this.resetForm()
+      // this.$refs.form.reset()
+      // console.log('this.form:', this.form)
     },
   },
 }

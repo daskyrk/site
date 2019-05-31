@@ -39,7 +39,7 @@ export default {
     },
 
     async addTag({ dispatch }, data) {
-      const res = await this.$axios.$post('/tag', data)
+      const res = await this.$axios.$post('/tag', data, { tip: '添加标签' })
       if (res.success) {
         await dispatch('getTags')
       }
@@ -47,15 +47,15 @@ export default {
     },
 
     async updateTag({ dispatch }, data) {
-      const res = await this.$axios.$put('/tag', data)
+      const res = await this.$axios.$put('/tag', data, { tip: '更新标签' })
       if (res.success) {
         await dispatch('getTags')
       }
       return res
     },
 
-    async delTag({ dispatch, state }, data) {
-      const res = await this.$axios.$delete('/tag', { params: data })
+    async delTag({ dispatch, state }, id) {
+      const res = await this.$axios.$delete('/tag', { params: { id }, tip: '删除标签' })
       if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {
