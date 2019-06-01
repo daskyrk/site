@@ -16,7 +16,7 @@
           class="card-tabs"
         >
           <template slot="operation">
-            <v-btn color="blue ma-0" small fab v-on="on" @click="addPost">
+            <v-btn color="blue ma-0" small fab @click="addPost">
               <v-icon>add</v-icon>
             </v-btn>
           </template>

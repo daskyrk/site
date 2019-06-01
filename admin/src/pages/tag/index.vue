@@ -14,6 +14,7 @@
         <material-card
           class="card-tabs"
           title="标签"
+          text="每个事物上都会被打上标签(⊙o⊙)…"
         >
           <template slot="operation">
             <v-dialog v-model="dialogVisible" max-width="600px">

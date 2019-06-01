@@ -15,7 +15,7 @@
         <material-card
           color="green"
           title="编辑个人信息"
-          text="Complete your profile"
+          text="介绍下自己吧~"
         >
           <v-form ref="form" v-model="valid">
             <v-container py-0>
