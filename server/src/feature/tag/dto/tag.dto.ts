@@ -1,4 +1,4 @@
-import { IsNotEmpty, Length } from 'class-validator';
+import { IsNotEmpty, Length, IsNumber } from 'class-validator';
 
 export class TagDto {
   public id: string;

@@ -59,4 +59,5 @@ export class QueryPostDto {
   public endAt?: string;
   public hot?: boolean;
   public type?: string;
+  public postId: { $in: string[]; };
 }

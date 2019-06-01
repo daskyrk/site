@@ -4,19 +4,24 @@ import { isUndefined, omitBy } from "lodash";
 
 import { BaseService } from '@/shared/base';
 import { IPost } from './interface/post.interface';
+import { IPostTag } from './interface/post-tag.interface';
 import { InjectModel } from 'daskyrk-mongoose';
-import { PaginateModel } from 'mongoose';
+import { PaginateModel, Model } from 'mongoose';
 
 @Injectable()
 export class PostService extends BaseService<IPost> {
   constructor(
     @InjectModel('Post') private readonly model: PaginateModel<IPost>,
+    @InjectModel('PostTag') private readonly postTagModel: Model<IPostTag>,
   ) {
     super(model);
   }
 
   public async getPostById(id: string, isAdmin: boolean) {
-    const res = await this.model.findById(id).populate('tags');
+    const [res, postTags] = await Promise.all([
+      this.model.findById(id),
+      this.postTagModel.find({ postId: id }).populate('tagId'),
+    ])
     if (res) {
       if (!isAdmin) {
         if (!res.isPublic || !res.isPublish) {
@@ -29,12 +34,51 @@ export class PostService extends BaseService<IPost> {
       throw new NotFoundException('该文章不存在')
     }
 
-    return res;
+    return {
+      tags: postTags ? postTags.map(o => o.tagId) : [],
+      ...res.toJSON()
+    };
   }
 
   public async create(data: PostInfoDto): Promise<IPost> {
-    const post = new this.model(data);
+    const { tags = [], ...postData } = data;
+    const post = new this.model(postData);
+    tags.forEach(async tagId => {
+      const postTag = new this.postTagModel({ tagId, postId: post._id });
+      await postTag.save()
+    })
+
     return await post.save();
+  }
+
+  public async updatePost(data: PostInfoDto): Promise<IPost | null> {
+    const { tags = [], ...postData } = data;
+    const post = await this.update(postData);
+    let postTags;
+    if (post) {
+      const postId = data.id;
+      await this.postTagModel.deleteMany({ postId });
+      const pros = tags.map(tagId => new this.postTagModel({ tagId, postId }).save());
+      postTags = await Promise.all(pros);
+      console.log('postTags:', postTags);
+      // postTags = postTags.filter(o => o !== null).map((o: any) => o.tagId);
+    } else {
+      throw new NotFoundException('该文章不存在')
+    }
+
+    return {
+      tags: postTags || [],
+      ...post.toJSON()
+    };
+  }
+
+  public async deletePost(id: string): Promise<IPost | null> {
+    const result = this.delete(id);
+    if (result) {
+      await this.postTagModel.collection.remove({ postId: id });
+    }
+
+    return result;
   }
 
   public async search(query: QueryPostDto) {
@@ -51,9 +95,6 @@ export class PostService extends BaseService<IPost> {
       hot,
     } = query;
     const querys = omitBy({ isPublish, isPublic, type }, isUndefined) as any;
-    if(tag) {
-      querys.tags = tag;
-    }
     const options: {
       sort: any;
       page: number;
@@ -69,7 +110,7 @@ export class PostService extends BaseService<IPost> {
     };
 
     // 关键词查询
-    if (q!== undefined) {
+    if (q !== undefined) {
       const keywordReg = new RegExp(q);
       querys.$or = [
         { title: keywordReg },
@@ -105,6 +146,11 @@ export class PostService extends BaseService<IPost> {
       };
     }
 
+    if (tag) {
+      const posts = await this.postTagModel.find({ tagId: tag });
+      query.postId = { $in: posts.map(p => p.postId) };
+    }
+
     return await this.model.paginate(querys, options);
   }
 
@@ -127,7 +173,7 @@ export class PostService extends BaseService<IPost> {
     if (res) {
       if (remove) {
         res.meta.comments -= 1;
-      }else {
+      } else {
         res.meta.comments += 1;
       }
       res.save();

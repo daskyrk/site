@@ -49,13 +49,13 @@ export class PostController {
   @Put()
   @UseGuards(AuthGuard)
   public updatePost(@Body() postInfoDto: PostInfoDto) {
-    return this.postService.update(postInfoDto);
+    return this.postService.updatePost(postInfoDto);
   }
 
   @Delete()
   @UseGuards(AuthGuard)
   public deletePost(@Query('id') id: string) {
-    return this.postService.delete(id);
+    return this.postService.deletePost(id);
   }
 
   @Put('/like')
