@@ -15,6 +15,11 @@
         <material-card
           class="card-tabs"
         >
+          <template slot="operation">
+            <v-btn color="blue ma-0" small fab v-on="on" @click="addPost">
+              <v-icon>add</v-icon>
+            </v-btn>
+          </template>
           <v-flex slot="header">
             <v-tabs
               v-model="tabs"
@@ -256,6 +261,9 @@ export default {
     },
     updatePost(row, key) {
       this.$store.dispatch('post/updatePost', { ...row, [key]: !row[key] })
+    },
+    addPost(row) {
+      this.$router.push(`/post/add`)
     },
     editPost(row) {
       this.$router.push(`/post/${row.id}`)

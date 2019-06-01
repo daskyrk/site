@@ -69,8 +69,12 @@ export default {
     },
 
     // 添加文章
-    async addPost({ commit, dispatch }, data) {
-      const res = await this.$axios.$post('/post', data, { tip: '添加文章' })
+    async addPost({ dispatch }, data) {
+      let tags = []
+      if (typeof data.tags[0] !== 'string') {
+        tags = data.tags.map(t => t.id)
+      }
+      const res = await this.$axios.$post('/post', { ...data, tags }, { tip: '添加文章' })
       if (res.success) {
         await dispatch('getPostList')
       }
@@ -78,7 +82,7 @@ export default {
     },
 
     // 获取文章详情
-    async getPost({ commit, ...rest }, params) {
+    async getPost({ commit }, params) {
       const res = await this.$axios.$get('/post', { params })
       if (res && res.success) {
         commit('SET_POST_DETAIL', res.data)
@@ -86,7 +90,7 @@ export default {
     },
 
     // 编辑文章
-    async updatePost({ commit, dispatch }, data) {
+    async updatePost({ commit }, data) {
       // 获取文章时会自动把tags替换为对象，保存时要再取出id来
       let tags = []
       if (typeof data.tags[0] !== 'string') {
