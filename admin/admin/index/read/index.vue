@@ -84,7 +84,7 @@
         </el-table-column>
         <el-table-column label="文章描述">
           <template slot-scope="scope">
-            {{ scope.row.descript }}
+            {{ scope.row.description }}
           </template>
         </el-table-column>
         <el-table-column

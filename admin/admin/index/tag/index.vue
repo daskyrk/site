@@ -40,7 +40,7 @@
       >
         <template slot-scope="scope">
           <i class="iconfont icon-description" />
-          {{ scope.row.descript }}
+          {{ scope.row.description }}
         </template>
       </el-table-column>
       <el-table-column
@@ -108,10 +108,10 @@ export default {
           prop: 'name',
         },
         {
-          $id: 'descript',
+          $id: 'description',
           $type: 'input',
           label: '标签描述',
-          prop: 'descript',
+          prop: 'description',
           $el: {
             maxlength: 30,
             placeholder: '不超过30个字符',

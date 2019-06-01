@@ -63,7 +63,6 @@
               <v-data-table
                 :headers="headers"
                 :items="listTypeMap[type]"
-                hide-actions
               >
                 <template
                   slot="items"

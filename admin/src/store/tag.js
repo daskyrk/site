@@ -54,8 +54,8 @@ export default {
       return res
     },
 
-    async delTag({ dispatch, state }, id) {
-      const res = await this.$axios.$delete('/tag', { params: { id }, tip: '删除标签' })
+    async cleanTags({ dispatch, state }) {
+      const res = await this.$axios.$delete('/tag', { tip: '清理废弃标签' })
       if (res.success) {
         let pageNo = state.query.pageNo
         if (state.list.length === 1) {

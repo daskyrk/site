@@ -101,3 +101,9 @@
 .v-btn:hover:before {
   background-color: transparent;
 }
+
+table {
+  .v-btn {
+    margin: 0;
+  }
+}

@@ -39,9 +39,9 @@
                         </v-flex>
                         <v-flex xs12>
                           <v-textarea
-                            v-model="form.descript"
+                            v-model="form.description"
                             label="描述"
-                            :rules="rules.descript"
+                            :rules="rules.description"
                             :counter="30"
                             clearable
                           />
@@ -61,19 +61,32 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
+
+            <confirm tip="确定要彻底删除废弃标签吗？" :ok="() => cleanTags()">
+              <v-btn
+                fab
+                small
+                color="red"
+              >
+                <i class="material-icons">delete_forever</i>
+              </v-btn>
+            </confirm>
           </template>
           <v-data-table
             :headers="headers"
             :items="list"
-            hide-actions
+            disable-initial-sort
           >
             <template
               slot="items"
               slot-scope="{ item }"
             >
-              <td>{{ item.name }}</td>
+              <td><span :class="item.removed && 'removed-tag'">{{ item.name }}</span></td>
               <td>
-                {{ item.descript }}
+                {{ item.description }}
+              </td>
+              <td>
+                {{ item.createdAt | dateFormat('YYYY.MM.DD') }}
               </td>
               <td class="text-xs-right">
                 <v-btn
@@ -86,13 +99,22 @@
                 >
                   <v-icon> edit </v-icon>
                 </v-btn>
-                <confirm tip="确定要删除吗？" :ok="() => deleteTag(item)">
+                <confirm v-if="item.removed" tip="确定要恢复吗？" :ok="() => removeTag(item, false)">
+                  <v-btn
+                    fab
+                    small
+                    color="blue"
+                  >
+                    <i class="material-icons">restore_from_trash</i>
+                  </v-btn>
+                </confirm>
+                <confirm v-else tip="确定要废弃吗？" :ok="() => removeTag(item, true)">
                   <v-btn
                     fab
                     small
                     color="red"
                   >
-                    <v-icon> delete </v-icon>
+                    <i class="material-icons">delete</i>
                   </v-btn>
                 </confirm>
               </td>
@@ -112,10 +134,6 @@ export default {
     breadcrumb: '标签管理',
   },
 
-  components: {
-    // DialogForm,
-  },
-
   data() {
     return {
       valid: false,
@@ -129,18 +147,22 @@ export default {
         {
           sortable: false,
           text: '标签描述',
-          value: 'descript',
+          value: 'description',
+        },
+        {
+          text: '创建时间',
+          value: 'createdAt',
         },
       ],
       form: {
         name: '',
-        descript: '',
+        description: '',
       },
       rules: {
         name: [
           v => !!v || '必填',
         ],
-        descript: [
+        description: [
           v => !!v || '必填',
           v => v.length < 30 || '少于30个字符',
         ],
@@ -168,7 +190,7 @@ export default {
       })
     },
     resetForm() {
-      this.form = { name: '', descript: '' }
+      this.form = { name: '', description: '' }
       this.$refs.form.resetValidation()
     },
     showDialog(data) {
@@ -192,8 +214,11 @@ export default {
         this.dialogVisible = false
       }
     },
-    deleteTag(data) {
-      this.$store.dispatch('tag/delTag', data.id)
+    removeTag(data, removed) {
+      this.$store.dispatch('tag/updateTag', { ...data, removed })
+    },
+    cleanTags() {
+      this.$store.dispatch('tag/cleanTags')
     },
     onCancel() {
       this.dialogVisible = false
@@ -204,3 +229,10 @@ export default {
   },
 }
 </script>
+
+.<style lang="scss">
+.removed-tag {
+  color: $color-disabled;
+  text-decoration: line-through $color-disabled;
+}
+</style>

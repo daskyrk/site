@@ -1,4 +1,4 @@
-import { IsNotEmpty, Length } from 'class-validator';
+import { IsNotEmpty, Length, IsBoolean } from 'class-validator';
 
 export class TagDto {
   public id: string;
@@ -9,7 +9,10 @@ export class TagDto {
 
   @IsNotEmpty()
   @Length(1, 200)
-  public descript: string;
+  public description: string;
+
+  @IsBoolean()
+  public removed: boolean;
 }
 
 export class QueryTagDto {

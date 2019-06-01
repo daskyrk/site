@@ -23,7 +23,7 @@ input CreatePostInput {
   title: String!
   keyword: String!
   content: String
-  descript: String
+  description: String
   state: PostState
   publish: Publish
   thumb: String
@@ -36,7 +36,7 @@ input UpdatePostInput {
   title: String!
   keyword: String!
   content: String
-  descript: String
+  description: String
   state: PostState
   publish: Publish
   thumb: String

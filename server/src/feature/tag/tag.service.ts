@@ -30,7 +30,7 @@ export class TagService extends BaseService<ITag> {
 
     if (q) {
       const keywordReg = new RegExp(q, 'i');
-      query.$or = [{ name: keywordReg }, { descript: keywordReg }];
+      query.$or = [{ name: keywordReg }, { description: keywordReg }];
     }
 
     return await this.model.paginate(query, options);
@@ -39,6 +39,12 @@ export class TagService extends BaseService<ITag> {
   public async create(data: TagDto): Promise<ITag> {
     const newModel = new this.model(data);
     return await newModel.save();
+  }
+
+  public async cleanTags(): Promise<any> {
+    const res = await this.model.find({ removed: true });
+    await this.model.deleteMany({ removed: true });
+    return res;
   }
 
 }

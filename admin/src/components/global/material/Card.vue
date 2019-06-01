@@ -118,7 +118,8 @@ export default {
 
     .operation {
       display: inline-flex;
-      > * {
+      button {
+        margin: 0;
         margin-left: 16px;
       }
     }

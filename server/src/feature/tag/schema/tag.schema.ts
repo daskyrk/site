@@ -5,7 +5,8 @@ import mongoosePaginate = require('mongoose-paginate');
 export const TagSchema = new Mongoose.Schema(
   {
     name: { type: String, required: true },
-    descript: String,
+    description: String,
+    removed: { type: Boolean, default: false },
   },
   schemaOptions,
 );
