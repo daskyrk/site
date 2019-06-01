@@ -231,6 +231,6 @@ export default {
 <style lang="scss" scoped>
 .markdown-editor {
   height: 600px;
-  z-index: 999;
+  z-index: 6;
 }
 </style>

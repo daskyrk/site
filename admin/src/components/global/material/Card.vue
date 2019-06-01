@@ -114,6 +114,7 @@ export default {
 
     .v-input--selection-controls {
       margin-top: 0;
+      margin-left: 16px;
     }
 
     .operation {
