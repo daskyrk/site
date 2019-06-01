@@ -97,7 +97,7 @@
                     <v-btn
                       fab
                       small
-                      color="green"
+                      color="success"
                       class="mr-2"
                       @click="editPost(item)"
                     >
@@ -107,7 +107,7 @@
                       <v-btn
                         fab
                         small
-                        color="red"
+                        color="danger"
                       >
                         <v-icon> delete </v-icon>
                       </v-btn>

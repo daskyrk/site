@@ -78,7 +78,7 @@
                     <v-btn
                       fab
                       small
-                      color="green"
+                      color="success"
                       class="mr-2"
                       :disabled="item.state === 1"
                       @click="updateComment(item, 1)"
@@ -88,7 +88,7 @@
                     <v-btn
                       fab
                       small
-                      color="red"
+                      color="danger"
                       class="mr-2"
                       :disabled="item.state === 2"
                       @click="delComment(item)"
@@ -99,7 +99,7 @@
                       <v-btn
                         fab
                         small
-                        color="blue"
+                        color="info"
                       >
                         <v-icon> mdi-archive </v-icon>
                       </v-btn>

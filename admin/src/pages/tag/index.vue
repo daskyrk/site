@@ -92,7 +92,7 @@
                 <v-btn
                   fab
                   small
-                  color="green"
+                  color="success"
                   class="mr-2"
                   :disabled="item.state === 1"
                   @click="showDialog(item)"
@@ -103,7 +103,7 @@
                   <v-btn
                     fab
                     small
-                    color="blue"
+                    color="info"
                   >
                     <i class="material-icons">restore_from_trash</i>
                   </v-btn>
@@ -112,7 +112,7 @@
                   <v-btn
                     fab
                     small
-                    color="red"
+                    color="danger"
                   >
                     <i class="material-icons">delete</i>
                   </v-btn>
