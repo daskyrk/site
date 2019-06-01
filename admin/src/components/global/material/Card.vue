@@ -108,6 +108,7 @@ export default {
 <style lang="scss">
 .v-card--material {
   &__header {
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
