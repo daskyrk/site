@@ -8,11 +8,11 @@ export const appConfig = {
       text: '总览',
       icon: 'iconfont icon-home',
     },
-    {
-      to: '/read',
-      text: '读书',
-      icon: 'iconfont icon-book',
-    },
+    // {
+    //   to: '/read',
+    //   text: '读书',
+    //   icon: 'iconfont icon-book',
+    // },
     {
       to: '/post',
       text: '文章',
