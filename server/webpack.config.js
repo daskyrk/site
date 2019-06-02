@@ -8,7 +8,7 @@ module.exports = {
   watch: true,
   target: 'node',
   node: {
-    __dirname: true,// 指向input file的路径
+    __dirname: false,// 指向input file的路径
     __filename: true,
   },
   externals: [
