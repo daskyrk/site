@@ -14,7 +14,6 @@ export class ConfigService {
     const config = dotenv.parse(fs.readFileSync(path.join(__dirname, filePath)));
     const envConfig = this.validateInput(config);
     this.envConfig = envConfig;
-    console.log('envConfig:', envConfig);
     // tslint:disable-next-line:forin
     for (const k in envConfig) {
       process.env[k] = envConfig[k];

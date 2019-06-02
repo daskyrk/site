@@ -88,11 +88,12 @@
                   <v-btn
                     class="mx-0 font-weight-light"
                     color="success"
+                    :loading="savingUser"
                     :disabled="savingUser"
                     type="primary"
                     @click.prevent="submit"
                   >
-                    {{ savingUser ? '更新中' : '更新' }}
+                    更新
                   </v-btn>
                 </v-flex>
               </v-layout>
