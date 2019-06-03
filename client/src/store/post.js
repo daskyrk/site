@@ -7,6 +7,7 @@ export default {
         pageNo: 1,
         pageSize: 6,
       },
+      types: [],
       detail: {},
     }
   },
@@ -29,6 +30,10 @@ export default {
 
     UPDATE_QUERY(state, data) {
       state.query = data
+    },
+
+    SET_POST_TYPES(state, data) {
+      state.types = data
     },
 
     LIKE_PLUS(state, data) {
@@ -63,6 +68,14 @@ export default {
       const res = await this.$axios.$get('/post', { params })
       if (res && res.success) {
         commit('SET_POST_DETAIL', res.data)
+      }
+    },
+
+    // 获取文章类型
+    async getPostTypes({ commit, ...rest }, id) {
+      const res = await this.$axios.$get('/post/types')
+      if (res.success) {
+        commit('SET_POST_TYPES', res.data)
       }
     },
 

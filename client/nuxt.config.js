@@ -5,7 +5,6 @@ import NuxtConfiguration from '@nuxt/config'
 import { appConfig } from './config'
 import parse from 'url-parse';
 
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
@@ -85,7 +84,6 @@ const config = {
     '~/assets/style/syntax.scss',
     '~/assets/style/transition.scss',
     '~/assets/style/util.scss',
-    // 'vuetify/dist/vuetify.min.css',
   ],
   styleResources: {
     scss: [// 这里只能包含 variable、mixin, 禁止包容任何真实样式，否则每个style里都会重复一遍
@@ -103,11 +101,11 @@ const config = {
     bundleRenderer: {
       shouldPreload: (file, type) => {
         return ['script', 'style', 'font'].includes(type)
-      }
+      },
     },
     http2: {
-      push: true
-    }
+      push: true,
+    },
   },
 
   /*
@@ -119,7 +117,6 @@ const config = {
     '~/plugins/copy.client.js',
     '~/plugins/gtm.client.js',
     '~/plugins/moment.js',
-    // '~/plugins/vuetify.js',
     '~/plugins/element-ui.js',
     '~/plugins/axios.js',
     '~/plugins/lazy-load.js',
@@ -134,7 +131,7 @@ const config = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // '@nuxtjs/pwa',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
   ],
 
   /*
@@ -181,10 +178,9 @@ const config = {
     optimization: {
       splitChunks: {
         minSize: 10000,
-        maxSize: 250000
-      }
+        maxSize: 250000,
+      },
     },
-    transpile: [/^vuetify/],
     loaders: {
       cssModules: {
         localIdentName: '[local]_[hash:base64:5]',
@@ -194,7 +190,6 @@ const config = {
     plugins: [
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
       new LodashModuleReplacementPlugin(),
-      // new VuetifyLoaderPlugin()
     ],
     extend(config, { isDev, isClient, loaders }) {
       // Run ESLint on save

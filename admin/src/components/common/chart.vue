@@ -1,6 +1,6 @@
 <template>
-  <div 
-    :style="style" 
+  <div
+    :style="style"
     class="chart-container"
   >
     <canvas ref="chart" />

@@ -196,7 +196,7 @@ export default {
     ...mapState({
       tags: state => state.tag.list,
     }),
-    ...mapState('admin/post', ['types']),
+    ...mapState('post', ['types']),
   },
 
   watch: {
@@ -207,7 +207,7 @@ export default {
 
   async created() {
     await this.$store.dispatch('tag/getTags')
-    await this.$store.dispatch('admin/post/getPostTypes')
+    await this.$store.dispatch('post/getPostTypes')
   },
 
   methods: {
