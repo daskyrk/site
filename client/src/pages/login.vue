@@ -88,13 +88,6 @@
       >
         登录
       </button>
-      <!-- <button
-        v-if="registerable"
-        class="regist-btn"
-        @click="submitForm('form', 'add')"
-      >
-        注册
-      </button> -->
     </form>
   </div>
 </template>
@@ -129,12 +122,8 @@ export default {
 	},
 
 	computed: {
-		...mapState('user', ['logined', 'registerable']),
+		...mapState('user', ['logined']),
 	},
-
-	// async fetch({ store }) {
-	//   await store.dispatch('user/checkRegisterable')
-	// },
 
 	mounted() {
 		this.detachEvents = this.startBg()

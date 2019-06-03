@@ -4,7 +4,6 @@ export default {
       userInfo: {},
       logined: false,
       token: null,
-      registerable: true,
     }
   },
 
@@ -33,10 +32,6 @@ export default {
     CLEAR_TOKEN(state) {
       state.token = null
     },
-
-    SET_REGISTERABLE(state, data) {
-      state.registerable = data
-    },
   },
 
   actions: {
@@ -54,19 +49,6 @@ export default {
       return res
     },
 
-    async add({ commit }, data) {
-      const res = await this.$axios.$post('/user', data)
-
-      if (res && res.success) {
-        const { user, token } = res.data
-        commit('SET_USER', user)
-        commit('SET_TOKEN', token)
-      } else {
-        commit('SET_USER', {})
-      }
-      return res
-    },
-
     async getMyInfo({ commit }) {
       const res = await this.$axios.$get('/user/info')
 
@@ -74,17 +56,6 @@ export default {
         commit('SET_USER', res.data)
       }
       return res
-    },
-
-    async updateConfig({ dispatch }, data) {
-      const res = await this.$axios.$put('/user', data)
-      await dispatch('getMyInfo')
-      return res
-    },
-
-    async checkRegisterable({ commit }) {
-      const res = await this.$axios.$get('/user/registerable')
-      commit('SET_REGISTERABLE', res.data)
     },
   },
 }
