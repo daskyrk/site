@@ -244,6 +244,7 @@ $desc-line-height: 26px;
     }
 
     .post-thumb {
+      will-change: transform;
       transform: scale(1.1);
       filter: blur(3px);
     }

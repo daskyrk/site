@@ -8,7 +8,7 @@
   "scripts": {
     "// 1": "下面两个命令是提供热重载功能的，同时用",
     "webpack": "webpack --config webpack.config.js",
-    "dev": "node dist/server",
+    "dev": "cp src/config/.env dist && node dist/server",
     "// 2": "下面的命令是自动生成的",
     "start:nodemon": "nodemon",
     "start:debug": "nodemon --config nodemon-debug.json",
