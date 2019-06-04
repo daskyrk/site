@@ -34,7 +34,7 @@ export async function musicMiddleware(req: any, res: any, next: () => any) {
         try {
           const playRes = await axios.get(`https://api.ohmyga.cn/netease/?type=playlist&id=${id}`)
           if (playRes.status === 200) {
-            data = playRes;
+            data = playRes.data;
           }
         } catch (e) {
           console.error(`获取歌曲列表错误, id: ${id}`, e.message);
