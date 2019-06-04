@@ -199,8 +199,6 @@ export default {
 
 <style lang="scss" scoped>
 .image-uploader {
-  width: 100%;
-  height: 100%;
   border: none;
   overflow: unset;
 }

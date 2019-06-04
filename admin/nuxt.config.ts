@@ -54,7 +54,7 @@ const config: NuxtConfiguration = {
    ** Global CSS
    */
   css: [
-    'vuetify/dist/vuetify.min.css',
+    '~/assets/style/vuetify.min.css', // 把官方文件里 code,ul,ol等默认样式去掉了
     '~/assets/style/material.scss',
     '~/assets/style/common.scss',
   ],

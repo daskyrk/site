@@ -129,8 +129,10 @@ export default {
 .image-uploader {
   position: relative;
   display: inline-block;
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  height: 100%;
+  min-width: 120px;
+  min-height: 120px;
   overflow: hidden;
   text-align: center;
   border: 1px dashed $c-lightgray;

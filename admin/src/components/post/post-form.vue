@@ -71,7 +71,7 @@
                     return-object
                   />
                 </v-flex>
-                <v-flex xs8 md10>
+                <v-flex xs8 md9>
                   <v-textarea
                     v-model="form.description"
                     prepend-icon="iconfont icon-description"
@@ -80,7 +80,7 @@
                     clearable
                   />
                 </v-flex>
-                <v-flex xs4 md2>
+                <v-flex xs4 md3>
                   <image-uploader
                     :on-success="onSuccess"
                     :src="form.thumb"
@@ -91,6 +91,8 @@
                     <mavon-editor
                       ref="md"
                       v-model="form.content"
+                      font-size="13px"
+                      code-style="monokai"
                       class="markdown-editor markdown-content"
                       @imgAdd="imgAdd"
                       @imgDel="imgDel"
