@@ -19,9 +19,11 @@ export default {
         params: { id },
         tip: '歌曲列表',
       });
-      commit('setPlaylist', data.playlist);
-      commit('setSongIds', data.playlist.trackIds.map(o => o.id));
-      return data;
+      if (data.success) {
+        commit('setPlaylist', data.data);
+        // commit('setSongIds', data.playlist.trackIds.map(o => o.id));
+      }
+      return data.data;
     },
 
     async getSong({ commit }, id) {
@@ -32,7 +34,7 @@ export default {
       if (data.success) {
         commit('setSong', data.data);
       }
-      return data.songs;
+      return data.data;
     },
 
     // async search({ commit, state }, data) {
