@@ -35,15 +35,15 @@ const config: NuxtConfiguration = {
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons',
       },
     ],
+    script: [
+      // 暂时没有彩色图标需求
+      // {
+      //   // async: 'async',
+      //   type: 'text/javascript',
+      //   src: '//at.alicdn.com/t/font_683109_z2wj22rbmi.js',
+      // },
+    ],
   },
-  script: [
-    // 暂时没有彩色图标需求
-    // {
-    //   // async: 'async',
-    //   type: 'text/javascript',
-    //   src: '//at.alicdn.com/t/font_683109_z2wj22rbmi.js',
-    // },
-  ],
 
   /*
    ** Customize the progress-bar color
