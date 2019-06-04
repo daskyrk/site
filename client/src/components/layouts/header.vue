@@ -139,18 +139,18 @@ export default {
       pressKey: state => state.layout.pressKey,
     }),
     music() {
-      const song = this.$store.state.music.songs[0]
+      const song = this.$store.state.music.song
       if (!song) {
         return { }
       }
       return {
-        src: song.url,
-        title: song.name,
-        author: song.artists.join(' '),
-        cover: song.album.picture,
-        lrc: song.lyric.base,
+        src: song.link,
+        title: song.title,
+        author: song.artist,
+        cover: song.cover,
+        lrc: song.lyric,
       }
-    }
+    },
   },
 
   mounted() {
@@ -199,7 +199,7 @@ export default {
     },
     onPlay(playing) {
       this.playingMusic = playing;
-    }
+    },
   },
 }
 </script>

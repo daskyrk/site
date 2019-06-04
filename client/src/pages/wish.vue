@@ -96,13 +96,13 @@ export default {
       content: '',
       contentRules: [
         v => !!v || '写点什么吧...',
-        v => v.length <= 300 || '内容太多啦'
+        v => v.length <= 300 || '内容太多啦',
       ],
       name: '',
       nameRules: [
         v => !!v || '忘了写名字呢',
-        v => v && v.length <= 15 || '名字太长啦'
-      ]
+        v => v && v.length <= 15 || '名字太长啦',
+      ],
     }
   },
 

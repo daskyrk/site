@@ -5,26 +5,32 @@ export default {
     return {
       playlist: [],
       songIds: [],
-      songs: [],
+      song: {},
     }
   },
 
   mutations: {
-    ...setList(['playlist', 'songIds', 'songs']),
+    ...setList(['playlist', 'songIds', 'song']),
   },
 
   actions: {
     async getPlaylist({ commit }, id) {
-      const data = await this.$axios.$get(`/proxy/hitokoto/nm/playlist/${id}`)
+      const data = await this.$axios.$get('/music/playlist', {
+        params: { id },
+        tip: '歌曲列表',
+      });
       commit('setPlaylist', data.playlist);
       commit('setSongIds', data.playlist.trackIds.map(o => o.id));
       return data;
     },
 
-    async getSongs({ commit }, ids) {
-      const data = await this.$axios.$get("/proxy/hitokoto/nm/summary/" + ids.join(",") + "?lyric=true&common=true")
-      if (data.code === 200) {
-        commit('setSongs', data.songs);
+    async getSong({ commit }, id) {
+      const data = await this.$axios.$get('/music/song', {
+        params: { id },
+        tip: '歌曲',
+      })
+      if (data.success) {
+        commit('setSong', data.data);
       }
       return data.songs;
     },
@@ -37,7 +43,7 @@ export default {
     //       params: data,
     //     },
     //   )
-    //   commit('getSongs', res.books)
+    //   commit('getSong', res.books)
     //   return res
     // },
   },

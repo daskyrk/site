@@ -11,9 +11,10 @@ import { ValidationPipe } from '@/core/pipe';
 import config from '@/config';
 import cookieParser from 'cookie-parser';
 // import csurf from 'csurf';
+// import proxy from 'http-proxy-middleware';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import { tokenMiddleware } from '@/core/middleware';
+import { tokenMiddleware, musicMiddleware } from '@/core/middleware';
 
 declare const module: any;
 async function bootstrap() {
@@ -23,6 +24,7 @@ async function bootstrap() {
   // app.useLogger(app.get(BlogLogger));
   // 先解析 cookie 再调用 tokenMiddleware
   app.use(cookieParser());
+  app.use(musicMiddleware);
   app.use(tokenMiddleware);
 
   app.useGlobalFilters(new AnyExceptionFilter());

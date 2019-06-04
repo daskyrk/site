@@ -43,6 +43,8 @@ export class ConfigService {
       EMAIL_PASSWORD: Joi.string(),
       TOKEN_KEY: Joi.string(),
       TOKEN_TIME: Joi.number(),
+      NETEASE_PHONE: Joi.string(),
+      NETEASE_PWD: Joi.string(),
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(
@@ -109,6 +111,14 @@ export class ConfigService {
 
   public get TOKEN_TIME() {
     return this.envConfig.TOKEN_TIME;
+  }
+
+  public get NETEASE_PHONE() {
+    return this.envConfig.NETEASE_PHONE;
+  }
+
+  public get NETEASE_PWD() {
+    return this.envConfig.NETEASE_PWD;
   }
 
   public get APP_INFO() {

@@ -125,7 +125,7 @@ export default {
     },
     onPlay: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
   },
 
