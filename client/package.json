@@ -41,6 +41,7 @@
     "url-parse": "^1.4.6",
     "vue": "^2.6.10",
     "vue-lazyload": "^1.2.6",
+    "vue-m-message": "^1.1.1",
     "vue-router": "^3.0.2"
   },
   "devDependencies": {
