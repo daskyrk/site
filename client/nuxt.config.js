@@ -160,11 +160,6 @@ const config = {
         return typeMap[query.type || 'nature'];
       },
     },
-    '/api/proxy/hitokoto': {
-      target: 'https://v1.hitokoto.cn',
-      changeOrigin: true,
-      pathRewrite: { '^/api/proxy/hitokoto': '' },
-    },
     '/api': {
       target: IS_DEV || process.server ? 'http://localhost:8000' : 'https://lijun.space',
       changeOrigin: true,
