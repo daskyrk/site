@@ -102,26 +102,6 @@ const config: NuxtConfiguration = {
     https: !IS_DEV,
   },
   proxy: {
-    '/api/proxy/randomImage': {
-      target: 'https://api.ixiaowai.cn',
-      changeOrigin: true,
-      pathRewrite: function (path, req) {
-        const { query } = parse(req.url, true)
-        const typeMap = {
-          acg: '/api/api.php?return=json',
-          acg2: '/mcapi/mcapi.php?return=json',
-          nature: '/gqapi/gqapi.php?return=json',
-          // 可直接作为图片src
-          other: 'https://img.xjh.me/random_img.php?return=302',
-        }
-        return typeMap[query.type || 'nature']
-      },
-    },
-    '/api/proxy/hitokoto': {
-      target: 'https://v1.hitokoto.cn',
-      changeOrigin: true,
-      pathRewrite: { '^/api/proxy/hitokoto': '' },
-    },
     '/api': {
       target: IS_DEV || process.server ? 'http://localhost:8000' : 'https://lijun.space',
       changeOrigin: true,
