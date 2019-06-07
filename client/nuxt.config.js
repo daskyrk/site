@@ -1,7 +1,7 @@
 import * as webpack from 'webpack'
 
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
-import NuxtConfiguration from '@nuxt/config'
+// import NuxtConfiguration from '@nuxt/config'
 import { appConfig } from './config'
 import parse from 'url-parse';
 
