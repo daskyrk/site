@@ -2,7 +2,6 @@ import * as webpack from 'webpack'
 
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 import NuxtConfiguration from '@nuxt/config'
-import parse from 'url-parse'
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 const pkg = require('./package')
