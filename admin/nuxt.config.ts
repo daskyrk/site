@@ -69,12 +69,12 @@ const config: NuxtConfiguration = {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: '~/plugins/nuxt-client-init.js', ssr: false },
-    { src: '~/plugins/mavon-editor.js', ssr: false },
+    '~/plugins/nuxt-init.client.js',
+    '~/plugins/mavon-editor.client.js',
+    '~/plugins/message.client.js',
     '~/plugins/filter',
     '~/plugins/axios',
     '~/plugins/moment',
-    '~/plugins/message',
     '~/plugins/tooltip',
     '~/plugins/combined-inject',
     '~/plugins/custom-components.js',
