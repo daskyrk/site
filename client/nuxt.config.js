@@ -113,7 +113,6 @@ const config = {
    */
   plugins: [
     '~/plugins/combined-inject.js',
-    '~/plugins/markdown.client.js',
     '~/plugins/copy.client.js',
     '~/plugins/gtm.client.js',
     '~/plugins/moment.js',
