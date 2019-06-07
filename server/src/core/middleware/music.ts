@@ -1,8 +1,9 @@
-import { MusicClient } from 'netease-music-sdk'
+// import { MusicClient } from 'netease-music-sdk'
 import config from '@/config';
 
 
-const client = new MusicClient()
+// const client = new MusicClient()
+const client = {} as any;
 
 let cookieCache = null;
 let userCache: { cookie: string[]; data: any; } | null = null;
