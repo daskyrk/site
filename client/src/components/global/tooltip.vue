@@ -1,7 +1,6 @@
 <script>
 export default {
   props: {
-    content: String,
     disabled: Boolean,
   },
   render(createElement) {
@@ -11,9 +10,10 @@ export default {
       if (node.tag === 'div' || node.tag === 'span') {
         node.data.class = node.data.class || {}
         node.data.class['m-tooltip'] = !this.disabled
-        node.data.attrs = node.data.attrs || {}
-        node.data.attrs['data-content'] = this.content
+        node.data.attrs = Object.assign(node.data.attrs || {}, this.$attrs)
       }
+    } else {
+      console.warn('Tooltip只接受一个子节点')
     }
     return this.$slots.default[0]
   },
@@ -41,7 +41,7 @@ export default {
   }
 
   &::before {
-    content: attr(data-content);
+    content: attr(content);
     @include position();
     line-height: 1.5;
     font-size: 12px;
