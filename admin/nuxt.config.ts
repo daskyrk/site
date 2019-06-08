@@ -74,7 +74,7 @@ const config: NuxtConfiguration = {
     '~/plugins/message.client.js',
     '~/plugins/filter',
     '~/plugins/axios',
-    '~/plugins/moment',
+    '~/plugins/day',
     '~/plugins/tooltip',
     '~/plugins/combined-inject',
     '~/plugins/custom-components.js',
@@ -115,7 +115,7 @@ const config: NuxtConfiguration = {
     plugins: [
       new VuetifyLoaderPlugin(),
       // eslint-disable-next-line no-useless-escape
-      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
+      new webpack.ContextReplacementPlugin(/dayjs[\/\\]locale$/, /zh-cn/),
       new LodashModuleReplacementPlugin(),
     ],
     /*

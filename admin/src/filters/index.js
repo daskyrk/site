@@ -1,15 +1,15 @@
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export function dateFormat(time, format) {
-  return moment(time).format(format)
+  return dayjs(time).format(format)
 }
 
 export function fromNow(time) {
-  return moment(time).fromNow()
+  return dayjs(time).fromNow()
 }
 
 export function toNow(time) {
-  return moment(time).toNow(true)
+  return dayjs(time).toNow(true)
 }
 
 export function textClip(text = '', limit = 20, append = '...') {
