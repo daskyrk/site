@@ -19,12 +19,9 @@
       />
     </div>
     <div class="author-info">
-      <el-tooltip
-        :value="nameHasError"
-        manual
-        effect="dark"
+      <Tooltip
+        :disabled="!nameHasError"
         content="名字忘了写吧~"
-        placement="bottom"
       >
         <input
           v-model="author.name"
@@ -36,14 +33,11 @@
           placeholder="您的名称"
           @blur="checkName"
         >
-      </el-tooltip>
+      </Tooltip>
 
-      <el-tooltip
-        :value="emailHasError"
-        manual
-        effect="dark"
+      <Tooltip
+        :disabled="!emailHasError"
         content="格式不对哦~"
-        placement="bottom"
       >
         <input
           v-model="author.email"
@@ -55,7 +49,7 @@
           placeholder="接收回复的邮箱"
           @blur="checkEmail"
         >
-      </el-tooltip>
+      </Tooltip>
       <input
         v-model="author.site"
         type="input"

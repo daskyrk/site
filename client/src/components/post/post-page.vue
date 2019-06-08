@@ -30,11 +30,10 @@
       <TagList :tags="detail.tags" />
     </div>
     <aside class="side">
-      <el-tooltip
+      <Tooltip
         :disabled="!isLiked"
-        effect="dark"
+        right
         content="您已喜欢过该文章啦~"
-        placement="top"
       >
         <div
           :class="{ 'c-red': true, active: isLiked }"
@@ -42,7 +41,7 @@
         >
           <i class="iconfont icon-xin" />
         </div>
-      </el-tooltip>
+      </Tooltip>
       <div
         v-if="mounted.comment"
         class="c-green"

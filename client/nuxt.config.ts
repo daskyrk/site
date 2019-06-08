@@ -73,6 +73,7 @@ const config: NuxtConfiguration = {
   /*
    ** Customize the progress-bar
    */
+  loading: { color: '#00bcd4' },
   // loading: '~/components/loading.vue',
   // loadingIndicator: 'chasing-dots',
 
@@ -116,7 +117,7 @@ const config: NuxtConfiguration = {
     '~/plugins/copy.client.js',
     '~/plugins/gtm.client.js',
     '~/plugins/message.client.js',
-    '~/plugins/moment.js',
+    '~/plugins/day.js',
     '~/plugins/axios.js',
     '~/plugins/lazy-load.js',
     '~/plugins/filter.js',
@@ -183,7 +184,6 @@ const config: NuxtConfiguration = {
       },
     },
     plugins: [
-      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
       new LodashModuleReplacementPlugin(),
     ],
     extend(config, { isDev, isClient, loaders }) {

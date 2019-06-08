@@ -58,7 +58,7 @@ t<template>
 </template>
 
 <script>
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export default {
   props: {
@@ -85,7 +85,7 @@ export default {
 
   methods: {
     format: function(timestamp) {
-      const date = moment(timestamp)
+      const date = dayjs(timestamp)
       const week = date.weekday()
       const toWeek = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
       return `${date.format('YYYY · MM · DD')} ${toWeek[week]}`

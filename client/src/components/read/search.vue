@@ -65,14 +65,14 @@
             </span>
           </p>
 
-          <el-tooltip>
+          <Tooltip>
             <div slot="content">
               <div class="summary">
                 {{ book.summary | textClip(300) }}
               </div>
             </div>
             <p>{{ book.summary | textClip(30) }}</p>
-          </el-tooltip>
+          </Tooltip>
         </div>
       </div>
     </div>
