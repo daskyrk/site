@@ -1,17 +1,21 @@
-<template>
-  <div
-    :class="{ 'm-tooltip': !disabled }"
-    :data-content="content"
-  >
-    <slot />
-  </div>
-</template>
-
 <script>
 export default {
   props: {
     content: String,
     disabled: Boolean,
+  },
+  render(createElement) {
+    const vnodes = this.$slots.default
+    if (vnodes.length === 1) {
+      const node = vnodes[0]
+      if (node.tag === 'div' || node.tag === 'span') {
+        node.data.class = node.data.class || {}
+        node.data.class['m-tooltip'] = !this.disabled
+        node.data.attrs = node.data.attrs || {}
+        node.data.attrs['data-content'] = this.content
+      }
+    }
+    return this.$slots.default[0]
   },
 }
 </script>
