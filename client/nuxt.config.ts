@@ -1,14 +1,14 @@
 import * as webpack from 'webpack'
 
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
-// import NuxtConfiguration from '@nuxt/config'
+import NuxtConfiguration from '@nuxt/config'
 import { appConfig } from './config'
 import parse from 'url-parse';
 
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
-const config = {
+const config: NuxtConfiguration = {
   mode: 'universal',
   dev: IS_DEV,
   // env: {},
@@ -115,8 +115,8 @@ const config = {
     '~/plugins/combined-inject.js',
     '~/plugins/copy.client.js',
     '~/plugins/gtm.client.js',
+    '~/plugins/message.client.js',
     '~/plugins/moment.js',
-    '~/plugins/element-ui.js',
     '~/plugins/axios.js',
     '~/plugins/lazy-load.js',
     '~/plugins/filter.js',
@@ -148,7 +148,7 @@ const config = {
       target: 'https://api.ixiaowai.cn',
       changeOrigin: true,
       pathRewrite: function (path, req) {
-        const { query } = parse(req.url, true);
+        const { query } = new parse(req.url, true);
         const typeMap = {
           acg: '/api/api.php?return=json',
           acg2: '/mcapi/mcapi.php?return=json',
@@ -169,6 +169,7 @@ const config = {
     /*
      ** You can extend webpack config here
      */
+    // transpile: ['vue-m-message'],
     optimization: {
       splitChunks: {
         minSize: 10000,
@@ -199,6 +200,7 @@ const config = {
       //   })
       // }
 
+      // @ts-ignore
       // rules[2].use[0] is babel-loader
       config.module.rules[2].use[0].options.plugins = ['lodash'];
     },

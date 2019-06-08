@@ -1,4 +1,9 @@
-import { Message } from 'element-ui'
+// import Message from 'vue-m-message'
+// ssr时引入umd包会导致 Unexpected Identifier 错误
+let Message = {
+  warning() { },
+  notLoad: true,
+}
 
 export default function ({ $axios, store, redirect, error }) {
   // $axios.setToken(store.state.userInfo.token || '', 'Bearer');
@@ -15,17 +20,16 @@ export default function ({ $axios, store, redirect, error }) {
     const url = config.url.slice(config.url.indexOf('/api') + 5)
     const { success, message } = body || {}
     store.commit('END_FETCH', url + '#' + config.method)
-    // const actionMap = {
-    //   put: '更新成功',
-    //   delete: '删除成功',
-    //   post: '创建成功',
-    // }
     if (process.browser) {
-      // get请求不展示消息
-      if (success === true) {
-        // config.method !== 'get' && Message.success({ message: message || actionMap[config.method] })
-      } else if(success === false) {
-        Message.warning({ message: message || '出错了' })
+      if (Message.notLoad) {
+        import('vue-m-message').then(mod => Message = mod.default)
+      }else {
+        // get请求不展示消息
+        if (success === true) {
+          // config.method !== 'get' && Message.success({ message: message || actionMap[config.method] })
+        } else if (success === false) {
+          Message.warning({ message: message || '出错了' })
+        }
       }
     }
     return response
