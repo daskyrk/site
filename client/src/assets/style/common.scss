@@ -25,25 +25,35 @@ pre {
   -moz-osx-font-smoothing: initial;
 }
 
+code {
+  margin: 0 4px;
+  padding: 2px 6px;
+  color: $c-platinum;
+  font-size: 12px;
+  background-color: $c-black;
+  border-radius: 4px;
+}
+
 pre {
   margin-bottom: 1em;
+  padding: 1em;
   overflow: auto;
   font-size: 12px;
   background-color: $c-black;
   border-radius: $radius;
-}
 
-code {
-  display: block;
-  padding: 1em;
-  color: $c-platinum;
-  line-height: 1.6em;
-  background-color: transparent;
+  code {
+    margin: 0;
+    padding: 1em;
+    color: $c-platinum;
+    line-height: 1.6em;
+    background-color: transparent;
 
-  &::selection,
-  *::selection {
-    color: $c-white;
-    background: #43d8e4;
+    &::selection,
+    *::selection {
+      color: $c-white;
+      background: #43d8e4;
+    }
   }
 }
 
