@@ -8,7 +8,7 @@
         class="header-left"
         :class="{'rabbit-hole': pressKey.key === 'Meta'}"
       >
-        <nuxt-link :to="pressKey.key === 'Meta' ? '/admin' : '/'">
+        <nuxt-link :to="pressKey.key === 'Meta' ? '//admin.lijun.space' : '/'">
           <img
             class="logo admin-entry"
             src="~assets/images/logo.png"
