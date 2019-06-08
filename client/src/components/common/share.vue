@@ -1,6 +1,6 @@
 <template>
   <div class="share-box">
-    <el-popover
+    <Popover
       placement="top-start"
       title="扫一扫用微信查看"
       trigger="hover"
@@ -15,7 +15,7 @@
         :src="qrCodeImg"
         alt="qrCode"
       >
-    </el-popover>
+    </Popover>
     <span
       v-for="share in shareList"
       :key="share.type"
