@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'blog-server',
-      script: 'npm run start:prod',
+      script: 'npm run start',
       cwd: './server',
       env: {
         NODE_ENV: 'development',
@@ -25,6 +25,19 @@ module.exports = {
       },
       output: '../logs/client-out.log',
       error: '../logs/client-error.log',
+    },
+    {
+      name: 'blog-admin',
+      script: 'npm run start',
+      cwd: './admin',
+      env: {
+        NODE_ENV: 'development',
+      },
+      env_production: {
+        NODE_ENV: 'production',
+      },
+      output: '../logs/admin-out.log',
+      error: '../logs/admin-error.log',
     },
   ],
 
