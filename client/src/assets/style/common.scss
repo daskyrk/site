@@ -97,36 +97,12 @@ h6 {
     }
   }
 
-  .image-package {
-    width: 92%;
-    margin: 0 auto 1rem auto;
-    text-align: center;
-
-    .img-caption {
-      display: inline-block;
-      min-width: 10%;
-      max-width: 80%;
-      min-height: 22px;
-      margin: 0 auto;
-      padding: 6px;
-      color: #969696;
-      font-size: 14px;
-      line-height: 1.2;
-      border-bottom: 1px solid #d9d9d9;
-
-      &:empty {
-        display: none;
-      }
-    }
-  }
-
   img {
     display: block;
     max-width: 100%;
     margin: .5rem auto;
     text-align: center;
     border-radius: $radius;
-    // transition: all 0.25s;
     opacity: .9;
   }
 
@@ -159,6 +135,7 @@ h6 {
 
   hr {
     height: .1rem;
+    margin: 2rem 0;
     background: $color-split;
     border: 0;
   }
