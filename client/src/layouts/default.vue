@@ -114,6 +114,7 @@ export default {
   justify-content: space-between;
   min-height: 100vh;
   transition: transform .5s;
+  background: url("~assets/bak.svg");
 
   &.gray-bg {
     background-color: $c-whitesmoke;

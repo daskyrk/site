@@ -9,7 +9,6 @@ body {
   line-height: 1.4;
   letter-spacing: .5px;
   -webkit-font-smoothing: antialiased;
-  // background: url("~assets/bak.svg");
 }
 
 a {
@@ -28,10 +27,10 @@ pre {
 code {
   margin: 0 4px;
   padding: 2px 6px;
-  color: $c-platinum;
+  color: rgba(44, 63, 81, .7);
   font-size: 12px;
-  background-color: $c-black;
-  border-radius: 4px;
+  background: rgba(102, 128, 153, .075);
+  border-radius: 2px;
 }
 
 pre {
@@ -44,7 +43,7 @@ pre {
 
   code {
     margin: 0;
-    padding: 1em;
+    padding: 0;
     color: $c-platinum;
     line-height: 1.6em;
     background-color: transparent;
@@ -52,13 +51,37 @@ pre {
     &::selection,
     *::selection {
       color: $c-white;
-      background: #43d8e4;
+      background: $c-cyan;
     }
   }
 }
 
 button:active {
   outline: none;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 22px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
 }
 
 * {
@@ -129,13 +152,9 @@ button:active {
   h6 {
     margin: 1.5rem 0;
     padding-left: 0;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.8rem;
     text-indent: 0;
-
-    // &:target {
-    //   padding-top: 4.5rem;
-    // }
   }
 
   hr {
@@ -193,6 +212,26 @@ button:active {
     > li {
       list-style-type: decimal;
     }
+  }
+
+  table th,
+  table td {
+    padding: .5em 1em;
+    color: #666666;
+    border: 1px solid #dddddd;
+  }
+
+  table th {
+    font-weight: bold;
+    background: #f1f1f1;
+  }
+
+  table caption {
+    border-bottom: none;
+  }
+
+  label {
+    margin-bottom: 0;
   }
 }
 

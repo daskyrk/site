@@ -3,9 +3,9 @@
     ref="post"
     class="post"
   >
-    <h3 class="title">
+    <h2 class="title">
       {{ detail.title }}
-    </h3>
+    </h2>
     <div class="meta">
       <span class="time">
         {{ detail.createdAt | dateFormat('YYYY.MM.DD HH:MM') }}
@@ -142,10 +142,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .post {
   max-width: 732px;
   padding: 1rem;
+  background: $c-white;
 
   .meta {
     margin-top: 1rem;

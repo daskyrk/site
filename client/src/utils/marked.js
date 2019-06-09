@@ -28,6 +28,23 @@ marked.setOptions({
 // }
 // renderer.paragraph = paragraphParse
 
+renderer.listitem = (text, isTask, checked) => {
+  if (!isTask) {
+    return text;
+  }
+  return `
+<li class="checkbox-container">
+  <label class="checkbox-label">
+    <input disabled type="checkbox"${checked?' checked':''}>
+    <span class="input-title">
+      ${text.replace(/<input .+>/, '')}
+    </span>
+    <span class="checkbox-custom" />
+  </label>
+</li>
+`
+}
+
 export default content => {
   if (typeof content !== 'string') {
     return ''

@@ -85,6 +85,7 @@ const config: NuxtConfiguration = {
     '~/assets/style/syntax.scss',
     '~/assets/style/transition.scss',
     '~/assets/style/util.scss',
+    '~/assets/style/custom.scss',
   ],
   styleResources: {
     scss: [// 这里只能包含 variable、mixin, 禁止包容任何真实样式，否则每个style里都会重复一遍
