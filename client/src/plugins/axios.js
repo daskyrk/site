@@ -36,13 +36,16 @@ export default function ({ $axios, store, redirect, error }) {
   })
 
   $axios.onError(err => {
-    // store.commit('END_FETCH', err.response)
+    store.commit('END_FETCH', err.response)
     const code = parseInt(err.response && err.response.status)
-    if (code === 401) {
-      store.commit('user/LOGOUT')
-      // redirect('/login')
+    switch (code) {
+      case 401:
+        return store.commit('user/LOGOUT')
+      // case 404:
+      //   error({ statusCode: code, message: err.message })
+      default:
     }
     error({ statusCode: code, message: err.message })
-
+    return err
   })
 }
