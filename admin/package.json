@@ -1,7 +1,7 @@
 {
   "name": "admin",
-  "version": "1.0.0",
-  "description": "admin project for my blog",
+  "version": "2.0.0",
+  "description": "admin project for my site",
   "author": "LiJun",
   "private": true,
   "scripts": {

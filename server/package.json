@@ -1,7 +1,7 @@
 {
   "name": "blog-server",
-  "version": "0.1.0",
-  "description": "blog server powered by vue,koa and mongodb",
+  "version": "2.0.0",
+  "description": "site server powered by NestJs and MongoDB",
   "license": "MIT",
   "main": "lib/index.js",
   "private": true,
