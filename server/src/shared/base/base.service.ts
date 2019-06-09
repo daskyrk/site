@@ -8,6 +8,7 @@ import {
   Types,
 } from 'mongoose';
 import { ObjectID, WriteOpResult } from 'mongodb';
+import { NotFoundException } from '@nestjs/common';
 
 /**
  * 分页器返回结果
@@ -36,14 +37,14 @@ export abstract class BaseService<T extends Document> {
 
   /**
    * 转换ObjectId
-   * @private
+   * @public
    * @param {string} id
    * @returns {Types.ObjectId}
    * @memberof BaseService
    */
-  private toObjectId(id: string): Types.ObjectId {
+  public toObjectId(id: string): Types.ObjectId {
     if (!ObjectID.isValid(id)) {
-      throw new Error('id is not a valid objectID');
+      throw new NotFoundException('id is not a valid objectID');
     }
     return Types.ObjectId(id);
   }

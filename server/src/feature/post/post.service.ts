@@ -16,7 +16,7 @@ export class PostService extends BaseService<IPost> {
   }
 
   public async getPostById(id: string, isAdmin: boolean) {
-    const res = await this.model.findById(id).populate('tags');
+    const res = await this.model.findById(this.toObjectId(id)).populate('tags');
     if (res) {
       if (!isAdmin) {
         if (!res.isPublic || !res.isPublish) {
