@@ -6,6 +6,7 @@
 <script>
 import Post from '~/components/post/post-page'
 import { mapState } from 'vuex'
+import { randomPick } from '@/utils'
 
 export default {
   components: {
@@ -23,12 +24,22 @@ export default {
   },
 
   mounted() {
-    const randomPick = arr => arr[Math.floor(Math.random() * arr.length)]
     this.$store.dispatch('music/getPlaylist', this.defaultListId).then(list => {
       const theOne = randomPick(list)
       const { artist, title } = theOne
-      this.$msg.info(`来一首${artist}的${title}吧~`)
-      this.$store.dispatch('music/getSong', theOne.id)
+      this.$msg.notify({
+        iconImg: this.$getConfig('githubAvatar'),
+        autoClose: true,
+        title: '听歌吗亲?',
+        content: `来一首 ${artist} 的 ${title} 吧~`,
+        okText: '好啊~',
+        closeText: '算了',
+        position: 'top-right',
+        onOk: () => {
+          this.$store.dispatch('music/getSong', theOne.id)
+          this.$store.commit('music/setAutoplay', true)
+        },
+      })
     })
   },
 }

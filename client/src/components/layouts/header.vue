@@ -48,8 +48,8 @@
             <music-player
               :music="music"
               :on-play="onPlay"
+              :on-end="onEnd"
               :autoplay="autoplay"
-              loop
             />
           </div>
         </div>
@@ -201,12 +201,23 @@ export default {
     toggleMusic() {
       if (this.music.src) {
         this.musicVisible = !this.musicVisible
-      }else {
+      } else {
         this.musicVisible = false
       }
     },
     onPlay(playing) {
       this.playingMusic = playing
+    },
+    onEnd() {
+      this.$store.dispatch('music/nextSong').then(nextSong => {
+        const { artist, title } = nextSong
+        if (title) {
+          this.$msg.success({
+            iconImg: this.$getConfig('githubAvatar'),
+            content: `下一首歌：${artist} 的 ${title}`,
+          })
+        }
+      })
     },
   },
 }

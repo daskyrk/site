@@ -1,4 +1,4 @@
-import { appConfig } from '../../config';
+import { appConfig } from '@@/config';
 
 /**
  * 在context、vue instance、vuex 中注入方法 $getConfig

@@ -127,6 +127,10 @@ export default {
       type: Function,
       default: () => {},
     },
+    onEnd: {
+      type: Function,
+      default: () => {},
+    },
   },
 
   data() {
@@ -241,6 +245,7 @@ export default {
       } else {
         this.audioEnd = true
         this.playing = false
+        this.onEnd()
       }
     },
     handleCanPlayThrough(e) {
@@ -248,7 +253,7 @@ export default {
       this.loading = false
       this.durationText = this.parseSec(duration.toFixed(0))
       if (this.autoplay && !this.playing) {
-        this.handlePlayToggle();
+        this.handlePlayToggle()
       }
     },
     handleDurationChange(e) {
@@ -280,7 +285,7 @@ export default {
         spectrum.stop()
       }
       this.playing = !audio.paused
-      this.onPlay(this.playing);
+      this.onPlay(this.playing)
     },
     handleMouseWheel(e) {
       if (!this.playing) {
@@ -289,8 +294,8 @@ export default {
       if (this.timer) {
         clearTimeout(this.timer)
       }
-      const step = this.volumeStep;
-      const audio = this.$refs.audio;
+      const step = this.volumeStep
+      const audio = this.$refs.audio
       this.adjustingVolume = true
       if (e.wheelDeltaY < 0 && audio.volume > step) {
         audio.volume -= step
@@ -298,9 +303,9 @@ export default {
       if (e.wheelDeltaY > 0 && audio.volume < 1 - step) {
         audio.volume += step
       }
-      this.volume = audio.volume;
+      this.volume = audio.volume
 
-      this.timer = setTimeout(()=> {
+      this.timer = setTimeout(() => {
         this.adjustingVolume = false
       }, 1000)
     },
@@ -350,7 +355,7 @@ export default {
 
 <style lang="scss" scoped>
 $h: 90px;
-$transition: all .6s cubic-bezier(0, .36, .51, 1.39);
+$transition: all 0.6s cubic-bezier(0, 0.36, 0.51, 1.39);
 $right: 30px;
 
 .mplayer-container {
@@ -359,10 +364,10 @@ $right: 30px;
   width: 100%;
   min-width: 360px;
   height: $h;
-  font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei",
-    "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+  font-family: Helvetica, Tahoma, Arial, STXihei, '华文细黑', 'Microsoft YaHei',
+    '微软雅黑', SimSun, '宋体', Heiti, '黑体', sans-serif;
   background: #ffffff;
-  box-shadow: 0 0 20px rgba(59, 59, 177, .18);
+  box-shadow: 0 0 20px rgba(59, 59, 177, 0.18);
 
   &.mplayer-isplaying {
     .mplayer-info-cover {
@@ -372,7 +377,7 @@ $right: 30px;
     }
 
     .mplayer-meta {
-      transform: scale(.85, .85) translateX(-110px);
+      transform: scale(0.85, 0.85) translateX(-110px);
 
       .mplayer-meta-title {
         margin-top: 4px;
@@ -381,7 +386,7 @@ $right: 30px;
       .mplayer-meta-time-tick {
         transform: translateY(0);
         opacity: 1;
-        transition: all .6s cubic-bezier(0, .36, .51, 1.39) .65s;
+        transition: all 0.6s cubic-bezier(0, 0.36, 0.51, 1.39) 0.65s;
       }
     }
 
@@ -407,11 +412,11 @@ $right: 30px;
 
     .mplayer-control-play {
       top: -70px;
-      opacity: .6;
+      opacity: 0.6;
       animation: breath 2s infinite alternate;
 
       &:hover {
-        opacity: .9;
+        opacity: 0.9;
       }
 
       .icon-music-play {
@@ -493,7 +498,7 @@ $right: 30px;
     width: $h;
     height: 100%;
     border: 6px solid #ffffff;
-    box-shadow: 0 0 20px rgba(59, 59, 177, .35);
+    box-shadow: 0 0 20px rgba(59, 59, 177, 0.35);
   }
 }
 
@@ -504,7 +509,7 @@ $right: 30px;
   transition: $transition;
 
   .mplayer-meta-time-tick {
-    color: rgba(0, 0, 0, .6);
+    color: rgba(0, 0, 0, 0.6);
     font-size: 13px;
     letter-spacing: 1px;
     transform: translateY(10px);
@@ -538,7 +543,7 @@ $right: 30px;
   margin-left: -120px;
   transform: translateX(110px);
   opacity: 0;
-  transition: all .7s cubic-bezier(.17, .67, .45, 1.26) .1s;
+  transition: all 0.7s cubic-bezier(0.17, 0.67, 0.45, 1.26) 0.1s;
 }
 
 .mplayer-lyric {
@@ -554,11 +559,11 @@ $right: 30px;
 
 .mplayer-lyric-area {
   margin-top: 35px;
-  color: rgba(0, 0, 0, .7);
+  color: rgba(0, 0, 0, 0.7);
   font-size: 12px;
   text-align: center;
   opacity: 0;
-  transition: transform .7s;
+  transition: transform 0.7s;
 
   p {
     width: 100%;
@@ -566,7 +571,7 @@ $right: 30px;
     padding: 0;
     line-height: 0;
     opacity: 0;
-    transition: all .6s;
+    transition: all 0.6s;
   }
 
   .mplayer-lyric-current {
@@ -584,7 +589,7 @@ $right: 30px;
 
 .mplayer-lyric-area .mplayer-lyric-pre,
 .mplayer-lyric-area .mplayer-lyric-next {
-  opacity: .35;
+  opacity: 0.35;
 }
 
 .mplayer-control {
@@ -600,25 +605,25 @@ $right: 30px;
   z-index: -1;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, .8);
+  background: rgba(255, 255, 255, 0.8);
   opacity: 0;
-  transition: all .8s;
+  transition: all 0.8s;
 }
 
 .mplayer-volume {
   width: 60px;
   margin: 13px auto 0;
-  color: rgba(150, 150, 150, .75);
+  color: rgba(150, 150, 150, 0.75);
   font-size: 50px;
   text-align: center;
-  transition: all .9s;
+  transition: all 0.9s;
 }
 
 .mplayer-volume-progress {
   height: 4px;
-  background: rgba(150, 150, 150, .75);
+  background: rgba(150, 150, 150, 0.75);
   border-radius: 1px;
-  transition: width .2s;
+  transition: width 0.2s;
 }
 
 .mplayer-control-play {
@@ -631,9 +636,9 @@ $right: 30px;
   text-align: center;
   background: #ffffff;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(59, 59, 177, .22);
+  box-shadow: 0 0 10px rgba(59, 59, 177, 0.22);
   cursor: pointer;
-  transition: top .6s cubic-bezier(0, .74, .61, 1.35);
+  transition: top 0.6s cubic-bezier(0, 0.74, 0.61, 1.35);
 
   &:hover {
     animation: breath 2s infinite alternate;
@@ -644,7 +649,7 @@ $right: 30px;
     left: 50%;
     margin-left: -7px;
     line-height: 50px;
-    transition: all .5s;
+    transition: all 0.5s;
   }
 
   .icon-music-play {
@@ -663,17 +668,17 @@ $right: 30px;
   position: absolute;
   right: $right;
   bottom: 24px;
-  color: rgba(0, 0, 0, .6);
+  color: rgba(0, 0, 0, 0.6);
   font-size: 12px;
   letter-spacing: 1px;
-  transition: all .6s cubic-bezier(0, .74, .61, 1.35);
+  transition: all 0.6s cubic-bezier(0, 0.74, 0.61, 1.35);
 }
 
 .mplayer-container.mplayer-isplaying .mplayer-duration,
 .mplayer-container.mplayer-isplaying .mplayer-loadingsign {
   bottom: 44px;
   z-index: -1;
-  transform: scale(.5, .5);
+  transform: scale(0.5, 0.5);
   opacity: 0;
 }
 
@@ -684,9 +689,9 @@ $right: 30px;
 .mplayer-duration i,
 .mplayer-loadingsign i {
   margin-right: 3px;
-  color: rgba(217, 66, 64, .5);
-  transform: scale(.9, .9);
-  transition: all .7s;
+  color: rgba(217, 66, 64, 0.5);
+  transform: scale(0.9, 0.9);
+  transition: all 0.7s;
 }
 
 .mplayer-timeline-bg {
@@ -702,10 +707,10 @@ $right: 30px;
   width: 100%;
   height: 2px;
   overflow: hidden;
-  background: rgba(231, 231, 239, .8);
+  background: rgba(231, 231, 239, 0.8);
   transform: translateY(2px);
   opacity: 0;
-  transition: all .5s;
+  transition: all 0.5s;
 
   .mplayer-timeline-passed {
     position: absolute;
@@ -722,7 +727,7 @@ $right: 30px;
   height: $h;
   background: #ffffff;
   border-radius: 50%;
-  box-shadow: 0 0 20px rgba(59, 59, 177, .18);
+  box-shadow: 0 0 20px rgba(59, 59, 177, 0.18);
 
   .mplayer-control {
     margin-right: 0;
@@ -737,13 +742,13 @@ $right: 30px;
     font-size: 26px;
     line-height: $h;
 
-    [class^="icon-"] {
+    [class^='icon-'] {
       position: absolute;
       left: 50%;
       margin-left: -11px;
       line-height: $h;
       cursor: pointer;
-      transition: all .5s;
+      transition: all 0.5s;
     }
 
     .icon-music-play {
@@ -784,18 +789,18 @@ $right: 30px;
     z-index: -1;
     width: 100%;
     height: 100%;
-    color: rgba(0, 0, 0, .9);
+    color: rgba(0, 0, 0, 0.9);
     font-size: 30px;
     line-height: $h;
     text-align: center;
-    background: rgba(255, 255, 255, .98);
+    background: rgba(255, 255, 255, 0.98);
     border-radius: 50%;
-    transition: all .8s;
+    transition: all 0.8s;
 
     i {
       transform: translateX(-20px);
       opacity: 0;
-      transition: all .7s;
+      transition: all 0.7s;
     }
   }
 
@@ -835,11 +840,11 @@ $right: 30px;
 
 @keyframes breath {
   0% {
-    box-shadow: 0 0 35px rgba(59, 59, 177, .22);
+    box-shadow: 0 0 35px rgba(59, 59, 177, 0.22);
   }
 
   100% {
-    box-shadow: 0 0 10px rgba(59, 59, 177, .33);
+    box-shadow: 0 0 10px rgba(59, 59, 177, 0.33);
   }
 }
 
@@ -848,17 +853,17 @@ $right: 30px;
   font-family: fontello;
   font-style: normal;
   src: url(~assets/fonts/fontello.eot);
-  src: url(~assets/fonts/fontello.eot#iefix) format("embedded-opentype"),
-    url(~assets/fonts/fontello.woff) format("woff"),
-    url(~assets/fonts/fontello.ttf) format("truetype"),
-    url(~assets/fonts/fontello.svg#fontello) format("svg");
+  src: url(~assets/fonts/fontello.eot#iefix) format('embedded-opentype'),
+    url(~assets/fonts/fontello.woff) format('woff'),
+    url(~assets/fonts/fontello.ttf) format('truetype'),
+    url(~assets/fonts/fontello.svg#fontello) format('svg');
 }
 
-[class^="icon-music-"]:before,
-[class*=" icon-music"]:before {
+[class^='icon-music-']:before,
+[class*=' icon-music']:before {
   display: inline-block;
   font-weight: normal;
-  font-family: "fontello";
+  font-family: 'fontello';
   font-style: normal;
   font-variant: normal;
   text-align: center;
@@ -870,22 +875,22 @@ $right: 30px;
 }
 
 .icon-music-play:before {
-  content: "\e801";
+  content: '\e801';
 } /* '' */
 
 .icon-music-pause:before {
-  content: "\e802";
+  content: '\e802';
 } /* '' */
 
 .icon-music-clock:before {
-  content: "\e803";
+  content: '\e803';
 } /* '' */
 
 .icon-music-volume:before {
-  content: "\e804";
+  content: '\e804';
 } /* '' */
 
 .icon-music-spin:before {
-  content: "\e800";
+  content: '\e800';
 } /* '' */
 </style>

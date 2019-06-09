@@ -1,5 +1,6 @@
 import { setList } from '@/utils/vuex'
 import { appConfig } from '@@/config'
+import { randomPick } from '@/utils'
 
 export default {
   state() {
@@ -38,6 +39,20 @@ export default {
         commit('setSong', data.data);
       }
       return data.data;
+    },
+
+    async nextSong({ state, dispatch }, random = false) {
+      let nextSong = {};
+      if (state.playlist.length) {
+        if (random) {
+          nextSong = randomPick(state.playlist);
+        } else {
+          const curIndex = state.playlist.findIndex(item => String(item.id) === String(state.song.id));
+          nextSong = state.playlist[curIndex + 1];
+        }
+        dispatch('getSong', nextSong.id);
+      }
+      return nextSong;
     },
 
     // async search({ commit, state }, data) {
