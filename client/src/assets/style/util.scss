@@ -1,0 +1,165 @@
+// display
+.visible {
+  visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+// action
+.unselectable {
+  user-select: none;
+}
+
+// position
+.pull-left {
+  float: left !important;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+// size
+.full-width {
+  width: 100% !important;
+}
+
+.full-height {
+  height: 100% !important;
+}
+
+//== text-positioin
+.text-left {
+  text-align: left !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+// flex
+.flex-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inline-flex-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.v-middle {
+  display: flex;
+  align-items: center;
+}
+
+// font size
+.fz12 {
+  font-size: 12px;
+}
+
+.fz14 {
+  font-size: 14px;
+}
+
+.fz16 {
+  font-size: 16px;
+}
+
+.fz18 {
+  font-size: 18px;
+}
+
+//== color
+.color-success {
+  color: $color-success !important;
+}
+
+.color-danger {
+  color: $color-danger !important;
+}
+
+.color-info {
+  color: $color-text-normal !important;
+}
+
+.color-warning {
+  color: $color-warning !important;
+}
+
+.color-active {
+  color: $color-active !important;
+}
+
+// hover
+.hover-active {
+  &:hover {
+    color: $color-primary;
+    cursor: pointer;
+  }
+}
+
+.hover-active-bg {
+  &:hover {
+    background-color: $color-hover;
+    cursor: pointer;
+  }
+}
+
+.hover-shadow {
+  &:hover {
+    @extend %hover-shadow;
+  }
+}
+
+// cursor
+.pointer {
+  cursor: pointer;
+}
+
+.not-allowed {
+  color: $color-disabled !important;
+  cursor: not-allowed !important;
+
+  &:hover {
+    color: $color-disabled !important;
+  }
+}
+
+.for-copy {
+  cursor: copy;
+}
+
+// other
+.nowrap {
+  @include nowrap();
+}
+
+.img-thumbnail {
+  border-radius: 16px;
+}
+
+.img-raised {
+  box-shadow: 0 5px 15px -8px rgba(0, 0, 0, .24),
+    0 8px 10px -5px rgba(0, 0, 0, .2);
+}
+
+.rounded {
+  border-radius: 6px !important;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}

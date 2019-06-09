@@ -5,7 +5,10 @@ module.exports = {
     node: true
   },
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: 'babel-eslint',
+    ecmaFeatures: {
+      legacyDecorators: true
+    }
   },
   extends: [
     'plugin:vue/recommended',
@@ -18,6 +21,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    "comma-dangle": ["error", "always-multiline"],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'vue/require-default-prop': 'off',

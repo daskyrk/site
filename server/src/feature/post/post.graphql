@@ -1,0 +1,92 @@
+type Query {
+  getPosts(
+    offset: Float
+    limit: Float
+    keyword: String
+    state: PostState
+    publish: Publish
+    type: PostType
+    data: Date
+    hot: Float
+    tag: String
+  ): Posts
+  getPostById(_id: ObjectID): PostsItem
+}
+
+type Mutation {
+  createPost(postInfo: CreatePostInput!): PostsItem
+  updatePost(postInfo: UpdatePostInput!): PostsItem
+  deletePost(_id: ObjectID!): Message
+}
+
+input CreatePostInput {
+  title: String!
+  keyword: String!
+  content: String
+  description: String
+  state: PostState
+  publish: Publish
+  thumb: String
+  type: PostType
+  tag: [String]!
+}
+
+input UpdatePostInput {
+  _id: ObjectID!
+  title: String!
+  keyword: String!
+  content: String
+  description: String
+  state: PostState
+  publish: Publish
+  thumb: String
+  type: PostType
+  tag: [String!]
+}
+
+type Posts {
+  total: Float
+  offset: Float!
+  limit: Float!
+  docs: [PostsItem]
+}
+
+type PostsItem {
+  id: Float
+  _id: ObjectID!
+  title: String
+  keyword: String
+  content: String
+  state: PostState
+  publish: Publish
+  thumb: String
+  type: PostType
+  meta: PostMeta
+  tag: [TagsItem]
+  update_at: Date
+  create_at: Date
+}
+
+type PostMeta {
+  views: Float
+  likes: Float
+  comments: Float
+}
+
+enum Publish {
+  PUBLIC
+  PRIVATE
+}
+
+enum PostType {
+  CODE
+  THINK
+  FOLK
+}
+
+enum PostState {
+  RELEASE
+  DRAFT
+}
+
+scalar ObjectID

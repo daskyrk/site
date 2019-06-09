@@ -161,3 +161,16 @@ computed: {
 
 13. `nuxtServerInit`这个action，按理说是在服务端执行的，那是怎么拿到`req.headers.cookie`的呢？这个action中用req.headers.cookie好像拿的是浏览器端设置的cookie，因为我清空浏览器的cookie时，header里就没有了，感觉非常奇怪
 脑子瓦特了，服务端渲染就是浏览器发出请求，nuxt把渲染好的页面和初始数据一并返回而已啊，所以req还是浏览器发的请求，必然会带上cookie啊。。可能是hmr时会引起浏览器自动发起一次请求，但没有注意到，所以会以为是nuxt server发起的
+
+
+14. 样式注入顺序：
+common > layout > layout-inner > plugin > page > page-inner
+
+1. nuxt.config.js中的 global css
+2. layout中 import 的
+3. layout中 style里 @import 的
+4. plugin中 import 的
+5. page中 import 的
+6. page中 style里 @import 的
+
+15. 使用vuetify时，因为每个组件引入了自己的styl文件，所以使用外部主题覆盖时，总是覆盖不了，所以把外部样式统一加了一层 body 筛选器，提高了优先级

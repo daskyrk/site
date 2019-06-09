@@ -1,0 +1,52 @@
+@mixin nowrap() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+%shallow-shadow {
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .06), 0 0 2px -1px rgba(0, 0, 0, .06),
+    0 1px 3px 0 rgba(0, 0, 0, .12);
+}
+
+%hover-shadow {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .06),
+    0 2px 4px -3px rgba(0, 0, 0, .06), 0 2px 6px 0 rgba(0, 0, 0, .12);
+}
+
+%select-shadow {
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .06),
+    0 2px 6px -5px rgba(0, 0, 0, .06), 0 4px 9px 0 rgba(0, 0, 0, .12);
+}
+
+%toast-shadow {
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .06),
+    0 3px 8px -7px rgba(0, 0, 0, .06), 0 6px 12px 0 rgba(0, 0, 0, .12);
+}
+
+%modal-shadow {
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, .06),
+    0 4px 12px -11px rgba(0, 0, 0, .06), 0 8px 18px 0 rgba(0, 0, 0, .12);
+}
+
+$sm-break-width: 680px;
+$md-break-width: 1280px;
+$lg-break-width: 1440px;
+// 小屏 usage: @include sm-width{  }
+@mixin sm-width() {
+  @media screen and (max-width: $sm-break-width) {
+    @content;
+  }
+}
+
+@mixin md-width() {
+  @media screen and (max-width: $md-break-width) {
+    @content;
+  }
+}
+
+@mixin lg-width() {
+  @media screen and (max-width: $lg-break-width) {
+    @content;
+  }
+}

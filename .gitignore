@@ -1,4 +1,8 @@
 */node_modules
-server/lib/my-config.js
+server/src/config/env.json
 client/.nuxt
 db/blog/
+.env*
+.deploy
+*/dist
+temp

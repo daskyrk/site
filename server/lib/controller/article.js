@@ -20,7 +20,7 @@ exports.getArts = async ctx => {
     sort: { createdAt: -1 },
     page: Number(pageNo),
     limit: Number(pageSize),
-    select: '-content -__v',
+    select: '-content',
     populate: ['tag'],
   };
 

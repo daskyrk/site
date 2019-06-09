@@ -1,67 +1,35 @@
-const IS_DEV = process.env.NODE_ENV !== 'production'
-
-exports.envs = {
+export const appConfig = {
   owner: 'lijun',
   mail: 'daskyrk@gmail.com',
   site: 'https://lijun.space',
+  title: "blog",
+  description: "lijun's personal blog powered by nuxt, koa & mongodb",
   bg_mode: 'story', // static | story | random
   gtmId: 'UA-121869307-1', // google tag manager id
+  githubAvatar: 'https://avatars0.githubusercontent.com/u/3955437?s=40&v=4',
+  playListId: 11279970,
   footer: {
-    split: '|',
-    data: [
+    startTime: '2019-05-04 09:00:00',
+    owner: 'daskyrk',
+    friends: [
       {
-        text: '涅尘',
-      },
-      {
-        text: '@lijun',
-        link: '/about',
+        name: '我的小窝',
+        link: '/',
       },
     ],
   },
   navs: [
+    // {
+    //   link: '/read',
+    //   text: 'Read',
+    // },
     {
-      link: '/read',
-      text: '读书',
+      link: '/post',
+      text: 'Article',
     },
     {
-      link: '/article',
-      text: '文章',
-    },
-    {
-      link: '/wall',
-      text: '留言墙',
-    },
-  ],
-  adminMenus: [
-    {
-      link: '/admin',
-      text: '总览',
-      icon: 'home',
-    },
-    {
-      link: '/admin/read',
-      text: '读书管理',
-      icon: 'book',
-    },
-    {
-      link: '/admin/article',
-      text: '文章管理',
-      icon: 'article',
-    },
-    {
-      link: '/admin/comment',
-      text: '留言管理',
-      icon: 'comment',
-    },
-    {
-      link: '/admin/tag',
-      text: '标签管理',
-      icon: 'tag',
-    },
-    {
-      link: '/admin/setting',
-      text: '系统设置',
-      icon: 'setting',
+      link: '/wish',
+      text: 'Wish',
     },
   ],
 }
