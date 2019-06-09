@@ -11,11 +11,10 @@ admin后台 使用[Vuetify主题](https://demos.creative-tim.com/vuetify-materia
 
 后台截图：
 ### 文章管理页：
-![img1](./admin/snapshot/屏幕快照 2019-06-09 下午6.24.48.png)
+![img1](./admin/snapshot/2019-06-09_18.24.48.png)
 
 ### 文章编辑页：
-![img3](./admin/snapshot/屏幕快照 2019-06-09 下午6.26.02.png)
+![img3](./admin/snapshot/2019-06-09_18.26.02.png)
 
 ### 设置页：
-![img2](./admin/snapshot/屏幕快照 2019-06-09 下午6.25.42.png)
->>>>>>> develop
+![img2](./admin/snapshot/2019-06-09_18.25.42.png)
