@@ -34,7 +34,8 @@
         </nav>
         <div
           class="header-icon-wrap"
-          @click.self="musicVisible = !musicVisible"
+          :class="{'disabled': !music.src}"
+          @click.self="toggleMusic"
         >
           <i
             class="iconfont icon-music"
@@ -47,6 +48,7 @@
             <music-player
               :music="music"
               :on-play="onPlay"
+              :autoplay="autoplay"
               loop
             />
           </div>
@@ -56,9 +58,7 @@
           :class="{['search-visible']: searchVisible}"
           @click="showSearch"
         >
-          <i
-            class="iconfont icon-search header-search-icon"
-          />
+          <i class="iconfont icon-search header-search-icon" />
           <input
             ref="searchInput"
             v-model="keyword"
@@ -137,11 +137,12 @@ export default {
     ...mapState({
       sideopen: state => state.layout.sideOpen,
       pressKey: state => state.layout.pressKey,
+      autoplay: state => state.music.autoplay,
     }),
     music() {
       const song = this.$store.state.music.song
       if (!song) {
-        return { }
+        return {}
       }
       return {
         src: song.link,
@@ -195,10 +196,17 @@ export default {
       )
     },
     toggleAppSide() {
-      this.$store.commit('layout/toggleAppSide', !this.sideopen);
+      this.$store.commit('layout/toggleAppSide', !this.sideopen)
+    },
+    toggleMusic() {
+      if (this.music.src) {
+        this.musicVisible = !this.musicVisible
+      }else {
+        this.musicVisible = false
+      }
     },
     onPlay(playing) {
-      this.playingMusic = playing;
+      this.playingMusic = playing
     },
   },
 }
@@ -214,8 +222,8 @@ export default {
   height: $header-height;
   line-height: $header-height;
   background-color: $c-white;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, .1);
-  transition: transform .5s;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s;
 
   &.hide {
     transform: translateY(-$header-height);
@@ -237,7 +245,7 @@ export default {
     .logo {
       height: $header-height;
       margin-left: 1rem;
-      transition: transform .3s;
+      transition: transform 0.3s;
     }
 
     .admin-entry {
@@ -263,7 +271,7 @@ export default {
     right: 20%;
   }
 
-  $transition: color .2s, background-color .2s;
+  $transition: color 0.2s, background-color 0.2s;
 
   .header-nav {
     a {
@@ -296,6 +304,9 @@ export default {
       pointer-events: none;
     }
 
+    &.disabled {
+      cursor: not-allowed;
+    }
 
     &:hover {
       color: $color-active-red;
@@ -312,7 +323,7 @@ export default {
 
       .header-search-input {
         opacity: 1;
-        transition: opacity .5s;
+        transition: opacity 0.5s;
       }
     }
   }
@@ -334,7 +345,7 @@ export default {
     z-index: 2;
     display: inline-block;
     width: 4rem;
-    transition: background-color .25s, transform .25s;
+    transition: background-color 0.25s, transform 0.25s;
   }
 
   .header-search-input {
@@ -394,7 +405,7 @@ export default {
     bottom: 0;
     width: 60%;
     background-color: #eef1f2;
-    transition: right .5s;
+    transition: right 0.5s;
 
     &.visible {
       right: 0;
@@ -408,16 +419,15 @@ export default {
       padding-left: 12px;
     }
   }
-
 }
 
-@include md-width () {
+@include md-width() {
   .header-music {
     right: 10%;
   }
 }
 
-@include sm-width () {
+@include sm-width() {
   .default-header {
     .header-nav {
       display: none;
@@ -438,7 +448,6 @@ export default {
     }
   }
 }
-
 
 @keyframes playing {
   0% {

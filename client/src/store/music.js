@@ -8,11 +8,12 @@ export default {
       playlist: [],
       songIds: [],
       song: {},
+      autoplay: false,
     }
   },
 
   mutations: {
-    ...setList(['playlist', 'songIds', 'song']),
+    ...setList(['playlist', 'songIds', 'song', 'autoplay']),
   },
 
   actions: {

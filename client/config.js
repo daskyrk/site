@@ -6,6 +6,7 @@ export const appConfig = {
   description: "lijun's personal blog powered by nuxt, koa & mongodb",
   bg_mode: 'story', // static | story | random
   gtmId: 'UA-121869307-1', // google tag manager id
+  githubAvatar: 'https://avatars0.githubusercontent.com/u/3955437?s=40&v=4',
   playListId: 11279970,
   footer: {
     startTime: '2019-05-04 09:00:00',
