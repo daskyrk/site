@@ -170,7 +170,7 @@ export default {
   mounted() {
     this.clipboard = new Clipboard(this.$refs.share_copy_btn)
     this.clipboard.on('success', e => {
-      this.$message.success({
+      this.$msg.success({
         message: `复制${e.trigger.getAttribute('data-clipboard-tip') ||
           ''}成功`,
         duration: 1000,

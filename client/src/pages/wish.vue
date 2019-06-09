@@ -125,13 +125,13 @@ export default {
   methods: {
     submit() {
       if (this.list.length > 50) {
-        return this.$message('留言有些多了，待我先归档一下~')
+        return this.$msg('留言有些多了，待我先归档一下~')
       }
       if (!this.name) {
-        return this.$message('忘了署名啊')
+        return this.$msg('忘了署名啊')
       }
       if (!this.content) {
-        return this.$message('没什么想说的吗')
+        return this.$msg('没什么想说的吗')
       }
       const name = this.name
       const content = this.content

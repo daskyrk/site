@@ -28,6 +28,7 @@ marked.setOptions({
 // }
 // renderer.paragraph = paragraphParse
 
+// 替换列表中checkbox的代码，改变一下样式
 renderer.listitem = (text, isTask, checked) => {
   if (!isTask) {
     return text;

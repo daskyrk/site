@@ -119,7 +119,7 @@ export default {
     },
     submit(content) {
       if (this.nameHasError || this.emailHasError) {
-        return this.$message.error('是不是写错了什么？')
+        return this.$msg.error('是不是写错了什么？')
       }
       this.onSubmit({ content, author: this.author })
     },

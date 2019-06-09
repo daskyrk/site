@@ -182,7 +182,7 @@ export default {
   methods: {
     submit() {
       // if (this.list.length > 40) {
-      //   return this.$message('留言有些多了，待我先归档一下~')
+      //   return this.$msg('留言有些多了，待我先归档一下~')
       // }
       if (this.validate) {
         const name = this.name || '路过的朋友'
