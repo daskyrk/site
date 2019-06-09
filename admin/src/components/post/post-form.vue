@@ -39,7 +39,7 @@
                     v-model="form.title"
                     prepend-icon="iconfont icon-biaoti"
                     label="标题"
-                    required
+                    :rules="rules.required"
                   />
                 </v-flex>
                 <v-flex xs6 md4>
@@ -54,6 +54,7 @@
                   <v-combobox
                     v-model="form.type"
                     :items="types"
+                    :rules="rules.required"
                     prepend-icon="iconfont icon-xuanzefenzu"
                     label="类别"
                   />
@@ -163,6 +164,9 @@ export default {
       },
       metaInfo,
       rules: {
+        required: [
+          v => !!v || '必填',
+        ],
       },
       images: [],
     }
@@ -223,8 +227,11 @@ export default {
     },
 
     submit() {
+      if (this.form.content.trim() === '') {
+        return this.$msg.info('没有写文章内容')
+      }
       if (this.valid && this.onSubmit) {
-        this.onSubmit(this.form)
+        this.onSubmit({ ...this.form })
       }
     },
 
