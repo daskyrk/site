@@ -9,7 +9,7 @@
     "build": "nuxt build --standalone",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "push": "rsync -rv --delete -e 'ssh vps' .nuxt/* :/root/workspace/blog/admin/.nuxt",
+    "push": "rsync -rv --delete -e 'ssh vps' dist/* :/root/workspace/blog/admin/dist",
     "lint": "eslint --ext .js,.vue --fix --ignore-path .gitignore .",
     "stylelint-fix": "stylelint 'src/**/*.{scss,vue}' --config .stylelintrc.json --fix",
     "test": "jest"
