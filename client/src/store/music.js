@@ -1,8 +1,10 @@
 import { setList } from '@/utils/vuex'
+import { appConfig } from '@@/config'
 
 export default {
   state() {
     return {
+      defaultListId: appConfig.playListId,
       playlist: [],
       songIds: [],
       song: {},

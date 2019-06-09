@@ -14,6 +14,7 @@ export default {
 
   computed: {
     ...mapState('post', ['detail']),
+    ...mapState('music', ['defaultListId']),
   },
 
   async fetch({ store, params }) {
@@ -22,7 +23,13 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch('music/getSong', 483671599)
+    const randomPick = arr => arr[Math.floor(Math.random() * arr.length)]
+    this.$store.dispatch('music/getPlaylist', this.defaultListId).then(list => {
+      const theOne = randomPick(list)
+      const { artist, title } = theOne
+      this.$msg.info(`来一首${artist}的${title}吧~`)
+      this.$store.dispatch('music/getSong', theOne.id)
+    })
   },
 }
 </script>
