@@ -8,7 +8,10 @@ export default {
         pageSize: 6,
       },
       types: [],
-      detail: {},
+      detail: {
+        content: '',
+        meta: {},
+      },
     }
   },
 
