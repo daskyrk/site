@@ -113,10 +113,10 @@ export default {
       'danger',
     ],
     images: [
-      '/img/sidebar-bg1.jpg',
+      // '/img/sidebar-bg1.jpg',
       '/img/sidebar-bg2.jpg',
-      '/img/sidebar-bg3.jpg',
-      '/img/sidebar-bg4.jpg',
+      // '/img/sidebar-bg3.jpg',
+      // '/img/sidebar-bg4.jpg',
     ],
   }),
 
