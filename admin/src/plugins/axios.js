@@ -38,7 +38,8 @@ export default function ({ $axios, store, redirect, error }) {
       store.commit('user/LOGOUT')
       redirect('/login')
     }
-    // 调用error 会显示error页面
+    // 调用error并且必须返回err对象才会显示error页面
     // error({ statusCode: code, message: err.message })
+    return err
   })
 }
