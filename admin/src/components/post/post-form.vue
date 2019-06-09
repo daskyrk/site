@@ -194,19 +194,24 @@ export default {
     imgAdd(pos, $file) {
       const $md = this.$refs.md
       const formdata = new FormData()
-      formdata.append('smfile', $file)
+      let fileName = $file.name
+      // image.png的名字被屏蔽了，可能是这个文件名的太多了？粘贴图片时就是这个名字
+      if ($file.name === 'image.png') {
+        fileName = `image-` + `${Math.random()}`.slice(2, 8)
+      }
+      formdata.append('smfile', $file, fileName)
       axios({
         url: 'https://sm.ms/api/upload',
         method: 'post',
         data: formdata,
         headers: { 'Content-Type': 'multipart/form-data' },
       }).then((res) => {
-        const { code, data } = res.data
+        const { code, data, msg } = res.data
         if (code === 'success') {
           $md.$img2Url(pos, data.url)
           this.images[pos] = data
         } else {
-          this.$message('上传图片失败')
+          this.$msg.warning(msg || '上传图片失败')
         }
       })
     },
