@@ -47,6 +47,7 @@
                   slot="items"
                   slot-scope="{ item }"
                 >
+                  <td>{{ stateMap[item.state] }}</td>
                   <td>{{ item.content }}</td>
                   <td>
                     <v-tooltip v-if="item.author.site" top>
@@ -74,13 +75,23 @@
                   <td>
                     {{ item.ip }}
                   </td>
-                  <td class="text-xs-right">
+                  <td v-if="item.state !== 3" class="text-xs-right">
                     <v-btn
+                      v-if="item.state === 1"
+                      fab
+                      small
+                      color="danger"
+                      class="mr-2"
+                      @click="updateComment(item, 2)"
+                    >
+                      <v-icon> mdi-cancel </v-icon>
+                    </v-btn>
+                    <v-btn
+                      v-if="item.state === 2"
                       fab
                       small
                       color="success"
                       class="mr-2"
-                      :disabled="item.state === 1"
                       @click="updateComment(item, 1)"
                     >
                       <v-icon> check </v-icon>
@@ -88,20 +99,29 @@
                     <v-btn
                       fab
                       small
-                      color="danger"
-                      class="mr-2"
-                      :disabled="item.state === 2"
-                      @click="delComment(item)"
+                      color="info"
+                      @click="updateComment(item, 3)"
                     >
-                      <v-icon> close </v-icon>
+                      <v-icon> mdi-archive </v-icon>
                     </v-btn>
-                    <confirm tip="确定要归档吗？" :ok="() => archiveComment(item)">
+                  </td>
+                  <td v-else class="text-xs-right">
+                    <v-btn
+                      fab
+                      small
+                      color="info"
+                      class="mr-2"
+                      @click="updateComment(item, 1)"
+                    >
+                      <v-icon> mdi-undo-variant </v-icon>
+                    </v-btn>
+                    <confirm tip="确定要删除吗？" :ok="() => delComment(item)">
                       <v-btn
                         fab
                         small
-                        color="info"
+                        color="danger"
                       >
-                        <v-icon> mdi-archive </v-icon>
+                        <v-icon> close </v-icon>
                       </v-btn>
                     </confirm>
                   </td>
@@ -155,6 +175,11 @@ export default {
         3: '已归档',
       },
       headers: [
+        {
+          sortable: true,
+          text: '状态',
+          value: 'state',
+        },
         {
           sortable: false,
           text: '内容',
@@ -265,9 +290,6 @@ export default {
         id: row.id,
         state,
       })
-    },
-    archiveComment(row) {
-      // this.$store.dispatch('comment/delComment', row.id)
     },
     delComment(row) {
       this.$store.dispatch('comment/delComment', row.id)
