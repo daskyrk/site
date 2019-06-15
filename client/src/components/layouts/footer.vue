@@ -3,11 +3,11 @@
     <div class="footer-container">
       <div class="footer-col copy-right">
         <p>
-          Copyright © 2019
+          Made by
           <nuxt-link to="/about">
             daskyrk
           </nuxt-link>
-          All Rights Reserved.
+          with ❤️ © 2019
         </p>
         <p>Powered by Nuxt</p>
         <p>大概存活了 {{ footer.startTime | toNow }}</p>
