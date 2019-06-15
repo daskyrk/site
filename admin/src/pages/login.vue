@@ -121,8 +121,7 @@ export default {
       if (this.valid) {
         const action = type === 'login' ? 'user/login' : 'user/add'
         this.$store.dispatch(action, this.form).then((res) => {
-          console.log('res:', res)
-          // this.$router.push(this.$route.query.redirectTo || '/')
+          this.$router.push(this.$route.query.redirectTo || '/')
         })
       }
     },
