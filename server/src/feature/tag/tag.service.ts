@@ -37,6 +37,10 @@ export class TagService extends BaseService<ITag> {
   }
 
   public async create(data: TagDto): Promise<ITag> {
+    const isExist = await this.model.findOne({ name: data.name });
+    if (isExist) {
+      throw new Error('标签已存在');
+    }
     const newModel = new this.model(data);
     return await newModel.save();
   }

@@ -165,7 +165,7 @@ export default {
         ],
         description: [
           v => !!v || '必填',
-          v => v.length < 30 || '少于30个字符',
+          v => v.length < 30 || '应少于30个字符',
         ],
       },
       addMode: true,
@@ -205,14 +205,20 @@ export default {
       this.dialogVisible = true
     },
     onOk() {
-      if (this.valid) {
-        console.log('this.form:', this.form)
+      if (this.$refs.form.validate()) {
         if (this.addMode) {
-          this.$store.dispatch('tag/addTag', this.form)
+          this.$store.dispatch('tag/addTag', this.form).then((res) => {
+            if (res.success) {
+              this.dialogVisible = false
+            }
+          })
         } else {
-          this.$store.dispatch('tag/updateTag', this.form)
+          this.$store.dispatch('tag/updateTag', this.form).then((res) => {
+            if (res.success) {
+              this.dialogVisible = false
+            }
+          })
         }
-        this.dialogVisible = false
       }
     },
     removeTag(data, removed) {

@@ -3,7 +3,7 @@ export default {
     return {
       userInfo: {},
       logined: false,
-      registerable: true,
+      registerable: false,
     }
   },
 
