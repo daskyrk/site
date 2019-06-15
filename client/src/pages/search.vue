@@ -14,6 +14,7 @@
     </div>
     <TagList
       :tags="tags"
+      :active-name="tag"
       :on-click="setTag"
     />
     <div v-if="list.length">

@@ -27,7 +27,10 @@
           非商用-署名-自由转载
         </a>
       </span>
-      <TagList :tags="detail.tags" />
+      <TagList
+        :tags="detail.tags"
+        :on-click="searchByTag"
+      />
     </div>
     <aside class="side">
       <Tooltip
@@ -137,6 +140,9 @@ export default {
     },
     markMounted(key) {
       this.mounted[key] = true
+    },
+    searchByTag(item) {
+      this.$router.push(`/search?tag=${item.name}`)
     },
   },
 }

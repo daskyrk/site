@@ -3,7 +3,8 @@
     <li
       v-for="tag in (useDefault ? list : tags)"
       :key="tag.id"
-      class="tag-item"
+      class="tag-item ml8"
+      :class="{active: tag.name === activeName}"
       @click="onClick && onClick(tag)"
     >
       <i class="iconfont icon-biaoqian" />
@@ -22,6 +23,7 @@ export default {
       type: Array,
       required: true,
     },
+    activeName: String,
     useDefault: Boolean,
   },
 
