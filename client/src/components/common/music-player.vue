@@ -264,7 +264,7 @@ export default {
       if (audio) {
         this.currentTime = audio.currentTime
         const curTimeForLrc = audio.currentTime.toFixed(3)
-        if (this.hasLrc && !this.mini) {
+        if (this.hasLrc && this.lyrics.length && !this.mini) {
           this.currentLrcIndex = this.currentIndex(curTimeForLrc)
         }
       }
@@ -412,12 +412,8 @@ $right: 30px;
 
     .mplayer-control-play {
       top: -70px;
-      opacity: 0.6;
+      opacity: 0;
       animation: breath 2s infinite alternate;
-
-      &:hover {
-        opacity: 0.9;
-      }
 
       .icon-music-play {
         transform: translateX(8px);
@@ -447,6 +443,12 @@ $right: 30px;
         .mplayer-timeline {
           height: 8px;
         }
+      }
+    }
+
+    &:hover {
+      .mplayer-control-play {
+        opacity: 0.8;
       }
     }
   }
@@ -506,6 +508,7 @@ $right: 30px;
   display: inline-flex;
   flex-direction: column;
   line-height: initial;
+  text-align: left;
   transition: $transition;
 
   .mplayer-meta-time-tick {
@@ -518,7 +521,7 @@ $right: 30px;
 }
 
 .mplayer-meta-title {
-  margin-top: 27px;
+  margin-top: 4px;
   margin-bottom: 2px;
   color: #464649;
   font-size: 14px;
@@ -638,7 +641,8 @@ $right: 30px;
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(59, 59, 177, 0.22);
   cursor: pointer;
-  transition: top 0.6s cubic-bezier(0, 0.74, 0.61, 1.35);
+  transition: all 0.6s cubic-bezier(0, 0.74, 0.61, 1.35);
+  opacity: 1;
 
   &:hover {
     animation: breath 2s infinite alternate;
@@ -766,12 +770,10 @@ $right: 30px;
     .mplayer-control-play {
       .icon-music-play {
         transform: translateX(16px);
-        opacity: 0;
       }
 
       .icon-music-pause {
         transform: translateX(0);
-        opacity: 1;
       }
     }
   }

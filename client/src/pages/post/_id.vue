@@ -31,9 +31,10 @@ export default {
         iconImg: this.$getConfig('githubAvatar'),
         autoClose: true,
         title: '听歌吗亲?',
-        content: `来一首 ${artist} 的 ${title} 吧~`,
+        content: `来一首 ${artist} 的《${title}》吧~`,
         okText: '好啊~',
         closeText: '算了',
+        duration: 5000,
         position: 'top-right',
         onOk: () => {
           this.$store.dispatch('music/getSong', theOne.id)
