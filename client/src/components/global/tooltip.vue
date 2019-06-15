@@ -11,6 +11,15 @@ export default {
         node.data.class = node.data.class || {}
         node.data.class['m-tooltip'] = !this.disabled
         node.data.attrs = Object.assign(node.data.attrs || {}, this.$attrs)
+      } else {
+        return createElement(
+          'div',
+          {
+            class: !this.disabled ? 'm-tooltip' : '',
+            ...this.$attrs,
+          },
+          [this.$slots.default[0]],
+        )
       }
     } else {
       console.warn('Tooltip只接受一个子节点')
