@@ -42,6 +42,7 @@
               <v-data-table
                 :headers="headers"
                 :items="listTypeMap[type]"
+                :rows-per-page-items="[10,15,20,30]"
               >
                 <template
                   slot="items"

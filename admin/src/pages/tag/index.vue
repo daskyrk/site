@@ -76,6 +76,7 @@
           <v-data-table
             :headers="headers"
             :items="list"
+            :rows-per-page-items="[10,15,20,30]"
             disable-initial-sort
           >
             <template

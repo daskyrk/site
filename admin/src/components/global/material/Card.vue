@@ -98,7 +98,7 @@ export default {
 
       return {
         marginBottom: `${this.offset}px`,
-        marginTop: `${this.offset * 2}px`,
+        // marginTop: `${this.offset * 2}px`,
       }
     },
   },
