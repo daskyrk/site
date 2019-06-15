@@ -71,6 +71,11 @@ export class CommentService extends BaseService<IComment> {
       data.country = ipLocation.country;
     }
     const comment = await super.create(data);
+    let pComment;
+    if (data.pid) {
+      pComment = await super.findById(data.pid);
+    }
+    console.log('pComment:', pComment);
     sendMail(
       {
         to: data.author.email,
@@ -83,6 +88,7 @@ export class CommentService extends BaseService<IComment> {
         title: data.post.title,
         postLink: data.pageUrl,
         content: data.content,
+        pComment,
         ip,
       }
     );
