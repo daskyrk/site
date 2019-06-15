@@ -219,7 +219,7 @@ export default {
       tagList: 'list',
     }),
     types() {
-      return this.list.map(p => p.type)
+      return [...new Set(this.list.map(p => p.type))]
     },
     listTypeMap() {
       const map = {}
