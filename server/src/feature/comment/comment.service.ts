@@ -7,6 +7,7 @@ import { Injectable } from '@nestjs/common';
 import { PaginateModel } from 'mongoose';
 import { Request } from 'express';
 import geoip from 'geoip-lite';
+import { sendMail } from "@/utils/email";
 
 @Injectable()
 export class CommentService extends BaseService<IComment> {
@@ -70,6 +71,21 @@ export class CommentService extends BaseService<IComment> {
       data.country = ipLocation.country;
     }
     const comment = await super.create(data);
+    sendMail(
+      {
+        to: data.author.email,
+        subject: data.pid ? '您有新的回复' : '您有新的留言',
+      },
+      {
+        author: data.author.name,
+        authorSite: data.author.site,
+        mail: data.author.email,
+        title: data.post.title,
+        postLink: data.pageUrl,
+        content: data.content,
+        ip,
+      }
+    );
 
     return await comment.save();
   }

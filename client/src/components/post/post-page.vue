@@ -63,7 +63,7 @@
     <lazy-component @show="markMounted('comment')">
       <comment
         ref="comment"
-        :post-id="detail.id"
+        :post="detail"
       />
     </lazy-component>
   </div>

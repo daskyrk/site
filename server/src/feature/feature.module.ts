@@ -10,6 +10,7 @@ import { WishModule } from '@/feature/wish/wish.module';
 
 /**
  * 包含所有的业务模块
+ * 共享模块因为没有Controller，不需要导出
  */
 @Module({
   imports: [SharedModule, UserModule, PostModule, CommentModule, TagModule, ImageModule, WishModule],

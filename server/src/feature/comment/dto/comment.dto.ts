@@ -1,4 +1,5 @@
 import { IsFQDN, IsInt, IsNotEmpty, IsString, Length, ValidateNested } from 'class-validator';
+import { PostInfoDto } from '@/feature/post/dto/post.dto';
 
 export class CommentAuthorDto {
   @IsNotEmpty()
@@ -12,14 +13,14 @@ export class CommentAuthorDto {
   public site: string;
 }
 
+
 export class CommentDto {
   public id: string;
 
   // 页面url，发邮件时用
   public pageUrl: string;
 
-  @IsNotEmpty()
-  public postId: string;
+  public post: PostInfoDto;
 
   public pid: string;
 

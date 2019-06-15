@@ -51,7 +51,7 @@ export class PostService extends BaseService<IPost> {
       hot,
     } = query;
     const querys = omitBy({ isPublish, isPublic, type }, isUndefined) as any;
-    if(tag) {
+    if (tag) {
       querys.tags = tag;
     }
     const options: {
@@ -69,7 +69,7 @@ export class PostService extends BaseService<IPost> {
     };
 
     // 关键词查询
-    if (q!== undefined) {
+    if (q !== undefined) {
       const keywordReg = new RegExp(q);
       querys.$or = [
         { title: keywordReg },
@@ -127,7 +127,7 @@ export class PostService extends BaseService<IPost> {
     if (res) {
       if (remove) {
         res.meta.comments -= 1;
-      }else {
+      } else {
         res.meta.comments += 1;
       }
       res.save();

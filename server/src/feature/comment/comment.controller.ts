@@ -29,7 +29,7 @@ export class CommentController {
   public create(@Body() commentDto: CommentDto, @Req() req: Request) {
     const newComment = this.commentService.createComment(commentDto, req);
     if (newComment) {
-      this.postService.commentPost(commentDto.postId);
+      this.postService.commentPost(commentDto.post.id);
     }
     return newComment;
   }
@@ -62,7 +62,7 @@ export class CommentController {
   public async remove(@Query('id') id: string) {
     const result = await this.commentService.delete(id);
     if (result) {
-      await this.postService.commentPost(result.postId, true);
+      await this.postService.commentPost(result.post.id, true);
     }
     return result;
   }

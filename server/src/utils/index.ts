@@ -60,71 +60,10 @@ function writeFileAsync(filePath: string, text: string, cb: (e: Error) => void) 
   });
 }
 
-const fileUtil = {
+export const fileUtil = {
   getDirFiles,
   getFileName,
   getFileContent,
   writeFileAsync,
   writeFileSync: fs.writeFileSync,
-};
-exports.fileUtil = fileUtil;
-
-/******************** 加密解密 **************************/
-function sha256(str: string) {
-  return crypto
-    .createHash('sha256')
-    .update(str)
-    .digest('hex');
-}
-
-function encode(content: Buffer, cryptkey: string) {
-  const cipher = crypto.createCipheriv(
-    'aes-128-cbc',
-    cryptkey,
-    '9cd5b4cf89949207',
-  );
-  const bf = [];
-  bf.push(cipher.update(content));
-  bf.push(cipher.final());
-  return Buffer.concat(bf);
-}
-
-function decode(content: Buffer, cryptkey: string) {
-  const decipher = crypto.createDecipheriv(
-    'aes-128-cbc',
-    cryptkey,
-    '9cd5b4cf89949207',
-  );
-  try {
-    const a = [];
-    a.push(decipher.update(content));
-    a.push(decipher.final());
-    return Buffer.concat(a);
-  } catch (e) {
-    console.error('decode error:', e.message);
-    return null;
-  }
-}
-
-function fileCrypto(inFilePath: string, outFilePath: string, secretKey: string, mode: 'encode' | 'decode') {
-  fileUtil.getFileContent(inFilePath, (err, content) => {
-    if (err) {
-      console.error('get file error:', err);
-      return null;
-    }
-    fileUtil.writeFileSync(outFilePath, cryptoUtil[mode](content, secretKey));
-  });
-}
-
-const encodeFile = (inFilePath: string, outFilePath: string, secretKey: string) =>
-fileCrypto(inFilePath, outFilePath, secretKey, 'encode');
-const decodeFile = (inFilePath: string, outFilePath: string, secretKey: string ) =>
-fileCrypto(inFilePath, outFilePath, secretKey, 'decode');
-
-export const cryptoUtil = {
-  sha256,
-  encode,
-  decode,
-  encodeFile,
-  decodeFile,
 };
