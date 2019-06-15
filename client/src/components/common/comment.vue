@@ -131,6 +131,7 @@ export default {
         .then(res => {
           if (res.success) {
             this.getComments({ pageNo: 1 })
+            this.pid = undefined
           }
         })
     },

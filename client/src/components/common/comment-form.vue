@@ -21,6 +21,7 @@
     <div class="author-info">
       <Tooltip
         :disabled="!nameHasError"
+        show
         content="名字忘了写吧~"
       >
         <input
@@ -30,13 +31,14 @@
           name="name"
           required
           maxlength="20"
-          placeholder="您的名称"
+          placeholder="您的名称*"
           @blur="checkName"
         >
       </Tooltip>
 
       <Tooltip
         :disabled="!emailHasError"
+        show
         content="格式不对哦~"
       >
         <input
@@ -46,17 +48,19 @@
           name="email"
           required
           maxlength="40"
-          placeholder="接收回复的邮箱"
+          placeholder="接收回复的邮箱*"
           @blur="checkEmail"
         >
       </Tooltip>
-      <input
-        v-model="author.site"
-        type="input"
-        name="site"
-        maxlength="20"
-        placeholder="您的网站"
-      >
+      <div>
+        <input
+          v-model="author.site"
+          type="input"
+          name="site"
+          maxlength="20"
+          placeholder="您的网站"
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -117,11 +121,12 @@ export default {
       let gravatar_url = gravatar.url(email)
       return gravatar_url
     },
-    submit(content) {
+    submit(content, cleanContent) {
       if (this.nameHasError || this.emailHasError) {
         return this.$msg.error('是不是写错了什么？')
       }
       this.onSubmit({ content, author: this.author })
+      cleanContent();
     },
   },
 }
@@ -132,12 +137,20 @@ export default {
   .author-info {
     display: flex;
     margin-left: 4rem;
+    margin-top: .5rem;
+    > div {
+      flex: 1;
+      margin-right: 1rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+    }
 
     input {
       width: 100%;
       height: 2em;
-      margin-top: .5rem;
-      margin-right: 1rem;
       padding: 0 .5rem;
       background: transparent;
       border: 1px solid $c-platinum;
@@ -151,10 +164,6 @@ export default {
 
       &:focus {
         border-color: $color-primary;
-      }
-
-      &:last-child {
-        margin-right: 0;
       }
 
       &.error {

@@ -86,8 +86,9 @@ export default {
       this.value += emj
     },
     submit() {
-      this.onSubmit(this.value)
-      this.value = ''
+      this.onSubmit(this.value, () => {
+        this.value = ''
+      })
     },
   },
 }
