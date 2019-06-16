@@ -7,12 +7,12 @@
 
   .moe-card {
     width: 800px;
-    margin: auto;
+    margin: 20px auto;
     padding: 10px;
     position: relative;
     border-radius: 2px;
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-    -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12)
+    box-shadow: 0px 1px 11px 0px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    -webkit-box-shadow: 0px 1px 11px 0px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12)
   }
 
   @media(max-width:800px) {
@@ -70,28 +70,30 @@
   }
 
   .moe-body .moe-d-2 {
-    padding: 15px;
-    margin-top: 6px;
-    border-radius: 5px;
-    margin-bottom: 18px;
-    background-color: #eee
-  }
-
-  .moe-body .moe-d-3 {
     font-size: 14px;
     margin-top: 6px;
     font-weight: 400
   }
+
+  .moe-tip {
+    font-size: 13px;
+    color: #999;
+  }
+
+  .moe-bold {
+    font-weight: 600;
+  }
 </style>
 <div class="moe-card">
-  <h3 class="moe-title">您在 <a href="{{site}}">{{siteTitle}}</a> 上的留言有新回复啦！</h3>
+  <h3 class="moe-title">您在 <a href="{{siteLink}}">{{siteTitle}}</a> 上的留言有新回复啦！</h3>
   <div class="moe-body">
-    {{author_p}}，您曾在文章<a href="{{postLink}}">《{{title}}》</a>上发表过评论：
-    <div class="moe-d-1">{{text_p}}</div>
-    {{author}} 给您的回复如下：
-    <div class="moe-d-2">{{content}}</div>
-    <div class="moe-d-3">详细回复内容请 <a href="{{permalink}}">点此</a> 查看
-      <br>欢迎再次光临 <a href="{{site}}">{{siteTitle}}</a> 哟(￣▽￣)"。
+  <span class="moe-bold">{{pComment.author.name}}</span>，您曾在文章<a href="{{postLink}}">《{{title}}》</a>上发表过评论：
+    <div class="moe-d-1">{{pComment.content}}</div>
+    <span class="moe-bold">{{authorName}}</span> 给您的回复如下：
+    <div class="moe-d-1">{{content}}</div>
+    <div class="moe-d-3">
+      <div>欢迎再次光临本站哟(￣▽￣)"。</div><br>
+      <div class='moe-tip'>ps: 如果您未在本站留言，对您的打扰表示抱歉，请忽略本邮件</div>
     </div>
   </div>
 </div>

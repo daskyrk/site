@@ -11,8 +11,8 @@
     padding: 10px;
     position: relative;
     border-radius: 2px;
-    box-shadow: 0px 1px 11px 0px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-    -webkit-box-shadow: 0px 1px 11px 0px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12)
+    box-shadow: 0px 1px 11px 0px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    -webkit-box-shadow: 0px 1px 11px 0px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12)
   }
 
   @media(max-width:800px) {
@@ -74,17 +74,35 @@
     margin-top: 6px;
     font-weight: 400
   }
+
+  .moe-tip {
+    font-size: 13px;
+    color: #999;
+  }
+
+  .moe-bold {
+    font-weight: 600;
+  }
 </style>
 <div class="moe-card">
-  <h3 class="moe-title"><a href="{{site}}">{{siteTitle}}</a> 上有新评论了~</h3>
+  <h3 class="moe-title"><a href="{{siteLink}}">{{siteTitle}}</a> 上有新评论了~</h3>
   <div class="moe-body">
-    {{author}} 在文章<a href="{{postLink}}">《{{title}}》</a>上发表评论：
+    {{#if pComment}}
+    对于 <span class="moe-bold">{{pComment.author.name}}</span> 在文章<a href="{{postLink}}">《{{title}}》</a>上发表的评论：
+    <div class="moe-d-1">{{pComment.content}}</div>
+    <span class="moe-bold">{{authorName}}</span> 发表回复：
+    {{else}}
+    <span class="moe-bold">{{authorName}}</span> 在文章<a href="{{postLink}}">《{{title}}》</a>上发表评论：
+    {{/if}}
     <div class="moe-d-1">{{content}}</div>
-    <div class="moe-d-2">IP：{{ip}}<br>
+    <div class="moe-d-2">
       时间：{{time}}<br>
-      邮箱：{{mail}}<br>
-      网站：{{authorSite}}<br>
-      <a href="{{viewLink}}">[查看评论]</a>&nbsp;|&nbsp;<a href="{{manageLink}}">[管理评论]</a>
+      邮箱：{{authorEmail}}<br>
+      网站：<a href="{{authorSite}}" target="_blank" rel="noopener noreferrer">{{authorSite}}</a><br>
+      IP：{{ip}}<br>
+      <a href="{{siteLink}}/api/comment/forbid?id={{commentId}}" target="_blank" rel="noopener noreferrer">[屏蔽评论]</a>
+      &nbsp;|&nbsp;
+      <a href="{{siteLink}}/api/comment/delete?id={{commentId}}" target="_blank" rel="noopener noreferrer">[删除评论]</a>
     </div>
   </div>
 </div>

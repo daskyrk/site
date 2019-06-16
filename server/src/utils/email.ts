@@ -53,29 +53,27 @@ const sendMail = (mailOptions: MailOption) => {
 
 
 // ************************* template *************************
-const tplStyle = `<!--By ohmyga--><meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"><style>body{margin:0}.moe-card{width:800px;margin:20px auto;padding:10px;position:relative;border-radius:2px;box-shadow:0px 1px 11px 0px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);-webkit-box-shadow:0px 1px 11px 0px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}@media(max-width:800px){.moe-card{width:92%;margin-top:30px}}.moe-title{margin-top:12px}.moe-title:before{content:'';left:0;height:28px;margin-right:20px;position:absolute;transition:all .29s;border-left:4px solid #e91e63}.moe-title:after{left:0;content:'';width:100%;position:absolute;margin-top:42px;border-bottom:1px solid #eee}.moe-card a{color:#ff4081;transition:all .29s ease;text-decoration:none !important}.moe-card a:hover{transition:all .29s ease;text-shadow:0 1px 1px #ff80ab}.moe-body{font-size:16px;margin-top:36px}.moe-body .moe-d-1{padding:15px;margin-top:6px;border-radius:5px;margin-bottom:18px;background-color:#eee}.moe-body .moe-d-2{font-size:14px;margin-top:6px;font-weight:400}.moe-tip{font-size:13px;color:#999;}.moe-bold{font-weight:600;}</style>`
-
-
-const ownerTpl = handlebars.compile(`${tplStyle}
-<div class="moe-card">
-  <h3 class="moe-title"><a href="{{siteLink}}">{{siteTitle}}</a> 上有新评论了~</h3>
-  <div class="moe-body">
+// use https://templates.mailchimp.com/resources/inline-css/ generate inline style
+const ownerTpl = handlebars.compile(`
+<div style="width: 800px;margin: 20px auto;padding: 10px;position: relative;border-radius: 2px;box-shadow: 0px 1px 11px 0px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);-webkit-box-shadow: 0px 1px 11px 0px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);">
+  <h3 style="margin-top: 12px;"><a href="{{siteLink}}" style="color: #ff4081;transition: all .29s ease;text-decoration: none !important;">{{siteTitle}}</a> 上有新评论了~</h3>
+  <div style="font-size: 16px;margin-top: 36px;">
     {{#if pComment}}
-      对于 <span class="moe-bold">{{pComment.author.name}}</span> 在文章<a href="{{postLink}}">《{{title}}》</a>上发表的评论：
-      <div class="moe-d-1">{{pComment.content}}</div>
-      <span class="moe-bold">{{authorName}}</span> 发表回复：
+      对于 <span style="font-weight: 600;">{{pComment.author.name}}</span> 在文章<a href="{{postLink}}" style="color: #ff4081;transition: all .29s ease;text-decoration: none !important;">《{{title}}》</a>上发表的评论：
+      <div style="padding: 15px;margin-top: 6px;border-radius: 5px;margin-bottom: 18px;background-color: #eee;">{{pComment.content}}</div>
+      <span style="font-weight: 600;">{{authorName}}</span> 发表回复：
     {{else}}
-    <span class="moe-bold">{{authorName}}</span> 在文章<a href="{{postLink}}">《{{title}}》</a>上发表评论：
+    <span style="font-weight: 600;">{{authorName}}</span> 在文章<a href="{{postLink}}" style="color: #ff4081;transition: all .29s ease;text-decoration: none !important;">《{{title}}》</a>上发表评论：
     {{/if}}
-    <div class="moe-d-1">{{content}}</div>
-    <div class="moe-d-2">
+    <div style="padding: 15px;margin-top: 6px;border-radius: 5px;margin-bottom: 18px;background-color: #eee;">{{content}}</div>
+    <div style="font-size: 14px;margin-top: 6px;font-weight: 400;">
       时间：{{time}}<br>
       邮箱：{{authorEmail}}<br>
-      网站：<a href="{{authorSite}}" target="_blank" rel="noopener noreferrer">{{authorSite}}</a><br>
+      网站：<a href="{{authorSite}}" target="_blank" rel="noopener noreferrer" style="color: #ff4081;transition: all .29s ease;text-decoration: none !important;">{{authorSite}}</a><br>
       IP：{{ip}}<br>
-      <a href="{{siteLink}}/api/comment/forbid?id={{commentId}}" target="_blank" rel="noopener noreferrer">[屏蔽评论]</a>
+      <a href="{{siteLink}}/api/comment/forbid?id={{commentId}}" target="_blank" rel="noopener noreferrer" style="color: #ff4081;transition: all .29s ease;text-decoration: none !important;">[屏蔽评论]</a>
       &nbsp;|&nbsp;
-      <a href="{{siteLink}}/api/comment/delete?id={{commentId}}" target="_blank" rel="noopener noreferrer">[删除评论]</a>
+      <a href="{{siteLink}}/api/comment/delete?id={{commentId}}" target="_blank" rel="noopener noreferrer" style="color: #ff4081;transition: all .29s ease;text-decoration: none !important;">[删除评论]</a>
     </div>
   </div>
 </div>
@@ -106,17 +104,17 @@ const sendMailToOwner = (commentData: CommentData) => {
 }
 
 
-const replyTpl = handlebars.compile(`${tplStyle}
-<div class="moe-card">
-  <h3 class="moe-title">您在 <a href="{{siteLink}}">{{siteTitle}}</a> 上的留言有新回复啦！</h3>
-  <div class="moe-body">
-  <span class="moe-bold">{{pComment.author.name}}</span>，您曾在文章<a href="{{postLink}}">《{{title}}》</a>上发表过评论：
-    <div class="moe-d-1">{{pComment.content}}</div>
-    <span class="moe-bold">{{authorName}}</span> 给您的回复如下：
-    <div class="moe-d-1">{{content}}</div>
-    <div class="moe-d-3">
+const replyTpl = handlebars.compile(`
+<div style="width: 800px;margin: 20px auto;padding: 10px;position: relative;border-radius: 2px;box-shadow: 0px 1px 11px 0px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);-webkit-box-shadow: 0px 1px 11px 0px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);">
+  <h3 style="margin-top: 12px;">您在 <a href="{{siteLink}}" style="color: #ff4081;transition: all .29s ease;text-decoration: none !important;">{{siteTitle}}</a> 上的留言有新回复啦！</h3>
+  <div style="font-size: 16px;margin-top: 36px;">
+  <span style="font-weight: 600;">{{pComment.author.name}}</span>，您曾在文章<a href="{{postLink}}" style="color: #ff4081;transition: all .29s ease;text-decoration: none !important;">《{{title}}》</a>上发表过评论：
+    <div style="padding: 15px;margin-top: 6px;border-radius: 5px;margin-bottom: 18px;background-color: #eee;">{{pComment.content}}</div>
+    <span style="font-weight: 600;">{{authorName}}</span> 给您的回复如下：
+    <div style="padding: 15px;margin-top: 6px;border-radius: 5px;margin-bottom: 18px;background-color: #eee;">{{content}}</div>
+    <div>
       <div>欢迎再次光临本站哟(￣▽￣)"。</div><br>
-      <div class='moe-tip'>ps: 如果您未在本站留言，对您的打扰表示抱歉，请忽略本邮件</div>
+      <div style="font-size: 13px;color: #999;">ps: 如果您未在本站留言，对您的打扰表示抱歉，请忽略本邮件</div>
     </div>
   </div>
 </div>
