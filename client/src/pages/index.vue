@@ -129,7 +129,7 @@ export default {
     }
 
     span {
-      padding: .35rem;
+      padding: .35rem 0.2rem;
     }
   }
 
