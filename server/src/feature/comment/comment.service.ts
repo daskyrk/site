@@ -7,7 +7,7 @@ import { Injectable } from '@nestjs/common';
 import { PaginateModel } from 'mongoose';
 import { Request } from 'express';
 import geoip from 'geoip-lite';
-import { sendMail } from "@/utils/email";
+import { sendMailToOwner, sendReply } from "@/utils/email";
 
 @Injectable()
 export class CommentService extends BaseService<IComment> {
@@ -70,30 +70,36 @@ export class CommentService extends BaseService<IComment> {
       data.range = ipLocation.range;
       data.country = ipLocation.country;
     }
-    const comment = await super.create(data);
+    const comment = await super.create({ ...data, postId: data.post.id });
+    const result = await comment.save();
     let pComment;
+    // 有回复给被回复者发邮件
     if (data.pid) {
       pComment = await super.findById(data.pid);
-    }
-    console.log('pComment:', pComment);
-    sendMail(
-      {
-        to: data.author.email,
-        subject: data.pid ? '您有新的回复' : '您有新的留言',
-      },
-      {
-        author: data.author.name,
-        authorSite: data.author.site,
-        mail: data.author.email,
-        title: data.post.title,
-        postLink: data.pageUrl,
-        content: data.content,
-        pComment,
-        ip,
+      if (pComment) {
+        sendReply({
+          authorName: data.author.name,
+          title: data.post.title,
+          postLink: data.pageUrl,
+          content: data.content,
+          pComment,
+          ip,
+        });
       }
-    );
+    }
+    // 所有留言都给owner发邮件
+    sendMailToOwner({
+      authorName: data.author.name,
+      authorSite: data.author.site,
+      authorEmail: data.author.email,
+      title: data.post.title,
+      postLink: data.pageUrl,
+      content: data.content,
+      pComment,
+      ip,
+    })
 
-    return await comment.save();
+    return result;
   }
 
   public async like(id: string) {

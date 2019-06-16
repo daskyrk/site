@@ -20,7 +20,10 @@ export class CommentDto {
   // 页面url，发邮件时用
   public pageUrl: string;
 
+  @IsNotEmpty()
   public post: PostInfoDto;
+
+  public postId: string;
 
   public pid: string;
 

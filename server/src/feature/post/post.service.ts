@@ -65,7 +65,7 @@ export class PostService extends BaseService<IPost> {
       page: Number(pageNo),
       limit: Number(pageSize),
       select: '-content',
-      populate: ['tags'], // TODO: use populate
+      populate: ['tags'],
     };
 
     // 关键词查询
