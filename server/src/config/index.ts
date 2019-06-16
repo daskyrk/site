@@ -82,7 +82,7 @@ export class ConfigService {
   }
 
   public get AUTHOR_SITE() {
-    return this.isProd ? this.envConfig.AUTHOR_SITE : 'http://localhost:3000';
+    return this.envConfig.AUTHOR_SITE;
   }
 
   public get AUTHOR_MAIL() {
