@@ -17,8 +17,8 @@ export class CommentService extends BaseService<IComment> {
     super(model);
   }
 
-  public async search({ pageNo = 1, pageSize = 10, postId, q }: QueryCommentDto, select: string | object) {
-    const query = {} as any;
+  public async search({ pageNo = 1, pageSize = 10, postId, q, state }: QueryCommentDto, select: string | object) {
+    const query = { state } as any;
     const options: {
       sort: any;
       page: number;
@@ -95,6 +95,7 @@ export class CommentService extends BaseService<IComment> {
       title: data.post.title,
       postLink: data.pageUrl,
       content: data.content,
+      commentId: result._id,
       pComment,
       ip,
     })
@@ -102,11 +103,20 @@ export class CommentService extends BaseService<IComment> {
     return result;
   }
 
+  public async updateState(id: string, state: number) {
+    const result = await this.model.findById(id);
+    if (result) {
+      result.state = state;
+      await result.save();
+    }
+    return result;
+  }
+
   public async like(id: string) {
     const result = await this.model.findById(id);
     if (result) {
       result.likes += 1;
-      result.save();
+      await result.save();
     }
     return result;
   }

@@ -60,4 +60,5 @@ export class QueryCommentDto {
   public pageNo: number;
   public pageSize: number;
   public q?: string;
+  public state?: number;
 }

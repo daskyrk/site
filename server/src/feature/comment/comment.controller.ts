@@ -23,7 +23,24 @@ export class CommentController {
   constructor(
     private readonly commentService: CommentService,
     private readonly postService: PostService,
-    ) {}
+  ) { }
+
+  @Get('delete')
+  @UseGuards(AuthGuard)
+  public async delete(@Query('id') id: string) {
+    const result = await this.commentService.delete(id);
+    if (result) {
+      await this.postService.commentPost(result.postId, true);
+    }
+    return result ? '该评论已被删除' : '该评论删除失败';
+  }
+
+  @Get('forbid')
+  @UseGuards(AuthGuard)
+  public async forbid(@Query('id') id: string) {
+    const result = await this.commentService.updateState(id, 2);
+    return result ? '该评论已被屏蔽' : '该评论屏蔽失败';
+  }
 
   @Post()
   public create(@Body() commentDto: CommentDto, @Req() req: Request) {
@@ -45,6 +62,7 @@ export class CommentController {
         country: 0,
         range: 0,
       }
+      query.state = 1;
     }
     if (query.id) {
       return this.commentService.findById(query.id, select);
@@ -62,7 +80,7 @@ export class CommentController {
   public async remove(@Query('id') id: string) {
     const result = await this.commentService.delete(id);
     if (result) {
-      await this.postService.commentPost(result.post.id, true);
+      await this.postService.commentPost(result.postId, true);
     }
     return result;
   }

@@ -28,7 +28,7 @@ export default {
     // 获取评论列表
     async getComments({ commit, state }, params) {
       const res = await this.$axios.$get(`/comment`, {
-        params: { ...state.query, ...params },
+        params: { ...state.query, ...params, state: 1 },
       })
       if (res.success) {
         commit('SET_COMMENT_LIST', res.data)

@@ -73,7 +73,9 @@ const ownerTpl = handlebars.compile(`${tplStyle}
       邮箱：{{authorEmail}}<br>
       网站：<a href="{{authorSite}}" target="_blank" rel="noopener noreferrer">{{authorSite}}</a><br>
       IP：{{ip}}<br>
-      <a href="{{viewLink}}">[查看评论]</a>&nbsp;|&nbsp;<a href="{{manageLink}}">[管理评论]</a>
+      <a href="{{siteLink}}/api/comment/forbid?id={{commentId}}" target="_blank" rel="noopener noreferrer">[屏蔽评论]</a>
+      &nbsp;|&nbsp;
+      <a href="{{siteLink}}/api/comment/delete?id={{commentId}}" target="_blank" rel="noopener noreferrer">[删除评论]</a>
     </div>
   </div>
 </div>
@@ -85,11 +87,10 @@ interface CommentData {
   authorSite: string;
   title: string;
   content: string;
+  commentId: string;
   ip: string;
   postLink: string;
   pComment?: object | null;
-  viewLink?: string;
-  manageLink?: string;
 }
 const sendMailToOwner = (commentData: CommentData) => {
   sendMail({
@@ -114,7 +115,7 @@ const replyTpl = handlebars.compile(`${tplStyle}
     <span class="moe-bold">{{authorName}}</span> 给您的回复如下：
     <div class="moe-d-1">{{content}}</div>
     <div class="moe-d-3">
-      <div>欢迎再次光临本站 哟(￣▽￣)"。</div><br>
+      <div>欢迎再次光临本站哟(￣▽￣)"。</div><br>
       <div class='moe-tip'>ps: 如果您未在本站留言，对您的打扰表示抱歉，请忽略本邮件</div>
     </div>
   </div>
