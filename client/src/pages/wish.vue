@@ -101,7 +101,7 @@ export default {
       name: '',
       nameRules: [
         v => !!v || '忘了写名字呢',
-        v => v && v.length <= 15 || '名字太长啦',
+        v => (v && v.length <= 15) || '名字太长啦',
       ],
     }
   },
@@ -136,8 +136,8 @@ export default {
       const name = this.name
       const content = this.content
       this.$store.dispatch('wish/add', { name, content })
-      this.name = '';
-      this.content = '';
+      this.name = ''
+      this.content = ''
     },
     replyWish(id) {
       const reply = this.replyMap[id]
@@ -168,15 +168,26 @@ export default {
 
 .wish-page {
   width: 60%;
-}
 
-.wish-list {
-  flex-wrap: wrap;
-}
+  .wish-list {
+    flex-wrap: wrap;
+  }
 
-.wish-item {
-  width: 300px;
-  margin-bottom: 30px;
+  .wish-item {
+    width: 300px;
+    margin-bottom: 30px;
+  }
+
+  @include sm-width() {
+    width: 90%;
+
+    .wish-list,
+    .wish-form,
+    .wish-item {
+      width: 100%;
+    }
+
+  }
 }
 
 .wish-form {
@@ -192,7 +203,7 @@ export default {
     border: 1px solid $color-text-sub;
     border-radius: $radius;
     outline: none;
-    transition: all ease-in .1s;
+    transition: all ease-in 0.1s;
 
     &:hover,
     &:focus,
@@ -216,13 +227,12 @@ export default {
     height: 36px;
     background-color: transparent;
     border: thin solid currentColor;
-    transition: all ease-in .1s;
+    transition: all ease-in 0.1s;
 
     &:hover {
       color: $c-orange;
     }
   }
-
 }
 
 .card {
@@ -232,7 +242,7 @@ export default {
   border-radius: 6px;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  transition: all .8s cubic-bezier(.34, 1.45, .7, 1);
+  transition: all 0.8s cubic-bezier(0.34, 1.45, 0.7, 1);
 
   .content {
     position: absolute;
@@ -243,15 +253,15 @@ export default {
     justify-content: space-between;
     width: 100%;
     min-height: 9rem;
-    padding: .9375rem 1.5rem;
+    padding: 0.9375rem 1.5rem;
     color: $c-white;
-    font-size: .875rem;
+    font-size: 0.875rem;
     background-image: url(~assets/images/blog8.jpg);
     background-position: 50%;
     background-size: cover;
     border-radius: 6px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
-      0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+      0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     backface-visibility: hidden;
 
     > * {
@@ -265,9 +275,9 @@ export default {
       display: block;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, .56);
+      background-color: rgba(0, 0, 0, 0.56);
       border-radius: 6px;
-      content: "";
+      content: '';
     }
   }
 
@@ -322,7 +332,7 @@ export default {
   // }
   .card-title {
     z-index: 2;
-    margin-top: .625rem;
+    margin-top: 0.625rem;
     font-weight: 700;
     font-size: 1rem;
   }
@@ -340,7 +350,7 @@ export default {
   .reply {
     width: 100%;
     height: 100%;
-    margin-bottom: .25rem;
+    margin-bottom: 0.25rem;
     color: $color-white-6;
     background: transparent;
     border-radius: $radius;
@@ -374,7 +384,7 @@ export default {
     background: transparent;
     box-shadow: none;
     transform-style: preserve-3d;
-    transition: all .8s cubic-bezier(.34, 1.45, .7, 1);
+    transition: all 0.8s cubic-bezier(0.34, 1.45, 0.7, 1);
   }
 
   &:hover {
@@ -383,7 +393,6 @@ export default {
     }
   }
 }
-
 
 @include md-width() {
   .wish-list {

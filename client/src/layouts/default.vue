@@ -119,6 +119,7 @@ export default {
 
       &:after {
         background-color: $color-dark-2;
+        pointer-events: unset;
       }
     }
   }
@@ -140,6 +141,7 @@ export default {
       width: 100%;
       background-color: transparent;
       transition: background-color .5s;
+      pointer-events: none;
       content: "";
     }
   }
