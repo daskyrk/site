@@ -233,7 +233,7 @@ export default {
 
 @include sm-width() {
   .post {
-    // width: 100%;
+    max-width: 100%;
     aside {
       display: none;
     }

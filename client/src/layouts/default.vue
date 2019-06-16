@@ -3,7 +3,7 @@
     class="app-layout"
     :class="[_cls, size, sideopen && 'side-open']"
   >
-    <my-header />
+    <layout-header />
 
     <div
       class="app-container"
@@ -12,33 +12,18 @@
       <nuxt />
     </div>
 
-    <aside class="app-aside">
-      <nav class="mobile-nav">
-        <nuxt-link
-          v-for="(nav, index) in navs"
-          :key="index"
-          :to="nav.link"
-          exact
-        >
-          {{ nav.text }}
-        </nuxt-link>
-      </nav>
-    </aside>
+    <layout-aside />
 
-    <my-footer v-if="!sideopen" />
+    <layout-footer v-if="!sideopen" />
   </div>
 </template>
 
 <script>
-import myHeader from '~/components/layouts/header'
-import myFooter from '~/components/layouts/footer'
 import _ from 'lodash'
 import { mapState } from 'vuex'
 
 export default {
   components: {
-    myHeader,
-    myFooter,
   },
 
   props: {
@@ -136,11 +121,6 @@ export default {
         background-color: $color-dark-2;
       }
     }
-
-    .app-aside {
-      box-shadow: 0 8px 10px -5px rgba(0, 0, 0, .2),
-        0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12);
-    }
   }
 
   .app-container {
@@ -156,22 +136,13 @@ export default {
       position: absolute;
       top: 0;
       bottom: 0;
-      z-index: 2;
+      z-index: 999;
       width: 100%;
       background-color: transparent;
       transition: background-color .5s;
-      pointer-events: none;
       content: "";
     }
   }
 
-  .app-aside {
-    position: fixed;
-    left: 100%;
-    width: $app-side-width;
-    height: 100%;
-    background-color: #eef1f2;
-    transition: box-shadow .4s .1s;
-  }
 }
 </style>

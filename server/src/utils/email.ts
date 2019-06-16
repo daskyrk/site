@@ -139,7 +139,7 @@ const sendReply = (replyData: ReplyData) => {
     subject: '您有新的回复',
     html: replyTpl({
       siteLink: config.AUTHOR_SITE,
-      siteTitle: 'daskyrk的网站',
+      siteTitle: 'lijun的网站',
       time: new Date().toLocaleString(),
       ...replyData
     })

@@ -3,6 +3,7 @@ export const appConfig = {
   mail: 'daskyrk@gmail.com',
   site: 'https://lijun.space',
   title: "blog",
+  slogan: "曾经发生的事不会忘记，只不过想不起来了而已",
   description: "lijun's personal blog powered by nuxt, koa & mongodb",
   bg_mode: 'story', // static | story | random
   gtmId: 'UA-121869307-1', // google tag manager id

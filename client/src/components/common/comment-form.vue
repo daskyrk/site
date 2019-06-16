@@ -138,10 +138,14 @@ export default {
   .author-info {
     display: flex;
     margin-left: 4rem;
-    margin-top: .5rem;
     > div {
       flex: 1;
       margin-right: 1rem;
+      margin-top: .5rem;
+
+      @include sm-width {
+        margin-right: 0;
+      }
 
       &:last-child {
         margin-right: 0;
