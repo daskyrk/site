@@ -29,10 +29,18 @@
     0 4px 12px -11px rgba(0, 0, 0, .06), 0 8px 18px 0 rgba(0, 0, 0, .12);
 }
 
-$sm-break-width: 680px;
-$md-break-width: 1280px;
-$lg-break-width: 1440px;
+$xs-break-width: 680px;
+$sm-break-width: 1024px;
+$md-break-width: 1366px;
+$lg-break-width: 1680px;
+$xl-break-width: 1920px;
 // 小屏 usage: @include sm-width{  }
+@mixin xs-width() {
+  @media screen and (max-width: $xs-break-width) {
+    @content;
+  }
+}
+
 @mixin sm-width() {
   @media screen and (max-width: $sm-break-width) {
     @content;
@@ -47,6 +55,12 @@ $lg-break-width: 1440px;
 
 @mixin lg-width() {
   @media screen and (max-width: $lg-break-width) {
+    @content;
+  }
+}
+
+@mixin xl-width() {
+  @media screen and (max-width: $xl-break-width) {
     @content;
   }
 }

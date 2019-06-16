@@ -178,7 +178,19 @@ export default {
     margin-bottom: 30px;
   }
 
+  @include md-width() {
+    width: 70%;
+  }
+
   @include sm-width() {
+    width: 80%;
+
+    .wish-list {
+      width: 100%;
+    }
+  }
+
+  @include xs-width() {
     width: 90%;
 
     .wish-list,
