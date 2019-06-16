@@ -13,14 +13,16 @@ export default {
     resize(state, { screenWidth, screenHeight }) {
       state.screenWidth = screenWidth
       state.screenHeight = screenHeight
-      if (screenWidth > 1440) {
-        state.size = 'layout-xlg'
-      } else if (screenWidth > 1280) {
-        state.size = 'layout-lg'
+      if (screenWidth > 1680) {
+        state.size = 'xl'
+      } else if (screenWidth > 1440) {
+        state.size = 'lg'
+      } else if (screenWidth > 1366) {
+        state.size = 'md'
       } else if (screenWidth > 680) {
-        state.size = 'layout-md'
+        state.size = 'sm'
       } else {
-        state.size = 'layout-sm'
+        state.size = 'xs'
       }
     },
 

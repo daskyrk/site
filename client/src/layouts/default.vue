@@ -23,9 +23,6 @@ import _ from 'lodash'
 import { mapState } from 'vuex'
 
 export default {
-  components: {
-  },
-
   props: {
     cls: String,
   },
@@ -44,14 +41,14 @@ export default {
       return this.cls
     },
     size() {
-      return this.$store.state.layout.size
+      return 'layout-' + this.$store.state.layout.size
     },
   },
 
   mounted() {
     // this.getIP()
     this.setSize()
-    // window.onresize = _.throttle(this.setSize, 100)
+    window.onresize = _.throttle(this.setSize, 100)
     window.addEventListener('keydown', this.onKeyDown)
     window.addEventListener('keyup', this.onKeyUp)
   },
@@ -98,8 +95,8 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
-  transition: transform .5s;
-  background: url("~assets/bak.svg");
+  transition: transform 0.5s;
+  background: url('~assets/bak.svg');
 
   &.gray-bg {
     background-color: $c-whitesmoke;
@@ -140,11 +137,10 @@ export default {
       z-index: 999;
       width: 100%;
       background-color: transparent;
-      transition: background-color .5s;
+      transition: background-color 0.5s;
       pointer-events: none;
-      content: "";
+      content: '';
     }
   }
-
 }
 </style>
