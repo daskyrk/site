@@ -68,7 +68,7 @@
 
 <script>
 import gravatar from 'gravatar'
-import { regexp } from '~/utils'
+import { regexp, setLS, getLS } from '~/utils'
 import marked from '~/utils/marked'
 import CommentEditor from '~/components/common/comment-editor'
 
@@ -88,7 +88,7 @@ export default {
 
   data() {
     return {
-      author: {
+      author: getLS('comment-author') || {
         name: '',
         email: '',
         site: '',
@@ -126,6 +126,7 @@ export default {
         return this.$msg.error('是不是写错了什么？')
       }
       this.onSubmit({ content, author: this.author })
+      setLS('comment-author', this.author)
       cleanContent();
     },
   },
