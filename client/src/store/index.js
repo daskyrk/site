@@ -20,16 +20,35 @@ export default {
             commit('user/SET_TOKEN', token)
           }
         }
-        // 不应该在这里，否则拿到的应该是node端的ip了
-        // await dispatch('getIP')
       } catch (error) {
         console.log('error in init:', error);
       }
     },
 
+    // 在页面加载时执行，因为nuxt的入口分散在各个layout中，所以这里算是个统一入口
+    async nuxtClientInit({ dispatch, commit }, { req }) {
+      try {
+        dispatch('getIP');
+
+        this.$wsOn('msg', m => {
+          console.log('[socket] msg:', m)
+          this.$wsSend('notify', 'wtf')
+        })
+        this.$wsOn('ip_recevied', m => {
+          // this.$msg('ip:', m)
+          console.log('bk get ip:', m);
+        })
+      } catch (error) {
+        console.log('error in init:', error)
+      }
+    },
+
     async getIP({ commit }) {
-      const ip = await this.$axios.$get('http://icanhazip.com')
-      commit('SET_IP', ip.replace(/[\r\n]/g, ""))
+      let ip = await this.$axios.$get('http://icanhazip.com')
+      ip = ip.replace(/[\r\n]/g, "");
+      commit('SET_IP', ip)
+      this.$wsSend('msg', { type: 'get_IP', ip })
+      return ip;
     },
 
     async getUploadToken({ commit }) {

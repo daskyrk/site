@@ -118,6 +118,7 @@ const config: NuxtConfiguration = {
     '~/plugins/copy.client.js',
     '~/plugins/gtm.client.js',
     '~/plugins/message.client.js',
+    '~/plugins/nuxt-init.client.js',
     '~/plugins/day.js',
     '~/plugins/axios.js',
     '~/plugins/lazy-load.js',
