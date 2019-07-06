@@ -20,16 +20,14 @@ export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.conns--;
   }
 
-  @SubscribeMessage('notify')
-  async Notify(client: Socket, message: any) {
-    console.log('message:', message);
-    client.broadcast.emit('notify', message);
+  @SubscribeMessage('broadcast')
+  async Broadcast(client: Socket, payload: any) {
+    client.broadcast.emit('broadcast', payload);
   }
 
   @SubscribeMessage('msg')
-  async getIp(client: Socket, message: any) {
-    console.log('ip:', message);
-    client.emit('ip_recevied', message);
+  async getMsg(client: Socket, payload: any) {
+    client.emit('msg_received', payload);
   }
 
 }

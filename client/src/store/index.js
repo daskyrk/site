@@ -29,15 +29,6 @@ export default {
     async nuxtClientInit({ dispatch, commit }, { req }) {
       try {
         dispatch('getIP');
-
-        this.$wsOn('msg', m => {
-          console.log('[socket] msg:', m)
-          this.$wsSend('notify', 'wtf')
-        })
-        this.$wsOn('ip_recevied', m => {
-          // this.$msg('ip:', m)
-          console.log('bk get ip:', m);
-        })
       } catch (error) {
         console.log('error in init:', error)
       }
@@ -47,7 +38,7 @@ export default {
       let ip = await this.$axios.$get('http://icanhazip.com')
       ip = ip.replace(/[\r\n]/g, "");
       commit('SET_IP', ip)
-      this.$wsSend('msg', { type: 'get_IP', ip })
+      this.$wsSend('broadcast', { type: 'get_IP', data: ip })
       return ip;
     },
 
