@@ -1,5 +1,5 @@
-import { WebSocketGateway, WebSocketServer, SubscribeMessage, OnGatewayConnection, OnGatewayDisconnect, ObservableSocketServer } from '@nestjs/websockets';
-import { Server, Client, Socket, Adapter } from 'socket.io';
+import { WebSocketGateway, WebSocketServer, SubscribeMessage, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
+import { Server, Socket } from 'socket.io';
 
 @WebSocketGateway()
 export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -18,6 +18,10 @@ export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
   async handleDisconnect() {
     // A client has disconnected
     this.conns--;
+  }
+
+  async publish(payload: any) {
+    this.server.emit('publish', payload);
   }
 
   @SubscribeMessage('broadcast')

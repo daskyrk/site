@@ -2,6 +2,7 @@ import { appConfig } from '@@/config';
 import io from 'socket.io-client';
 
 let isConnected = false;
+const noop = () => {};
 const socket = io('http://localhost:8000')
 
 socket.on('connect', m => {
@@ -13,6 +14,13 @@ socket.on('connect', m => {
 socket.on('disconnect', m => {
   console.log('[socket] disconnect')
   isConnected = false
+})
+
+const publishTypeCb = {};
+socket.on('publish', (payload) => {
+  const { type, data } = payload;
+  (publishTypeCb[type] || noop)(data)
+  // (publishTypeCb[type] || []).forEach(cb => cb(data))
 })
 
 // 保存一下未连接之前或断开连接时的Subscribe和msg，连接后恢复注册和发送
@@ -50,5 +58,9 @@ export default ({ app }, inject) => {
     } else {
       storeSub.push(args);
     }
+  })
+  inject('wsOnPublish', (...args) => {
+    const [type, cb] = args;
+    publishTypeCb[type] = cb
   })
 }

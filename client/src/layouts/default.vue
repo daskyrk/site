@@ -50,9 +50,12 @@ export default {
     window.onresize = _.throttle(this.setSize, 100)
     window.addEventListener('keydown', this.onKeyDown)
     window.addEventListener('keyup', this.onKeyUp)
-    this.$wsOn('broadcast', m => {
-      this.$msg.info('有新访问者，IP: ' + m.data)
+    this.$wsOnPublish('post:new', (data) => {
+      this.$msg.info(data.msg)
     })
+    // this.$wsOn('broadcast', m => {
+    //   this.$msg.info('有新访问者，IP: ' + m.data)
+    // })
   },
 
   beforeDestroy() {

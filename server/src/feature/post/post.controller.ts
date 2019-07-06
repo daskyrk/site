@@ -3,18 +3,23 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards 
 import { PostInfoDto, QueryPostDto } from './dto/post.dto';
 
 import { PostService } from './post.service';
-import { Request } from "express";
 import axios from 'axios';
 import { decrypt } from '@/utils/douban-read-crack.js';
+import { SocketGateway } from '@/shared/socket/socket.gateway';
 
 @Controller('post')
 export class PostController {
-  constructor(private readonly postService: PostService) { }
+  constructor(
+    private readonly postService: PostService,
+    private readonly socket: SocketGateway,
+  ) { }
 
   @Post()
   @UseGuards(AuthGuard)
   public create(@Body() postInfoDto: PostInfoDto) {
-    return this.postService.create(postInfoDto);
+    const result = this.postService.create(postInfoDto);
+    this.socket.publish({ type: 'post:new', data: { msg: '有新文章发布哦，要去看看么？', params: postInfoDto.id } })
+    return result;
   }
 
   @Get()
