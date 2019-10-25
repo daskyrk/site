@@ -62,7 +62,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.13",
     "log4js": "^4.3.1",
-    "mongoose": "^5.5.14",
+    "mongoose": "^5.7.5",
     "mongoose-paginate": "^5.0.3",
     "mongoose-plugin-autoinc": "^1.1.9",
     "nodemailer": "^6.2.1",
