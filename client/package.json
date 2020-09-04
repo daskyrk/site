@@ -31,7 +31,7 @@
     "highlight.js": "^9.15.8",
     "koa": "^2.7.0",
     "lodash": "^4.17.13",
-    "marked": "^0.6.2",
+    "marked": "^0.7.0",
     "nuxt": "^2.8.1",
     "raf": "^3.4.1",
     "regenerator-runtime": "^0.13.2",
