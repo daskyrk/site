@@ -22,7 +22,7 @@
     "cross-env": "^5.2.0",
     "dayjs": "^1.8.14",
     "express": "^4.17.1",
-    "marked": "^0.6.2",
+    "marked": "^0.7.0",
     "mavon-editor": "^2.7.4",
     "nuxt": "^2.8.1",
     "ts-node": "^8.2.0",
